@@ -1,0 +1,5 @@
+Download all the files to a directory/folder.
+Your system must have Node.js installed.
+Using the terminal/command line, navigate to this directory.
+Run 'npm install' on the command line to install required dependencies as mentioned in packasge.json
+To run the localhost on port 3000, run 'node app.js' on the command line.
