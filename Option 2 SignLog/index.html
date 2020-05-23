@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Login and Signup
+    </title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="topnav" id="myTopnav">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a id="login">Login</button>
+            <a id="signup">Signup</button>
+
+                <!-- <div class="dropdown">
+              <button class="dropbtn">Dropdown 
+                <i class="fa fa-caret-down"></i>
+              </button>
+              <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+              </div>
+            </div>  -->
+
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
+
+    <div class="login-page">
+        <div class="form" id="form">
+            <form class="form register-form" id="form1" action="/signup" method="post">
+                <span class="close">&times;</span>
+
+
+                <input type="text" placeholder="userName" />
+                <input type="text" placeholder="email" />
+                <input type="text" placeholder="password" />
+                <button type="submit">Signup</button>
+                <p class="message">Already Registered
+                    <a href="#">Login
+                    </a>
+                </p>
+            </form>
+           
+            <form class="form login-form" id="form2" action="/login" method="post">
+               
+                <span class="close">&times;</span>
+
+                <input type="text" name="username" id="" placeholder="user name" />
+                <input type="text" name="password" id="" placeholder="passwprd" />
+                <button type="submit">Login</button>
+                <p class="message">Not Registered?
+                    <a href="#">Reister</a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(".message a").click(function () {
+            $('form').animate({ height: "toggle", opacity: "toggle" }, "fast");
+        });
+
+    </script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <script>
+
+        var modal = document.getElementById("form1");
+        var modal2 = document.getElementById("form2");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("login");
+
+        var btn2 = document.getElementById("signup");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[1];
+        var span2 = document.getElementsByClassName("close")[0];
+        
+        var top = document.getElementsByClassName("topnav");
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function () {
+            //alert("hi");
+            //if(modal.style.display=="none")
+            modal2.style.display="block";
+            modal.style.display="none";
+        }
+        btn2.onclick = function () {
+            //alert("hello");
+           modal.style.display="block";
+           modal2.style.display="none";
+        }
+        // When the user clicks on <span> (x), close the modal
+        span2.onclick = function () {
+           // alert("close");
+            modal.style.display = "none";
+        }
+        span.onclick = function () {
+            //alert("close");
+            modal2.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+
+            if (event.target == modal||event.target==modal2) {
+                //alert("ho");
+                modal.style.display = "none";
+                modal2.style.display="none";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
