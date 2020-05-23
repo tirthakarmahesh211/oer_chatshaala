@@ -1,0 +1,12 @@
+$(document).ready(function()
+{
+$("#choice1").click(function()
+{
+$("#Login").removeClass('hidden');
+$("#SignUp").addClass('hidden');
+});
+$('#choice2').click(function(){
+  $("#Login").addClass('hidden');
+  $("#SignUp").removeClass('hidden');
+});
+});
