@@ -1,6 +1,0 @@
-Feedback contains .ejs .css and .js files
-clone the feedback folder
-run npm install
-then run: nodemon app.js
-server 300 starts
-Open http://localhost:3000/feedback on browser
