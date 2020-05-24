@@ -2,6 +2,8 @@ body {
     color: #777;
 }
 
+
+
 .pure-img-responsive {
     max-width: 100%;
     height: auto;
@@ -202,6 +204,40 @@ small screens.
         }
 
 
+        .foot{
+            font-size: 87.5%;
+            border-top: 1px solid #eee;
+            margin-top: 0em;
+            padding: 1.1429em;
+            background: #fafafa;
+        }
+        #content{
+          align-content: center;
+          width: 50%;
+          margin-bottom: 0em;
+          color: black;
+        }
+        #Form{
+          background: #fafafa;
+          display: inline-block;
+          width:100%;
+          align-self: center;
+          margin-top: 3em;
+          margin-bottom: 3em;
+          padding: 10px;
+          color: black;
+          border-radius: 10px;
+        }
+        .logo{
+          width: 20rem;
+          height:3rem;
+        }
+        .hidden{
+          display: none;
+        }
+        #Login{
+          margin-bottom: 5em;
+        }
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 
 /*
@@ -232,40 +268,6 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     #layout.active .menu-link {
         left: 150px;
     }
-}
-.foot{
-    font-size: 87.5%;
-    border-top: 1px solid #eee;
-    margin-top: 0em;
-    padding: 1.1429em;
-    background: #fafafa;
-}
-#content{
-  align-content: center;
-  width: 50%;
-  margin-bottom: 0em;
-  color: black;
-}
-#Form{
-  background: #fafafa;
-  display: inline-block;
-  width:100%;
-  align-self: center;
-  margin-top: 3em;
-  margin-bottom: 3em;
-  padding: 10px;
-  color: black;
-  border-radius: 10px;
-}
-.logo{
-  width: 20rem;
-  height:3rem;
-}
-.hidden{
-  display: none;
-}
-#Login{
-  margin-bottom: 5em;
 }
 @media (max-width: 64em) {
     /* Only apply this when the window is small. Otherwise, the following
