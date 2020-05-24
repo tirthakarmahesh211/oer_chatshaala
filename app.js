@@ -3,40 +3,103 @@ const express = require('express');
 const app = express();
 const ejs = require("ejs");
 const parser = require('body-parser');
-const users=[];
-const md5=require('md5');
-function resetCurrUser(){
-  return new getUser('','','','','on','off',false);
+const users = [];
+const md5 = require('md5');
+const home='/home?user=';
+const feedback='/feedback?user=';
+const logout='/logout?user=';
+function resetCurrUser() {
+  return new getUser('', '', '', '', 'on', 'off', false, false);
 }
-function getUser(email,password,fname,lname,notif,remember,login){
-  this.email=email;
-  this.password=password;
-  this.fname=fname;
-  this.lname=lname;
-  this.notif=notif;
-  this.remember=remember;
-  this.login=login;
-  this.getName=function(){
-    return this.fname+' '+this.lname;
+
+function getUser(email, password, fname, lname, notif, remember, login, session) {
+  this.email = email;
+  this.password = password;
+  this.fname = fname;
+  this.lname = lname;
+  this.notif = notif;
+  this.remember = remember;
+  this.login = login;
+  this.session = session;
+  this.getName = function() {
+    return this.fname + ' ' + this.lname;
   };
 }
 
-function verifyUser(curr_user){
-  for(var i=0;i<users.length;i++){
-    var user=users[i];
-    if(curr_user.email === user.email && curr_user.password === user.password){
-      curr_user.fname=user.fname;
-      curr_user.lname=user.lname;
-      curr_user.notif=user.notif;
-      user.remember=curr_user.remember;
-      curr_user.login=true;
-      user.login=true;
-      return {status: true,index:i};
+function verifyUser(curr_user) {
+  for (var i = 0; i < users.length; i++) {
+    var user = users[i];
+    if (curr_user.email === user.email && curr_user.password === user.password && !user.login && !user.session) {
+      curr_user.fname = user.fname;
+      curr_user.lname = user.lname;
+      curr_user.notif = user.notif;
+      user.remember = curr_user.remember;
+      curr_user.login = true;
+      user.login = true;
+      return {
+        status: true,
+        index: i
+      };
+    }else if(curr_user.email === user.email && curr_user.password === user.password && !user.login && user.session){
+      return{
+        status:true,index:-1
+      };
     }
   }
-    return {status: false, index:-1};
+  return {
+    status: false,
+    index: -1
+  };
 }
 
+function masterControl(req, res, option) {
+  if (option === 'home') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].login === true && users[index].session === false) {
+        users[index].login = false;
+        users[index].session =true;
+        return true;
+      }else if(!isNaN(index)&&index < users.length && index >= 0 && users[index].login === false && users[index].session === true) {
+        return true;
+      }
+      else {
+        //Limiting to one login
+        return false;
+      }
+    } else {
+      //invalid login attempt
+      return false;
+    }
+  }
+
+  else if(option === 'feedback'){
+      if (Object.keys(req.query).length !== 0){
+          const index = req.query.user;
+          if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+            return true;
+          }else{
+            return false;
+          }
+      }else{
+        return false;
+      }
+  }
+
+  else if(option==='logout'){
+    if (Object.keys(req.query).length !== 0){
+        const index = req.query.user;
+        if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+          users[index].login=false;users[index].session=false;
+          return true;
+        }else{
+          return false;
+        }
+    }else{
+      return false;
+    }
+  }
+}
 
 app.set('view engine', 'ejs');
 app.use(parser.urlencoded({
@@ -50,58 +113,90 @@ app.listen(3000, function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.render('register.ejs',{status:''});
+  res.render('register.ejs', {
+    status: ''
+  });
 });
 
 app.post('/', function(req, res) {
   if (req.body.hasOwnProperty('signup')) {
 
     if (req.body.hasOwnProperty('notifications')) {
-      users.push(new getUser(req.body.email1,md5(req.body.pass1),req.body.fname,req.body.lname,req.body.notifications,'off',false));
-    }else{
-      users.push(new getUser(req.body.email1,md5(req.body.pass1),req.body.fname,req.body.lname,'on','off',false));
+      users.push(new getUser(req.body.email1, md5(req.body.pass1), req.body.fname, req.body.lname, req.body.notifications, 'off', false, false));
+    } else {
+      users.push(new getUser(req.body.email1, md5(req.body.pass1), req.body.fname, req.body.lname, 'on', 'off', false, false));
     }
     //send everything to db
-    
-    res.render('register.ejs',{status:'Successfuly Registered, Kindly Login'});
-  }
-   else if(req.body.hasOwnProperty('login')){
-      var curr_user=resetCurrUser();
-      curr_user.email = req.body.email2;
-      curr_user.password = md5(req.body.pass2);
-      if (req.body.hasOwnProperty('remember')) {
-        curr_user.remember = req.body.remember;
-      }else{
-        curr_user.remember='off';
-      }
-      //Check in database
-      const info=verifyUser(curr_user);
-      if(info.status === true){
-        res.redirect('/home?user='+info.index);
-      }else{
-        res.render('register.ejs',{status:'Not Registered yet, please register before login'});
-      }
-  }
-  else if(req.body.hasOwnProperty('forgot')){
+
+    res.render('register.ejs', {
+      status: 'Successfuly Registered, Kindly Login'
+    });
+  } else if (req.body.hasOwnProperty('login')) {
+    var curr_user = resetCurrUser();
+    curr_user.email = req.body.email2;
+    curr_user.password = md5(req.body.pass2);
+    if (req.body.hasOwnProperty('remember')) {
+      curr_user.remember = req.body.remember;
+    } else {
+      curr_user.remember = 'off';
+    }
+    //Check in database
+    const info = verifyUser(curr_user);
+    if (info.status === true && info.index!==-1) {
+      res.redirect('/home?user=' + info.index);
+    }else if(info.status === true && info.index===-1) {
+      res.render('register.ejs', {
+        status: 'Already Logged in somewhere, logout first'
+      });
+    }
+    else {
+      res.render('register.ejs', {
+        status: 'Not Registered yet, please register before login'
+      });
+    }
+  } else if (req.body.hasOwnProperty('forgot')) {
     res.send('forgot password page');
-  }
-  else{
+  } else {
     res.send('Error Occured');
   }
 });
 
-app.get('/home',function(req,res){
-  if(Object.keys(req.query).length!==0){
-  const index=req.query.user;
-  if(index<users.length && index>=0 && users[index].login === true){
-    users[index].login=false;
-    var curr_user=users[index];
-    res.render('home.ejs',{name:curr_user.getName()});
+app.get('/home', function(req, res) {
+  if(masterControl(req, res, 'home')){
+    const index=req.query.user;
+    var curr_user = users[index];
+    res.render('home.ejs', {home:home+index,feedback:feedback+index,logout:logout+index,name: curr_user.getName()
+    });
   }else{
     res.redirect('/');
   }
-}else{
-    //invalid login attempt
+});
+
+app.get("/feedback", function(req, res) {
+  if(masterControl(req,res,'feedback')){
+    const index=req.query.user;
+    const user=users[index];
+    res.render("feedback.ejs",{home:home+index,feedback:feedback+index,logout:logout+index});
+  }else{
+    res.redirect('/');
+  }
+});
+
+app.post("/feedback", function(req, res) {
+
+  var type = req.body.options;
+  var topic = req.body.topic;
+  var desc = req.body.desc;
+  var rate = req.body.ratings;
+  // console.log(req.body);
+  res.send(type + " " + topic + " " + desc + " " + rate);
+  //res.send(req.body.topic+" "+req.body.desc+" "+res.body.options);
+});
+
+app.get('/logout',function(req,res){
+  if(masterControl(req,res,'logout')){
+    res.redirect('/');
+  }else{
     res.redirect('/');
   }
 });
