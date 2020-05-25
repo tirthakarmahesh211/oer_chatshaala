@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>STEMChat</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/feedback.css">
+</head>
+
+<body>
+
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="/">STEMGames</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-item "><a href='<%=home%>' class="pure-menu-link"> Home</a></li>
+                    <li class="pure-menu-item"> <a href='<%=about%>' class="pure-menu-link  pure-menu-selected">
+                            About</a></li>
+
+                    <li class="pure-menu-item menu-item-divided"> <a href='<%=feedback%>' class="pure-menu-link">
+                            Feedback
+                        </a> </li>
+
+
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"> Contact</a></li>
+                    <li class="pure-menu-item"><a href="<%=logout%>" class="pure-menu-link"> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            <div class="content">
+                <h2 class="content-subhead">FAQ</h2>
+                <hr>
+                </hr>
+
+                <div class="topnav" id="myTopnav">
+                    <a href='<%=about%>'>About</a>
+                    <a href='<%=FAQ%>'>FAQ</a>
+                    <a href='<%=Terms%>'>Terms of Service</a>
+                    <a href='<%=privacy%>' class="active">Privacy</a>
+
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                        &#x2630</i>
+                    </a>
+                </div>
+                <p>THIS CONTAINS PRIVACY POLICIES.</p>
+
+
+                <div itemprop="mainContentOfPage">
+                    <p><a name="collect"></a></p>
+                    <h2><a href="#collect">What information do we collect?</a></h2>
+                    <p>We collect information from you when you register on our site and gather data when you
+                        participate in the forum by reading, writing, and evaluating the content shared here.</p>
+                    <p>When registering on our site, you may be asked to enter your name and e-mail address. You may,
+                        however, visit our site without registering. Your e-mail address will be verified by an email
+                        containing a unique link. If that link is visited, we know that you control the e-mail address.
+                    </p>
+                    <p>When registered and posting, we record the IP address that the post originated from. We also may
+                        retain server logs which include the IP address of every request to our server.</p>
+                    <p><a name="use"></a></p>
+                    <h2><a href="#use">What do we use your information for?</a></h2>
+                    <p>Any of the information we collect from you may be used in one of the following ways:</p>
+                    <ul>
+                        <li>To personalize your experience — your information helps us to better respond to your
+                            individual needs.</li>
+                        <li>To improve our site — we continually strive to improve our site offerings based on the
+                            information and feedback we receive from you.</li>
+                        <li>To improve customer service — your information helps us to more effectively respond to your
+                            customer service requests and support needs.</li>
+                        <li>To send periodic emails — The email address you provide may be used to send you information,
+                            notifications that you request about changes to topics or in response to your user name,
+                            respond to inquiries, and/or other requests or questions.</li>
+                    </ul>
+                    <p><a name="protect"></a></p>
+                    <h2><a href="#protect">How do we protect your information?</a></h2>
+                    <p>We implement a variety of security measures to maintain the safety of your personal information
+                        when you enter, submit, or access your personal information.</p>
+                    <p><a name="data-retention"></a></p>
+                    <h2><a href="#data-retention">What is your data retention policy?</a></h2>
+                    <p>We will make a good faith effort to:</p>
+                    <ul>
+                        <li>Retain server logs containing the IP address of all requests to this server no more than 90
+                            days.</li>
+                        <li>Retain the IP addresses associated with registered users and their posts no more than 5
+                            years.</li>
+                    </ul>
+                    <p><a name="cookies"></a></p>
+                    <h2><a href="#cookies">Do we use cookies?</a></h2>
+                    <p>Yes. Cookies are small files that a site or its service provider transfers to your computer’s
+                        hard drive through your Web browser (if you allow). These cookies enable the site to recognize
+                        your browser and, if you have a registered account, associate it with your registered account.
+                    </p>
+                    <p>We use cookies to understand and save your preferences for future visits and compile aggregate
+                        data about site traffic and site interaction so that we can offer better site experiences and
+                        tools in the future. We may contract with third-party service providers to assist us in better
+                        understanding our site visitors. These service providers are not permitted to use the
+                        information collected on our behalf except to help us conduct and improve our business.</p>
+                    <p><a name="disclose"></a></p>
+                    <h2><a href="#disclose">Do we disclose any information to outside parties?</a></h2>
+                    <p>We do not sell, trade, or otherwise transfer to outside parties your personally identifiable
+                        information. This does not include trusted third parties who assist us in operating our site,
+                        conducting our business, or servicing you, so long as those parties agree to keep this
+                        information confidential. We may also release your information when we believe release is
+                        appropriate to comply with the law, enforce our site policies, or protect ours or others rights,
+                        property, or safety. However, non-personally identifiable visitor information may be provided to
+                        other parties for marketing, advertising, or other uses.</p>
+                    <p><a name="third-party"></a></p>
+                    <h2><a href="#third-party">Third party links</a></h2>
+                    <p>Occasionally, at our discretion, we may include or offer third party products or services on our
+                        site. These third party sites have separate and independent privacy policies. We therefore have
+                        no responsibility or liability for the content and activities of these linked sites.
+                        Nonetheless, we seek to protect the integrity of our site and welcome any feedback about these
+                        sites.</p>
+                    <p><a name="online"></a></p>
+                    <h2><a href="#online">Online Privacy Policy Only</a></h2>
+                    <p>This online privacy policy applies only to information collected through our site and not to
+                        information collected offline.</p>
+                    <p><a name="consent"></a></p>
+                    <h2><a href="#consent">Your Consent</a></h2>
+                    <p>By using our site, you consent to our web site privacy policy.</p>
+                    <p><a name="changes"></a></p>
+                    <h2><a href="#changes">Changes to our Privacy Policy</a></h2>
+                    <p>If we decide to change our privacy policy, we will post those changes on this page.</p>
+                    <p>This document is CC-BY-SA. It was last updated April 26, 2021.</p>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class='foot'>
+                <p> MADE BY BITS 2020</p>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="/js/ui.js"></script>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</body>
+
+
+
+<!-- added here to be condeensed later -->
+
+
+<style>
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {
+            display: none;
+        }
+
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {
+            position: relative;
+        }
+
+        .topnav.responsive a.icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+
+    .topnav {
+        background-color: #333;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Add an active class to highlight the current page */
+    .topnav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav .icon {
+        display: none;
+    }
+</style>
+
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>STEMChat</title>
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/feedback.css">
+</head>
+
+<body>
+
+    <div id="layout">
+        <!-- Menu toggle -->
+        <a href="#menu" id="menuLink" class="menu-link">
+            <!-- Hamburger icon -->
+            <span></span>
+        </a>
+
+        <div id="menu">
+            <div class="pure-menu">
+                <a class="pure-menu-heading" href="/">STEMGames</a>
+
+                <ul class="pure-menu-list">
+                    <li class="pure-menu-item pure-menu-item "><a href='<%=home%>' class="pure-menu-link"> Home</a></li>
+                    <li class="pure-menu-item"> <a href='<%=about%>' class="pure-menu-link  pure-menu-selected">
+                            About</a></li>
+
+                    <li class="pure-menu-item menu-item-divided"> <a href='<%=feedback%>' class="pure-menu-link">
+                            Feedback
+                        </a> </li>
+
+
+                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"> Contact</a></li>
+                    <li class="pure-menu-item"><a href="<%=logout%>" class="pure-menu-link"> Logout</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="main">
+            <div class="content">
+                <h2 class="content-subhead">About</h2>
+                <hr>
+                </hr>
+
+                <div class="topnav" id="myTopnav">
+                    <a href='<%=about%>' class="active">About</a>
+                    <a href='<%=FAQ%>'>FAQ</a>
+                    <a href='<%=Terms%>'>Terms of Service</a>
+                    <a href='<%=privacy%>'>Privacy</a>
+
+                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                        &#x2630</i>
+                    </a>
+                </div>
+
+
+                <h2>About Coool STEM Games</h2>
+                <p>Collaborative Open Online and Ongoing Learning through STEM games, activities and projects and earn
+                    badges from the referees!</p>
+                <h3> Our Admins</h3>
+                    <ul>
+                        <li>
+                            1.Mahesh Tirthakar
+                        </li>
+                        <li>
+                            2.Ashish Pardeshi
+                        </li>
+                        <li>
+                            3.Surendra
+                        </li>
+                        <li>
+                            ...
+                        </li>
+                    </ul>
+                    <hr></hr>
+                    <h3> Our Refrees</h3>
+                    <ul>
+                        <li>
+                            1.Mahesh Tirthakar
+                        </li>
+                        <li>
+                            2.Ashish Pardeshi
+                        </li>
+                        <li>
+                            3.Surendra
+                        </li>
+                        <li>
+                            ...
+                        </li>
+                    </ul>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+            <div class='foot'>
+                <p> MADE BY BITS 2020</p>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="/js/ui.js"></script>
+
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+</body>
+
+
+
+<!-- added here to be condeensed later -->
+
+
+<style>
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {
+            display: none;
+        }
+
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {
+            position: relative;
+        }
+
+        .topnav.responsive a.icon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+
+    .topnav {
+        background-color: #333;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Add an active class to highlight the current page */
+    .topnav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav .icon {
+        display: none;
+    }
+</style>
+
+</html>

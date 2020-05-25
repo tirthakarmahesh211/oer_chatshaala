@@ -7,10 +7,19 @@ const users = [];
 const md5 = require('md5');
 const home='/home?user=';
 const feedback='/feedback?user=';
+const about='/about?user=';
+const FAQ='/FAQ?user=';
+const Terms='/Terms?user=';
+const privacy='/privacy?user=';
+
+
 const logout='/logout?user=';
+
+
 function resetCurrUser() {
   return new getUser('', '', '', '', 'on', 'off', false, false);
 }
+
 
 function getUser(email, password, fname, lname, notif, remember, login, session) {
   this.email = email;
@@ -85,6 +94,56 @@ function masterControl(req, res, option) {
         return false;
       }
   }
+  else if(option === 'about'){
+    if (Object.keys(req.query).length !== 0){
+        const index = req.query.user;
+        if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+          return true;
+        }else{
+          return false;
+        }
+    }else{
+      return false;
+    }
+}
+else if(option === 'FAQ'){
+  if (Object.keys(req.query).length !== 0){
+      const index = req.query.user;
+      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+        return true;
+      }else{
+        return false;
+      }
+  }else{
+    return false;
+  }
+}
+
+else if(option === 'Terms'){
+  if (Object.keys(req.query).length !== 0){
+      const index = req.query.user;
+      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+        return true;
+      }else{
+        return false;
+      }
+  }else{
+    return false;
+  }
+}
+
+else if(option === 'privacy'){
+  if (Object.keys(req.query).length !== 0){
+      const index = req.query.user;
+      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+        return true;
+      }else{
+        return false;
+      }
+  }else{
+    return false;
+  }
+}
 
   else if(option==='logout'){
     if (Object.keys(req.query).length !== 0){
@@ -165,7 +224,7 @@ app.get('/home', function(req, res) {
   if(masterControl(req, res, 'home')){
     const index=req.query.user;
     var curr_user = users[index];
-    res.render('home.ejs', {home:home+index,feedback:feedback+index,logout:logout+index,name: curr_user.getName()
+    res.render('home.ejs', {home:home+index,about:about+index,feedback:feedback+index,logout:logout+index,name: curr_user.getName()
     });
   }else{
     res.redirect('/');
@@ -176,7 +235,45 @@ app.get("/feedback", function(req, res) {
   if(masterControl(req,res,'feedback')){
     const index=req.query.user;
     const user=users[index];
-    res.render("feedback.ejs",{home:home+index,feedback:feedback+index,logout:logout+index});
+    res.render("feedback.ejs",{home:home+index,about:about+index,feedback:feedback+index,logout:logout+index});
+  }else{
+    res.redirect('/');
+  }
+});
+
+
+app.get("/about", function(req, res) {
+  if(masterControl(req,res,'about')){
+    const index=req.query.user;
+    const user=users[index];
+    res.render("about.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
+  }else{
+    res.redirect('/');
+  }
+});
+
+app.get("/FAQ", function(req, res) {
+  if(masterControl(req,res,'about')){
+    const index=req.query.user;
+    const user=users[index];
+    res.render("FAQ.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
+  }else{
+    res.redirect('/');
+  }
+});
+app.get("/Terms", function(req, res) {
+  if(masterControl(req,res,'about')){
+    const index=req.query.user;
+    const user=users[index];
+    res.render("Terms.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
+  }else{
+    res.redirect('/');
+  }
+});app.get("/privacy", function(req, res) {
+  if(masterControl(req,res,'about')){
+    const index=req.query.user;
+    const user=users[index];
+    res.render("privacy.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
   }else{
     res.redirect('/');
   }
