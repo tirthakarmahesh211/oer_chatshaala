@@ -7,13 +7,28 @@
   <meta name="description" content="STEMChat">
   <title>STEMChat</title>
   <link rel="stylesheet" href="/css/register.css" />
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
 </head>
 
 <body>
+  <div class="_topnav">
+    <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
+      <i>&#x2630</i>
+    </a>
+    <a href="/" class="_active">StemGames</a>
+
+    <!-- Navigation links (hidden by default) -->
+    <div id="myLinks">
+      <a href="/">Register</a>
+
+    </div>
+    <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+
+  </div>
 
   <div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link">
+    <!-- <a href="#menu" id="menuLink" class="menu-link">
       <span></span>
     </a>
 
@@ -27,13 +42,16 @@
           </li>
         </ul>
       </div>
-    </div>
+    </div> -->
 
     <div id="main">
       <div class="header">
-      <h1>WELCOME TO <img src="https://metastudio.org/uploads/default/original/1X/d5aa8f94f6e0a3f988da61162add3b45b064fba1.png" alt="COOOL STEM Games" id="site-logo" class="logo"></h1>
+        <h1>WELCOME TO <img
+            src="https://metastudio.org/uploads/default/original/1X/d5aa8f94f6e0a3f988da61162add3b45b064fba1.png"
+            alt="COOOL STEM Games" id="site-logo" class="logo"></h1>
 
-        <h2>Welcome to metaStudio platform! Here we collaboratively do STEM projects and converse about the projects. We do investigations as well as innovation projects.</h2>
+        <h2>Welcome to metaStudio platform! Here we collaboratively do STEM projects and converse about the projects. We
+          do investigations as well as innovation projects.</h2>
       </div>
       <div class="content" id='content'>
         <h1><%=status%></h1>
@@ -43,23 +61,24 @@
             <div class="pure-g">
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="multi-first-name">First Name</label>
-                <input type="text" id="multi-first-name" class="pure-u-23-24" name='fname' required=""/>
+                <input type="text" id="multi-first-name" class="pure-u-23-24" name='fname' required="" />
               </div>
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="multi-last-name">Last Name</label>
-                <input type="text" id="multi-last-name" class="pure-u-23-24" name='lname' required=""/>
+                <input type="text" id="multi-last-name" class="pure-u-23-24" name='lname' required="" />
               </div>
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="multi-email">E-Mail</label>
-                <input type="email" id="multi-email" class="pure-u-23-24" required="" name='email1'/>
+                <input type="email" id="multi-email" class="pure-u-23-24" required="" name='email1' />
               </div>
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="aligned-password">Password</label>
-                <input type="password" id="aligned-password" placeholder="Password" class="pure-u-23-24" name='pass1' required=''/>
+                <input type="password" id="aligned-password" placeholder="Password" class="pure-u-23-24" name='pass1'
+                  required='' />
               </div>
             </div>
             <label for="multi-terms" class="pure-checkbox">
-              <input type="checkbox" id="multi-terms" name='notifications'/> I want to get notifications</label>
+              <input type="checkbox" id="multi-terms" name='notifications' /> I want to get notifications</label>
             <button type="submit" class="pure-button pure-button-primary" name='signup'>SignUp</button>
             <style scoped="">
               .button-secondary {
@@ -86,7 +105,7 @@
             <div class="pure-g">
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="multi-email">E-Mail</label>
-                <input type="email" id="multi-email" class="pure-u-23-24" required="" name='email2'/>
+                <input type="email" id="multi-email" class="pure-u-23-24" required="" name='email2' />
               </div>
               <div class="pure-u-1 pure-u-md-1-3">
                 <label for="password">Password</label>
@@ -94,7 +113,7 @@
               </div>
             </div>
             <label for="multi-terms" class="pure-checkbox">
-              <input type="checkbox" id="multi-terms" name="remember"/> Remember Me</label>
+              <input type="checkbox" id="multi-terms" name="remember" /> Remember Me</label>
             <button type="submit" class="pure-button pure-button-primary" name='login'>Login</button>
             <style scoped="">
               .button-secondary {
@@ -106,6 +125,7 @@
               .button-secondary {
                 background: rgb(28, 184, 65);
               }
+
               .button-forgot {
                 color: white;
                 border-radius: 4px;
@@ -117,12 +137,13 @@
               }
             </style>
             <br>
-            <label for="choice" id='val2' >Want To Register?
+            <label for="choice" id='val2'>Want To Register?
               <button type="button" class="button-secondary pure-button" id='choice2'>SignUp</button>
             </label>
             <br>
-            <label for="choice" id='val2' >Forgot Password?
-              <button type="submit" class="button-forgot pure-button" id='forgot' name='forgot' formnovalidate>Reset</button>
+            <label for="choice" id='val2'>Forgot Password?
+              <button type="submit" class="button-forgot pure-button" id='forgot' name='forgot'
+                formnovalidate>Reset</button>
             </label>
           </fieldset>
         </form>
@@ -136,6 +157,69 @@
 
   <script src="/js/register.js" charset="utf-8"></script>
   <script src="/js/ui.js" charset='utf-8'></script>
+
+  <script>
+    function _myFunction2() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+      }
+    }
+  </script>
+
 </body>
+<style>
+   /* --------------- */
+
+
+
+   ._topnav {
+        overflow: hidden;
+        background-color: #333;
+        position: relative;
+    }
+
+    ._topnav #myLinks {
+        display: none;
+    }
+
+    /* Style navigation menu links */
+    ._topnav a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+        background-color: #333;
+        text-align: center;
+    }
+
+    /* Style the hamburger menu */
+    ._topnav a._icon {
+        background: #333;
+        float: left;
+        display: block;
+    }
+
+    /* Add a grey background color on mouse-over */
+    ._topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Style the active link (or home/logo) */
+    ._topnav a._active {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+    }
+    ._topnav img._logo{
+      width: 1rem;
+
+    }
+  
+</style>
 
 </html>
