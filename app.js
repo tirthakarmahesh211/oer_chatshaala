@@ -5,15 +5,16 @@ const ejs = require("ejs");
 const parser = require('body-parser');
 const users = [];
 const md5 = require('md5');
-const home='/home?user=';
-const feedback='/feedback?user=';
-const about='/about?user=';
-const FAQ='/FAQ?user=';
-const Terms='/Terms?user=';
-const privacy='/privacy?user=';
+const home = '/home?user=';
+const feedback = '/feedback?user=';
+const about = '/about?user=';
+const FAQ = '/FAQ?user=';
+const Terms = '/Terms?user=';
+const privacy = '/privacy?user=';
+const blog = '/blog?user='
 
 
-const logout='/logout?user=';
+const logout = '/logout?user=';
 
 
 function resetCurrUser() {
@@ -30,7 +31,7 @@ function getUser(email, password, fname, lname, notif, remember, login, session)
   this.remember = remember;
   this.login = login;
   this.session = session;
-  this.getName = function() {
+  this.getName = function () {
     return this.fname + ' ' + this.lname;
   };
 }
@@ -49,9 +50,9 @@ function verifyUser(curr_user) {
         status: true,
         index: i
       };
-    }else if(curr_user.email === user.email && curr_user.password === user.password && !user.login && user.session){
-      return{
-        status:true,index:-1
+    } else if (curr_user.email === user.email && curr_user.password === user.password && !user.login && user.session) {
+      return {
+        status: true, index: -1
       };
     }
   }
@@ -65,11 +66,11 @@ function masterControl(req, res, option) {
   if (option === 'home') {
     if (Object.keys(req.query).length !== 0) {
       const index = req.query.user;
-      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].login === true && users[index].session === false) {
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].login === true && users[index].session === false) {
         users[index].login = false;
-        users[index].session =true;
+        users[index].session = true;
         return true;
-      }else if(!isNaN(index)&&index < users.length && index >= 0 && users[index].login === false && users[index].session === true) {
+      } else if (!isNaN(index) && index < users.length && index >= 0 && users[index].login === false && users[index].session === true) {
         return true;
       }
       else {
@@ -82,79 +83,91 @@ function masterControl(req, res, option) {
     }
   }
 
-  else if(option === 'feedback'){
-      if (Object.keys(req.query).length !== 0){
-          const index = req.query.user;
-          if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
-            return true;
-          }else{
-            return false;
-          }
-      }else{
+  else if (option === 'feedback') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
+        return true;
+      } else {
         return false;
       }
-  }
-  else if(option === 'about'){
-    if (Object.keys(req.query).length !== 0){
-        const index = req.query.user;
-        if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
-          return true;
-        }else{
-          return false;
-        }
-    }else{
+    } else {
       return false;
     }
-}
-else if(option === 'FAQ'){
-  if (Object.keys(req.query).length !== 0){
+  }
+  else if (option === 'about') {
+    if (Object.keys(req.query).length !== 0) {
       const index = req.query.user;
-      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
         return true;
-      }else{
+      } else {
         return false;
       }
-  }else{
-    return false;
+    } else {
+      return false;
+    }
   }
-}
-
-else if(option === 'Terms'){
-  if (Object.keys(req.query).length !== 0){
+  else if (option === 'blog') {
+    if (Object.keys(req.query).length !== 0) {
       const index = req.query.user;
-      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
         return true;
-      }else{
+      } else {
         return false;
       }
-  }else{
-    return false;
+    } else {
+      return false;
+    }
   }
-}
-
-else if(option === 'privacy'){
-  if (Object.keys(req.query).length !== 0){
+  else if (option === 'FAQ') {
+    if (Object.keys(req.query).length !== 0) {
       const index = req.query.user;
-      if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
         return true;
-      }else{
+      } else {
         return false;
       }
-  }else{
-    return false;
+    } else {
+      return false;
+    }
   }
-}
 
-  else if(option==='logout'){
-    if (Object.keys(req.query).length !== 0){
-        const index = req.query.user;
-        if (!isNaN(index)&&index < users.length && index >= 0 && users[index].session === true && users[index].login === false){
-          users[index].login=false;users[index].session=false;
-          return true;
-        }else{
-          return false;
-        }
-    }else{
+  else if (option === 'Terms') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  else if (option === 'privacy') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  else if (option === 'logout') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
+        users[index].login = false; users[index].session = false;
+        return true;
+      } else {
+        return false;
+      }
+    } else {
       return false;
     }
   }
@@ -167,17 +180,17 @@ app.use(parser.urlencoded({
 app.use(express.static("public"));
 
 
-app.listen(3000, function(req, res) {
+app.listen(3000, function (req, res) {
   console.log('Server Started on localhost:3000');
 });
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.render('register.ejs', {
     status: ''
   });
 });
 
-app.post('/', function(req, res) {
+app.post('/', function (req, res) {
   if (req.body.hasOwnProperty('signup')) {
 
     if (req.body.hasOwnProperty('notifications')) {
@@ -201,9 +214,9 @@ app.post('/', function(req, res) {
     }
     //Check in database
     const info = verifyUser(curr_user);
-    if (info.status === true && info.index!==-1) {
+    if (info.status === true && info.index !== -1) {
       res.redirect('/home?user=' + info.index);
-    }else if(info.status === true && info.index===-1) {
+    } else if (info.status === true && info.index === -1) {
       res.render('register.ejs', {
         status: 'Already Logged in somewhere, logout first'
       });
@@ -220,66 +233,76 @@ app.post('/', function(req, res) {
   }
 });
 
-app.get('/home', function(req, res) {
-  if(masterControl(req, res, 'home')){
-    const index=req.query.user;
+app.get('/home', function (req, res) {
+  if (masterControl(req, res, 'home')) {
+    const index = req.query.user;
     var curr_user = users[index];
-    res.render('home.ejs', {home:home+index,about:about+index,feedback:feedback+index,logout:logout+index,name: curr_user.getName()
+    res.render('home.ejs', {
+      home: home + index, about: about + index, blog: blog + index, feedback: feedback + index, logout: logout + index, name: curr_user.getName()
     });
-  }else{
+  } else {
     res.redirect('/');
   }
 });
 
-app.get("/feedback", function(req, res) {
-  if(masterControl(req,res,'feedback')){
-    const index=req.query.user;
-    const user=users[index];
-    res.render("feedback.ejs",{home:home+index,about:about+index,feedback:feedback+index,logout:logout+index});
-  }else{
+app.get("/feedback", function (req, res) {
+  if (masterControl(req, res, 'feedback')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("feedback.ejs", { home: home + index, about: about + index, blog: blog + index, feedback: feedback + index, logout: logout + index });
+  } else {
     res.redirect('/');
   }
 });
 
 
-app.get("/about", function(req, res) {
-  if(masterControl(req,res,'about')){
-    const index=req.query.user;
-    const user=users[index];
-    res.render("about.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
-  }else{
+app.get("/about", function (req, res) {
+  if (masterControl(req, res, 'about')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("about.ejs", { home: home + index, about: about + index, blog: blog + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+  } else {
+    res.redirect('/');
+  }
+});
+app.get("/blog", function (req, res) {
+  if (masterControl(req, res, 'blog')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("blog.ejs", { home: home + index, about: about + index, blog: blog + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+  } else {
     res.redirect('/');
   }
 });
 
-app.get("/FAQ", function(req, res) {
-  if(masterControl(req,res,'about')){
-    const index=req.query.user;
-    const user=users[index];
-    res.render("FAQ.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
-  }else{
+app.get("/FAQ", function (req, res) {
+  if (masterControl(req, res, 'about')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("FAQ.ejs", { home: home + index, about: about + index, blog: blog + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+  } else {
     res.redirect('/');
   }
 });
-app.get("/Terms", function(req, res) {
-  if(masterControl(req,res,'about')){
-    const index=req.query.user;
-    const user=users[index];
-    res.render("Terms.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
-  }else{
+app.get("/Terms", function (req, res) {
+  if (masterControl(req, res, 'about')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("Terms.ejs", { home: home + index, about: about + index, blog: blog + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+  } else {
     res.redirect('/');
   }
-});app.get("/privacy", function(req, res) {
-  if(masterControl(req,res,'about')){
-    const index=req.query.user;
-    const user=users[index];
-    res.render("privacy.ejs",{home:home+index,about:about+index,FAQ:FAQ+index,Terms:Terms+index,privacy:privacy+index,feedback:feedback+index,logout:logout+index});
-  }else{
+}); app.get("/privacy", function (req, res) {
+  if (masterControl(req, res, 'about')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("privacy.ejs", { home: home + index, about: about + index, blog: blog + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+  } else {
     res.redirect('/');
   }
 });
 
-app.post("/feedback", function(req, res) {
+app.post("/feedback", function (req, res) {
 
   var type = req.body.options;
   var topic = req.body.topic;
@@ -290,10 +313,12 @@ app.post("/feedback", function(req, res) {
   //res.send(req.body.topic+" "+req.body.desc+" "+res.body.options);
 });
 
-app.get('/logout',function(req,res){
-  if(masterControl(req,res,'logout')){
+
+
+app.get('/logout', function (req, res) {
+  if (masterControl(req, res, 'logout')) {
     res.redirect('/');
-  }else{
+  } else {
     res.redirect('/');
   }
 });
