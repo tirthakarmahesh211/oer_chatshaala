@@ -81,9 +81,9 @@
             </div>
         </div>
 
+<div id="main">
 
-
-        <div class="content pure-u-1 pure-u-md-3-4">
+        <div class="content pure-u-1 pure-u-md-1">
             <div>
                 <!-- A wrapper for all the blog posts -->
                 <div class="posts">
@@ -95,8 +95,7 @@
                             <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
                                 src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
 
-                            <a href="http://google.com"
-                                data-topic-id="3682" class="link_head">
+                            <a href="http://google.com" data-topic-id="3682" class="link_head">
                                 <h1>Classification and Identification of Fruit fly Step by Step</h1>
                             </a>
 
@@ -167,6 +166,7 @@
                             </p>
                         </header>
 
+
                         <div class="post-description">
                             <p>
                                 Yesterday at CSSConf, we launched Pure – a new CSS library. Phew! Here are the <a
@@ -205,7 +205,10 @@
                             </p>
                         </div>
                     </section>
+                    <a href="#head"><img id="plus" src="plus.png"></a>
+
                 </div>
+
 
                 <div class="footer">
                     <div class="pure-menu pure-menu-horizontal">
@@ -230,6 +233,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -265,6 +269,19 @@
 
 
 <style>
+    #plus{
+        height: 8rem;
+        width: 8rem;
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        opacity: 0.5;
+    }
+
+    #plus:hover {
+        opacity: 1.0;
+    }
+
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
@@ -294,7 +311,8 @@
             text-align: left;
         }
     }
-    a.link_head{
+
+    a.link_head {
         color: black;
     }
 
