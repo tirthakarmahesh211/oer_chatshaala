@@ -37,7 +37,7 @@ h3 {
 .header {
     text-align: center;
     top: auto;
-    margin: 3em auto;
+    margin: auto;
 }
 
 .sidebar {
@@ -171,7 +171,7 @@ h3 {
         text-align: center;
         top: auto;
         padding: 2em ;  
-        margin:3em auto;
+        margin: auto;
         
         
     }
