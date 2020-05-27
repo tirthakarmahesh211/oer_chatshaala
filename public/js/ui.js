@@ -1,29 +1,5 @@
 //jshint esversion:6
 
-const anchors=document.querySelectorAll('a');
-function myFunction(x) {
-  if (x.matches) { // If media query matches
-    for(var i=0;i<anchors.length;i++){
-      if(anchors[i].getAttribute('href').includes('#menu')){
-
-      }else{
-        anchors[i].setAttribute('href',anchors[i].getAttribute('href')+'#menu');
-      }
-    }
-  } else {
-    for(var j=0;j<anchors.length;j++){
-      if(anchors[j].getAttribute('href').includes('#menu')){
-        anchors[j].setAttribute('href',anchors[j].getAttribute('href').split('#')[0]);
-      }else{
-      }
-    }
-  }
-}
-
-var x = window.matchMedia("(max-width: 1024px)");
-myFunction(x); // Call listener function at run time
-x.addListener(myFunction); // Attach listener function on state changes
-
 (function (window, document) {
 
     var layout   = document.getElementById('layout'),

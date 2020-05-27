@@ -1,5 +1,7 @@
 body {
     color: #777;
+    background-color: beige;
+    text-align: center;
 }
 
 .pure-img-responsive {
@@ -19,51 +21,51 @@ body {
   }
 
 /*
-Add transition to containers so they can push in and out.
-*/
-#layout,
-#menu,
-.menu-link {
-    -webkit-transition: all 0.2s ease-out;
-    -moz-transition: all 0.2s ease-out;
-    -ms-transition: all 0.2s ease-out;
-    -o-transition: all 0.2s ease-out;
-    transition: all 0.2s ease-out;
-}
-
-/*
 This is the parent `<div>` that contains the menu and the content area.
 */
 #layout {
-    position: relative;
-    left: 0;
-    padding-left: 0;
+  display: inline-block;
+    margin: auto;
+    padding: 10px;
+    width:80%;
+    align-content: center;
+    align-items: center;
+    text-align: center;
 }
-    #layout.active #menu {
-        left: 150px;
-        width: 150px;
-    }
+/*
+The content `<div>` is where all your content goes.
+*/
+#main{
+  background-color: #fff;
+  margin: auto;
+  width: 80%;
+  display: inline-block;
+  align-content: center;
+  align-items: center;
+  position: relative;
+  border: 5px;
+  border-radius: 30px;
+}
 
-    #layout.active .menu-link {
-        left: 150px;
-    }
 /*
 The content `<div>` is where all your content goes.
 */
 .content {
     margin: 0 auto;
     padding: 0 2em;
-    max-width: 800px;
+    left: 0;
+    width: 80%;
     margin-bottom: 50px;
     line-height: 1.6em;
+    text-align: left;
 }
 
 .header {
      margin: 0;
-     color: #333;
+     color: #111;
+     width: 90%;
      text-align: center;
-     padding: 2.5em 2em 0;
-     border-bottom: 1px solid #eee;
+     border-bottom: 1px solid #000;
  }
     .header h1 {
         margin: 0.2em 0;
@@ -72,7 +74,7 @@ The content `<div>` is where all your content goes.
     }
      .header h2 {
         font-weight: 300;
-        color: #ccc;
+        color: #111;
         padding: 0;
         margin-top: 0;
     }
@@ -82,6 +84,13 @@ The content `<div>` is where all your content goes.
     font-weight: 300;
     color: #888;
 }
+
+        .foot{
+            font-size: 87.5%;
+            border-top: 1px solid #000;
+            padding: 1.1429em;
+            width: 90%;
+        }
 #rating{
     height: 80px;
     border: none;
@@ -241,52 +250,79 @@ small screens.
 
 /* -- Responsive Styles (Media Queries) ------------------------------------- */
 
-/*
-Hides the menu at `48em`, but modify this based on your app's needs.
-*/
-@media (min-width: 48em) {
 
-    .header,
-    .content {
-        padding-left: 2em;
-        padding-right: 2em;
-    }
-    .foot{
-        font-size: 87.5%;
-        border-top: 1px solid #eee;
-        margin-top: 0em;
-        padding: 1.1429em;
-        background: #fafafa;
-    }
-
-    #layout {
-        padding-left: 150px; /* left col width "#menu" */
-        left: 0;
-    }
-    #menu {
-        left: 150px;
-    }
-
-    .menu-link {
-        position: fixed;
-        left: 150px;
-        display: none;
-    }
-
-    #layout.active .menu-link {
-        left: 150px;
-    }
-}
-
-@media (max-width: 48em) {
+@media (max-width: 64em) {
     /* Only apply this when the window is small. Otherwise, the following
     case results in extra padding on the left:
         * Make the window small.
         * Tap the menu to trigger the active state.
         * Make the window large again.
     */
-    #layout.active {
-        position: relative;
-        left: 150px;
+    .header,
+    .content {
+        display: inline-block;
+        width: 80%;
+        height: auto;
     }
+    .header h1 {
+        margin: 0.2em 0;
+        font-size: 2em;
+        font-weight: 300;
+    }
+     .header h2 {
+        font-weight: 300;
+        color: #111;
+        padding: 0;
+        margin-top: 0;
+        font-size: 1.5em;
+    }
+    #layout {
+        position: relative;
+        margin: auto;
+        display: inline-block;
+        text-align: center;
+        width: 80%;
+        height: auto;
+    }
+    #main{
+      width:100%;
+      height:auto;
+      text-align: center;
+    }
+    .logo{
+      width: 100%;
+      height:auto;
+    }
+    .foot{
+      width: 80%;
+      height: auto;
+    }
+    #rating{
+        width: 100%;
+        height: 70px;
+        border: none;
+        overflow: scroll;
+      }
+      #rating::-moz-focus-inner {
+        border: 0;
+
+      }
+      #rating:focus {
+        outline: none;
+      }
+      #rating option{
+        width: 33%;
+        height: auto;
+        font-size: 1.5em;
+
+        text-align: center;
+        margin-right: 20px;
+        margin-top: auto;
+        margin-bottom: auto;
+        display: inline-block;
+        cursor: pointer;
+        border: white solid 1px;
+        border-radius: 5px;
+        color: rgb(204, 204, 0);
+      }
 }

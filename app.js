@@ -11,9 +11,7 @@ const about = '/about?user=';
 const FAQ = '/FAQ?user=';
 const Terms = '/Terms?user=';
 const privacy = '/privacy?user=';
-const blog = '/blog?user='
-
-
+const blog = '/blog?user=';
 const logout = '/logout?user=';
 
 

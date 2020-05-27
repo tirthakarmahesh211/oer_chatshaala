@@ -12,11 +12,11 @@
 </head>
 
 <body>
-  <div class="_topnav">
+  <div class="_topnav" id='#nav'>
     <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
-      <i>&#x2630</i>
+      <i>☰</i>
     </a>
-    <a href="/" class="_active">StemGames</a>
+    <a href="/" class="_active">StemGames <img src='stemlogo.png' alt='stem logo' id='mylogo'/></a>
 
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
@@ -28,33 +28,19 @@
   </div>
 
   <div id="layout">
-    <!-- <a href="#menu" id="menuLink" class="menu-link">
-      <span></span>
-    </a>
-
-    <div id="menu">
-      <div class="pure-menu">
-        <a class="pure-menu-heading" href="/">STEMGames</a>
-
-        <ul class="pure-menu-list">
-          <li class="pure-menu-item menu-item-divided pure-menu-selected">
-            <a href="/" class="pure-menu-link">Register</a>
-          </li>
-        </ul>
-      </div>
-    </div> -->
-
     <div id="main">
+      <center>
       <div class="header">
         <h1>WELCOME TO <img
             src="https://metastudio.org/uploads/default/original/1X/d5aa8f94f6e0a3f988da61162add3b45b064fba1.png"
-            alt="COOOL STEM Games" id="site-logo" class="logo"></h1>
+            alt="COOOL STEM Games" id="site-logo" class="logo">  <img src='stemlogo.png' alt='stem logo' id='mylogo'/></h1>
 
         <h2>Welcome to metaStudio platform! Here we collaboratively do STEM projects and converse about the projects. We
           do investigations as well as innovation projects.</h2>
       </div>
+    </center>
       <div class="content" id='content'>
-        <h1><%=status%></h1>
+        <h1 id='message'><%=status%></h1>
         <form class="pure-form pure-form-stacked" id="SignUp" action="/" method="post">
           <fieldset>
             <legend>SignUp</legend>
@@ -148,11 +134,12 @@
           </fieldset>
         </form>
       </div>
+      <center>
       <div class='foot'>
         <p>MADE BY BITS 2020</p>
       </div>
+    </center>
     </div>
-
   </div>
 
   <script src="/js/register.js" charset="utf-8"></script>
@@ -219,7 +206,7 @@
       width: 1rem;
 
     }
-  
+
 </style>
 
 </html>
