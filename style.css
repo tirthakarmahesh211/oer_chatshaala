@@ -1,0 +1,162 @@
+
+  /* Create two unequal columns that floats next to each other */
+  body{
+    margin-top: 0;
+    margin-left: 0;
+  }
+  
+  
+  .row{
+    height: 100%;
+  }
+  .column {
+    float: left;
+    height: 100%;
+    margin:0;
+  }
+  
+  .left {
+    display: inline-block;
+    width: 30%;
+    height: 100%;
+    background-color: #1b262c;
+    position:absolute;
+    top:0;
+    left:0;
+    padding-left: 0;
+    margin-top: 0;
+  }
+  
+  .right {
+    position: fixed;
+    display: inline-block;
+    background-color: #0c2233;
+    /*background: linear-gradient(180deg,  #2EC4B6, #9EB1E9);  #3b3e49;*/
+    height: 100%;
+  right:0;
+    width: 70%;
+  }
+ 
+
+  /* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #393e46;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 10px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color:#1b262c;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+.search-bar{
+  width: 23%;
+  margin-left:1rem;
+  margin-top: 12px;
+  padding-top: 10px;
+  float: right;
+  position: fixed;
+  border-radius: 5px;
+  background-color: #393e46;
+  border: 2px solid #393e46;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+input[type=text]{
+  color: white;
+}
+.header{
+  position:fixed;
+  width: 30%;
+}
+@media screen and (max-width: 758px){
+  .search-bar{
+    margin-top: 10px;
+  float: right;
+
+  }
+}
+@media (max-width: 1000px)
+{ .search-bar{
+  width:21%;
+  margin-left: 0;
+}
+}
+@media (max-width: 600px)
+{ .search-bar{
+  width:20%;
+  margin-left: 0;
+}
+}
+@media (max-width: 545px)
+{ .search-bar{
+  width:19%;
+  margin-left: 0;
+}
+}
+@media (max-width: 450px)
+{
+  .left{
+    width: 100%;
+  }
+  .search-bar{
+    width: 80%;
+  }
+  .right{
+    display: none;
+  }
+}
