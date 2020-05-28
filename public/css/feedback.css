@@ -299,7 +299,7 @@ small screens.
     }
     #rating{
         width: 100%;
-        height: 70px;
+        height: 80px;
         border: none;
         overflow: scroll;
       }
@@ -313,10 +313,10 @@ small screens.
       #rating option{
         width: 33%;
         height: auto;
-        font-size: 1.5em;
+        font-size: 2.5em;
 
         text-align: center;
-        margin-right: 20px;
+        margin-right: auto;
         margin-top: auto;
         margin-bottom: auto;
         display: inline-block;
