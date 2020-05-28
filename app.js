@@ -13,7 +13,7 @@ const Terms = '/Terms?user=';
 const privacy = '/privacy?user=';
 const blog = '/blog?user=';
 const logout = '/logout?user=';
-const project = '/project?user='
+const project = '/project?user=';
 
 function resetCurrUser() {
   return new getUser('', '', '', '', 'on', 'off', false, false);

@@ -6,70 +6,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="STEMChat">
     <title>STEMChat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel ="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
         integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/register.css">
 </head>
 
 <body>
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
-            <i>☰</i>
-        </a>
-        <a href='<%=home%>' class="_active">Home</a>
+  <div class="_topnav">
 
-        <!-- Navigation links (hidden by default) -->
-        <div id="myLinks">
-            <a href='<%=about%>'>About</a>
-            <a href='<%=blog%>'>Blogs</a>
-            <a href='<%=project%>'>Projects</a>
-            <a href='<%=feedback%>'>Feedback</a>
-
-            <a href="<%=logout%>">Logout</a>
-        </div>
-        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-
+      <a href='<%=home%>' class="_active">Home</a>
+  </div>
+  <div class="column left" >
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
+      <a href='<%=about%>'>About</a>
+      <a href='<%=blog%>'>Blogs</a>
+      <a href='<%=project%>'>Projects</a>
+      <a href='<%=feedback%>'>Feedback</a>
+      <a href="<%=logout%>">Logout</a>
     </div>
 
-    <div id="layout">
-
-        <div id="main">
-            <div class="content">
-                <h1><%=name%></h1>
-                <h2 class="content-subhead">HOME</h2>
+       <div class="header">
+        <button class="openbtn" onclick="openNav()">☰</button>
+        <input class="search-bar" type="text" placeholder="Search..">
+       </div>
 
 
-                <div class='foot'>
-                    <p> MADE BY BITS 2020</p>
-                </div>
+  </div>
+  <div class="column right" >
+
+  </div>
+
+      <!-- Navigation links (hidden by default) -->
+
+      <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
 
-            </div>
-        </div>
 
-        <script src="/js/ui.js"></script>
-        <script>
-            function _myFunction2() {
-                var x = document.getElementById("myLinks");
-                if (x.style.display === "block") {
-                    x.style.display = "none";
-                } else {
-                    x.style.display = "block";
-                }
-            }
-        </script>
-
+<script src="/js/home.js"></script>
+<script>
+    function _myFunction2() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+            x
+        }
+    }
+</script>
 </body>
 <style>
     /* --------------- */
 
-
-
     ._topnav {
         overflow: hidden;
+        width: 100%;
+        top: 0;
+        left: 0;
+        height: 5%;
         background-color: #333;
-        position: relative;
+        position: fixed;
+        z-index: 0;
+        background-color: #4CAF50;
     }
 
     ._topnav #myLinks {
@@ -81,10 +81,14 @@
         color: white;
         padding: 14px 16px;
         text-decoration: none;
-        font-size: 17px;
+        font-size: 1em;
         display: block;
         background-color: #333;
         text-align: center;
+        align-items: center;
+        align-content: center;
+        vertical-align: top;
+
     }
 
     /* Style the hamburger menu */
@@ -102,6 +106,11 @@
 
     /* Style the active link (or home/logo) */
     ._topnav a._active {
+        top: 0;
+        height: 90%;
+        width: 100%;
+        padding: 5px;
+        position: absolute;
         background-color: #4CAF50;
         color: white;
         text-align: center;
