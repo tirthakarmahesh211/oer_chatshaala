@@ -14,6 +14,12 @@ const privacy = '/privacy?user=';
 const blog = '/blog?user=';
 const logout = '/logout?user=';
 const project = '/project?user=';
+const profile='/profile?user=';
+const activity='/activity?user=';
+const notifications='/notifications?user=';
+const badges='/badges?user=';
+const messages='/messages?user=';
+const pref='/preferences?user=';
 
 function resetCurrUser() {
   return new getUser('', '', '', '', 'on', 'off', false, false);
@@ -167,6 +173,18 @@ function masterControl(req, res, option) {
       return false;
     }
   }
+  else if (option === 'profile') {
+    if (Object.keys(req.query).length !== 0) {
+      const index = req.query.user;
+      if (!isNaN(index) && index < users.length && index >= 0 && users[index].session === true && users[index].login === false) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 
   else if (option === 'logout') {
     if (Object.keys(req.query).length !== 0) {
@@ -248,7 +266,7 @@ app.get('/home', function (req, res) {
     const index = req.query.user;
     var curr_user = users[index];
     res.render('home.ejs', {
-      home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index, name: curr_user.getName()
+      home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index, profile:profile+index
     });
   } else {
     res.redirect('/');
@@ -259,7 +277,7 @@ app.get("/feedback", function (req, res) {
   if (masterControl(req, res, 'feedback')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("feedback.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index });
+    res.render("feedback.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index, profile:profile+index });
   } else {
     res.redirect('/');
   }
@@ -270,7 +288,7 @@ app.get("/about", function (req, res) {
   if (masterControl(req, res, 'about')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("about.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("about.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, profile:profile+index ,Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -279,7 +297,7 @@ app.get("/blog", function (req, res) {
   if (masterControl(req, res, 'blog')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("blog.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("blog.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, profile:profile+index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -288,7 +306,7 @@ app.get("/project", function (req, res) {
   if (masterControl(req, res, 'project')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("project.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("project.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, profile:profile+index ,Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -297,7 +315,7 @@ app.get("/FAQ", function (req, res) {
   if (masterControl(req, res, 'about')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("FAQ.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("FAQ.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index,  profile:profile+index,FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -306,7 +324,7 @@ app.get("/Terms", function (req, res) {
   if (masterControl(req, res, 'about')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("Terms.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("Terms.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index,  profile:profile+index,FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -314,7 +332,7 @@ app.get("/Terms", function (req, res) {
   if (masterControl(req, res, 'about')) {
     const index = req.query.user;
     const user = users[index];
-    res.render("privacy.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
+    res.render("privacy.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index,  profile:profile+index,FAQ: FAQ + index, Terms: Terms + index, privacy: privacy + index, feedback: feedback + index, logout: logout + index });
   } else {
     res.redirect('/');
   }
@@ -332,6 +350,65 @@ app.post("/feedback", function (req, res) {
 });
 
 
+app.get("/profile", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("profile.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get("/activity", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("activity.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get("/notifications", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("notification.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get("/messages", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("messages.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get("/badges", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("badges.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
+
+app.get("/preferences", function (req, res) {
+  if (masterControl(req, res, 'profile')) {
+    const index = req.query.user;
+    const user = users[index];
+    res.render("preferences.ejs", { home: home + index, about: about + index, blog: blog + index, project: project + index, feedback: feedback + index, logout: logout + index , profile:profile+index,activity:activity+index,notification:notifications+index,message:messages+index,badge:badges+index,pref:pref+index});
+  } else {
+    res.redirect('/');
+  }
+});
 
 app.get('/logout', function (req, res) {
   if (masterControl(req, res, 'logout')) {
