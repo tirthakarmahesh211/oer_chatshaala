@@ -8,8 +8,7 @@ module.exports = {
   getUser: getUser,
   verifyUser: verifyUser,
   users: users,
-  addNewUser:addNewUser,
-  fetchUser:fetchUser
+  addNewUser:addNewUser
 };
 
 function resetCurrUser() {
@@ -24,7 +23,7 @@ function getUser(email, password, name, userName, identity) {
   this.userName = userName;
   this.identity = identity;
 }
-
+/*
 function verifyUser(curr_user) {
   for (var i = 0; i < users.length; i++) {
     var user = users[i];
@@ -45,7 +44,7 @@ function verifyUser(curr_user) {
     index: -1
   };
 }
-
+*/
 function addNewUser(req,res,name, email, password, userName, identity) {
   const url = secrets.url + 'users';
   const user=new getUser(email,password,name,userName,identity);
@@ -67,7 +66,7 @@ function addNewUser(req,res,name, email, password, userName, identity) {
   };
   data = querystring.stringify(data);
   var request = https.request(url, options, function(response) {
-    console.log(response.statusCode);
+    //console.log(response.statusCode);
     if (response.statusCode === 200) {
       var body = '';
       response.on('data', function(chunk) {
@@ -75,13 +74,13 @@ function addNewUser(req,res,name, email, password, userName, identity) {
       });
       response.on('end', function() {
         var result = JSON.parse(body);
-        console.log(result);
+        //console.log(result);
         if (result.success === true && result.active === true) {
           users.push(user);
-          console.log('yes');
+          //console.log('yes');
           res.render('register.ejs', {status: 'Successfuly Registered, Kindly Login'});
         } else {
-          console.log('no');
+          //console.log('no');
           if(!users.includes(user)){
             users.push(user);
           }
@@ -93,7 +92,7 @@ function addNewUser(req,res,name, email, password, userName, identity) {
         res.redirect('/', {status:'Error while registering, try again'});
       });
     } else {
-      console.log('no');
+      //console.log('no');
       res.redirect('/', {status:'Error while registering, try again'});
     }
   });
@@ -101,34 +100,76 @@ function addNewUser(req,res,name, email, password, userName, identity) {
   request.end();
 }
 
-function fetchUser(req,res,userName,password){
-  var body = '';
-  var url = secret.url + 'users/' + userName + '.json';
-  var options = {
-  method: 'GET',
-  headers: {
-    'Api-Key': secret.key,
-    'Api-Username': 'system'
-  }
-};
-https.get(url, options, function(response) {
-  console.log(response.statusCode);
+function verifyUser(req,res,userName,password){
+  const url=secrets.url+'session/';
+
+  var data={
+  'login': userName,
+  'password': password,
+  'second_factor_method': 1
+  };
+
+  data=querystring.stringify(data);
+
+  const options={
+  method:'POST',
+  headers:{'Api-Key': secrets.key ,'Api-Username':'system'}
+  };
+
+  var json_data = null;
+  var request=https.request(url,options,function(response){
+  //console.log(response.statusCode);
   if(response.statusCode===200){
-  response.on('data', function(data) {
-    body += data;
+  var body='';
+  var result='';
+  response.on('data',function(chunk){
+  body+=chunk;
   });
-  response.on('end', function() {
-    body = JSON.parse(body);
-    //console.log(body);
-    var uname= body.user.username;
-    req.session.user=body.user.id;
-    res.redirect('/home');
-  }).on('error', function() {
-    console.log('error');
-    res.redirect('/');
+  response.on('end',function(){
+  result=JSON.parse(body);
+
+      //console.log(result);
+      json_data = result;
+      if(result.error==='Incorrect username, email or password'){
+        res.render('register.ejs',{status:result.error});
+      }else{
+        fetchUserInfo(req,res,userName,password);
+    }
+     });
+   }else{
+   	//console.log('no');
+    res.render('register.ejs', {
+      status: 'Not Registered yet, please register before login'
+    });
+     }
   });
- }
- res.redirect('/home');
-});
+  request.write(data);
+  request.end();
+}
+function fetchUserInfo(req,res,userName,password){
+  var body = '';
+  var url = secrets.url + 'users/' + userName + '.json';
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+
+  https.get(url, options, function(response) {
+    //console.log(response.statusCode);
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      body = JSON.parse(body);
+      req.session.user=body.user;//storing user info
+      req.session.badges=body.badges;//storing badges of user
+      res.redirect('/home');
+    }).on('error', function() {
+      console.log('error');
+    });
+  });
 
 }

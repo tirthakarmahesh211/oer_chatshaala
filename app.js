@@ -66,28 +66,19 @@ app.post('/', function (req, res) {
     }
     else{
     var new_user=new func.getUser(req.body.email, md5(req.body.pass1), req.body.name, req.body.username1, req.body.identity);
-    //func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
-    if(!users.includes(new_user)){
+    func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
+    /*if(!users.includes(new_user)){
       users.push(new_user);
       res.render('register.ejs',{status:'Successfuly Registered, Kindly Login'});
     }else{
       res.render('register.ejs',{status:'Already Registered, Kindly Login'});
-    }
+    }*/
   }
   } else if (req.body.hasOwnProperty('login')) {
     var curr_user = func.resetCurrUser();
     curr_user.userName = req.body.username2;
     curr_user.password = md5(req.body.pass2);
-    const info = func.verifyUser(curr_user);
-    if (info.status === true && info.index !== -1) {
-      req.session.user=users[info.index];
-      res.redirect('/home');
-    }
-    else {
-      res.render('register.ejs', {
-        status: 'Not Registered yet, please register before login'
-      });
-    }
+    func.verifyUser(req,res,curr_user.userName,curr_user.password);
   } else if (req.body.hasOwnProperty('forgot')) {
     res.send('forgot password page');
   } else {
