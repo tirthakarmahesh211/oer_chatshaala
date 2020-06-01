@@ -5,7 +5,7 @@ var login=document.querySelector('#Login');
 var sign=document.querySelector('#SignUp');
 var msg=document.querySelector('#message');
 console.log(msg);
-if(msg.innerHTML==='Successfuly Registered, Kindly Login'){
+if(msg.innerHTML==='Successfuly Registered, Kindly Login'||msg.innerHTML==='Already Registered, Kindly Login'){
   login.classList.remove('hidden');
   sign.classList.add('hidden');
 }else{
