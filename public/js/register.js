@@ -1,4 +1,5 @@
-// jshint esversion:6
+// jshint esversion:8
+
 var choice1=document.querySelector('#choice1');
 var choice2=document.querySelector('#choice2');
 var login=document.querySelector('#Login');

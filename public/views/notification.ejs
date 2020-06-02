@@ -7,97 +7,65 @@
     <meta name="description"
         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>STEMChat</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="css/feedback.css">
+    <link rel="shortcut icon" href="./favicon.ico">
+      <link rel="stylesheet" href="/css/pure_css.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+    <link rel="stylesheet" href="/css/blog.css">
 </head>
 
 <body>
-
-
-
+    <center>
     <div class="_topnav">
         <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
             <i>☰</i>
         </a>
-        <a href='<%=about%>' class="_active">About</a>
+        <a href='<%=profile%>' class="_active">Profile</a>
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
             <a href='<%=home%>'>Home</a>
-            <a href='<%=blog%>'>Blogs</a>
+            <a href='<%=about%>'>About</a>
+            <a href='<%=blog%>'>Blog</a>
             <a href='<%=project%>'>Projects</a>
             <a href='<%=feedback%>'>Feedback</a>
-            <a href='<%=profile%>'>Profile</a>
             <a href="<%=logout%>">Logout</a>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
-    <div id="layout">
-        <div id="main">
-            <div class="content">
-                <h2 class="content-subhead">About</h2>
-                <hr>
-                </hr>
 
-                <div class="topnav" id="myTopnav">
-                    <a href='<%=about%>' class="active">About</a>
-                    <a href='<%=FAQ%>'>FAQ</a>
-                    <a href='<%=Terms%>'>Terms of Service</a>
-                    <a href='<%=privacy%>'>Privacy</a>
+      <div id="main">
+          <div class="content">
+              <h2 class="content-subhead">Profile</h2>
+              <hr>
+              </hr>
+                <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
+              <div class="topnav" id="myTopnav">
+                <a href='<%=profile%>' >Summary</a>
+                <a href='<%=activity%>'>Activity</a>
+                <a href='<%=notification%>' class='active'>Notifications</a>
+                <a href='<%=message%>'>Messages</a>
+                <a href='<%=badge%>'>Badges</a>
+                <a href='<%=pref%>'>Peferences</a>
 
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                        <i> &#x2630</i>
-                    </a>
-                </div>
-
-
-                <h2>About Coool STEM Games</h2>
-                <p>Collaborative Open Online and Ongoing Learning through STEM games, activities and projects and earn
-                    badges from the referees!</p>
-                <h3> Our Admins</h3>
-                <ul>
-                    <li>
-                        1.Mahesh Tirthakar
-                    </li>
-                    <li>
-                        2.Ashish Pardeshi
-                    </li>
-                    <li>
-                        3.Surendra
-                    </li>
-                    <li>
-                        ...
-                    </li>
-                </ul>
-                <hr>
-                </hr>
-                <h3> Our Refrees</h3>
-                <ul>
-                    <li>
-                        1.Mahesh Tirthakar
-                    </li>
-                    <li>
-                        2.Ashish Pardeshi
-                    </li>
-                    <li>
-                        3.Surendra
-                    </li>
-                    <li>
-                        ...
-                    </li>
-                </ul>
-
-            </div>
-
-            <div class='foot'>
-                <p> MADE BY BITS 2020</p>
-            </div>
+                  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                      ☰</i>
+                  </a>
+              </div>
 
 
-        </div>
-    </div>
+
+
+          <div class='foot'>
+              <p> MADE BY BITS 2020</p>
+          </div>
+
+
+      </div>
+  </div>
+
+
+</center>
+
 
     <script src="/js/ui.js"></script>
 
@@ -127,6 +95,24 @@
 
 
 <style>
+    .para {
+        text-align: justify;
+        font-size: 20px;
+    }
+
+    #plus {
+        height: 6rem;
+        width: 6rem;
+        position: fixed;
+        bottom: 2.5rem;
+        right: 2.5rem;
+        opacity: 0.5;
+    }
+
+    #plus:hover {
+        opacity: 1.0;
+    }
+
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
@@ -155,6 +141,10 @@
             display: block;
             text-align: left;
         }
+    }
+
+    a.link_head {
+        color: black;
     }
 
     .topnav {

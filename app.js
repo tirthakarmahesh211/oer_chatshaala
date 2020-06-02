@@ -25,7 +25,7 @@ const messages='/messages';
 const pref='/preferences';
 
 const users = func.users;
-
+app.set('views','./public/views');
 app.set('view engine', 'ejs');
 app.use(parser.urlencoded({
   extended: true

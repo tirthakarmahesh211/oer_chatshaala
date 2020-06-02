@@ -7,8 +7,8 @@
     <meta name="description"
         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>STEMChat</title>
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-        integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./favicon.ico">
+      <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <link rel="stylesheet" href="/css/blog.css">
 </head>
@@ -40,12 +40,13 @@
               </hr>
                 <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
               <div class="topnav" id="myTopnav">
-                <a href='<%=profile%>' >Summary</a>
+                <a href='<%=profile%>'>Summary</a>
                 <a href='<%=activity%>'>Activity</a>
-                <a href='<%=notification%>' class='active'>Notifications</a>
+                <a href='<%=notification%>'>Notifications</a>
                 <a href='<%=message%>'>Messages</a>
-                <a href='<%=badge%>'>Badges</a>
+                <a href='<%=badge%>' class='active'>Badges</a>
                 <a href='<%=pref%>'>Peferences</a>
+
 
                   <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                       ☰</i>
