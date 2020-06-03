@@ -77,24 +77,20 @@ function addNewUser(req, res, name, email, password, userName, identity) {
         var result = JSON.parse(body);
         //console.log(result);
         if (result.success === true && result.active === true) {
-          users.push(user);
           //console.log('yes');
           res.render('register.ejs', { status: 'Successfuly Registered, Kindly Login' });
         } else {
           //console.log('no');
-          if (!users.includes(user)) {
-            users.push(user);
-          }
           res.render('register.ejs', { status: result.message });
         }
       });
       response.on('error', function () {
         console.log('error');
-        res.redirect('/', { status: 'Error while registering, try again' });
+        res.redirect('/register', { status: 'Error while registering, try again' });
       });
     } else {
       //console.log('no');
-      res.redirect('/', { status: 'Error while registering, try again' });
+      res.redirect('/register', { status: 'Error while registering, try again' });
     }
   });
   request.write(data);
@@ -189,14 +185,14 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
   https.get(url, options, function (response) {
     response.on('data', function (data) {
       body += data;
-      console.log("hello");
+      //console.log("hello");
 
     });
     response.on('end', function () {
       body = JSON.parse(body);
       var groups = [];
       groups = body.groups;
-      console.log(groups);
+     // console.log(groups);
 
       res.render("groups.ejs", {
         home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
@@ -238,7 +234,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      console.log("1");
+     // console.log("1");
       https.get(url2, options, function (response) {
         response.on('data', function (data) {
           body2 += data;
@@ -249,7 +245,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
 
           var members = [];
           members = body2.members;
-          console.log("2");
+          //console.log("2");
           https.get(url3, options, function (response) {
             response.on('data', function (data) {
               body3 += data;
@@ -257,8 +253,8 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
             });
             response.on('end', function () {
               body3 = JSON.parse(body3);
-              console.log("3");
-              console.log(body3);
+              //console.log("3");
+              //console.log(body3);
               //console.log(members);
               res.render("group.ejs", {
                 home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
