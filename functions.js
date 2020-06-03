@@ -24,28 +24,7 @@ function getUser(email, password, name, userName, identity) {
   this.userName = userName;
   this.identity = identity;
 }
-/*
-function verifyUser(curr_user) {
-  for (var i = 0; i < users.length; i++) {
-    var user = users[i];
-    if (curr_user.userName === user.userName && curr_user.password === user.password) {
-      curr_user.name = user.name;
-      curr_user.email = user.email;
-      curr_user.identity = user.identity;
-      curr_user.login = true;
-      user.login = true;
-      return {
-        status: true,
-        index: i
-      };
-    }
-  }
-  return {
-    status: false,
-    index: -1
-  };
-}
-*/
+
 function addNewUser(req, res, name, email, password, userName, identity) {
   const url = secrets.url + 'users';
   const user = new getUser(email, password, name, userName, identity);
