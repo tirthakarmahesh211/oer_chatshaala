@@ -1,16 +1,5 @@
 //jshint esversion:8
-window.addEventListener('load',()=>{
-  registerSW();
-});
-async function registerSW(){
-  if('serviceWorker' in navigator){
-    try{
-      await navigator.serviceWorker.register('./sw.js',{scope:'/'});
-    }catch(e){
-      console.log('SW registration failed');
-    }
-  }
-}
+
 (function (window, document) {
 
     var layout   = document.getElementById('layout'),

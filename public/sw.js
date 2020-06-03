@@ -27,41 +27,36 @@ const staticAssets=[
   './views/Terms.ejs',
   './favicon.ico',
   './plus.png',
-  './stemgames.png'  
+  './stemgames.png'
 ];
-self.addEventListener('install',async e =>{
-  const cache=await caches.open(cacheName);
-  await cache.addAll(staticAssets);
-  return self.skipWaiting();
-});
-self.addEventListener('activate',e=>{
-  self.clients.claim();
-});
 
-self.addEventListener('fetch',async e=>{
-  const req=e.request;
-  const url=new URL(req.url);
-  if(url.origin === location.origin){
-    e.respondWith(cacheFirst(req));
-  }else{
-    e.respondWith(networkAndCache(req));
-  }
+
+self.addEventListener('install',async (eve) =>{
+  eve.waitUntil(
+    caches.open(cacheName).then(cache=>{
+      cache.addAll(staticAssets);
+    })
+    .then(()=>self.skipWaiting())
+  );
 });
 
-async function cacheFirst(req){
-  const cache=await caches.open(cacheName);
-  const cached=await cache.match(req);
-  return cached || fetch(req);
-}
 
-async function networkAndCache(req){
-  const cache=await caches.open(cacheName);
-  try{
-    const fresh=await caches.open(cacheName);
-    await cache.put(req,fresh.clone());
-    return fresh;
-  }catch(e){
-    const cached=await cache.match(req);
-    return cached;
-  }
-}
+self.addEventListener('activate',(eve)=>{
+  eve.waitUntil(
+    caches.keys().then(cacheNames=>{
+      return Promise.all(
+        cacheNames.map(cache=>{
+          if(cache!==cacheName){
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+});
+
+self.addEventListener('fetch',async (eve)=>{
+  eve.respondWith(
+    fetch(eve.request).catch(()=>caches.match(eve.request))
+  );
+});

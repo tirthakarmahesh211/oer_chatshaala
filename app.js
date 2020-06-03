@@ -49,9 +49,14 @@ app.listen(3000, function (req, res) {
 
 //Routing
 app.get('/', function (req, res) {
+  let user=req.session.user;
+  if(user){
+    res.redirect('/home');
+  }else{
   res.render('register.ejs', {
     status: ''
   });
+}
 });
 
 app.post('/', function (req, res) {
