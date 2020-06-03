@@ -1,5 +1,4 @@
-//jshint esversion:6
-const users = [];
+//jshint esversion:8
 const https = require('https');
 const secrets = require('./secrets.js');
 const querystring = require('querystring');
@@ -7,7 +6,6 @@ module.exports = {
   resetCurrUser: resetCurrUser,
   getUser: getUser,
   verifyUser: verifyUser,
-  users: users,
   addNewUser: addNewUser,
   fetchGroups: fetchGroups,
   fetch_Group: fetch_Group
@@ -202,7 +200,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
       res.render("groups.ejs", {
         home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
-      })
+      });
 
     });
 
@@ -248,55 +246,33 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
         });
         response.on('end', function () {
           body2 = JSON.parse(body2);
-          
+
           var members = [];
           members = body2.members;
           console.log("2");
           https.get(url3, options, function (response) {
             response.on('data', function (data) {
               body3 += data;
-    
+
             });
             response.on('end', function () {
               body3 = JSON.parse(body3);
-              
-              
               console.log("3");
               console.log(body3);
               //console.log(members);
-    
-    
-    
-    
               res.render("group.ejs", {
                 home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
-              })
-    
+              });
+
             });
-    
-    
-    
+
           });
-
-         
-
-
-
-
 
         });
 
-
-
       });
-
-
 
     });
 
-
-
   });
-
-
 }

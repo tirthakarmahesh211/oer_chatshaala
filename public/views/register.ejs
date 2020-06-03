@@ -7,7 +7,6 @@
   <meta name="description" content="STEMChat">
   <title>STEMChat</title>
   <link rel="shortcut icon" href="./favicon.ico">
-  <link rel="manifest" href="./manifest.webmanifest" crossorigin="use-credentials">
   <link rel="stylesheet" href="/css/register.css" />
     <link rel="stylesheet" href="/css/pure_css.css">
 </head>
@@ -21,7 +20,7 @@
 
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
-      <a href="/">Register</a>
+      <a href="/register">Register</a>
 
     </div>
     <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
@@ -42,7 +41,7 @@
     </center>
       <div class="content" id='content'>
         <h1 id='message'><%=status%></h1>
-        <form class="pure-form pure-form-stacked" id="SignUp" action="/" method="post">
+        <form class="pure-form pure-form-stacked" id="SignUp" action="/register" method="post">
           <fieldset>
             <legend>SignUp</legend>
             <div class="pure-g">
@@ -101,7 +100,7 @@
         </form>
 
 
-        <form class="hidden pure-form pure-form-stacked" id="Login" action="/" method='post'>
+        <form class="hidden pure-form pure-form-stacked" id="Login" action="/register" method='post'>
           <fieldset>
             <legend>Login</legend>
             <div class="pure-g">

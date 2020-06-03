@@ -27,7 +27,8 @@ const staticAssets=[
   './views/Terms.ejs',
   './favicon.ico',
   './plus.png',
-  './stemgames.png'
+  './stemgames.png',
+  './views/groups.ejs'
 ];
 
 

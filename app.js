@@ -24,7 +24,7 @@ const badges='/badges';
 const messages='/messages';
 const pref='/preferences';
 
-const users = func.users;
+
 app.set('views','./public/views');
 app.set('view engine', 'ejs');
 app.use(parser.urlencoded({
@@ -48,7 +48,7 @@ app.listen(3000, function (req, res) {
 
 
 //Routing
-app.get('/', function (req, res) {
+app.get('/register', function (req, res) {
   let user=req.session.user;
   if(user){
     res.redirect('/home');
@@ -59,7 +59,7 @@ app.get('/', function (req, res) {
 }
 });
 
-app.post('/', function (req, res) {
+app.post('/register', function (req, res) {
   let user=req.session.user;
   if(user){
     res.redirect('/home');
@@ -72,13 +72,7 @@ app.post('/', function (req, res) {
     else{
     var new_user=new func.getUser(req.body.email, md5(req.body.pass1), req.body.name, req.body.username1, req.body.identity);
     func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
-    /*if(!users.includes(new_user)){
-      users.push(new_user);
-      res.render('register.ejs',{status:'Successfuly Registered, Kindly Login'});
-    }else{
-      res.render('register.ejs',{status:'Already Registered, Kindly Login'});
-    }*/
-  }
+    }
   } else if (req.body.hasOwnProperty('login')) {
     var curr_user = func.resetCurrUser();
     curr_user.userName = req.body.username2;
@@ -98,7 +92,7 @@ app.get('/home', function (req, res) {
     res.render('home.ejs', {
       home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -108,7 +102,7 @@ app.get("/feedback", function (req, res) {
     res.render('feedback.ejs', {
       home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -118,7 +112,7 @@ app.get("/about", function (req, res) {
   if (curr_user) {
     res.render('about.ejs',{home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 app.get("/blog", function (req, res) {
@@ -126,7 +120,7 @@ app.get("/blog", function (req, res) {
   if (curr_user) {
     res.render("blog.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 app.get("/project", function (req, res) {
@@ -134,7 +128,7 @@ app.get("/project", function (req, res) {
   if (curr_user) {
     res.render("project.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 app.get("/FAQ", function (req, res) {
@@ -142,7 +136,7 @@ app.get("/FAQ", function (req, res) {
   if (curr_user) {
     res.render("FAQ.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 app.get("/Terms", function (req, res) {
@@ -150,7 +144,7 @@ app.get("/Terms", function (req, res) {
   if (curr_user) {
     res.render("Terms.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
  app.get("/privacy", function (req, res) {
@@ -158,7 +152,7 @@ app.get("/Terms", function (req, res) {
    if (curr_user) {
      res.render("privacy.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
    } else {
-     res.redirect('/');
+     res.redirect('/register');
    }
 });
 
@@ -179,7 +173,7 @@ app.get("/profile", function (req, res) {
   if (curr_user) {
     res.render("profile.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -188,7 +182,7 @@ app.get("/activity", function (req, res) {
   if (curr_user) {
     res.render("activity.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -197,7 +191,7 @@ app.get("/notifications", function (req, res) {
   if (curr_user) {
     res.render("notification.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -206,7 +200,7 @@ app.get("/messages", function (req, res) {
   if (curr_user) {
     res.render("messages.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -215,7 +209,7 @@ app.get("/badges", function (req, res) {
   if (curr_user) {
     res.render("badges.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -224,7 +218,7 @@ app.get("/preferences", function (req, res) {
   if (curr_user) {
     res.render("preferences.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {
-    res.redirect('/');
+    res.redirect('/register');
   }
 });
 
@@ -238,8 +232,9 @@ app.get('/logout', function (req, res) {
   }
   res.redirect('/');
 });
+
 //NEWLY_ADDED
-app.get("/groups", function (req, res) {
+app.get("/", function (req, res) {
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile);
@@ -249,11 +244,8 @@ app.get("/groups", function (req, res) {
 
 app.get("/group/:topic/:id", function (req, res) {
   var id= req.params.topic;
-  console.log(id)
   func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,id);
       // res.render("group",{Head:post.title,Para:post.content});
-
-
 });
 
 //res.redirect("/");
