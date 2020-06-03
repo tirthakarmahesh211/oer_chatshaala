@@ -238,3 +238,22 @@ app.get('/logout', function (req, res) {
   }
   res.redirect('/');
 });
+//NEWLY_ADDED
+app.get("/groups", function (req, res) {
+  // res.render("groups.ejs",{
+  //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
+  func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile);
+});
+
+
+
+app.get("/group/:topic/:id", function (req, res) {
+  var id= req.params.topic;
+  console.log(id)
+  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,id);
+      // res.render("group",{Head:post.title,Para:post.content});
+
+
+});
+
+//res.redirect("/");
