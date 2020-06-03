@@ -8,7 +8,8 @@ module.exports = {
   verifyUser: verifyUser,
   addNewUser: addNewUser,
   fetchGroups: fetchGroups,
-  fetch_Group: fetch_Group
+  fetch_Group: fetch_Group,
+  fetchPosts:fetchPosts
 
 };
 
@@ -233,7 +234,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
             response.on('end', function () {
               body3 = JSON.parse(body3);
               //console.log("3");
-              //console.log(body3);
+              console.log(body3);
               //console.log(members);
               res.render("group.ejs", {
                 home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
@@ -250,4 +251,41 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
     });
 
   });
+}
+
+//addded
+function fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,urid) {
+  var body = '';
+  var url =  urid;
+  console.log(url);
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+      //console.log("hello");
+
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      console.log(body.post_stream.posts);
+      
+     // console.log(groups);
+     res.send("chala");
+
+
+    });
+
+
+  }).on('error', function () {
+    console.log('errorr');
+  });
+
+
+
 }

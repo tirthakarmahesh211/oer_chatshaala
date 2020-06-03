@@ -249,3 +249,10 @@ app.get("/group/:topic/:id", function (req, res) {
 });
 
 //res.redirect("/");
+app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
+  var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
+  console.log(url);
+  // res.render("groups.ejs",{
+  //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
+ func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url);
+});

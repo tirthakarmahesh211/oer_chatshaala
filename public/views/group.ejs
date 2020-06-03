@@ -113,14 +113,16 @@
 
                     <section class="post">
                         <header class="post-header">
-                             <%var str=posts[i].user.avatar_template %>
-                           <%str=str.replace("{size}","80")%>
+                            <%var str=posts[i].user.avatar_template %>
+                            <%str=str.replace("{size}","80")%>
                             <%str="https://t2.metastudio.org"+str%>
 
 
 
 
-                            <h3><%=i+1+". "%><%=posts[i].title%><img id="plus2" src='<%=str%>'></h3>
+                            <h3><a
+                                    href="/post<%=posts[i].url%>"><%=i+1+". "%><%=posts[i].title%></a><img
+                                    id="plus2" src='<%=str%>'></h3>
 
                             <h1 class="content-subhead">@<%=posts[i].user.name%></h1>
 
@@ -129,9 +131,9 @@
 
                         <div class="post-description elip_here">
 
-                                <%=console.log((posts[i].excerpt).replace("''",""))%>
+                            <p class="para">
                                 <%=(posts[i].excerpt).replace("''","")%>
-
+                            </p>
 
 
                         </div>
