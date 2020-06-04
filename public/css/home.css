@@ -21,7 +21,7 @@
     z-index: 0;
     width: 30%;
     height: 95%;
-    background-color: #1b262c;
+    background-color: #f5f5dc;
     position:absolute;
     left:0;
     bottom: 0;
@@ -33,7 +33,7 @@
     z-index: 0;
     position: absolute;
     display: inline-block;
-    background-color: #0c2233;
+    background-color: white;
     /*background: linear-gradient(180deg,  #2EC4B6, #9EB1E9);  #3b3e49;*/
     height: 95%;
     bottom: 0;
