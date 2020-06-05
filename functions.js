@@ -152,7 +152,7 @@ function fetchUserInfo(req, res, userName, password) {
 }
 
 
-function fetchGroups(req, res, home, about, blog, project, feedback, logout, profile) {
+function fetchGroups(req, res, home, about, blog, project, feedback, logout, profile,curr_user) {
   var body = '';
   var url = secrets.url + 'groups' + '.json';
   var options = {
@@ -175,7 +175,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
      // console.log(groups);
 
       res.render("groups.ejs", {
-        home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
+        curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, groups: groups
       });
 
     });
@@ -192,7 +192,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
 
 
-function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, id) {
+function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, id,curr_user) {
   var body = '';
   var body2 = '';
   var body3 = '';
@@ -237,7 +237,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
               console.log(body3);
               //console.log(members);
               res.render("group.ejs", {
-                home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
+               curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
               });
 
             });
