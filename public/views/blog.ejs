@@ -15,13 +15,14 @@
 
 <body>
 
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
+    <div  class="topnav" id="myTopnav1">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
-        <a href='<%=blog%>' class="_active">Blogs</a>
+        
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
+            <a href='<%=blog%>' class="active">Blogs</a>
             <%if(curr_user){%>
                 <a href="<%=home%>">Home</a>
                 <%}%>
@@ -220,12 +221,12 @@
     <script src="/js/ui.js"></script>
 
     <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
+       function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
             } else {
-                x.style.display = "block";
+                x.className = "topnav";
             }
         }
         function myFunction() {
@@ -269,7 +270,7 @@
         }
 
         .topnav a.icon {
-            float: right;
+            float: left;
             display: block;
         }
     }
@@ -281,11 +282,9 @@
         }
 
         .topnav.responsive a.icon {
-            position: absolute;
-            right: 0;
-            top: 0;
+            float: left;
+            display: block;
         }
-
         .topnav.responsive a {
             float: none;
             display: block;
