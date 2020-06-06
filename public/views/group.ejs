@@ -21,7 +21,7 @@
       
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='<%=blog%>' class="active">Group</a>
+            <a href='#' class="active">Group</a>
             <%if(curr_user){%>
                 <a href='<%=home%>'>Home</a>
                 <%}%>
@@ -132,19 +132,22 @@
 
 
 
-                            <h3><a
-                                    href="/post<%=posts[i].url%>"><%=i+1+". "%><%=posts[i].title%></a><img
+                            <h3><a class="name_"
+                                    href="/post<%=posts[i].url%>"><%=posts[i].title%></a><img
                                     id="plus2" src='<%=str%>'></h3>
-
+                            <%if(posts[i].user.name!=null){%>
                             <h1 class="content-subhead">@<%=posts[i].user.name%></h1>
-
+                                <%}%>
+                            <%if(posts[i].user.name==null){%>
+                                <h1 class="content-subhead"></h1>
+                                <%}%>
 
                         </header>
 
                         <div class="post-description elip_here">
 
                             <p class="para">
-                                <%=(posts[i].excerpt).replace("''","")%>
+                                <%-(posts[i].excerpt)%>
                             </p>
 
 
@@ -247,6 +250,10 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
+    .name_{
+        color:rgb(41, 38, 38);
+        font-size: larger;
+            }
 
     body {
         color: #777;
@@ -521,6 +528,10 @@
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
 
+    }
+    .para img{
+        height: 1em;
+        width: 1em;
     }
 
     #plus {
