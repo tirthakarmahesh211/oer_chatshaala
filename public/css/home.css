@@ -40,12 +40,12 @@
     right:0;
     width: 70%;
   }
- 
+
   div.edit {
     width:90%;
     display:inline-block;
       min-height: 25px;
-      background: #f5f5dc;
+      background: grey;
       border-radius: 5px;
       outline: none;
         margin-bottom: 5px;
@@ -207,4 +207,3 @@ input[type=text]{
     display: none;
   }
 }
-

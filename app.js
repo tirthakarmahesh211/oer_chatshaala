@@ -87,6 +87,7 @@ app.post('/register', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render('home.ejs', {
@@ -137,7 +138,7 @@ app.get("/FAQ", function (req, res) {
   if (curr_user) {
     res.render("FAQ.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    
+
     res.render("FAQ.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   }
 });
@@ -238,7 +239,7 @@ app.get('/logout', function (req, res) {
 //NEWLY_ADDED
 app.get("/", function (req, res) {
   let curr_user=req.session.user;
-  
+
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile,curr_user);
@@ -259,7 +260,7 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   let curr_user=req.session.user;
   var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
   console.log(url);
-  
+
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
