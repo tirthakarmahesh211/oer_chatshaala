@@ -210,7 +210,6 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
   https.get(url1, options, function (response) {
     response.on('data', function (data) {
       body += data;
-
     });
     response.on('end', function () {
       body = JSON.parse(body);
@@ -269,23 +268,15 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
     response.on('data', function (data) {
       body += data;
       //console.log("hello");
-
     });
     response.on('end', function () {
       body = JSON.parse(body);
       console.log(body.post_stream.posts);
-      
+
      // console.log(groups);
      res.send("chala");
-
-
     });
-
-
   }).on('error', function () {
     console.log('errorr');
   });
-
-
-
 }
