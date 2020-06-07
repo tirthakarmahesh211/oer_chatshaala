@@ -15,19 +15,28 @@
 
 <body>
     <center>
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
-            <i>☰</i>
+        <div class="topnav" id="myTopnav1">
+            <a href="javascript:void(0);" class="icon2" onclick="myFunction1()">
+                 <i>☰</i>
         </a>
-        <a href='<%=profile%>' class="_active">Profile</a>
+       
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='<%=home%>'>Home</a>
+            <a href='<%=profile%>' class="active">Profile</a>
+            <%if(curr_user){%>
+                <a href='<%=home%>'>Home</a>
+                <%}%>
             <a href='<%=about%>'>About</a>
             <a href='<%=blog%>'>Blog</a>
             <a href='<%=project%>'>Projects</a>
+            <a href="/">Public Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
-            <a href="<%=logout%>">Logout</a>
+            <%if(!curr_user){%>
+                <a href='<%=home%>'>Login</a>
+                <%}%>
+            <%if(curr_user){%>
+                <a href="<%=logout%>">Logout</a>
+                <%}%>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
@@ -40,11 +49,12 @@
               </hr>
                 <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
               <div class="topnav" id="myTopnav">
+                <a href='<%=badge%>' class='active'>Badges</a>
                 <a href='<%=profile%>'>Summary</a>
                 <a href='<%=activity%>'>Activity</a>
                 <a href='<%=notification%>'>Notifications</a>
                 <a href='<%=message%>'>Messages</a>
-                <a href='<%=badge%>' class='active'>Badges</a>
+                
                 <a href='<%=pref%>'>Peferences</a>
 
 
@@ -71,12 +81,12 @@
     <script src="/js/ui.js"></script>
 
     <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
+          function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
             } else {
-                x.style.display = "block";
+                x.className = "topnav";
             }
         }
         function myFunction() {
@@ -118,6 +128,10 @@
         .topnav a:not(:first-child) {
             display: none;
         }
+        .topnav a.icon2 {
+            float: left;
+            display: block;
+        }
 
         .topnav a.icon {
             float: right;
@@ -130,7 +144,10 @@
         .topnav.responsive {
             position: relative;
         }
-
+        .topnav.responsive a.icon2 {
+            float: left;
+            display: block;
+        }
         .topnav.responsive a.icon {
             position: absolute;
             right: 0;
@@ -180,6 +197,10 @@
     .topnav .icon {
         display: none;
     }
+    .topnav .icon2 {
+        display: none;
+    }
+
 
 
 

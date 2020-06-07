@@ -8,25 +8,37 @@
         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>STEMChat</title>
     <link rel="shortcut icon" href="./favicon.ico">
-  <link rel="stylesheet" href="/css/pure_css.css">
+    <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="css/feedback.css">
 </head>
 
 <body>
 
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
+    <div class="topnav" id="myTopnav1">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
-        <a href='<%=about%>' class="_active">About</a>
+        
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
+            <a href='<%=about%>' class="active">About</a>
+            <%if(curr_user){%>
             <a href='<%=home%>'>Home</a>
-            <a href='<%=blog%>'>Blogs</a>
+            <%}%>
+           <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
+            <a href='/'>Public Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
+            <%if(curr_user){%>
             <a href='<%=profile%>'>Profile</a>
+            <%}%>
+            <%if(!curr_user){%>
+            <a href='<%=home%>'>Login</a>
+            <%}%>
+            <%if(curr_user){%>
             <a href="<%=logout%>">Logout</a>
+            <%}%>
+
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
@@ -43,178 +55,181 @@
                 <a class="pure-menu-heading" href="/">STEMGames</a>
 
                 <ul class="pure-menu-list">
-                    <li class="pure-menu-item pure-menu-item "><a href='<%=home%>' class="pure-menu-link"> Home</a></li>
-                    <li class="pure-menu-item"> <a href='<%=about%>' class="pure-menu-link  pure-menu-selected">
-                            About</a></li>
+                    <li class="pure-menu-item pure-menu-item "><a href='<%=home%>' class="pure-menu-link"> Home</a>
+            </li>
+            <li class="pure-menu-item"> <a href='<%=about%>' class="pure-menu-link  pure-menu-selected">
+                    About</a></li>
 
-                    <li class="pure-menu-item menu-item-divided"> <a href='<%=feedback%>' class="pure-menu-link">
-                            Feedback
-                        </a> </li>
+            <li class="pure-menu-item menu-item-divided"> <a href='<%=feedback%>' class="pure-menu-link">
+                    Feedback
+                </a> </li>
 
 
-                    <li class="pure-menu-item"><a href="#" class="pure-menu-link"> Contact</a></li>
-                    <li class="pure-menu-item"><a href="<%=logout%>" class="pure-menu-link"> Logout</a></li>
+            <li class="pure-menu-item"><a href="#" class="pure-menu-link"> Contact</a></li>
+            <li class="pure-menu-item"><a href="<%=logout%>" class="pure-menu-link"> Logout</a></li>
+            </ul>
+        </div>
+    </div> -->
+    <div id="main">
+        <div class="content">
+            <h2 class="content-subhead">FAQ</h2>
+            <hr>
+            </hr>
+
+            <div class="topnav" id="myTopnav2">
+                <a href='<%=FAQ%>' class="active">FAQ</a>
+                <a href='<%=about%>'>About</a>
+                
+                <a href='<%=Terms%>'>Terms of Service</a>
+                <a href='<%=privacy%>'>Privacy</a>
+
+                <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+                    &#x2630</i>
+                </a>
+            </div>
+
+            <p>Frequently Asked Questions</p>
+
+            <div itemprop="mainContentOfPage">
+                <p><a name="civilized"></a></p>
+                <h2><a href="#civilized">This is a Place for Cultivating and Recognizing STEM habits through
+                        civilized discussion.</a></h2>
+                <p>Please treat this platform with the same respect you would a public park. We, too, are a shared
+                    community resource — a place to share skills, knowledge and interests through ongoing
+                    conversation.</p>
+                <p>These are not hard and fast rules, merely guidelines to aid the human judgment of our community
+                    and keep this a clean and well-lighted place for learning together.</p>
+                <h2>Discuss and Learn about Project Goals</h2>
+                <p>We will be posting projects periodically, and every project identifies clearly what STEM habits
+                    does the project address. If the project is not clear, do not hesitate to ask. However, do read
+                    what others have asked before asking.</p>
+                <p><a name="improve"></a></p>
+                <h2><a href="#improve">Improve the Discussion</a></h2>
+                <p>Help us make this a great place for discussion by always working to improve the discussion in
+                    some way, however small. If you are not sure your post adds to the conversation, think over what
+                    you want to say and try again later.</p>
+                <p>The topics discussed here matter to us, and we want you to act as if they matter to you, too. Be
+                    respectful of the topics and the people discussing them, even if you disagree with some of what
+                    is being said.</p>
+                <p>One way to improve the discussion is by discovering ones that are already happening. Spend time
+                    browsing the topics here before replying or starting your own, and you’ll have a better chance
+                    of meeting others who share your interests.</p>
+                <p><a name="agreeable"></a></p>
+                <h2><a href="#agreeable">Be Agreeable, Even When You Disagree</a></h2>
+                <p>You may wish to respond to something by disagreeing with it. That’s fine. But remember to
+                    <em>criticize ideas, not people</em>. Please avoid:</p>
+                <ul>
+                    <li>Name-calling</li>
+                    <li>Ad hominem attacks</li>
+                    <li>Responding to a post’s tone instead of its actual content</li>
+                    <li>Knee-jerk contradiction</li>
                 </ul>
-            </div>
-        </div> -->
-        <div id="main">
-            <div class="content">
-                <h2 class="content-subhead">FAQ</h2>
-                <hr>
-                </hr>
-
-                <div class="topnav" id="myTopnav">
-                    <a href='<%=about%>'>About</a>
-                    <a href='<%=FAQ%>' class="active">FAQ</a>
-                    <a href='<%=Terms%>'>Terms of Service</a>
-                    <a href='<%=privacy%>'>Privacy</a>
-
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                        &#x2630</i>
-                    </a>
-                </div>
-
-                <p>Frequently Asked Questions</p>
-
-                <div itemprop="mainContentOfPage">
-                    <p><a name="civilized"></a></p>
-                    <h2><a href="#civilized">This is a Place for Cultivating and Recognizing STEM habits through
-                            civilized discussion.</a></h2>
-                    <p>Please treat this platform with the same respect you would a public park. We, too, are a shared
-                        community resource — a place to share skills, knowledge and interests through ongoing
-                        conversation.</p>
-                    <p>These are not hard and fast rules, merely guidelines to aid the human judgment of our community
-                        and keep this a clean and well-lighted place for learning together.</p>
-                    <h2>Discuss and Learn about Project Goals</h2>
-                    <p>We will be posting projects periodically, and every project identifies clearly what STEM habits
-                        does the project address. If the project is not clear, do not hesitate to ask. However, do read
-                        what others have asked before asking.</p>
-                    <p><a name="improve"></a></p>
-                    <h2><a href="#improve">Improve the Discussion</a></h2>
-                    <p>Help us make this a great place for discussion by always working to improve the discussion in
-                        some way, however small. If you are not sure your post adds to the conversation, think over what
-                        you want to say and try again later.</p>
-                    <p>The topics discussed here matter to us, and we want you to act as if they matter to you, too. Be
-                        respectful of the topics and the people discussing them, even if you disagree with some of what
-                        is being said.</p>
-                    <p>One way to improve the discussion is by discovering ones that are already happening. Spend time
-                        browsing the topics here before replying or starting your own, and you’ll have a better chance
-                        of meeting others who share your interests.</p>
-                    <p><a name="agreeable"></a></p>
-                    <h2><a href="#agreeable">Be Agreeable, Even When You Disagree</a></h2>
-                    <p>You may wish to respond to something by disagreeing with it. That’s fine. But remember to
-                        <em>criticize ideas, not people</em>. Please avoid:</p>
-                    <ul>
-                        <li>Name-calling</li>
-                        <li>Ad hominem attacks</li>
-                        <li>Responding to a post’s tone instead of its actual content</li>
-                        <li>Knee-jerk contradiction</li>
-                    </ul>
-                    <p>Instead, provide reasoned counter-arguments that improve the conversation.</p>
-                    <p><a name="participate"></a></p>
-                    <h2><a href="#participate">Your Participation Counts</a></h2>
-                    <p>The conversations we have here set the tone for every new arrival. Help us influence the future
-                        of this community by choosing to engage in discussions that make this forum an interesting place
-                        to be — and avoiding those that do not.</p>
-                    <p>Discourse provides tools that enable the community to collectively identify the best (and worst)
-                        contributions: bookmarks, likes, flags, replies, edits, and so forth. Use these tools to improve
-                        your own experience, and everyone else’s, too.</p>
-                    <p>Let’s leave our community better than we found it.</p>
-                    <p><a name="flag-problems"></a></p>
-                    <h2><a href="#flag-problems">If You See a Problem, Flag It</a></h2>
-                    <p>Our <strong>referees</strong> have special authority; they are responsible for this forum. But so
-                        are you. With your help, referees can be community facilitators, not just janitors or police.
-                    </p>
-                    <p>When you see bad behavior, don’t reply. It encourages bad behavior by acknowledging it, consumes
-                        your energy, and wastes everyone’s time. <em>Just flag it</em>. If enough flags accrue, action
-                        will be taken, either automatically or by moderator intervention.</p>
-                    <p>In order to maintain our community, referees reserve the right to remove any content and any user
-                        account for any reason at any time. Referees do not preview new posts; the referees and site
-                        operators take no responsibility for any content posted by the community.</p>
-                    <p><a name="be-civil"></a></p>
-                    <h2><a href="#be-civil">Always Be Civil</a></h2>
-                    <p>Nothing sabotages a healthy conversation like rudeness:</p>
-                    <ul>
-                        <li>Be civil. Don’t post anything that a reasonable person would consider offensive, abusive, or
-                            hate speech.</li>
-                        <li>Keep it clean. Don’t post anything obscene or sexually explicit.</li>
-                        <li>Respect each other. Don’t harass or grief anyone, impersonate people, or expose their
-                            private information.</li>
-                        <li>Respect our forum. Don’t post spam or otherwise vandalize the forum.</li>
-                    </ul>
-                    <p>These are not concrete terms with precise definitions — avoid even the <em>appearance</em> of any
-                        of these things. If you’re unsure, ask yourself how you would feel if your post was featured on
-                        the front page of a major newspaper.</p>
-                    <p>This is a public platform, and search engines index these discussions. Keep the language, links,
-                        and images safe for family and friends.</p>
-                    <p><a name="keep-tidy"></a></p>
-                    <h2><a href="#keep-tidy">Keep It Tidy</a></h2>
-                    <p>Make the effort to put things in the right place, so that we can spend more time discussing and
-                        less cleaning up. So:</p>
-                    <ul>
-                        <li>Don’t start a topic in the wrong section.</li>
-                        <li>Don’t cross-post the same thing in multiple topics.</li>
-                        <li>Don’t post replies with no-content.</li>
-                        <li>Don’t divert a topic by changing it midstream.</li>
-                        <li>Don’t sign your posts — every post has your profile information attached to it.</li>
-                    </ul>
-                    <p>Rather than posting “+1” or “Agreed”, use the Like button. Rather than taking an existing topic
-                        in a radically different direction, use Reply as a Linked Topic.</p>
-                    <p><a name="stealing"></a></p>
-                    <h2><a href="#stealing">Post Only Your Own Stuff</a></h2>
-                    <p>You may not post anything digital that belongs to someone else without permission. You may not
-                        post descriptions of, links to, or methods for stealing someone’s intellectual property
-                        (software, video, audio, images), or for breaking any other law.</p>
-                    <p><a name="power"></a></p>
-                    <h2><a href="#power">Powered by You</a></h2>
-                    <p>This site is operated by your <a href='<%=about%>'>friendly local staff</a> and <em>you</em>, the
-                        community. If you have any further questions about how things should work here, open a new topic
-                        in the <a href='<%=feedback%>'>site feedback category</a> and let’s discuss! If there’s a
-                        critical or urgent issue that can’t be handled by a meta topic or flag, contact us via the <a
-                            href='<%=about%>'>staff page</a>.</p>
-                    <p><a name="tos"></a></p>
-                    <h2><a href="#tos">Terms of Service</a></h2>
-                    <p>Yes, legalese is boring, but we must protect ourselves – and by extension, you and your data –
-                        against unfriendly folks. We have a <a href='<%=Terms%>'>Terms of Service</a> describing your
-                        (and our) behavior and rights related to content, privacy, and laws. To use this service, you
-                        must agree to abide by our <a href='<%=Terms%>'>TOS</a>.</p>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+                <p>Instead, provide reasoned counter-arguments that improve the conversation.</p>
+                <p><a name="participate"></a></p>
+                <h2><a href="#participate">Your Participation Counts</a></h2>
+                <p>The conversations we have here set the tone for every new arrival. Help us influence the future
+                    of this community by choosing to engage in discussions that make this forum an interesting place
+                    to be — and avoiding those that do not.</p>
+                <p>Discourse provides tools that enable the community to collectively identify the best (and worst)
+                    contributions: bookmarks, likes, flags, replies, edits, and so forth. Use these tools to improve
+                    your own experience, and everyone else’s, too.</p>
+                <p>Let’s leave our community better than we found it.</p>
+                <p><a name="flag-problems"></a></p>
+                <h2><a href="#flag-problems">If You See a Problem, Flag It</a></h2>
+                <p>Our <strong>referees</strong> have special authority; they are responsible for this forum. But so
+                    are you. With your help, referees can be community facilitators, not just janitors or police.
+                </p>
+                <p>When you see bad behavior, don’t reply. It encourages bad behavior by acknowledging it, consumes
+                    your energy, and wastes everyone’s time. <em>Just flag it</em>. If enough flags accrue, action
+                    will be taken, either automatically or by moderator intervention.</p>
+                <p>In order to maintain our community, referees reserve the right to remove any content and any user
+                    account for any reason at any time. Referees do not preview new posts; the referees and site
+                    operators take no responsibility for any content posted by the community.</p>
+                <p><a name="be-civil"></a></p>
+                <h2><a href="#be-civil">Always Be Civil</a></h2>
+                <p>Nothing sabotages a healthy conversation like rudeness:</p>
+                <ul>
+                    <li>Be civil. Don’t post anything that a reasonable person would consider offensive, abusive, or
+                        hate speech.</li>
+                    <li>Keep it clean. Don’t post anything obscene or sexually explicit.</li>
+                    <li>Respect each other. Don’t harass or grief anyone, impersonate people, or expose their
+                        private information.</li>
+                    <li>Respect our forum. Don’t post spam or otherwise vandalize the forum.</li>
+                </ul>
+                <p>These are not concrete terms with precise definitions — avoid even the <em>appearance</em> of any
+                    of these things. If you’re unsure, ask yourself how you would feel if your post was featured on
+                    the front page of a major newspaper.</p>
+                <p>This is a public platform, and search engines index these discussions. Keep the language, links,
+                    and images safe for family and friends.</p>
+                <p><a name="keep-tidy"></a></p>
+                <h2><a href="#keep-tidy">Keep It Tidy</a></h2>
+                <p>Make the effort to put things in the right place, so that we can spend more time discussing and
+                    less cleaning up. So:</p>
+                <ul>
+                    <li>Don’t start a topic in the wrong section.</li>
+                    <li>Don’t cross-post the same thing in multiple topics.</li>
+                    <li>Don’t post replies with no-content.</li>
+                    <li>Don’t divert a topic by changing it midstream.</li>
+                    <li>Don’t sign your posts — every post has your profile information attached to it.</li>
+                </ul>
+                <p>Rather than posting “+1” or “Agreed”, use the Like button. Rather than taking an existing topic
+                    in a radically different direction, use Reply as a Linked Topic.</p>
+                <p><a name="stealing"></a></p>
+                <h2><a href="#stealing">Post Only Your Own Stuff</a></h2>
+                <p>You may not post anything digital that belongs to someone else without permission. You may not
+                    post descriptions of, links to, or methods for stealing someone’s intellectual property
+                    (software, video, audio, images), or for breaking any other law.</p>
+                <p><a name="power"></a></p>
+                <h2><a href="#power">Powered by You</a></h2>
+                <p>This site is operated by your <a href='<%=about%>'>friendly local staff</a> and <em>you</em>, the
+                    community. If you have any further questions about how things should work here, open a new topic
+                    in the <a href='<%=feedback%>'>site feedback category</a> and let’s discuss! If there’s a
+                    critical or urgent issue that can’t be handled by a meta topic or flag, contact us via the <a
+                        href='<%=about%>'>staff page</a>.</p>
+                <p><a name="tos"></a></p>
+                <h2><a href="#tos">Terms of Service</a></h2>
+                <p>Yes, legalese is boring, but we must protect ourselves – and by extension, you and your data –
+                    against unfriendly folks. We have a <a href='<%=Terms%>'>Terms of Service</a> describing your
+                    (and our) behavior and rights related to content, privacy, and laws. To use this service, you
+                    must agree to abide by our <a href='<%=Terms%>'>TOS</a>.</p>
             </div>
 
-            <div class='foot'>
-                <p> MADE BY BITS 2020</p>
-            </div>
+
+
+
+
+
+
+
+
+
+
 
 
         </div>
+
+        <div class='foot'>
+            <p> MADE BY BITS 2020</p>
+        </div>
+
+
+    </div>
     </div>
 
     <script src="/js/ui.js"></script>
 
     <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
+        function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
             } else {
-                x.style.display = "block";
+                x.className = "topnav";
             }
         }
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
+
+        function myFunction2() {
+            var x = document.getElementById("myTopnav2");
             if (x.className === "topnav") {
                 x.className += " responsive";
             } else {
@@ -236,9 +251,16 @@
         }
 
         .topnav a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav a.icon2 {
             float: right;
             display: block;
         }
+
+
     }
 
     /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
@@ -248,6 +270,11 @@
         }
 
         .topnav.responsive a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav.responsive a.icon2 {
             position: absolute;
             right: 0;
             top: 0;
@@ -292,14 +319,17 @@
     .topnav .icon {
         display: none;
     }
+    .topnav .icon2 {
+        display: none;
+    }
 
 
 
-     /* --------------- */
+    /* --------------- */
 
 
 
-     ._topnav {
+    ._topnav {
         overflow: hidden;
         background-color: #333;
         position: relative;
