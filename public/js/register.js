@@ -10,8 +10,8 @@ if(msg.innerHTML==='Successfuly Registered, Kindly Login'||msg.innerHTML==='Alre
   login.classList.remove('hidden');
   sign.classList.add('hidden');
 }else{
-  login.classList.add('hidden');
-  sign.classList.remove('hidden');
+  login.classList.remove('hidden');
+  sign.classList.add('hidden');
 }
 choice1.addEventListener('click',function(){
   login.classList.remove('hidden');

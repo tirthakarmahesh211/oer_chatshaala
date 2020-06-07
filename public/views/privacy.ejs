@@ -13,19 +13,31 @@
 </head>
 
 <body>
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
+    <div class="topnav" id="myTopnav1">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
-        <a href='<%=about%>' class="_active">About</a>
+        
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='<%=home%>'>Home</a>
-            <a href='<%=blog%>'>Blogs</a>
+            <a href='<%=about%>' class="active">About</a>
+            <%if(curr_user){%>
+                <a href='<%=home%>'>Home</a>
+                <%}%>
+           <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
+            <a href='/'>Public Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
-            <a href='<%=profile%>'>Profile</a>
-            <a href="<%=logout%>">Logout</a>
+            <%if(curr_user){%>
+                <a href='<%=profile%>'>Profile</a>
+                <%}%>
+            <%if(!curr_user){%>
+                <a href='<%=home%>'>Login</a>
+                <%}%>
+            <%if(curr_user){%>
+                <a href="<%=logout%>">Logout</a>
+                <%}%>
+
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
@@ -38,13 +50,14 @@
                 <hr>
                 </hr>
 
-                <div class="topnav" id="myTopnav">
+                <div class="topnav" id="myTopnav2">
+                    <a href='<%=privacy%>' class="active">Privacy</a>
                     <a href='<%=about%>'>About</a>
                     <a href='<%=FAQ%>'>FAQ</a>
                     <a href='<%=Terms%>'>Terms of Service</a>
-                    <a href='<%=privacy%>' class="active">Privacy</a>
+                    
 
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                    <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
                         &#x2630</i>
                     </a>
                 </div>
@@ -154,16 +167,17 @@
     <script src="/js/ui.js"></script>
 
     <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
+        function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
             } else {
-                x.style.display = "block";
+                x.className = "topnav";
             }
         }
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
+
+        function myFunction2() {
+            var x = document.getElementById("myTopnav2");
             if (x.className === "topnav") {
                 x.className += " responsive";
             } else {
@@ -185,9 +199,16 @@
         }
 
         .topnav a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav a.icon2 {
             float: right;
             display: block;
         }
+
+
     }
 
     /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
@@ -197,6 +218,11 @@
         }
 
         .topnav.responsive a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav.responsive a.icon2 {
             position: absolute;
             right: 0;
             top: 0;
@@ -242,7 +268,9 @@
         display: none;
     }
 
-
+    .topnav .icon2 {
+        display: none;
+    }
     /* --------------- */
 
 

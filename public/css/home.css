@@ -21,7 +21,7 @@
     z-index: 0;
     width: 30%;
     height: 95%;
-    background-color: #1b262c;
+    background-color: #f5f5dc;
     position:absolute;
     left:0;
     bottom: 0;
@@ -33,13 +33,53 @@
     z-index: 0;
     position: absolute;
     display: inline-block;
-    background-color: #0c2233;
+    background-color: white;
     /*background: linear-gradient(180deg,  #2EC4B6, #9EB1E9);  #3b3e49;*/
     height: 95%;
     bottom: 0;
     right:0;
     width: 70%;
   }
+ 
+  div.edit {
+    width:90%;
+    display:inline-block;
+      min-height: 25px;
+      background: #f5f5dc;
+      border-radius: 5px;
+      outline: none;
+        margin-bottom: 5px;
+      font-size: 17px;
+  }
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder) }
+.footer{
+  position: fixed;
+  bottom:0;
+  display: inline-block;
+  width: 70%;
+  background-color: #f5f5dc;
+}
+.attachmentbtn{
+  background-color: #f5f5dc;
+  border: none;
+  outline: none;
+}
+.fa-paperclip{
+  color: #393e46;
+}
+.text-area{
+  resize:none;
+  display:inline-block;
+  border : none;
+	width:60%;
+	height:25px;
+	border-radius: 5px;
+	font-size:17px;
+  outline: none;
+  margin-top: 6px;
+  background-color: #f5f5dc;
+}
 
 
   /* The sidebar menu */
@@ -85,14 +125,14 @@
 .openbtn {
   font-size: 20px;
   cursor: pointer;
-  background-color:#1b262c;
-  color: white;
+  background-color: #f5f5dc;
+  color: #393e46;
   padding: 10px 15px;
   border: none;
 }
 
 .openbtn:hover {
-  background-color: #444;
+  background-color: #ececae;
 }
 
 
@@ -105,24 +145,26 @@
 .search-bar{
   width: 23%;
   margin-left:1rem;
-  margin-top: 12px;
+  margin-top: 7px;
   padding-top: 10px;
   float: right;
   position: fixed;
+  border: none;
   border-radius: 5px;
-  background-color: #393e46;
-  border: 2px solid #393e46;
+  background-color: white;
+  /*border: 2px solid #393e46; */
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: white;
+  color: #393e46;
   opacity: 1; /* Firefox */
 }
 input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: white;
+  color: #393e46;
   opacity: 1; /* Firefox */
 }
 input[type=text]{
-  color: white;
+  color: #393e46;
+  outline: none;
 }
 .header{
   position:fixed;
@@ -165,3 +207,4 @@ input[type=text]{
     display: none;
   }
 }
+

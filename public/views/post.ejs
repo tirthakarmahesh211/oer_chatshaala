@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>STEMChat</title>
+    <link rel="stylesheet" href="/css/pure_css.css">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+    <!-- <link rel="stylesheet" href="css/blog.css"> -->
+</head>
+
+<body>
+
+    <div class="topnav" id="myTopnav1">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
+            <i>☰</i>
+        </a>
+      
+        <!-- Navigation links (hidden by default) -->
+        <div id="myLinks">
+            <a href="javascript:history.back()"  class="active">Go back to Group</a>
+            <%if(curr_user){%>
+                <a href='<%=home%>'>Home</a>
+                <%}%>
+            <a href='<%=about%>'>About</a>
+            <a href='<%=blog%>'>Blogs</a>
+            <a href='<%=project%>'>Projects</a>
+            <a href="/">Public Groups</a>
+            <a href='<%=feedback%>'>Feedback</a>
+            <%if(curr_user){%>
+                <a href='<%=profile%>'>Profile</a>
+                <%}%>
+            <%if(!curr_user){%>
+                <a href='<%=home%>'>Login</a>
+                <%}%>
+            <%if(curr_user){%>
+                <a href="<%=logout%>">Logout</a>
+                <%}%>
+        </div>
+        <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
+
+    </div>
+
+    <div id="layout" class="pure-g">
+        <div class="sidebar pure-u-1">
+            <div class="header">
+                <h1 class="brand-title">Post</h1>
+                <h2 class="brand-tagline"></h2>
+                <h4>
+                   
+                </h4>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <!-- <a class="pure-button" href="http://purecss.io">Pure</a> -->
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a class="pure-button" href="http://yuilibrary.com">YUI Library</a> -->
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div id="main">
+
+            <div class="content pure-u-1 pure-u-md-1">
+                <div>
+
+                <!-- A wrapper for all the blog posts -->
+                <div class="posts">
+                    <%for(var i=0;i<body.post_stream.posts.length;i++){%>
+                        <h3 class="subhead">@<%=body.post_stream.posts[i].username%> <%=body.post_stream.posts[i].name%></h3>
+                        
+                        <div>
+                            <%-body.post_stream.posts[i].cooked%>
+
+                        </div>
+                        <br>
+                        <hr></hr>
+
+
+                    <%}%>
+                
+              
+
+                <div class="footer">
+                    <div class="pure-menu pure-menu-horizontal">
+
+                        <center>
+                            <div class='foot'>
+                                <p> MADE BY BITS 2020</p>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="/js/ui.js"></script>
+
+    <script>
+          function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            // Hide all elements with class="tabcontent" by default */
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
+
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
+
+            // Add the specific color to the button used to open the tab content
+            elmnt.style.backgroundColor = color;
+        }
+
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
+</body>
+
+
+
+<!-- added here to be condeensed later -->
+
+
+<style>
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+svg{
+    display: none;
+}
+pre {
+  white-space: pre-line;
+  word-wrap: break-word;
+  text-align: justify;
+}
+span{
+    display: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.emoji{
+    height: 1em;
+    width: 1em;
+}
+    .subhead{
+        color:black;
+        background-color: lightgray;
+        font-size:larger;
+        font-weight: 200;
+    }
+    body {
+        color:	#484848;
+        background-color: beige;
+        font: 1em sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+        color: blue;
+    }
+
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+  margin-top: 1em;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color:black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+  background-color:white;
+  margin-top: 1em;
+}
+
+
+    .foot {
+        font-size: 87.5%;
+        border-top: 1px solid #000;
+        margin-top: 0em;
+        padding: 1.1429em;
+        background: #fafafa;
+    }
+
+    a:hover,
+    a:focus {
+        text-decoration: underline;
+    }
+
+    h3 {
+        font-weight: 100;
+    }
+
+    /* LAYOUT CSS */
+    .pure-img-responsive {
+        max-width: 100%;
+        height: auto;
+    }
+
+    #layout {
+        padding: 0;
+    }
+
+    .header {
+        text-align: center;
+        top: auto;
+        margin: auto;
+    }
+
+    .sidebar {
+        background: rgb(13, 150, 66);
+        color: #fff;
+    }
+
+    .brand-title,
+    .brand-tagline {
+        margin: 0;
+    }
+
+    .brand-title {
+        text-transform: uppercase;
+    }
+
+    .brand-tagline {
+        font-weight: 300;
+        color: rgb(176, 202, 219);
+    }
+
+    .nav-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .nav-item {
+        display: inline-block;
+        *display: inline;
+        zoom: 1;
+    }
+
+    .nav-item a {
+        background: transparent;
+        border: 2px solid rgb(176, 202, 219);
+        color: #fff;
+        margin-top: 1em;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        font-size: 85%;
+    }
+
+    .nav-item a:hover,
+    .nav-item a:focus {
+        border: 2px solid rgb(61, 146, 201);
+        text-decoration: none;
+    }
+
+    .content-subhead {
+        text-transform: uppercase;
+        color: #aaa;
+        border-bottom: 1px solid #eee;
+        padding: 0.4em 0;
+        font-size: 80%;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+    }
+
+    #main {
+        background-color: #fff;
+        margin: auto;
+        width: 80%;
+        display: inline-block;
+        align-content: center;
+        align-items: center;
+        position: relative;
+        border: 5px;
+        border-radius: 30px;
+    }
+
+    .content {
+        padding: 2em 1em 0;
+    }
+
+    .post {
+        padding-bottom: 2em;
+    }
+
+    .post-title {
+        font-size: 2em;
+        color: #222;
+        margin-bottom: 0.2em;
+    }
+
+    .post-avatar {
+        border-radius: 50px;
+        float: right;
+        margin-left: 1em;
+    }
+
+    .post-description {
+        font-family: Georgia, "Cambria", serif;
+        color: #444;
+        line-height: 1em;
+        font-weight: 200;
+        font-size: large;
+        text-align: justify;
+    }
+
+    .post-meta {
+        color: #999;
+        font-size: 90%;
+        margin: 0;
+    }
+
+    .post-category {
+        margin: 0 0.1em;
+        padding: 0.3em 1em;
+        color: #fff;
+        background: #999;
+        font-size: 80%;
+    }
+
+    .post-category-design {
+        background: #5aba59;
+    }
+
+    .post-category-pure {
+        background: #4d85d1;
+    }
+
+    .post-category-yui {
+        background: #8156a7;
+    }
+
+    .post-category-js {
+        background: #df2d4f;
+    }
+
+    .post-images {
+        margin: 1em 0;
+    }
+
+    .post-image-meta {
+        margin-top: -3.5em;
+        margin-left: 1em;
+        color: #fff;
+        text-shadow: 0 1px 1px #333;
+    }
+
+    .footer {
+        padding: 1em 0;
+    }
+
+    .footer a {
+        color: rgb(7, 7, 7);
+        font-size: 80%;
+    }
+
+    .footer .pure-menu a:hover,
+    .footer .pure-menu a:focus {
+        background: none;
+    }
+
+    @media(min-width: 48em) {
+        .foot {
+            width: 100%;
+            height: auto;
+        }
+
+        .content {
+            padding: 2em 10em 10em;
+        }
+
+        .header {
+            text-align: center;
+            top: auto;
+            padding: 2em;
+            margin: auto;
+
+
+        }
+
+        #main {
+            width: 80%;
+            height: auto;
+
+        }
+    }
+
+    .tab {
+        display: block;
+        width: 115px;
+        height: 25px;
+        background: grey;
+
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .para {
+        text-align: justify;
+        font-size: 20px;
+
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+
+    }
+
+    #plus {
+        height: 6rem;
+        width: 6rem;
+        position: relative;
+        float: right;
+
+    }
+    #plus2 {
+        border-radius: 50%;
+        position: relative;
+        float: right;
+
+    }
+
+    @media screen and (max-width: 600px) {
+        .topnav a:not(:first-child) {
+            display: none;
+        }
+
+        .topnav a.icon {
+            float: left;
+            display: block;
+        }
+    }
+
+    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+    @media screen and (max-width: 600px) {
+        .topnav.responsive {
+            position: relative;
+        }
+
+        .topnav.responsive a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav.responsive a {
+            float: none;
+            display: block;
+            text-align: left;
+        }
+    }
+
+    a.link_head {
+        color: black;
+    }
+
+    .topnav {
+        background-color: #333;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Add an active class to highlight the current page */
+    .topnav a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav .icon {
+        display: none;
+    }
+
+
+
+    /* --------------- */
+
+
+
+    ._topnav {
+        overflow: hidden;
+        background-color: #333;
+        position: relative;
+    }
+
+    ._topnav #myLinks {
+        display: none;
+    }
+
+    /* Style navigation menu links */
+    ._topnav a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+        background-color: #333;
+        text-align: center;
+    }
+
+    /* Style the hamburger menu */
+    ._topnav a._icon {
+        background: #333;
+        float: left;
+        display: block;
+    }
+
+    /* Add a grey background color on mouse-over */
+    ._topnav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Style the active link (or home/logo) */
+    ._topnav a._active {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+    }
+</style>
+
+</html>

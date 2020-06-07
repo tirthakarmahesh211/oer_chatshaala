@@ -23,9 +23,14 @@
       <a href='<%=about%>'>About</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
+      <a href="/">Public Groups</a>
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
-      <a href="<%=logout%>">Logout</a>
+
+      
+        <a href="<%=logout%>">Logout</a>
+        
+
     </div>
 
        <div class="header">
@@ -33,10 +38,14 @@
         <input class="search-bar" type="text" placeholder="Search..">
        </div>
 
-
   </div>
   <div class="column right" >
-
+      <div class="footer">
+         <button class="attachmentbtn"><i class="fa fa-2x fa-paperclip" aria-hidden="true"></i></button> 
+         <div data-placeholder="Type your message" contenteditable="true" class="edit"></div>
+       <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+      </div>
+   
   </div>
 
       <!-- Navigation links (hidden by default) -->
