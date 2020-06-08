@@ -56,8 +56,18 @@ self.addEventListener('activate',(eve)=>{
   );
 });
 
-self.addEventListener('fetch',async (eve)=>{
-  eve.respondWith(
-    fetch(eve.request).catch(()=>caches.match(eve.request))
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    fetch(event.request).then(function(response){
+      if (!response.ok) {
+      throw Error(response.statusText);
+      }
+      return caches.open(cacheName).then(function(cache){
+        cache.put(event.request,response.clone());
+        return response;
+      });
+    }).catch(function() {
+      return caches.match(event.request);
+    })
   );
 });
