@@ -8,6 +8,7 @@ const func=require('./functions.js');
 const md5 = require('md5');
 const session = require('express-session');
 
+
 const home = '/home';
 const feedback = '/feedback';
 const about = '/about';
@@ -24,7 +25,6 @@ const badges='/badges';
 const messages='/messages';
 const pref='/preferences';
 
-
 app.set('views','./public/views');
 app.set('view engine', 'ejs');
 app.use(parser.urlencoded({
@@ -39,7 +39,6 @@ app.use(session({
         maxAge: 60*60*1000
     }
 }));
-
 
 //Starting local server
 app.listen(3000, function (req, res) {
@@ -239,7 +238,6 @@ app.get('/logout', function (req, res) {
 //NEWLY_ADDED
 app.get("/", function (req, res) {
   let curr_user=req.session.user;
-
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile,curr_user);

@@ -1,6 +1,8 @@
 //jshint esversion:8
 const cacheName='StemChat_app';
+
 const staticAssets=[
+  './',
   './css/blog.css',
   './css/feedback.css',
   './css/home.css',
@@ -58,16 +60,17 @@ self.addEventListener('activate',(eve)=>{
 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
-    fetch(event.request).then(function(response){
-      if (!response.ok) {
-      throw Error(response.statusText);
-      }
-      return caches.open(cacheName).then(function(cache){
-        cache.put(event.request,response.clone());
-        return response;
-      });
-    }).catch(function() {
-      return caches.match(event.request);
-    })
+    fetch(event.request)||caches.match(event.request).then(res=>{return res;})
   );
+});
+
+self.addEventListener('push',function(eve){
+  if(eve && eve.data){
+  const data=eve.data;
+  var payload = eve.data ? eve.data.text() : 'No Text Body';
+  eve.waitUntil(self.registration.showNotification(data.title,{
+    body:payload,
+    icon:'/public/images/icon/icon-72x72.png'||null
+  }));
+}
 });

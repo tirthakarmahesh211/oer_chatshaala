@@ -233,8 +233,8 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
             response.on('end', function () {
               body3 = JSON.parse(body3);
               //console.log("3");
-              console.log(body3);
-              console.log("hello");
+              //console.log(body3);
+              //console.log("hello");
               //console.log(members);
               res.render("group.ejs", {
                curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
