@@ -63,24 +63,12 @@ self.addEventListener('activate',(eve)=>{
 
 self.addEventListener('fetch', function(event) {
   const url=event.request.url;
-  if(url.origin === location.origin){
+
     event.respondWith(
     fetch(event.request).catch(function(){
       return caches.match(event.request);
     }));
-  }else{
-    event.respondWith(
-      caches.open('dynamic_stem_app').then(function(cache){
-        return cache.match(event.request).then(function(response){
-          let fetchPromise = fetch(event.request).then(function(res){
-            cache.put(event.request,res.clone());
-            return res;
-          });
-          return response||fetchPromise;
-        });
-      })
-    );
-  }
+  
 });
 
 self.addEventListener('push',function(eve){

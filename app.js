@@ -286,24 +286,24 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
     response.on('end', function () {
       body3 = JSON.parse(body3);
       res.json(body3);
-  });     
+  });
       console.log(body3);
-           
+
       });
 
     });
 
 
 app.get("/group/:name/post/load/:offset", function (req, res) {
- 
+
   let curr_user = req.session.user;
   var id = req.params.name;
   var i=req.params.offset;
-  
+
    var body3='';
    var url2 = secrets.url + 'groups/' + id + '/posts' + '.json?'+'before_post_id='+i;
    console.log(url2);
-  
+
   var options = {
     method: 'GET',
     headers: {
@@ -318,10 +318,9 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
     response.on('end', function () {
       body3 = JSON.parse(body3);
       res.json(body3);
-  });     
+  });
      // console.log(body3);
-           
+
       });
 
     });
-
