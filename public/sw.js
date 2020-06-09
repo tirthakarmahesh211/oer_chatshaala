@@ -7,10 +7,12 @@ const staticAssets=[
   './css/feedback.css',
   './css/home.css',
   './css/register.css',
+  './css/quill.css',
   './css/pure_css.css',
   './js/home.js',
   './js/register.js',
   './js/ui.js',
+  './js/quill.js',
   './manifest.webmanifest',
   './views/about.ejs',
   './views/activity.ejs',
@@ -30,7 +32,8 @@ const staticAssets=[
   './favicon.ico',
   './plus.png',
   './stemgames.png',
-  './views/groups.ejs'
+  './views/groups.ejs',
+  './views/group.ejs'
 ];
 
 
@@ -59,9 +62,25 @@ self.addEventListener('activate',(eve)=>{
 });
 
 self.addEventListener('fetch', function(event) {
-  event.respondWith(
-    fetch(event.request)||caches.match(event.request).then(res=>{return res;})
-  );
+  const url=event.request.url;
+  if(url.origin === location.origin){
+    event.respondWith(
+    fetch(event.request).catch(function(){
+      return caches.match(event.request);
+    }));
+  }else{
+    event.respondWith(
+      caches.open('dynamic_stem_app').then(function(cache){
+        return cache.match(event.request).then(function(response){
+          let fetchPromise = fetch(event.request).then(function(res){
+            cache.put(event.request,res.clone());
+            return res;
+          });
+          return response||fetchPromise;
+        });
+      })
+    );
+  }
 });
 
 self.addEventListener('push',function(eve){

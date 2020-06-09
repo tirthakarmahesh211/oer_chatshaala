@@ -23,6 +23,7 @@
     height: 95%;
     background-color: #f5f5dc;
     position:absolute;
+    overflow-y: scroll;
     left:0;
     bottom: 0;
     padding-left: 0;
@@ -45,7 +46,9 @@
     width:90%;
     display:inline-block;
       min-height: 25px;
-      background: grey;
+      max-height: 50%;
+      background: white;
+      overflow-y: scroll;
       border-radius: 5px;
       outline: none;
         margin-bottom: 5px;
@@ -55,13 +58,21 @@
     content:attr(data-placeholder) }
 .footer{
   position: fixed;
+  align-items: center;
+  align-content: center;
   bottom:0;
+  min-height: 25%;
+  max-height: 50%;
   display: inline-block;
+  overflow-y: scroll;
   width: 70%;
-  background-color: #f5f5dc;
+  background-color: grey;
+}
+#chat{
+  max-height:75%;
 }
 .attachmentbtn{
-  background-color: #f5f5dc;
+  background-color: grey;
   border: none;
   outline: none;
 }
@@ -73,7 +84,7 @@
   display:inline-block;
   border : none;
 	width:60%;
-	height:25px;
+	height:100%;
 	border-radius: 5px;
 	font-size:17px;
   outline: none;
@@ -141,9 +152,11 @@
   .sidebar {padding-top: 15px;}
   .sidebar a {font-size: 18px;}
 }
-
+.search-but{
+ margin: 5px;
+}
 .search-bar{
-  width: 23%;
+  width: 20%;
   margin-left:1rem;
   margin-top: 7px;
   padding-top: 10px;

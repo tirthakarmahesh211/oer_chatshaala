@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel ="stylesheet" href="css/home.css">
       <link rel="stylesheet" href="/css/pure_css.css">
+      <link rel="stylesheet" href="/css/quill.css">
 </head>
 
 <body>
@@ -35,14 +36,26 @@
 
        <div class="header">
         <button class="openbtn" onclick="openNav()">☰</button>
+        <button type="button" class="search-but" name="button">GO</button>
         <input class="search-bar" type="text" placeholder="Search..">
        </div>
+       <div class="">
+        ighejhf
+       </div>
+
 
   </div>
   <div class="column right" >
+      <div class="chatArea" id='chat'>
+
+      </div>
       <div class="footer">
-         <button class="attachmentbtn"><i class="fa fa-2x fa-paperclip" aria-hidden="true"></i></button>
-         <div data-placeholder="Type your message" contenteditable="true" class="edit"></div>
+         <center>
+           <div class="toolbar"></div>
+          <div contenteditable="true" class="edit" id='editor'></div>
+         </center>
+         <button type="button" name="post" id='saveDelta'>POST</button>
+
        <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
       </div>
 
@@ -65,6 +78,45 @@
             x
         }
     }
+</script>
+<script src="/js/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+var quill_c = new Quill('#chat', {
+  modules:{
+    toolbar:false
+  },
+  placeholder:"",
+  scrollingContainer: '#chat',
+});
+quill_c.enable(false);
+  var options=[
+    ['bold','italics','underline','strike'],
+    ['blockquote','code-block'],
+    [{'header':1},{'header':2}],
+    [{'list':'ordered'},{'list':'bullet'}],
+     [{ 'script': 'sub'}, { 'script': 'super' }],
+     [{ 'indent': '-1'}, { 'indent': '+1' }],
+ [{ 'direction': 'rtl' }],
+ [{ 'color': [] }, { 'background': [] }],
+ [{ 'font': [] }],
+ [{ 'align': [] }],
+ ['link','image','video']
+  ];
+  var quill = new Quill('#editor', {
+    modules:{
+      toolbar:options
+    },
+    placeholder:"Type your message",
+    scrollingContainer: '#editor',
+    theme: 'snow'
+  });
+  document.getElementById('saveDelta').addEventListener('click',function(){
+    quill_c.setContents(quill.getContents());
+    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
+    quill.setContents('');
+  });
 </script>
 </body>
 <style>
