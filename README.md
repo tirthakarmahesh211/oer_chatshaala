@@ -8,9 +8,10 @@ package.json has the required dependencies. Use npm install to install all the r
  - Make sure you have Node.js installed
  - Using the terminal/command line, navigate to this directory
  - Run 'npm install' on the command line to install required dependencies as mentioned in packasge.json
- - Rename serets_example.js as secrets.js in the root or main directory/folder.
+ - Rename secrets_example.js as secrets.js in the root or main directory/folder.
  - Fill in the required fields in the secrets.js file and save it.
+ - Generate Web-Push Vapid keys as explained in the secrets_example.js file
  - Run 'node app.js' on the command line.
- - Open the browser and type 'http://localhost:3000/' to test the app. 
- 
-The App does nothing as yet, just some barebones! 
+ - Open the browser and type 'http://localhost:3000/' to test the app.
+
+The App does nothing as yet, just some barebones!
