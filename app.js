@@ -265,3 +265,12 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
 });
+ 
+
+app.post("/home",function(req,res){
+  let user=req.session.user;
+  var item=req.body.newGroup;
+  console.log(item);
+  func.createGroup(req,res,item);
+  res.redirect("/home");
+});

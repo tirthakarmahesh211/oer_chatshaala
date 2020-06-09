@@ -9,8 +9,8 @@ module.exports = {
   addNewUser: addNewUser,
   fetchGroups: fetchGroups,
   fetch_Group: fetch_Group,
-  fetchPosts:fetchPosts
-
+  fetchPosts:fetchPosts,
+  createGroup: createGroup
 };
 
 function resetCurrUser() {
@@ -280,4 +280,43 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
   }).on('error', function () {
     console.log('errorr');
   });
+}
+
+function createGroup(req, res, item){
+  var url=secrets.url+"admin/groups";
+  var options = {
+    method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  var data = {
+    "group[name]": item};
+  data = querystring.stringify(data);
+  var request = https.request(url, options, function (response) {
+    console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', function (chunk) {
+        body += chunk;
+      });
+      response.on('end', function () {
+        var result = JSON.parse(body);
+        console.log(result);
+        if (result.basic_group.id !=null) {
+          {console.log('yes');
+          }
+        } else {
+          console.log('no');
+        }
+      });
+      response.on('error', function () {
+        console.log('error');
+      });
+    } 
+    else   console.log('no');
+  });
+  request.write(data);
+  request.end();
 }
