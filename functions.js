@@ -9,8 +9,8 @@ module.exports = {
   addNewUser: addNewUser,
   fetchGroups: fetchGroups,
   fetch_Group: fetch_Group,
-  fetchPosts:fetchPosts
-
+  fetchPosts:fetchPosts,
+  createGroup: createGroup
 };
 
 function resetCurrUser() {
@@ -233,8 +233,8 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
             response.on('end', function () {
               body3 = JSON.parse(body3);
               //console.log("3");
-              console.log(body3);
-              console.log("hello");
+              //console.log(body3);
+              //console.log("hello");
               //console.log(members);
               res.render("group.ejs", {
                curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
@@ -275,9 +275,84 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
       console.log(body.post_stream.posts);
 
      // console.log(groups);
-     res.send("chala");
+     res.render("post.ejs", {
+      curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body
+    });
     });
   }).on('error', function () {
     console.log('errorr');
   });
 }
+
+<<<<<<< HEAD
+function createGroup(req, res, item){
+  var url=secrets.url+"admin/groups";
+  var options = {
+    method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  var data = {
+    "group[name]": item};
+  data = querystring.stringify(data);
+  var request = https.request(url, options, function (response) {
+    console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', function (chunk) {
+        body += chunk;
+      });
+      response.on('end', function () {
+        var result = JSON.parse(body);
+        console.log(result);
+        if (result.basic_group.id !=null) {
+          {console.log('yes');
+          }
+        } else {
+          console.log('no');
+        }
+      });
+      response.on('error', function () {
+        console.log('error');
+      });
+    } 
+    else   console.log('no');
+  });
+  request.write(data);
+  request.end();
+}
+=======
+// function get_more(req, res, home, about, blog, project, feedback, logout, profile,id,curr_user,offset){
+//   var body3='';
+//   var url2 = secrets.url + 'groups/' + id + '/members' + '.json'+"?offset="+offset+"&order=&desc=&filter=";
+//   var options = {
+//     method: 'GET',
+//     headers: {
+//       'Api-Key': secrets.key,
+//       'Api-Username': 'system'
+//     }
+//   };
+//   https.get(url2, options, function (response) {
+//     response.on('data', function (data) {
+//       body3 += data;
+
+//     });
+//     response.on('end', function () {
+//       body3 = JSON.parse(body3);
+     
+//       console.log(body3);
+//       // res.render("group.ejs", {
+//       //   curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
+//       //  });
+      
+
+      
+//       });
+
+//     });
+
+
+// }
+>>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e

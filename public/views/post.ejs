@@ -18,7 +18,7 @@
         <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
-      
+
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
             <a href="javascript:history.back()"  class="active">Go back to Group</a>
@@ -28,7 +28,7 @@
             <a href='<%=about%>'>About</a>
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
-            <a href="/">Public Groups</a>
+            <a href="/">Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
                 <a href='<%=profile%>'>Profile</a>
@@ -50,7 +50,7 @@
                 <h1 class="brand-title">Post</h1>
                 <h2 class="brand-tagline"></h2>
                 <h4>
-                   
+
                 </h4>
 
                 <nav class="nav">
@@ -75,7 +75,7 @@
                 <div class="posts">
                     <%for(var i=0;i<body.post_stream.posts.length;i++){%>
                         <h3 class="subhead">@<%=body.post_stream.posts[i].username%> <%=body.post_stream.posts[i].name%></h3>
-                        
+
                         <div>
                             <%-body.post_stream.posts[i].cooked%>
 
@@ -85,16 +85,18 @@
 
 
                     <%}%>
-                
-              
+
+
 
                 <div class="footer">
                     <div class="pure-menu pure-menu-horizontal">
 
                         <center>
-                            <div class='foot'>
-                                <p> MADE BY BITS 2020</p>
-                            </div>
+                          <!--
+                          <div class='foot'>
+                              <p> MADE BY BITS 2020</p>
+                          </div>
+                          -->
                         </center>
                     </div>
                 </div>

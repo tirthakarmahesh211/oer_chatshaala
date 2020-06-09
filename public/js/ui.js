@@ -47,3 +47,7 @@
     document.addEventListener('click', handleEvent);
 
 }(this, this.document));
+
+window.addEventListener('offline',function(){
+  alert('You Are Offline');
+});

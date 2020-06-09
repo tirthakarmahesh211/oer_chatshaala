@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel ="stylesheet" href="css/home.css">
       <link rel="stylesheet" href="/css/pure_css.css">
+      <link rel="stylesheet" href="/css/quill.css">
 </head>
 
 <body>
@@ -20,38 +21,70 @@
   <div class="column left" >
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
+     
+      <a href="#" id="addGroup">New group</a>
       <a href='<%=about%>'>About</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
-      <a href="/">Public Groups</a>
+      <a href="/">Groups</a>
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
+<<<<<<< HEAD
+=======
 
-      
+
+>>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e
         <a href="<%=logout%>">Logout</a>
-        
+
 
     </div>
 
        <div class="header">
         <button class="openbtn" onclick="openNav()">☰</button>
+        <button type="button" class="search-but" name="button">GO</button>
         <input class="search-bar" type="text" placeholder="Search..">
        </div>
+       <div class="">
+        ighejhf
+       </div>
+
 
   </div>
   <div class="column right" >
+      <div class="chatArea" id='chat'>
+
+      </div>
       <div class="footer">
+<<<<<<< HEAD
          <button class="attachmentbtn"><i class="fa fa-2x fa-paperclip" aria-hidden="true"></i></button> 
          <div data-placeholder="Type your message" contenteditable="true" class="edit"></div>
+=======
+         <center>
+           <div class="toolbar"></div>
+          <div contenteditable="true" class="edit" id='editor'></div>
+         </center>
+         <button type="button" name="post" id='saveDelta'>POST</button>
+
        <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+>>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e
       </div>
-   
+
   </div>
 
-      <!-- Navigation links (hidden by default) -->
+      <div id="myModal" class="modal">
 
-      <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
-
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form action="/home" method="POST">
+            <h2>Enter the Group Name</h2>
+            <input type="text" name="newGroup" autocomplete="off"> <br>
+            <button type="submit">Create</button>
+          </form>
+        
+        </div>
+      
+      </div>
 
 
 <script src="/js/home.js"></script>
@@ -65,6 +98,73 @@
             x
         }
     }
+    // Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("addGroup");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+
+
+</script>
+<script src="/js/quill.js"></script>
+
+<!-- Initialize Quill editor -->
+<script>
+var quill_c = new Quill('#chat', {
+  modules:{
+    toolbar:false
+  },
+  placeholder:"",
+  scrollingContainer: '#chat',
+});
+quill_c.enable(false);
+  var options=[
+    ['bold','italics','underline','strike'],
+    ['blockquote','code-block'],
+    [{'header':1},{'header':2}],
+    [{'list':'ordered'},{'list':'bullet'}],
+     [{ 'script': 'sub'}, { 'script': 'super' }],
+     [{ 'indent': '-1'}, { 'indent': '+1' }],
+ [{ 'direction': 'rtl' }],
+ [{ 'color': [] }, { 'background': [] }],
+ [{ 'font': [] }],
+ [{ 'align': [] }],
+ ['link','image','video']
+  ];
+  var quill = new Quill('#editor', {
+    modules:{
+      toolbar:options
+    },
+    placeholder:"Type your message",
+    scrollingContainer: '#editor',
+    theme: 'snow'
+  });
+  document.getElementById('saveDelta').addEventListener('click',function(){
+    quill_c.setContents(quill.getContents());
+    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
+    quill.setContents('');
+  });
 </script>
 </body>
 <style>
