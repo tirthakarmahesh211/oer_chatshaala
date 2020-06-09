@@ -7,7 +7,7 @@ const secrets=require('./secrets.js');
 const func=require('./functions.js');
 const md5 = require('md5');
 const session = require('express-session');
-
+const https=require("https");
 
 const home = '/home';
 const feedback = '/feedback';
@@ -263,3 +263,65 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
 });
+
+
+app.get("/group/:topic/:id/:offset", function (req, res) {
+  let curr_user = req.session.user;
+  var id = req.params.topic;
+  var i=req.params.offset;
+  console.log("ioj");
+  var body3='';
+  var url2 = secrets.url + 'groups/' + id + '/members' + '.json'+"?offset="+i+"&order=&desc=&filter=";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+      res.json(body3);
+  });     
+      console.log(body3);
+           
+      });
+
+    });
+
+
+app.get("/group/:name/post/load/:offset", function (req, res) {
+ 
+  let curr_user = req.session.user;
+  var id = req.params.name;
+  var i=req.params.offset;
+  
+   var body3='';
+   var url2 = secrets.url + 'groups/' + id + '/posts' + '.json?'+'before_post_id='+i;
+   console.log(url2);
+  
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+      res.json(body3);
+  });     
+     // console.log(body3);
+           
+      });
+
+    });
+

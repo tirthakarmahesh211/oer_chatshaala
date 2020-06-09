@@ -275,9 +275,43 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
       console.log(body.post_stream.posts);
 
      // console.log(groups);
-     res.send("chala");
+     res.render("post.ejs", {
+      curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body
+    });
     });
   }).on('error', function () {
     console.log('errorr');
   });
 }
+
+// function get_more(req, res, home, about, blog, project, feedback, logout, profile,id,curr_user,offset){
+//   var body3='';
+//   var url2 = secrets.url + 'groups/' + id + '/members' + '.json'+"?offset="+offset+"&order=&desc=&filter=";
+//   var options = {
+//     method: 'GET',
+//     headers: {
+//       'Api-Key': secrets.key,
+//       'Api-Username': 'system'
+//     }
+//   };
+//   https.get(url2, options, function (response) {
+//     response.on('data', function (data) {
+//       body3 += data;
+
+//     });
+//     response.on('end', function () {
+//       body3 = JSON.parse(body3);
+     
+//       console.log(body3);
+//       // res.render("group.ejs", {
+//       //   curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body, members: members,posts:body3
+//       //  });
+      
+
+      
+//       });
+
+//     });
+
+
+// }
