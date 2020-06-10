@@ -276,6 +276,7 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
     //  console.log(body.post_stream.posts);
 
      // console.log(groups);
+     console.log(body);
      res.render("post.ejs", {
       curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, body: body
     });

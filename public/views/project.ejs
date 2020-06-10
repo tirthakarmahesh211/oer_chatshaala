@@ -174,149 +174,42 @@
 
 
                     </div>
+                    <%for(var i=0;i<projects.topics.length;i++){%>
                     <div class="posts">
-                        <h1 class="content-subhead"></h1>
+                       
 
                         <!-- A single blog post -->
                         <section class="post">
                             <header class="post-header">
 
-                                <a href="http://google.com" data-topic-id="3682" class="link_head">
-                                    <h1>
-                                        Invitation Game: Mapping Mango Trees Across the Country
+                                <a href="/post/t/<%=projects.topics[i].slug%>/<%=projects.topics[i].id%>/22" class="link_head">
+                                    <h3>
+                                       &#9672 <%=projects.topics[i].title%>
+                                      
+                                   
                                 </a>
-                                <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
-
-
+                                <%if(projects.topics[i].image_url!=null){%>
+                                <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
+                                    src=<%=projects.topics[i].image_url%>>
+                                <%}%>
+                            </h3>
 
 
                             </header>
 
                             <div class="post-description">
-                                <p class="para">
-                                    Seasonal changes affect variety of tree physiology such as flowering, sprouting of
-                                    leaves, fruiting, changes in leaf colouration and so on. How this happens is a
-                                    fascinating question to wonder. In thi…<a href="http://google.com"> read more</a>
+                                <p class="content-subhead para">
+                                    
+                                    <%for(var j=0;j<projects.topics[i].tags.length;j++){%>
+                                    #<%=projects.topics[i].tags[j]%>
+                                    <%}%>    
+                                   
                                 </p>
                             </div>
                         </section>
                     </div>
-
-                    <div class="posts">
-                        <h1 class="content-subhead"></h1>
-
-                        <!-- A single blog post -->
-                        <section class="post">
-                            <header class="post-header">
-
-                                <a href="http://google.com" data-topic-id="3682" class="link_head">
-                                    <h1>
-                                        Invitation Game: Mapping Mango Trees Across the Country
-                                </a>
-                                <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
-
-
-
-
-                            </header>
-
-                            <div class="post-description">
-                                <p class="para">
-                                    Seasonal changes affect variety of tree physiology such as flowering, sprouting of
-                                    leaves, fruiting, changes in leaf colouration and so on. How this happens is a
-                                    fascinating question to wonder. In thi…<a href="http://google.com"> read more</a>
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="posts">
-                        <h1 class="content-subhead"></h1>
-
-                        <!-- A single blog post -->
-                        <section class="post">
-                            <header class="post-header">
-
-                                <a href="http://google.com" data-topic-id="3682" class="link_head">
-                                    <h1>
-                                        Invitation Game: Mapping Mango Trees Across the Country
-                                </a>
-                                <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
-
-
-
-
-                            </header>
-
-                            <div class="post-description">
-                                <p class="para">
-                                    Seasonal changes affect variety of tree physiology such as flowering, sprouting of
-                                    leaves, fruiting, changes in leaf colouration and so on. How this happens is a
-                                    fascinating question to wonder. In thi…<a href="http://google.com"> read more</a>
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="posts">
-                        <h1 class="content-subhead"></h1>
-
-                        <!-- A single blog post -->
-                        <section class="post">
-                            <header class="post-header">
-
-                                <a href="http://google.com" data-topic-id="3682" class="link_head">
-                                    <h1>
-                                        Invitation Game: Mapping Mango Trees Across the Country
-                                </a>
-                                <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
-
-
-
-
-                            </header>
-
-                            <div class="post-description">
-                                <p class="para">
-                                    Seasonal changes affect variety of tree physiology such as flowering, sprouting of
-                                    leaves, fruiting, changes in leaf colouration and so on. How this happens is a
-                                    fascinating question to wonder. In thi…<a href="http://google.com"> read more</a>
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="posts">
-                        <h1 class="content-subhead"></h1>
-
-                        <!-- A single blog post -->
-                        <section class="post">
-                            <header class="post-header">
-
-                                <a href="http://google.com" data-topic-id="3682" class="link_head">
-                                    <h1>
-                                        Invitation Game: Mapping Mango Trees Across the Country
-                                </a>
-                                <img width="120" height="120" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg">
-
-
-
-
-                            </header>
-
-                            <div class="post-description">
-                                <p class="para">
-                                    Seasonal changes affect variety of tree physiology such as flowering, sprouting of
-                                    leaves, fruiting, changes in leaf colouration and so on. How this happens is a
-                                    fascinating question to wonder. In thi…<a href="http://google.com"> read more</a>
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-
-
+                    <%}%>
+                   
                     <div class="footer">
                         <div class="pure-menu pure-menu-horizontal">
                             <center>
@@ -369,8 +262,7 @@
 
 <style>
     .para {
-        text-align: justify;
-        font-size: 20px;
+        color: #333;
     }
 
     #lis {

@@ -69,7 +69,41 @@
         <div id="main">
 
             <div class="content pure-u-1 pure-u-md-1">
-            
+                <%for(var i=0;i<projects.length;i++){%>
+                    <div class="posts">
+                       
+
+                        <!-- A single blog post -->
+                        <section class="post">
+                            <header class="post-header">
+
+                                <a href="/post/t/<%=projects[i].slug%>/<%=projects[i].id%>/22" class="link_head">
+                                    <h3>
+                                       &#9672 <%=projects[i].title%>
+                                      
+                                   
+                                </a>
+                                <%if(projects[i].image_url!=null){%>
+                                <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
+                                    src=<%=projects[i].image_url%>>
+                                <%}%>
+                            </h3>
+
+
+                            </header>
+
+                            <div class="post-description">
+                                <p class="content-subhead para">
+                                    
+                                    <%for(var j=0;j<projects[i].tags.length;j++){%>
+                                    #<%=projects[i].tags[j]%>
+                                    <%}%>    
+                                   
+                                </p>
+                            </div>
+                        </section>
+                    </div>
+                    <%}%>
                     <!-- A wrapper for all the blog posts -->
                    
 
