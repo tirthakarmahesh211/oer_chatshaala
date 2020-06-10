@@ -21,19 +21,14 @@
   <div class="column left" >
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
-     
-      <a href="#" id="addGroup">New group</a>
+
       <a href='<%=about%>'>About</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
       <a href="/">Groups</a>
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
-<<<<<<< HEAD
-=======
 
-
->>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e
         <a href="<%=logout%>">Logout</a>
 
 
@@ -55,10 +50,8 @@
 
       </div>
       <div class="footer">
-<<<<<<< HEAD
-         <button class="attachmentbtn"><i class="fa fa-2x fa-paperclip" aria-hidden="true"></i></button> 
-         <div data-placeholder="Type your message" contenteditable="true" class="edit"></div>
-=======
+
+
          <center>
            <div class="toolbar"></div>
           <div contenteditable="true" class="edit" id='editor'></div>
@@ -66,25 +59,12 @@
          <button type="button" name="post" id='saveDelta'>POST</button>
 
        <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
->>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e
+
       </div>
 
   </div>
 
-      <div id="myModal" class="modal">
 
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <form action="/home" method="POST">
-            <h2>Enter the Group Name</h2>
-            <input type="text" name="newGroup" autocomplete="off"> <br>
-            <button type="submit">Create</button>
-          </form>
-        
-        </div>
-      
-      </div>
 
 
 <script src="/js/home.js"></script>
@@ -98,40 +78,13 @@
             x
         }
     }
-    // Get the modal
-var modal = document.getElementById("myModal");
+    </script>
 
-// Get the button that opens the modal
-var btn = document.getElementById("addGroup");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-
-
-</script>
 <script src="/js/quill.js"></script>
 
 <!-- Initialize Quill editor -->
 <script>
- 
+
 var quill_c = new Quill('#chat', {
   modules:{
     toolbar:false
