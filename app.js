@@ -181,6 +181,7 @@ app.post("/feedback", function (req, res) {
 
 
 app.get("/profile", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   let badges=req.session.badges;
   if (curr_user) {
@@ -191,6 +192,7 @@ app.get("/profile", function (req, res) {
 });
 
 app.get("/activity", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render("activity.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
@@ -200,6 +202,7 @@ app.get("/activity", function (req, res) {
 });
 
 app.get("/notifications", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render("notification.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
@@ -209,6 +212,7 @@ app.get("/notifications", function (req, res) {
 });
 
 app.get("/messages", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render("messages.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
@@ -218,6 +222,7 @@ app.get("/messages", function (req, res) {
 });
 
 app.get("/badges", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render("badges.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
@@ -227,6 +232,7 @@ app.get("/badges", function (req, res) {
 });
 
 app.get("/preferences", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render("preferences.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
