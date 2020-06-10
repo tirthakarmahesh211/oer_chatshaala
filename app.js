@@ -263,6 +263,17 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
 });
+<<<<<<< HEAD
+ 
+
+app.post("/home",function(req,res){
+  let user=req.session.user;
+  var item=req.body.newGroup;
+  console.log(item);
+  func.createGroup(req,res,item);
+  res.redirect("/home");
+});
+=======
 
 
 app.get("/group/:topic/:id/:offset", function (req, res) {
@@ -324,3 +335,4 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
       });
 
     });
+>>>>>>> be46298b3f82429672f2c222989c5d921cb3d35e
