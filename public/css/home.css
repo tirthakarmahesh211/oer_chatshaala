@@ -7,20 +7,21 @@
   }
 
   .row{
-    height: 95%;
+    height: 100%;
   }
   .column {
     float: left;
-    height: 95%;
+    height: 100%;
     margin:0;
   }
+
 
   .left {
     display: inline-block;
     z-index: 0;
     width: 30%;
-    height: 95%;
-    background-color: #f5f5dc;
+    height: 100%;
+    background-color:#d6d4c7;
     position:absolute;
     overflow-y: scroll;
     left:0;
@@ -35,16 +36,17 @@
     display: inline-block;
     background-color: white;
     /*background: linear-gradient(180deg,  #2EC4B6, #9EB1E9);  #3b3e49;*/
-    height: 95%;
+    height: 100%;
     bottom: 0;
     right:0;
     width: 70%;
   }
 
   div.edit {
-    width:90%;
+    width:100%;
     display:inline-block;
-      min-height: 25px;
+    flex:1;
+    padding: 10px;
       max-height: 50%;
       background: white;
       overflow-y: scroll;
@@ -60,12 +62,12 @@
   align-items: center;
   align-content: center;
   bottom:0;
-  min-height: 25%;
+  
   max-height: 50%;
   display: inline-block;
   overflow-y: scroll;
   width: 70%;
-  background-color: grey;
+  background-color:#f5f5dc;
 }
 #chat{
   max-height:75%;
@@ -75,6 +77,155 @@
   border: none;
   outline: none;
 }
+.container_{
+  width: 500px;
+  margin: auto;
+}
+.chat_{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f1f0e8;
+
+}
+.chat-header_{
+  display: flex;
+  cursor: pointer;
+
+}
+
+.profile_{
+  width:100%;
+  background: #036055;
+  display: flex;
+  align-items: center;
+  height: 60px;
+  padding: 0px 10px;
+  position: relative;
+}
+.profile_ h2 {
+	display: inline-block;
+	line-height: 60px;
+	vertical-align: bottom;
+	color: #fff;
+	font-size: 20px;
+}
+.profile_ .pp {
+	width: 50px;
+	display: inline-block;
+	border-radius: 50%;
+	margin-left: 32px;
+}
+.profile_ .arrow {
+	display: inline-block;
+	width: 30px;
+	position: absolute;
+	top: 19px;
+	cursor: pointer;
+}
+.profile_ span {
+	color: #ccc;
+	position: absolute;
+	top: 42px;
+	left: 100px;
+	font-size: 14px;
+}
+.right_ .icon {
+	display: inline-block;
+	width: 25px;
+	margin-left: 10px;
+}
+.profile_ .left_ {
+	flex: 1;
+}
+
+.chat-footer_ {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 60px;
+	position: relative;
+	cursor: pointer;
+}
+.chat-box_{
+  background: url('../img/bg.jpeg');
+	background-attachment: fixed;
+	padding-left: 20px;
+	overflow-y: scroll;
+  flex: 1;
+  
+}
+.chat-box_ .img_chat {
+	width: 280px;
+}
+
+.chat-r {
+	display: flex;
+}
+.chat-r .sp {
+	flex: 1;
+}
+
+.chat-l {
+	display: flex;
+}
+.chat-l .sp {
+	flex: 1;
+}
+.chat-box_ .mess {
+	max-width: 300px;
+	background: #F7FCF6;
+	padding: 10px;
+	border-radius: 10px;
+	margin: 20px 0px;
+	cursor: pointer;
+}
+.chat-box_ .mess p {
+	word-break: break-all;
+	font-size: 18px;
+}
+.chat-box_ .mess-r {
+    background: #E2FFC7;
+}
+.chat-box_ .emoji {
+	width: 20px;
+}
+.chat-box_ .check {
+	float: right;
+}
+.chat-box_ .check img {
+	width: 20px;
+}
+.chat-box_ .check span {
+	color: #888;
+	font-size: 12px;
+	font-weight: 700px;
+}
+.btn-secondary {
+ 
+  
+ margin-top: 25px;
+  background: gray;
+  border-radius: 3px;
+  box-shadow: 0 10px 20px -8px gray(240, 75, 113);
+  padding: 5px 7px;
+  font-size: 18px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  text-decoration: none;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+}
+.btn-secondary .fa {
+  margin-right: 5px;
+}
+
 .fa-paperclip{
   color: #393e46;
 }
@@ -94,7 +245,7 @@
 
   /* The sidebar menu */
 .sidebar {
-  height: 95%; /* 100% Full-height */
+  height: 100%; /* 100% Full-height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
   z-index: 1; /* Stay on top */
@@ -135,14 +286,14 @@
 .openbtn {
   font-size: 20px;
   cursor: pointer;
-  background-color: #f5f5dc;
+  background-color: #d6d4c7;
   color: #393e46;
   padding: 10px 15px;
   border: none;
 }
 
 .openbtn:hover {
-  background-color: #ececae;
+  background-color: gray;
 }
 
 
@@ -152,11 +303,19 @@
   .sidebar a {font-size: 18px;}
 }
 .search-but{
- margin: 5px;
+  
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right:0px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+ 
 }
 .search-bar{
   width: 20%;
-  margin-left:1rem;
+  margin-right:15rem;
   margin-top: 7px;
   padding-top: 10px;
   float: right;
@@ -213,11 +372,13 @@ input[type=text]{
     width: 100%;
   }
   .search-bar{
-    width: 80%;
+    width: 100%;
   }
   .right{
     display: none;
   }
+  
+  
 }
 
 
