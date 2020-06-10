@@ -96,6 +96,16 @@ app.get('/home', function (req, res) {
   }
 });
 
+app.post('/home',function(req,res){
+  let user=req.session.user;
+  console.log(req.body);
+
+  if(req.body.hasOwnProperty('search_button')){
+    func.search(req.body.search_text,res);
+  }
+
+});
+
 app.get("/feedback", function (req, res) {
   let curr_user=req.session.user;
   if (curr_user) {
@@ -172,6 +182,7 @@ app.post("/feedback", function (req, res) {
 
 app.get("/profile", function (req, res) {
   let curr_user=req.session.user;
+  let badges=req.session.badges;
   if (curr_user) {
     res.render("profile.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
   } else {

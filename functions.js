@@ -10,7 +10,8 @@ module.exports = {
   fetchGroups: fetchGroups,
   fetch_Group: fetch_Group,
   fetchPosts:fetchPosts,
-  createGroup: createGroup
+  createGroup: createGroup,
+  search:search
 };
 
 function resetCurrUser() {
@@ -272,7 +273,7 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      console.log(body.post_stream.posts);
+    //  console.log(body.post_stream.posts);
 
      // console.log(groups);
      res.render("post.ejs", {
@@ -322,6 +323,38 @@ function createGroup(req, res, item){
   });
   request.write(data);
   request.end();
+}
+function search(text,res){
+  var url=secrets.url+"/search/query?term="+text+"&include_blurbs=true";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system',
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'Discourse-Visible': true,
+     'DNT': 1,
+'Referer': secrets.url,
+'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Mobile Safari/537.36',
+'X-CSRF-Token': 'undefined',
+'X-Requested-With': 'XMLHttpRequest'
+    }
+  };
+  https.get(url, options, function (response) {
+    var body='';
+    console.log(response.statusCode);
+    response.on('data', function (data) {
+      body += data;
+      //console.log("hello");
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      console.log(body);
+      res.send(body);
+    });
+  }).on('error', function () {
+    console.log('errorr');
+  });
 }
 
 // function get_more(req, res, home, about, blog, project, feedback, logout, profile,id,curr_user,offset){

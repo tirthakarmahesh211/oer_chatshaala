@@ -47,7 +47,7 @@
               <h2 class="content-subhead">Profile</h2>
               <hr>
               </hr>
-                <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
+                <img src='https://ui-avatars.com/api/?name=<%=curr_user.name%>&rounded=true' alt="profile pic round"/>  <h1><%=curr_user.username%></h1><h1><%=curr_user.name%></h1><br><h1><%=curr_user.user_fields['1']%></h1>
               <div class="topnav" id="myTopnav">
                 <a href='<%=message%>' class='active'>Messages</a>
                 <a href='<%=profile%>'>Summary</a>
