@@ -69,13 +69,13 @@ app.post('/register', function (req, res) {
       res.render('register.ejs',{status:'Password should be atleast 10 characters long'});
     }
     else{
-    var new_user=new func.getUser(req.body.email, md5(req.body.pass1), req.body.name, req.body.username1, req.body.identity);
+    var new_user=new func.getUser(req.body.email, req.body.pass1, req.body.name, req.body.username1, req.body.identity);
     func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
     }
   } else if (req.body.hasOwnProperty('login')) {
     var curr_user = func.resetCurrUser();
     curr_user.userName = req.body.username2;
-    curr_user.password = md5(req.body.pass2);
+    curr_user.password = req.body.pass2;
     func.verifyUser(req,res,curr_user.userName,curr_user.password);
   } else if (req.body.hasOwnProperty('forgot')) {
     res.send('forgot password page');
