@@ -83,6 +83,7 @@
 
 <!-- Initialize Quill editor -->
 <script>
+ 
 var quill_c = new Quill('#chat', {
   modules:{
     toolbar:false
@@ -106,7 +107,8 @@ quill_c.enable(false);
   ];
   var quill = new Quill('#editor', {
     modules:{
-      toolbar:options
+      toolbar:options,
+
     },
     placeholder:"Type your message",
     scrollingContainer: '#editor',
