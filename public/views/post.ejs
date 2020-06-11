@@ -7,6 +7,7 @@
     <meta name="description"
         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>STEMChat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <!-- <link rel="stylesheet" href="css/blog.css"> -->
@@ -47,7 +48,7 @@
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
-                <h1 class="brand-title">Topic</h1>
+                <h2 class="brand-title"><%=body.title%></h2>
                 <h2 class="brand-tagline"></h2>
                 <h4>
 
@@ -82,9 +83,17 @@
                         </div>
                         <br>
                         <hr></hr>
-
+                        <%var ko=body.post_stream.posts[i].post_number;%>
 
                     <%}%>
+                    <div id="holder2">
+                    
+                    </div>
+                    <form>
+                        <button type="button" id="HButton2"> Load More </button>
+                    </form>
+             </div>
+        
 
 
 
@@ -112,6 +121,45 @@
 
 
     <script src="/js/ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            var l = (<%=ko%>);
+
+            var my_div = $("#holder2");
+            $("#HButton2").on("click", function () {
+              //alert("hi");
+                console.log(l);
+                $.ajax({
+                    url: "/post/more/t/<%=body.slug%>/<%=body.id%>/"+l
+                })
+                
+                    .done(function (data) {
+
+                        console.log(data);
+                        var elements = ''; 
+                        var i;
+                        if(data[0].post_number>l){
+                             i=0;}
+                        else{
+                            i=l-data[0].post_number+1;
+                        }
+                        if(i<data.length){
+
+                        for(;i<data.length;i++){
+                          
+                          elements= elements +'<h3 class="subhead">'+'@'+data[i].username +data[i].name+'</h3>'+'<div>'+data[i].cooked+'</div>'+'<br>'+'<hr></hr>';
+                           ko=data[i].post_number             
+                        }
+                       l=ko;
+                    }
+                    else{
+                        elements+="No more to load";
+                    }
+                        $('#holder2').append(elements);
+                    });
+            });
+        });
+    </script>
 
     <script>
           function myFunction1() {
@@ -204,6 +252,7 @@ img {
     a {
         text-decoration: none;
         color: blue;
+        word-break: break-all;
     }
 
 

@@ -157,7 +157,8 @@ app.get("/blog", function (req, res) {
 app.get("/project", function (req, res) {
   let curr_user=req.session.user;
   var body3='';
-  var url2 ="https://t2.metastudio.org/c/projects/17.json"
+  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page=0"
+  console.log(url2);
   var options = {
     method: 'GET',
     headers: {
@@ -179,8 +180,39 @@ app.get("/project", function (req, res) {
         res.render("project.ejs", { projects:projects,curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
       }
     });
+
 });
 });
+app.get("/project/more/:offset", function (req, res) {
+  let curr_user=req.session.user;
+  var body3='';
+  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page="+req.params.offset;
+  console.log(url2);
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+      console.log(body3.topic_list);
+      var projects=body3.topic_list;
+      res.json(projects);
+    });
+    
+});
+});
+
+
+
+
+
 app.get("/FAQ", function (req, res) {
   let curr_user=req.session.user;
   if (curr_user) {
@@ -318,6 +350,45 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
+});
+
+app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
+
+  let curr_user=req.session.user;
+  var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
+  console.log("yahan");
+  console.log(url);
+
+  var body = '';
+ 
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+      //console.log("hello");
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      for(var i=0;i<body.post_stream.posts.length;i++){
+     console.log(body.post_stream.posts[i].post_number);
+      }
+
+
+     // console.log(groups);
+     console.log(body.post_stream.posts);
+     res.json(body.post_stream.posts);
+     
+    });
+  }).on('error', function () {
+    console.log('errorr');
+  });
 });
 
 
