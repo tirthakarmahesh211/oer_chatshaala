@@ -158,7 +158,7 @@ app.get("/project", function (req, res) {
   let curr_user=req.session.user;
   var body3='';
   var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page=0";
-  console.log(url2);
+//  console.log(url2);
   var options = {
     method: 'GET',
     headers: {
@@ -254,9 +254,10 @@ app.post("/feedback", function (req, res) {
 app.get("/profile", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
-  let badges=req.session.badges;
+
   if (curr_user) {
-    res.render("profile.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+    var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    func.request_summary(res,obj);
   } else {
     res.redirect('/register');
   }
@@ -266,7 +267,8 @@ app.get("/activity", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("activity.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+    var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("activity.ejs", obj);
   } else {
     res.redirect('/register');
   }
@@ -276,7 +278,8 @@ app.get("/notifications", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("notification.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("notification.ejs", obj);
   } else {
     res.redirect('/register');
   }
@@ -286,7 +289,8 @@ app.get("/messages", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("messages.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("messages.ejs", obj);
   } else {
     res.redirect('/register');
   }
@@ -296,7 +300,8 @@ app.get("/badges", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("badges.ejs", { curr_user:curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+      func.showBadges(res,obj);
   } else {
     res.redirect('/register');
   }
@@ -306,7 +311,8 @@ app.get("/preferences", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("preferences.ejs", {  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("preferences.ejs",obj);
   } else {
     res.redirect('/register');
   }
@@ -345,19 +351,21 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
   let curr_user=req.session.user;
   var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
-  console.log(url);
+
+  //console.log(url);
 
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
 });
 
+
+
 app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
 
   let curr_user=req.session.user;
   var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
-  console.log("yahan");
-  console.log(url);
+//  console.log(url);
 
   var body = '';
 
@@ -377,12 +385,12 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
     response.on('end', function () {
       body = JSON.parse(body);
       for(var i=0;i<body.post_stream.posts.length;i++){
-     console.log(body.post_stream.posts[i].post_number);
+        //console.log(body.post_stream.posts[i].post_number);
       }
 
 
      // console.log(groups);
-     console.log(body.post_stream.posts);
+    // console.log(body.post_stream.posts);
      res.json(body.post_stream.posts);
 
     });
@@ -396,7 +404,7 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
 app.post("/",function(req,res){
   let user=req.session.user;
   var item=req.body.newGroup;
-  console.log(item);
+  //console.log(item);
   if(user){
   func.createGroup(req,res,item);
   res.redirect("/");
@@ -411,7 +419,7 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
   let curr_user = req.session.user;
   var id = req.params.topic;
   var i=req.params.offset;
-  console.log("ioj");
+
   var body3='';
   var url2 = secrets.url + 'groups/' + id + '/members' + '.json'+"?offset="+i+"&order=&desc=&filter=";
   var options = {
@@ -429,7 +437,7 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
       body3 = JSON.parse(body3);
       res.json(body3);
   });
-      console.log(body3);
+      //console.log(body3);
 
       });
 
@@ -444,7 +452,7 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
 
    var body3='';
    var url2 = secrets.url + 'groups/' + id + '/posts' + '.json?'+'before_post_id='+i;
-   console.log(url2);
+  // console.log(url2);
 
   var options = {
     method: 'GET',

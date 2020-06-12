@@ -87,13 +87,13 @@
 
                     <%}%>
                     <div id="holder2">
-                    
+
                     </div>
                     <form>
                         <button type="button" id="HButton2"> Load More </button>
                     </form>
              </div>
-        
+
 
 
 
@@ -132,11 +132,11 @@
                 $.ajax({
                     url: "/post/more/t/<%=body.slug%>/<%=body.id%>/"+l
                 })
-                
+
                     .done(function (data) {
 
                         console.log(data);
-                        var elements = ''; 
+                        var elements = '';
                         var i;
                         if(data[0].post_number>l){
                              i=0;}
@@ -146,9 +146,9 @@
                         if(i<data.length){
 
                         for(;i<data.length;i++){
-                          
+
                           elements= elements +'<h3 class="subhead">'+'@'+data[i].username +data[i].name+'</h3>'+'<div>'+data[i].cooked+'</div>'+'<br>'+'<hr></hr>';
-                           ko=data[i].post_number             
+                           ko=data[i].post_number
                         }
                        l=ko;
                     }
@@ -384,7 +384,6 @@ img {
         align-items: center;
         position: relative;
         border: 5px;
-        border-radius: 30px;
     }
 
     .content {

@@ -22,12 +22,12 @@
 
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='<%=profile%>' class="active">Profile</a>
+            <a href='/preferences' class="active">Profile</a>
             <%if(curr_user){%>
                 <a href='<%=home%>'>Home</a>
                 <%}%>
             <a href='<%=about%>'>About</a>
-            <a href='<%=blog%>'>Blog</a>
+            <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
             <a href="/">Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
@@ -41,29 +41,35 @@
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
+    <div class="topnav1" id="myTopnav">
+
+      <a href='/profile' >Summary</a>
+        <a href='/activity'>Activity</a>
+        <a href='/notifications'>Notifications</a>
+        <a href='/messages'>Messages</a>
+        <a href='/badges'>Badges</a>
+        <a href='/preferences' class="active">Peferences</a>
+
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            ☰</i>
+        </a>
+    </div>
 
       <div id="main">
           <div class="content">
-              <h2 class="content-subhead">Profile</h2>
-              <hr>
+            <div class="info">
               <%var str=curr_user.avatar_template;%>
               <%var str=str.replace('{size}','50');%>
 
-              <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <h1><%=curr_user.username%></h1><h1><%=curr_user.name%></h1><br><h1><%=curr_user.user_fields['1']%></h1>
-              <div class="topnav" id="myTopnav">
-                <a href='<%=pref%>' class='active'>Peferences</a>
-                  <a href='<%=profile%>'>Summary</a>
-                  <a href='<%=activity%>'>Activity</a>
-                  <a href='<%=notification%>'>Notifications</a>
-                  <a href='<%=message%>'>Messages</a>
-                  <a href='<%=badge%>'>Badges</a>
+                    <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>
+
+                 <h1><%=curr_user.name%></h1>
+                 <h2>@<%=curr_user.username%></h2>
+                 <h3><%=curr_user.user_fields['1']%></h3>
 
 
-                  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                      ☰</i>
-                  </a>
-              </div>
-
+             <hr color='black' size='3px'>
+            </div>
 
 
               <!--
@@ -71,8 +77,6 @@
                   <p> MADE BY BITS 2020</p>
               </div>
               -->
-
-
       </div>
   </div>
 
@@ -108,9 +112,16 @@
 
 
 <style>
+.info{
+  width: 100%;
+  text-align: left;
+  height: auto;
+}
+
 #uimg{
   border: 5px;
-  border-radius: 50px;
+  border-radius: 100px;
+  height: 4em;
 }
     .para {
         text-align: justify;
@@ -248,6 +259,88 @@
 
     /* Style the active link (or home/logo) */
     ._topnav a._active {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+    }
+    .topnav1 {
+        background-color: #333;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav1 a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        width: 100;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav1 a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Add an active class to highlight the current page */
+    .topnav1 a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav1 .icon {
+        display: none;
+    }
+    .topnav1 .icon2 {
+        display: none;
+    }
+
+
+    /* --------------- */
+
+
+
+    ._topnav1 {
+        overflow-x: scroll;
+        background-color: #333;
+        position: relative;
+    }
+
+    ._topnav1 #myLinks {
+        display: none;
+    }
+
+    /* Style navigation menu links */
+    ._topnav1 a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+        background-color: #333;
+        text-align: center;
+    }
+
+    /* Style the hamburger menu */
+    ._topnav1 a._icon {
+        background: #333;
+        float: left;
+        display: block;
+    }
+
+    /* Add a grey background color on mouse-over */
+    ._topnav1 a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Style the active link (or home/logo) */
+    ._topnav1 a._active {
         background-color: #4CAF50;
         color: white;
         text-align: center;

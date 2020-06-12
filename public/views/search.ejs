@@ -74,22 +74,24 @@
                 <%var str=posts[i].avatar_template%>
                 <%var str='https://t2.metastudio.org/'+str%>
                 <%var str=str.replace('{size}','40')%>
-                <h4> <img id="uimg" src='<%=str%>'> POST id: <%=posts[i].id%> </h4>
+                <img id="uimg" src='<%=str%>'>
                 <h4>by <%=posts[i].name%> (@<%=posts[i].username%>)</h4>
-                <a href="" data-topic-id="3682" class="link_head">
-                  <h6>View Post</h6>
-                </a>
-              </header>
-
-              <div class="post-description elip_here">
+                <%var topic=''%>
                 <h4>Under Topic:
                 <%for(var j=0;j<topics.length;j++){%>
                 <%if(topics[j].id===posts[i].topic_id){%>
+                  <%topic=topics[j].title%>
                   <%=topics[j].title%>
                   <%break;%>
                 <%}%>
                 <%}%>
                 </h4>
+                <a href="/post/t/<%=topic.split(' ').join('-')%>/<%=posts[i].topic_id%>/<%=posts[i].id%>" data-topic-id="3682" class="link_head">
+                  <h6>View Post</h6>
+                </a>
+              </header>
+
+              <div class="post-description elip_here">
                 <p class="para">
                 <%=posts[i].blurb%>
                 </p>
@@ -107,12 +109,8 @@
             <section class="post">
               <header class="post-header">
 
-                <h4><%=groups[i].name%></h4>
-                <h5> Group Id: <%=groups[i].id%></h5>
-                <h5>User Count: <%=groups[i].user_count%></h5>
-                <a href="" data-topic-id="3682" class="link_head">
-                  <h6>View Group</h6>
-                </a>
+                <h4><a href="group/<%=groups[i].name%>/<%=groups[i].id%>"><%=groups[i].name%></a> (User Count: <%=groups[i].user_count%>)</h4>
+
               </header>
 
               <div class="post-description elip_here">

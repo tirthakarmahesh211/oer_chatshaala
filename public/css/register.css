@@ -18,7 +18,7 @@ body {
 
 #nav {
   margin-bottom:  10px;
-} 
+}
 
 /*
 This is the parent `<div>` that contains the menu and the content area.
@@ -41,7 +41,6 @@ This is the parent `<div>` that contains the menu and the content area.
   align-items: center;
   position: relative;
   border: 5px;
-  border-radius: 30px;
 }
 
 /*
