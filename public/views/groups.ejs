@@ -85,16 +85,14 @@
 
                     <h1 class="content-subhead"></h1>
                     <a href="/group/<%=groups[i].name%>/<%=groups[i].id%>" data-topic-id="3682" class="link_head">
-                        <h1><%=groups[i].name%></h1>
+                        <h1><%=groups[i].name.split('_').join(' ')%></h1>
 
                     </a>
                     <!-- <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
                                     src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg"> -->
 
                     <p class="post-meta">
-                        By <a href="#" class="post-author">Tilo Mitra</a> under <a
-                            class="post-category post-category-design" href="#">CSS</a> <a
-                            class="post-category post-category-pure" href="#">Pure</a>
+                      User Count: <%=groups[i].user_count%>
                     </p>
                 </header>
 
@@ -103,7 +101,7 @@
                         <%=groups[i].bio_raw%>
 
                     </p>
-                    <a class="tab" href="#">Request</a>
+                  <button type="button" name="button">📝 Request Membership</button>
                 </div>
 
             </section>
@@ -186,7 +184,6 @@
                 x.style.display = "none";
             } else {
                 x.style.display = "block";
-                x
             }
         }
         // Get the modal

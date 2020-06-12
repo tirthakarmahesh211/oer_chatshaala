@@ -306,7 +306,7 @@ function createGroup(req, res, item){
       });
       response.on('end', function () {
         var result = JSON.parse(body);
-        console.log(result);
+      //  console.log(result);
         if (result.basic_group.id !=null) {
           {console.log('yes');
           }
@@ -323,6 +323,7 @@ function createGroup(req, res, item){
   request.write(data);
   request.end();
 }
+
 function search(text,res){
   var url=secrets.url+"/search/query?term="+text+"&include_blurbs=true";
   var options = {
@@ -341,18 +342,18 @@ function search(text,res){
   };
   https.get(url, options, function (response) {
     var body='';
-    console.log(response.statusCode);
+  //  console.log(response.statusCode);
     response.on('data', function (data) {
       body += data;
       //console.log("hello");
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      console.log(body);
-      res.send(body);
+     //console.log(body);
+      res.render('search.ejs',{users:body.users,posts:body.posts,groups:body.groups,topics:body.topics} );
     });
   }).on('error', function () {
-    console.log('errorr');
+    console.log('error');
   });
 }
 

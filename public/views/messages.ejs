@@ -46,8 +46,10 @@
           <div class="content">
               <h2 class="content-subhead">Profile</h2>
               <hr>
-              </hr>
-                <img src='https://ui-avatars.com/api/?name=<%=curr_user.name%>&rounded=true' alt="profile pic round"/>  <h1><%=curr_user.username%></h1><h1><%=curr_user.name%></h1><br><h1><%=curr_user.user_fields['1']%></h1>
+              <%var str=curr_user.avatar_template;%>
+              <%var str=str.replace('{size}','50');%>
+
+              <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <h1><%=curr_user.username%></h1><h1><%=curr_user.name%></h1><br><h1><%=curr_user.user_fields['1']%></h1>
               <div class="topnav" id="myTopnav">
                 <a href='<%=message%>' class='active'>Messages</a>
                 <a href='<%=profile%>'>Summary</a>
@@ -106,6 +108,10 @@
 
 
 <style>
+#uimg{
+  border: 5px;
+  border-radius: 50px;
+}
     .para {
         text-align: justify;
         font-size: 20px;

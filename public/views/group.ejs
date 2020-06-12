@@ -14,7 +14,7 @@
 </head>
 
 <body>
-   
+
     <div class="topnav" id="myTopnav1">
         <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
@@ -49,18 +49,9 @@
         <div class="sidebar pure-u-1">
             <div class="header">
                 <h1 class="brand-title">Group-<%= body.group.name%></h1>
-                
 
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://purecss.io">Pure</a> -->
-                        </li>
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://yuilibrary.com">YUI Library</a> -->
-                        </li>
-                    </ul>
-                </nav>
+
+                
             </div>
         </div>
 
@@ -80,7 +71,7 @@
             <p class="post-description"> <%= body.group.bio_raw%></p>
             <p class="post-description"><%=body.group.membership_request_template%></p>
             <a class="tab" href="#">Request</a>
-            
+
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
             <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Posts</button>
 
@@ -117,7 +108,7 @@
                 </section>
                 <%}%>
                 <div id="holder">
-                    
+
                 </div>
                 <form>
                     <button type="button" id="HButton"> Load More </button>
@@ -125,9 +116,9 @@
 
             </div>
             <div id="News" class="tabcontent">
-                
+
                 <%for(var i=0;i<posts.length;i++){%>
-                    
+
 
                 <section class="post">
                     <header class="post-header">
@@ -154,8 +145,8 @@
                             <p class="para">
                                 <%-(posts[i].excerpt)%>
                         </p>
-                       
-        
+
+
                         <%var ko=posts[i].id;%>
 
             </div>
@@ -164,7 +155,7 @@
             <%}%>
 
             <div id="holder2">
-                    
+
             </div>
             <form>
                 <button type="button" id="HButton2"> Load More </button>
@@ -210,14 +201,14 @@
                 })
                     .done(function (data) {
                         console.log(data.members[0].username);
-                        var elements = '';                      
+                        var elements = '';
                         for(var i=0;i<data.members.length;i++){
                             var str=data.members[i].avatar_template ;
                             str=str.replace("{size}","80");
                             str="https://t2.metastudio.org"+str;
                             elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+data.members[i].name+'<img id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+"@"+ data.members[i].username +'</h1>'+ '</header>'+'</section>';
                         }
-                       
+
                         $('#holder').append(elements);
                     });
             });
@@ -229,14 +220,14 @@
 
             var my_div = $("#holder2");
             $("#HButton2").on("click", function () {
-              
+
                 console.log(l);
                 $.ajax({
                     url: "/group/<%=body.group.name%>/post/load/"+l
                 })
                     .done(function (data) {
                         console.log(data[0]);
-                        var elements = '';                      
+                        var elements = '';
                         for(var i=0;i<data.length;i++){
                             var str=data[i].user.avatar_template ;
                             str=str.replace("{size}","80");

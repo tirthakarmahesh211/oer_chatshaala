@@ -98,7 +98,7 @@ app.get('/home', function (req, res) {
 
 app.post('/home',function(req,res){
   let user=req.session.user;
-  console.log(req.body);
+  //console.log(req.body);
 
   if(req.body.hasOwnProperty('search_button')){
     func.search(req.body.search_text,res);
@@ -129,7 +129,7 @@ app.get("/about", function (req, res) {
 app.get("/blog", function (req, res) {
   let curr_user=req.session.user;
   var body3='';
-  var url2 ="https://t2.metastudio.org/c/blogs/11.json"
+  var url2 ="https://t2.metastudio.org/c/blogs/11.json";
   var options = {
     method: 'GET',
     headers: {
@@ -142,8 +142,8 @@ app.get("/blog", function (req, res) {
       body3 += data;
     });
     response.on('end', function () {
-      body3 = JSON.parse(body3);
-      console.log(body3.topic_list.topics);
+     body3 = JSON.parse(body3);
+    //  console.log(body3.topic_list.topics);
       var projects=body3.topic_list.topics;
       if (curr_user) {
         res.render("blog.ejs", {projects:projects, curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
@@ -157,7 +157,7 @@ app.get("/blog", function (req, res) {
 app.get("/project", function (req, res) {
   let curr_user=req.session.user;
   var body3='';
-  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page=0"
+  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page=0";
   console.log(url2);
   var options = {
     method: 'GET',
@@ -172,7 +172,7 @@ app.get("/project", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      console.log(body3.topic_list);
+    //  console.log(body3.topic_list);
       var projects=body3.topic_list;
       if (curr_user) {
         res.render("project.ejs", {projects:projects, curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
@@ -187,7 +187,7 @@ app.get("/project/more/:offset", function (req, res) {
   let curr_user=req.session.user;
   var body3='';
   var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page="+req.params.offset;
-  console.log(url2);
+//  console.log(url2);
   var options = {
     method: 'GET',
     headers: {
@@ -201,11 +201,11 @@ app.get("/project/more/:offset", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      console.log(body3.topic_list);
+  //    console.log(body3.topic_list);
       var projects=body3.topic_list;
       res.json(projects);
     });
-    
+
 });
 });
 
@@ -360,7 +360,7 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
   console.log(url);
 
   var body = '';
- 
+
 
   var options = {
     method: 'GET',
@@ -384,7 +384,7 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
      // console.log(groups);
      console.log(body.post_stream.posts);
      res.json(body.post_stream.posts);
-     
+
     });
   }).on('error', function () {
     console.log('errorr');
