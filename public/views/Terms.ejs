@@ -44,6 +44,17 @@
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
+    <div class="topnav" id="myTopnav2">
+        <a href='<%=Terms%>' class="active2">Terms of Service</a>
+        <a href='<%=about%>'>About</a>
+        <a href='<%=FAQ%>'>FAQ</a>
+
+        <a href='<%=privacy%>'>Privacy</a>
+
+        <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+            &#x2630</i>
+        </a>
+    </div>
     <div id="layout">
         <!-- Menu toggle -->
         <!-- <a href="#menu" id="menuLink" class="menu-link"> -->
@@ -72,31 +83,16 @@
         </div> -->
         <div id="main">
             <div class="content">
-                <h2 class="content-subhead">FAQ</h2>
-                <hr>
-                </hr>
-
-                <div class="topnav" id="myTopnav2">
-                    <a href='<%=Terms%>' class="active">Terms of Service</a>
-                    <a href='<%=about%>'>About</a>
-                    <a href='<%=FAQ%>'>FAQ</a>
-
-                    <a href='<%=privacy%>'>Privacy</a>
-
-                    <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
-                        &#x2630</i>
-                    </a>
-                </div>
-                <p>THIS CONTAINS TERMS OF SERVICE.</p>
+               <h3>Terms of Service</h3>
 
                 <div itemprop="mainContentOfPage">
-                    <p>These terms govern use of the Internet platform at<br>
+                    <p>These terms govern use of the Internet platform at
                         <a href="https://stemgames.metastudio.org">https://stemgames.metastudio.org</a>. To use the
-                        platform, you must agree<br>
-                        to these terms with Homi Bhabha Centre for Science Education, TIFR,<br>
+                        platform, you must agree
+                        to these terms with Homi Bhabha Centre for Science Education, TIFR,
                         that runs the platform. Homi Bhabha Centre for Science Education, TIFR is referred henceforth as
                         the “centre” in this document.</p>
-                    <p>The centre may offer other products and services, under different<br>
+                    <p>The centre may offer other products and services, under different
                         terms. These terms apply only to use of the platform.</p>
                     <p>Skip to:</p>
                     <ul>
@@ -410,7 +406,16 @@
 <!-- added here to be condeensed later -->
 
 
+
 <style>
+    body{
+        word-break: break-word;
+    }
+    
+    .topnav a.active2 {
+        background-color: gray;;
+        color: white;
+    }
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;

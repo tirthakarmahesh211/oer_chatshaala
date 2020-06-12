@@ -16,7 +16,7 @@
 
 
 
-    <div  class="topnav" id="myTopnav1">
+    <div class="topnav" id="myTopnav1">
         <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
@@ -25,8 +25,8 @@
         <div id="myLinks">
             <a href='<%=about%>' class="active">About</a>
             <%if(curr_user){%>
-                <a href='<%=home%>'>Home</a>
-                <%}%>
+            <a href='<%=home%>'>Home</a>
+            <%}%>
            <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
             <a href='/'>Groups</a>
@@ -35,87 +35,130 @@
             <a href='<%=profile%>'>Profile</a>
             <%}%>
             <%if(!curr_user){%>
-                <a href='<%=home%>'>Login</a>
-                <%}%>
+            <a href='<%=home%>'>Login</a>
+            <%}%>
             <%if(curr_user){%>
-                <a href="<%=logout%>">Logout</a>
-                <%}%>
+            <a href="<%=logout%>">Logout</a>
+            <%}%>
 
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
+    <div class="topnav" id="myTopnav2">
+        <a href='<%=about%>' class="active2">About</a>
+<a href='<%=FAQ%>'>FAQ</a>
+<a href='<%=Terms%>'>Terms of Service</a>
+<a href='<%=privacy%>'>Privacy</a>
+
+<a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+    <i> &#x2630</i>
+</a>
+</div>
     <div id="layout">
         <div id="main">
             <div class="content">
-                <h2 class="content-subhead">About</h2>
-                <hr>
-                </hr>
+             
 
-                <div class="topnav" id="myTopnav2">
-                    <a href='<%=about%>' class="active">About</a>
-                    <a href='<%=FAQ%>'>FAQ</a>
-                    <a href='<%=Terms%>'>Terms of Service</a>
-                    <a href='<%=privacy%>'>Privacy</a>
-
-                    <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
-                        <i> &#x2630</i>
+                
+        <div class="para">
+            <h3 class="head_"> <%=abouts.about.description%></h3>
+            <UL>
+                <LH>Admins</LH>
+                <%for(var i=0;i<abouts.about.admins.length;i++){%>
+                <LI class="box">
+                    <%var str=abouts.about.admins[i].avatar_template ;%>
+                    <% str=str.replace("{size}","80");%>
+                    <%str="https://t2.metastudio.org"+str;%>
+                    <img src=<%=str%>>  <a href='/user/<%=abouts.about.admins[i].username%>'>
+                        <span><p class="para heading"><%=abouts.about.admins[i].name%></p>
+                           <p  class="para light"> @<%=abouts.about.admins[i].username%></p></span>
+                        <span><p class="head_"><%=abouts.about.admins[i].title%></p></span>
                     </a>
-                </div>
+
+                </LI>
+                <%}%>
+            </UL>
+            <UL>
+                <LH>Moderators</LH>
+                <%for(var i=0;i<abouts.about.moderators.length;i++){%>
+                <LI class="box">
+                    <%var str=abouts.about.moderators[i].avatar_template ;%>
+                    <% str=str.replace("{size}","80");%>
+                    <%str="https://t2.metastudio.org"+str;%>
+                     <img src=<%=str%>> <a href='/user/<%=abouts.about.moderators[i].username%>'>
+                        <span><p class="para heading"><%=abouts.about.moderators[i].name%></p>
+                               <p class="para light"> @<%=abouts.about.moderators[i].username%></p></span>
+                        <span><p class="head_"><%=abouts.about.moderators[i].title%></p></span>
+                    </a>
+<br>
+                </LI>
+                <%}%>
+            </UL>
+        </div>
+        <%console.log(abouts.about.admins)%>
 
 
-                <h2>About Coool STEM Games</h2>
-                <p>Collaborative Open Online and Ongoing Learning through STEM games, activities and projects and earn
-                    badges from the referees!</p>
-                <h3> Our Admins</h3>
-                <ul>
-                    <li>
-                        1.Mahesh Tirthakar
-                    </li>
-                    <li>
-                        2.Ashish Pardeshi
-                    </li>
-                    <li>
-                        3.Surendra
-                    </li>
-                    <li>
-                        ...
-                    </li>
-                </ul>
-                <hr>
-                </hr>
-                <h3> Our Refrees</h3>
-                <ul>
-                    <li>
-                        1.Mahesh Tirthakar
-                    </li>
-                    <li>
-                        2.Ashish Pardeshi
-                    </li>
-                    <li>
-                        3.Surendra
-                    </li>
-                    <li>
-                        ...
-                    </li>
-                </ul>
+        </div>
 
-            </div>
-
-            <!--
+        <!--
             <div class='foot'>
                 <p> MADE BY BITS 2020</p>
             </div>
             -->
 
+<center>
 
-        </div>
+<h4>Stats</h4>
+    <table class="table">
+        <tbody>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Last 7</th>
+            <th>Last 30</th>
+            <th>All Time</th>
+          </tr>
+          <tr>
+            <td class="title">Topics</td>
+            <td><span class="number"><%=abouts.about.stats.topics_7_days%></span></td>
+            <td><span class="number"><%=abouts.about.stats.topics_30_days%></span></td>
+            <td><span class="number"><%=abouts.about.stats.topic_count%></span></td>
+          </tr>
+          <tr>
+            <td>Posts</td>
+            <td><span class="number"><%=abouts.about.stats.posts_7_days%></span></td>
+            <td><span class="number" title="1,086"><%=abouts.about.stats.posts_30_days%></span></td>
+            <td><span class="number" title="12,502"><%=abouts.about.stats.post_count%></span></td>
+          </tr>
+          <tr>
+            <td>Users</td>
+            <td><span class="number"><%=abouts.about.stats.users_7_days%></span></td>
+            <td><span class="number"><%=abouts.about.stats.users_30_days%></span></td>
+            <td><span class="number" title="1,224"><%=abouts.about.stats.user_count%></span></td>
+          </tr>
+          <tr>
+            <td>Active Users</td>
+            <td><span class="number"><%=abouts.about.stats.active_users_7_days%></span></td>
+            <td><span class="number"><%=abouts.about.stats.active_users_30_days%></span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Likes</td>
+            <td><span class="number"><%=abouts.about.stats.likes_7_days%></span></td>
+            <td><span class="number" title="2,435"><%=abouts.about.stats.likes_30_days%></span></td>
+            <td><span class="number" title="13,606"><%=abouts.about.stats.like_count%></span></td>
+          </tr>
+        </tbody>
+      </table>
+      </center>
+
     </div>
+</div>
 
     <script src="/js/ui.js"></script>
 
     <script>
-         function myFunction1() {
+        function myFunction1() {
             var x = document.getElementById("myTopnav1");
             if (x.className === "topnav") {
                 x.className += " responsive";
@@ -140,6 +183,70 @@
 
 
 <style>
+    table, th, td {
+     
+  border: 1px solid rgb(194, 182, 182);
+  border-collapse: collapse;
+}
+    .light{
+        font-weight: lighter;
+    }
+    @media screen and (min-width: 601px) {
+  li {
+    font-size: 1em;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+ li {
+    font-size: 1em;
+  }
+  .heading{
+        font-weight: bold;
+        font-size: small;
+    }
+}
+    .box {
+        display: flex;
+        align-items: center;
+        margin: 1.2em;
+    }
+
+    /*  */
+    img {
+      
+        height: auto;
+        border-radius: 50%;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        word-break: break-word;
+    }
+
+    LH {
+        font-weight: bolder;
+        font-size:x-large;
+        font-weight: bolder;
+    }
+    .heading{
+        font-weight: bold;
+        font-size: medium;
+    }
+
+    .head_ {
+        color: gray;
+    }
+
+    .para {
+        margin: 0em;
+        font-style: normal;
+        color: #333;
+    }
+
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
@@ -149,6 +256,7 @@
             float: left;
             display: block;
         }
+
         .topnav a.icon2 {
             float: right;
             display: block;
@@ -171,6 +279,7 @@
             right: 0;
             top: 0;
         }
+
         .topnav.responsive a {
             float: none;
             display: block;
@@ -205,11 +314,16 @@
         background-color: #4CAF50;
         color: white;
     }
+    .topnav a.active2 {
+        background-color: gray;;
+        color: white;
+    }
 
     /* Hide the link that should open and close the topnav on small screens */
     .topnav .icon {
         display: none;
     }
+
     .topnav .icon2 {
         display: none;
     }

@@ -43,6 +43,17 @@
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
+    <div class="topnav" id="myTopnav2">
+        <a href='<%=FAQ%>' class="active2">FAQ</a>
+        <a href='<%=about%>'>About</a>
+
+        <a href='<%=Terms%>'>Terms of Service</a>
+        <a href='<%=privacy%>'>Privacy</a>
+
+        <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+            &#x2630</i>
+        </a>
+    </div>
     <div id="layout">
         <!-- Menu toggle -->
         <!-- <a href="#menu" id="menuLink" class="menu-link"> -->
@@ -72,23 +83,10 @@
     </div> -->
     <div id="main">
         <div class="content">
-            <h2 class="content-subhead">FAQ</h2>
-            <hr>
-            </hr>
+           
 
-            <div class="topnav" id="myTopnav2">
-                <a href='<%=FAQ%>' class="active">FAQ</a>
-                <a href='<%=about%>'>About</a>
+            
 
-                <a href='<%=Terms%>'>Terms of Service</a>
-                <a href='<%=privacy%>'>Privacy</a>
-
-                <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
-                    &#x2630</i>
-                </a>
-            </div>
-
-            <p>Frequently Asked Questions</p>
 
             <div itemprop="mainContentOfPage">
                 <p><a name="civilized"></a></p>
@@ -247,6 +245,13 @@
 
 
 <style>
+    body{
+        word-break: break-word;
+    }
+    .topnav a.active2 {
+        background-color: gray;;
+        color: white;
+    }
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
