@@ -495,6 +495,7 @@ function request_summary(res, obj, type) {
       });
       response.on('end', function() {
         body = JSON.parse(body);
+        //console.log(body);
         obj.user_det_more = body;
         body='';
         url1= secrets.url + "users/" + obj.user_det.username +'/summary.json';
@@ -506,6 +507,7 @@ function request_summary(res, obj, type) {
             response.on('end',()=>{
               body=JSON.parse(body);
               obj.summary=body;
+              console.log(body.user_summary);
                 res.render('user.ejs',obj);
             });
           }else{
