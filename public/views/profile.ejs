@@ -22,7 +22,7 @@
       <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
         <a href='/profile' class="active">Profile</a>
-        <%if(curr_user){%>
+        <%if(curr_user_more){%>
         <a href='<%=home%>'>Home</a>
         <%}%>
             <a href='<%=about%>'>About</a>
@@ -30,10 +30,10 @@
         <a href='<%=project%>'>Projects</a>
         <a href="/">Groups</a>
         <a href='<%=feedback%>'>Feedback</a>
-        <%if(!curr_user){%>
+        <%if(!curr_user_more){%>
         <a href='<%=home%>'>Login</a>
         <%}%>
-            <%if(curr_user){%>
+            <%if(curr_user_more){%>
         <a href="<%=logout%>">Logout</a>
         <%}%>
         </div>
@@ -61,40 +61,52 @@
             <%var str=curr_user.avatar_template;%>
             <%var str=str.replace('{size}','80');%>
             <h1> <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <span><%=curr_user.name%><br>@<%=curr_user.username%><br><%=curr_user.user_fields['1']%></span></h1>
+            <%if(curr_user.location){%>
+            <h2>From: <%=curr_user.location%></h2><br>
+            <%}%>
+            <%if(curr_user.bio_raw){%>
+            <h2><%=curr_user.bio_raw%></h2><br>
+            <%}%>
+            <%if(curr_user.website && !curr_user.website_name){%>
+            <h2>Website: <%=curr_user.website%> (@<%=curr_user.website_name%>)</h2>
+            <%}%>
+            <%if(curr_user.website && curr_user.website_name){%>
+            <h2>Website: <%=curr_user.website%> (@<%=curr_user.website_name%>)</h2>
+            <%}%>
             <hr color='black' size='3px'>
           </div>
           <div class="data">
-            Created: <%=curr_user.created_at.split('T').join(', ').split('.')[0]%>
+            Created: <%=curr_user_more.created_at.split('T').join(', ').split('.')[0]%>
             <br>
-            <%if(curr_user.last_seen_at){var ls=curr_user.last_seen_at.split('T').join(', ').split('.')[0]}%>
+            <%if(curr_user_more.last_seen_at){var ls=curr_user_more.last_seen_at.split('T').join(', ').split('.')[0]}%>
             Last seen at: <%=ls%>
             <br>
-            Days Visited: <%=curr_user.days_visited%>
+            Days Visited: <%=curr_user_more.days_visited%>
             <br>
-            <%var hr=Math.floor(curr_user.time_read/3600);%>
-            <%var min=Math.floor(curr_user.time_read/60)%>
+            <%var hr=Math.floor(curr_user_more.time_read/3600);%>
+            <%var min=Math.floor(curr_user_more.time_read/60)%>
             Read Time: <%=hr%>hrs and <%=min%> mins
             <br>
-            Topics Read: <%=curr_user.topics_entered%>
+            Topics Read: <%=curr_user_more.topics_entered%>
             <br>
-            Posts Read: <%=curr_user.posts_read_count%>
+            Posts Read: <%=curr_user_more.posts_read_count%>
             <br>
-            Likes Given ❤️: <%=curr_user.like_given_count%>
+            Likes Given ❤️: <%=curr_user_more.like_given_count%>
             <br>
-            Topics Created: <%=curr_user.topic_count%>
+            Topics Created: <%=curr_user_more.topic_count%>
             <br>
-            Posts Created: <%=curr_user.post_count%>
+            Posts Created: <%=curr_user_more.post_count%>
             <br>
-            Likes Received ❤️: <%=curr_user.like_count%>
+            Likes Received ❤️: <%=curr_user_more.like_count%>
             <hr>
             <h3>Groups Joined</h3>
             <ul>
-              <%for(var i=0;i<curr_user.groups.length;i++){%>
-              <%if(!curr_user.groups[i].name.includes('trust')){%>
+              <%for(var i=0;i<curr_user_more.groups.length;i++){%>
+              <%if(!curr_user_more.groups[i].name.includes('trust')){%>
               <li>
                 <h4>
 
-                  <a href='/group/<%=curr_user.groups[i].name%>/<%=curr_user.groups[i].id%>'><%=curr_user.groups[i].name.split('_').join(' ')%> (User Count: <%=curr_user.groups[i].user_count%>)</a>
+                  <a href='/group/<%=curr_user_more.groups[i].name%>/<%=curr_user_more.groups[i].id%>'><%=curr_user_more.groups[i].name.split('_').join(' ')%> (User Count: <%=curr_user_more.groups[i].user_count%>)</a>
 
                 </h4>
               </li>

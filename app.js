@@ -280,7 +280,7 @@ app.get("/profile", function (req, res) {
 
   if (curr_user) {
     var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
-    func.request_summary(res,obj);
+    func.request_summary(res,obj,'curr_profile');
   } else {
     res.redirect('/register');
   }
@@ -502,11 +502,11 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
 
 
 
-app.get("/user/:id",function(req,res){
+app.get("/user/:uname",function(req,res){
   let curr_user = req.session.user;
-  var id=req.params.id;
+  var id=req.params.uname;
   var body='';
-  var url=secrets.url+"u/"+id+".json";
+  var url=secrets.url+"users/"+id+".json";
 
   var options = {
     method: 'GET',
@@ -523,8 +523,9 @@ app.get("/user/:id",function(req,res){
       body = JSON.parse(body);
      //console.log(body.user);
      var user_det=body.user;
+     var obj={user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
     // res.send("hi");
-     res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+     func.request_summary(res,obj,'other_profile');
   // console.log("jk");
     });
      // console.log(body3);
