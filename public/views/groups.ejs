@@ -48,9 +48,7 @@
         <div class="sidebar pure-u-1">
             <div class="header">
                 <h1 class="brand-title">COOOL STEMGames-Groups</h1>
-                <h2 class="brand-tagline"> <img src='stemlogo.png' alt='stem logo' id='mylogo'/></h2>
-                <h2 class="brand-tagline"> Welcome to metaStudio platform! Here we collaboratively do STEM projects and converse about the projects. We
-                  do investigations as well as innovation projects.</h2>
+                <h2 class="brand-tagline"> Welcome to metaStudio! This is a platform for Collaborative Open Online and Ongoing Learning through STEM (Science, Technology, Engineering, and Mathematics) games.</h2>
                 <h4>
                     Join the Relevant Groups and Collaborate in this Learning process
                 </h4>
@@ -101,7 +99,7 @@
                         <%=groups[i].bio_raw%>
 
                     </p>
-                  <button type="button" name="button">📝 Request Membership</button>
+                  <button  class="myButton" type="button" name="button"> Request Membership</button>
                 </div>
 
             </section>
@@ -250,6 +248,8 @@
 
     }
 
+    @media (min-width:600px)
+{
     #plus {
         height: 6rem;
         width: 6rem;
@@ -261,8 +261,24 @@
 
     #plus:hover {
         opacity: 1.0;
+    }  
+}
+@media (max-width:600px)
+{
+    #plus{
+        width: 4rem;
+        height:4rem;
+        position: fixed;
+        bottom: 2.5rem;
+        right: 2.5rem;
+        opacity: 0.5;
     }
+    #plus:hover {
+        opacity: 1.0;
+    }  
 
+}
+    
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
