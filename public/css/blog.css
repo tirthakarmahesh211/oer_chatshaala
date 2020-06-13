@@ -83,6 +83,7 @@ h3 {
 .brand-title,
 .brand-tagline {
     margin: 0;
+    padding-top:0.5rem;
 }
 .brand-title {
     text-transform: uppercase;
@@ -128,8 +129,7 @@ h3 {
 }
 #main{
     background-color: #fff;
-    margin: auto;
-    width: 80%;
+    width: 100%;
     display: inline-block;
     align-content: center;
     align-items: center;
@@ -225,8 +225,31 @@ h3 {
 
     }
     #main{
-        width:80%;
+        width:100%;
         height:auto;
 
       }
+}
+@media(max-width:480px)
+{
+    .header{
+        text-align: left;
+        padding-left : 1rem;
+    }
+    .brand-tagline{
+        padding-top: 1.5rem; ;
+    }
+}
+
+.myButton {
+	background-color:#0E76BD;
+	border-radius:2rem;
+	border:1px solid #0E76BD;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 0.8;
+	padding:0.3rem 0.5rem;
+    text-decoration:none;
 }
