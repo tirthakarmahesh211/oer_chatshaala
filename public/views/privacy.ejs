@@ -13,42 +13,54 @@
 </head>
 
 <body>
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
+    <div class="topnav" id="myTopnav1">
+        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
             <i>☰</i>
         </a>
-        <a href='<%=about%>' class="_active">About</a>
+
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='<%=home%>'>Home</a>
-            <a href='<%=blog%>'>Blogs</a>
+            <a href='<%=privacy%>' class="active">Privacy</a>
+            <%if(curr_user){%>
+                <a href='<%=home%>'>Home</a>
+                <%}%>
+           <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
+            <a href='/'>Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
-            <a href='<%=profile%>'>Profile</a>
-            <a href="<%=logout%>">Logout</a>
+            <%if(curr_user){%>
+                <a href='<%=profile%>'>Profile</a>
+                <%}%>
+            <%if(!curr_user){%>
+                <a href='<%=home%>'>Login</a>
+                <%}%>
+            <%if(curr_user){%>
+                <a href="<%=logout%>">Logout</a>
+                <%}%>
+
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
+    </div>
+    <div class="topnav1" id="myTopnav2">
+
+        <a href='<%=about%>'>About</a>
+        <a href='<%=FAQ%>'>FAQ</a>
+        <a href='<%=Terms%>'>Terms of Service</a>
+
+
+        <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+            ☰</i>
+        </a>
     </div>
     <div id="layout">
 
         <div id="main">
             <div class="content">
-                <h2 class="content-subhead">FAQ</h2>
-                <hr>
-                </hr>
 
-                <div class="topnav" id="myTopnav">
-                    <a href='<%=about%>'>About</a>
-                    <a href='<%=FAQ%>'>FAQ</a>
-                    <a href='<%=Terms%>'>Terms of Service</a>
-                    <a href='<%=privacy%>' class="active">Privacy</a>
 
-                    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                        &#x2630</i>
-                    </a>
-                </div>
-                <p>THIS CONTAINS PRIVACY POLICIES.</p>
+
+
 
 
                 <div itemprop="mainContentOfPage">
@@ -143,9 +155,11 @@
 
             </div>
 
+            <!--
             <div class='foot'>
                 <p> MADE BY BITS 2020</p>
             </div>
+            -->
 
 
         </div>
@@ -154,16 +168,17 @@
     <script src="/js/ui.js"></script>
 
     <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
+        function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
             } else {
-                x.style.display = "block";
+                x.className = "topnav";
             }
         }
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
+
+        function myFunction2() {
+            var x = document.getElementById("myTopnav2");
             if (x.className === "topnav") {
                 x.className += " responsive";
             } else {
@@ -179,15 +194,29 @@
 
 
 <style>
+    body{
+        word-break: break-word;
+    }
+    .topnav a.active2 {
+        background-color: gray;;
+        color: white;
+    }
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;
         }
 
         .topnav a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav a.icon2 {
             float: right;
             display: block;
         }
+
+
     }
 
     /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
@@ -197,6 +226,11 @@
         }
 
         .topnav.responsive a.icon {
+            float: left;
+            display: block;
+        }
+
+        .topnav.responsive a.icon2 {
             position: absolute;
             right: 0;
             top: 0;
@@ -242,7 +276,9 @@
         display: none;
     }
 
-
+    .topnav .icon2 {
+        display: none;
+    }
     /* --------------- */
 
 
@@ -283,6 +319,88 @@
 
     /* Style the active link (or home/logo) */
     ._topnav a._active {
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+    }
+    .topnav1 {
+        background-color: #333;
+        overflow: hidden;
+    }
+
+    /* Style the links inside the navigation bar */
+    .topnav1 a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        width: 100;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    /* Change the color of links on hover */
+    .topnav1 a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Add an active class to highlight the current page */
+    .topnav1 a.active {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    /* Hide the link that should open and close the topnav on small screens */
+    .topnav1 .icon {
+        display: none;
+    }
+    .topnav1 .icon2 {
+        display: none;
+    }
+
+
+    /* --------------- */
+
+
+
+    ._topnav1 {
+        overflow-x: scroll;
+        background-color: #333;
+        position: relative;
+    }
+
+    ._topnav1 #myLinks {
+        display: none;
+    }
+
+    /* Style navigation menu links */
+    ._topnav1 a {
+        color: white;
+        padding: 14px 16px;
+        text-decoration: none;
+        font-size: 17px;
+        display: block;
+        background-color: #333;
+        text-align: center;
+    }
+
+    /* Style the hamburger menu */
+    ._topnav1 a._icon {
+        background: #333;
+        float: left;
+        display: block;
+    }
+
+    /* Add a grey background color on mouse-over */
+    ._topnav1 a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    /* Style the active link (or home/logo) */
+    ._topnav1 a._active {
         background-color: #4CAF50;
         color: white;
         text-align: center;

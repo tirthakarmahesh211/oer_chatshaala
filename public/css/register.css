@@ -16,8 +16,8 @@ body {
     height: auto;
 }
 
-#nav{
-  margin-bottom: : 10px;
+#nav {
+  margin-bottom:  10px;
 }
 
 /*
@@ -41,7 +41,6 @@ This is the parent `<div>` that contains the menu and the content area.
   align-items: center;
   position: relative;
   border: 5px;
-  border-radius: 30px;
 }
 
 /*

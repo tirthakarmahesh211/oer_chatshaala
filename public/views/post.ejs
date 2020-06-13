@@ -22,24 +22,24 @@
 
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='#' class="active"><%= body.group.name.split('_').join(' ');%></a>
+            <a href="javascript:history.back()"  class="active">Go back to Group</a>
             <%if(curr_user){%>
-            <a href='<%=home%>'>Home</a>
-            <%}%>
+                <a href='<%=home%>'>Home</a>
+                <%}%>
             <a href='<%=about%>'>About</a>
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
             <a href="/">Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
-            <a href='<%=profile%>'>Profile</a>
-            <%}%>
+                <a href='<%=profile%>'>Profile</a>
+                <%}%>
             <%if(!curr_user){%>
-            <a href='<%=home%>'>Login</a>
-            <%}%>
+                <a href='<%=home%>'>Login</a>
+                <%}%>
             <%if(curr_user){%>
-            <a href="<%=logout%>">Logout</a>
-            <%}%>
+                <a href="<%=logout%>">Logout</a>
+                <%}%>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
@@ -48,117 +48,51 @@
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
-                <h1 class="brand-title">Group<br><%= body.group.name.split('_').join(' ');%></h1>
+                <h2 class="brand-title"><%=body.title%></h2>
+                <h2 class="brand-tagline"></h2>
+                <h4>
+
+                </h4>
+
+                <nav class="nav">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <!-- <a class="pure-button" href="http://purecss.io">Pure</a> -->
+                        </li>
+                        <li class="nav-item">
+                            <!-- <a class="pure-button" href="http://yuilibrary.com">YUI Library</a> -->
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
 
         <div id="main">
 
             <div class="content pure-u-1 pure-u-md-1">
+                <div>
 
                 <!-- A wrapper for all the blog posts -->
-            <h1>
+                <div class="posts">
+                    <%for(var i=0;i<body.post_stream.posts.length;i++){%>
+                        <h3 class="subhead">@<%=body.post_stream.posts[i].username%> <%=body.post_stream.posts[i].name%></h3>
 
-            <%= body.group.name.split('_').join(' ');%>
-            <img id="plus" src="<%= body.group.flair_url%>">
-            </h1>
-            <button type="button" name="button">📝 Request Membership</button>
-            <p class="post-description"> <%= body.group.bio_raw%></p>
-            <p class="post-description"><%=body.group.membership_request_template%></p>
+                        <div>
+                            <%-body.post_stream.posts[i].cooked%>
 
+                        </div>
+                        <br>
+                        <hr></hr>
+                        <%var ko=body.post_stream.posts[i].post_number;%>
 
-            <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
-            <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Posts</button>
-
-
-            <div id="Users_list" class="tabcontent">
-
-                <%for(var i=0;i<members.length;i++){%>
-
-
-                <section class="post">
-                    <header class="post-header">
-                        <%var str=members[i].avatar_template %>
-                        <%str=str.replace("{size}","80")%>
-                        <%str="https://t2.metastudio.org"+str%>
-
-
-
-
-                        <h3><%=members[i].name%><img id="plus2" src='<%=str%>'></h3>
-
-                        <h1 class="content-subhead">@<%=members[i].username%></h1>
-
-
-                    </header>
-
-                    <div class="post-description elip_here">
-                        <p class="para">
-
-
-                        </p>
+                    <%}%>
+                    <div id="holder2">
 
                     </div>
-
-                </section>
-                <%}%>
-                <div id="holder">
-
-                </div>
-                <form>
-                    <button type="button" id="HButton"> Load More </button>
-                </form>
-
-            </div>
-            <div id="News" class="tabcontent">
-
-                <%for(var i=0;i<posts.length;i++){%>
-
-
-                <section class="post">
-                    <header class="post-header">
-                        <%var str=posts[i].user.avatar_template %>
-                        <%str=str.replace("{size}","80")%>
-                        <%str="https://t2.metastudio.org"+str%>
-
-
-
-
-                        <h3><a class="name_" href="/post<%=posts[i].url%>"><%=posts[i].title%></a><img id="plus2"
-                                src='<%=str%>'></h3>
-                        <%if(posts[i].user.name!=null){%>
-                        <h1 class="content-subhead">@<%=posts[i].user.name%></h1>
-                        <%}%>
-                            <%if(posts[i].user.name==null){%>
-                        <h1 class="content-subhead"></h1>
-                        <%}%>
-
-                        </header>
-
-                        <div class="post-description elip_here">
-
-                            <p class="para">
-                                <%-(posts[i].excerpt)%>
-                        </p>
-
-
-                        <%var ko=posts[i].id;%>
-
-            </div>
-
-            </section>
-            <%}%>
-
-            <div id="holder2">
-
-            </div>
-            <form>
-                <button type="button" id="HButton2"> Load More </button>
-            </form>
-            </div>
-
-
-
+                    <form>
+                        <button type="button" id="HButton2"> Load More </button>
+                    </form>
+             </div>
 
 
 
@@ -167,16 +101,18 @@
                     <div class="pure-menu pure-menu-horizontal">
 
                         <center>
-                            <!-- <div class='foot'>
-                                <p> MADE BY BITS 2020</p>
-                            </div> -->
+                          <!--
+                          <div class='foot'>
+                              <p> MADE BY BITS 2020</p>
+                          </div>
+                          -->
                         </center>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 
 
 
@@ -187,100 +123,87 @@
     <script src="/js/ui.js"></script>
     <script>
         $(document).ready(function () {
-            var i=0;
-            var my_div = $("#holder");
-            $("#HButton").on("click", function () {
-                i=i+100;
-                $.ajax({
-                    url: "/group/<%=body.group.name%>/<%=body.group.id%>/"+i
-                })
-                    .done(function (data) {
-                        console.log(data.members[0].username);
-                        var elements = '';
-                        for(var i=0;i<data.members.length;i++){
-                            var str=data.members[i].avatar_template ;
-                            str=str.replace("{size}","80");
-                            str="https://t2.metastudio.org"+str;
-                            elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+data.members[i].name+'<img id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+"@"+ data.members[i].username +'</h1>'+ '</header>'+'</section>';
-                        }
-
-                        $('#holder').append(elements);
-                    });
-            });
-        });
-    </script>
-     <script>
-        $(document).ready(function () {
             var l = (<%=ko%>);
 
             var my_div = $("#holder2");
             $("#HButton2").on("click", function () {
-
+              //alert("hi");
                 console.log(l);
                 $.ajax({
-                    url: "/group/<%=body.group.name%>/post/load/"+l
+                    url: "/post/more/t/<%=body.slug%>/<%=body.id%>/"+l
                 })
-                    .done(function (data) {
-                        console.log(data[0]);
-                        var elements = '';
-                        for(var i=0;i<data.length;i++){
-                            var str=data[i].user.avatar_template ;
-                            str=str.replace("{size}","80");
-                            str="https://t2.metastudio.org"+str;
-                            elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="name_" href="/post'+data[i].url+'">'+data[i].title+'</a>'+'<img id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+ "@"+data[i].user.name +'</h1>'+ '</header>'+'<div class="post-description elip_here">'+'<p class="para">'+data[i].excerpt+'</p>'+'</div>'+'</section>';
-                            ko=data[i].id;
 
+                    .done(function (data) {
+
+                        console.log(data);
+                        var elements = '';
+                        var i;
+                        if(data[0].post_number>l){
+                             i=0;}
+                        else{
+                            i=l-data[0].post_number+1;
+                        }
+                        if(i<data.length){
+
+                        for(;i<data.length;i++){
+
+                          elements= elements +'<h3 class="subhead">'+'@'+data[i].username +data[i].name+'</h3>'+'<div>'+data[i].cooked+'</div>'+'<br>'+'<hr></hr>';
+                           ko=data[i].post_number
                         }
                        l=ko;
+                    }
+                    else{
+                        elements+="No more to load";
+                    }
                         $('#holder2').append(elements);
                     });
             });
         });
     </script>
 
-                <script>
-                    function myFunction1() {
-                        var x = document.getElementById("myTopnav1");
-                        if (x.className === "topnav") {
-                            x.className += " responsive";
-                        } else {
-                            x.className = "topnav";
-                        }
-                    }
-                    function myFunction() {
-                        var x = document.getElementById("myTopnav");
-                        if (x.className === "topnav") {
-                            x.className += " responsive";
-                        } else {
-                            x.className = "topnav";
-                        }
-                    }
-                </script>
-                <script>
-                    function openPage(pageName, elmnt, color) {
-                        // Hide all elements with class="tabcontent" by default */
-                        var i, tabcontent, tablinks;
-                        tabcontent = document.getElementsByClassName("tabcontent");
-                        for (i = 0; i < tabcontent.length; i++) {
-                            tabcontent[i].style.display = "none";
-                        }
+    <script>
+          function myFunction1() {
+            var x = document.getElementById("myTopnav1");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
+    <script>
+        function openPage(pageName, elmnt, color) {
+            // Hide all elements with class="tabcontent" by default */
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
 
-                        // Remove the background color of all tablinks/buttons
-                        tablinks = document.getElementsByClassName("tablink");
-                        for (i = 0; i < tablinks.length; i++) {
-                            tablinks[i].style.backgroundColor = "";
-                        }
+            // Remove the background color of all tablinks/buttons
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].style.backgroundColor = "";
+            }
 
-                        // Show the specific tab content
-                        document.getElementById(pageName).style.display = "block";
+            // Show the specific tab content
+            document.getElementById(pageName).style.display = "block";
 
-                        // Add the specific color to the button used to open the tab content
-                        elmnt.style.backgroundColor = color;
-                    }
+            // Add the specific color to the button used to open the tab content
+            elmnt.style.backgroundColor = color;
+        }
 
-                    // Get the element with id="defaultOpen" and click on it
-                    document.getElementById("defaultOpen").click();
-                </script>
+        // Get the element with id="defaultOpen" and click on it
+        document.getElementById("defaultOpen").click();
+    </script>
 </body>
 
 
@@ -289,55 +212,77 @@
 
 
 <style>
+
     * {
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
     }
-
-    .name_ {
-        color: rgb(41, 38, 38);
-        font-size: larger;
+svg{
+    display: none;
+}
+pre {
+  white-space: pre-line;
+  word-wrap: break-word;
+  text-align: justify;
+}
+span{
+    display: none;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+.emoji{
+    height: 1em;
+    width: 1em;
+}
+    .subhead{
+        color:black;
+        background-color: lightgray;
+        font-size:larger;
+        font-weight: 200;
     }
-
     body {
-        color: #777;
+        color:	#484848;
         background-color: beige;
+        font: 1em sans-serif;
     }
 
     a {
         text-decoration: none;
-        color: rgb(61, 146, 201);
+        color: blue;
+        word-break: break-all;
     }
 
 
-    /* Style tab links */
-    .tablink {
-        background-color: #555;
-        color: white;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        font-size: 17px;
-        width: 25%;
-        margin-top: 1em;
-    }
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+  margin-top: 1em;
+}
 
-    .tablink:hover {
-        background-color: #777;
-    }
+.tablink:hover {
+  background-color: #777;
+}
 
-    /* Style the tab content (and add height:100% for full page content) */
-    .tabcontent {
-        color: black;
-        display: none;
-        padding: 100px 20px;
-        height: 100%;
-        background-color: white;
-        margin-top: 1em;
-    }
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color:black;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+  background-color:white;
+  margin-top: 1em;
+}
 
 
     .foot {
@@ -574,11 +519,6 @@
 
     }
 
-    .para img {
-        height: 1em;
-        width: 1em;
-    }
-
     #plus {
         height: 6rem;
         width: 6rem;
@@ -586,7 +526,6 @@
         float: right;
 
     }
-
     #plus2 {
         border-radius: 50%;
         position: relative;

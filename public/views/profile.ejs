@@ -2,92 +2,156 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
-    <title>STEMChat</title>
-    <link rel="shortcut icon" href="./favicon.ico">
-    <link rel="stylesheet" href="/css/pure_css.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
-    <link rel="stylesheet" href="/css/blog.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+  <title>STEMChat</title>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="stylesheet" href="/css/pure_css.css">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+  <link rel="stylesheet" href="/css/blog.css">
 </head>
 
 <body>
-    <center>
-    <div class="_topnav">
-        <a href="javascript:void(0);" class="_icon" onclick="_myFunction2()">
-            <i>☰</i>
-        </a>
-        <a href='<%=profile%>' class="_active">Profile</a>
-        <!-- Navigation links (hidden by default) -->
-        <div id="myLinks">
-            <a href='<%=home%>'>Home</a>
+  <center>
+    <div class="topnav" id="myTopnav1">
+      <a href="javascript:void(0);" class="icon2" onclick="myFunction1()">
+        <i>☰</i>
+      </a>
+
+      <!-- Navigation links (hidden by default) -->
+      <div id="myLinks">
+        <a href='/profile' class="active">Profile</a>
+        <%if(curr_user_more){%>
+        <a href='<%=home%>'>Home</a>
+        <%}%>
             <a href='<%=about%>'>About</a>
-            <a href='<%=blog%>'>Blog</a>
-            <a href='<%=project%>'>Projects</a>
-            <a href='<%=feedback%>'>Feedback</a>
-            <a href="<%=logout%>">Logout</a>
+        <a href='<%=blog%>'>Blogs</a>
+        <a href='<%=project%>'>Projects</a>
+        <a href="/">Groups</a>
+        <a href='<%=feedback%>'>Feedback</a>
+        <%if(!curr_user_more){%>
+        <a href='<%=home%>'>Login</a>
+        <%}%>
+            <%if(curr_user_more){%>
+        <a href="<%=logout%>">Logout</a>
+        <%}%>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
+    <div class="topnav" id="myTopnav">
+      <a href='/profile' class='active'>Summary</a>
+        <a href='/activity'>Activity</a>
+        <a href='/notifications'>Notifications</a>
+        <a href='/messages'>Messages</a>
+        <a href='/badges'>Badges</a>
+        <a href='/preferences'>Peferences</a>
+
+
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          ☰</i>
+        </a>
+      </div>
 
       <div id="main">
-          <div class="content">
-              <h2 class="content-subhead">Profile</h2>
-              <hr>
-              </hr>
-              <img src='plus.png' alt="profile pic round"/>  <h1>Add Username</h1><h1>Email</h1><br><h1>Name</h1><h1>User Type</h1>
-              <div class="topnav" id="myTopnav">
-                <a href='<%=profile%>' class='active'>Summary</a>
-                <a href='<%=activity%>' >Activity</a>
-                <a href='<%=notification%>'>Notifications</a>
-                <a href='<%=message%>'>Messages</a>
-                <a href='<%=badge%>'>Badges</a>
-                <a href='<%=pref%>'>Peferences</a>
+        <div class="content">
 
+          <div class="info">
+            <%var str=curr_user.avatar_template;%>
+            <%var str=str.replace('{size}','80');%>
+            <h1> <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <span><%=curr_user.name%><br>@<%=curr_user.username%><br><%=curr_user.user_fields['1']%></span></h1>
+            <%if(curr_user.location){%>
+            <h2>From: <%=curr_user.location%></h2><br>
+            <%}%>
+            <%if(curr_user.bio_raw){%>
+            <h2><%=curr_user.bio_raw%></h2><br>
+            <%}%>
+            <%if(curr_user.website && !curr_user.website_name){%>
+            <h2>Website: <%=curr_user.website%> (@<%=curr_user.website_name%>)</h2>
+            <%}%>
+            <%if(curr_user.website && curr_user.website_name){%>
+            <h2>Website: <%=curr_user.website%> (@<%=curr_user.website_name%>)</h2>
+            <%}%>
+            <hr color='black' size='3px'>
+          </div>
+          <div class="data">
+            Created: <%=curr_user_more.created_at.split('T').join(', ').split('.')[0]%>
+            <br>
+            <%if(curr_user_more.last_seen_at){var ls=curr_user_more.last_seen_at.split('T').join(', ').split('.')[0]}%>
+            Last seen at: <%=ls%>
+            <br>
+            Days Visited: <%=curr_user_more.days_visited%>
+            <br>
+            <%var hr=Math.floor(curr_user_more.time_read/3600);%>
+            <%var min=Math.floor(curr_user_more.time_read/60)%>
+            Read Time: <%=hr%>hrs and <%=min%> mins
+            <br>
+            Topics Read: <%=curr_user_more.topics_entered%>
+            <br>
+            Posts Read: <%=curr_user_more.posts_read_count%>
+            <br>
+            Likes Given ❤️: <%=curr_user_more.like_given_count%>
+            <br>
+            Topics Created: <%=curr_user_more.topic_count%>
+            <br>
+            Posts Created: <%=curr_user_more.post_count%>
+            <br>
+            Likes Received ❤️: <%=curr_user_more.like_count%>
+            <hr>
+            <h3>Groups Joined</h3>
+            <ul>
+              <%for(var i=0;i<curr_user_more.groups.length;i++){%>
+              <%if(!curr_user_more.groups[i].name.includes('trust')){%>
+              <li>
+                <h4>
 
-                  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                      ☰</i>
-                  </a>
-              </div>
+                  <a href='/group/<%=curr_user_more.groups[i].name%>/<%=curr_user_more.groups[i].id%>'><%=curr_user_more.groups[i].name.split('_').join(' ')%> (User Count: <%=curr_user_more.groups[i].user_count%>)</a>
 
+                </h4>
+              </li>
+              <%}%>
 
-
-
-          <div class='foot'>
-              <p> MADE BY BITS 2020</p>
+              <%}%>
+            </ul>
           </div>
 
 
+
+          <!--
+              <div class='foot'>
+                  <p> MADE BY BITS 2020</p>
+              </div>
+              -->
+
+        </div>
       </div>
-  </div>
 
 
-</center>
+  </center>
 
 
-    <script src="/js/ui.js"></script>
+  <script src="/js/ui.js"></script>
 
-    <script>
-        function _myFunction2() {
-            var x = document.getElementById("myLinks");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-            } else {
-                x.style.display = "block";
-            }
-        }
-        function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
-        }
-    </script>
+  <script>
+    function myFunction1() {
+      var x = document.getElementById("myTopnav1");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+
+    function myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
+  </script>
 </body>
 
 
@@ -96,137 +160,259 @@
 
 
 <style>
-    .para {
-        text-align: justify;
-        font-size: 20px;
+  .info {
+    width: 100%;
+    text-align: left;
+    height: auto;
+  }
+
+  .data {
+    width: 100%;
+    text-align: left;
+    height: auto;
+  }
+
+  #uimg {
+    border: 5px;
+    border-radius: 100px;
+    height: 4em;
+    width: 4em;
+    margin-right: 10px;
+  }
+  span{
+    display: inline-block;
+  }
+
+  .para {
+    text-align: justify;
+    font-size: 20px;
+  }
+
+  #plus {
+    height: 6rem;
+    width: 6rem;
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    opacity: 0.5;
+  }
+
+  #plus:hover {
+    opacity: 1.0;
+  }
+
+  @media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {
+      display: none;
     }
 
-    #plus {
-        height: 6rem;
-        width: 6rem;
-        position: fixed;
-        bottom: 2.5rem;
-        right: 2.5rem;
-        opacity: 0.5;
+    .topnav a.icon2 {
+      float: left;
+      display: block;
     }
 
-    #plus:hover {
-        opacity: 1.0;
+    .topnav a.icon {
+      float: right;
+      display: block;
+    }
+  }
+
+  /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+  @media screen and (max-width: 600px) {
+    .topnav.responsive {
+      position: relative;
     }
 
-    @media screen and (max-width: 600px) {
-        .topnav a:not(:first-child) {
-            display: none;
-        }
-
-        .topnav a.icon {
-            float: right;
-            display: block;
-        }
-    }
-
-    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-    @media screen and (max-width: 600px) {
-        .topnav.responsive {
-            position: relative;
-        }
-
-        .topnav.responsive a.icon {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .topnav.responsive a {
-            float: none;
-            display: block;
-            text-align: left;
-        }
-    }
-
-    a.link_head {
-        color: black;
-    }
-
-    .topnav {
-        background-color: #333;
-        overflow: hidden;
-    }
-
-    /* Style the links inside the navigation bar */
-    .topnav a {
-        float: left;
-        display: block;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-    }
-
-    /* Change the color of links on hover */
-    .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
-
-    /* Add an active class to highlight the current page */
-    .topnav a.active {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    /* Hide the link that should open and close the topnav on small screens */
-    .topnav .icon {
-        display: none;
+    .topnav.responsive a.icon2 {
+      float: left;
+      display: block;
     }
 
 
-
-    /* --------------- */
-
-
-
-    ._topnav {
-        overflow: hidden;
-        background-color: #333;
-        position: relative;
+    .topnav.responsive a.icon {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
-    ._topnav #myLinks {
-        display: none;
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
     }
+  }
 
-    /* Style navigation menu links */
-    ._topnav a {
-        color: white;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-        display: block;
-        background-color: #333;
-        text-align: center;
-    }
+  a.link_head {
+    color: black;
+  }
 
-    /* Style the hamburger menu */
-    ._topnav a._icon {
-        background: #333;
-        float: left;
-        display: block;
-    }
+  .topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
 
-    /* Add a grey background color on mouse-over */
-    ._topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
 
-    /* Style the active link (or home/logo) */
-    ._topnav a._active {
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-    }
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Add an active class to highlight the current page */
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  /* Hide the link that should open and close the topnav on small screens */
+  .topnav .icon {
+    display: none;
+  }
+
+  .topnav .icon2 {
+    display: none;
+  }
+
+
+
+  /* --------------- */
+
+
+
+  ._topnav {
+    overflow: hidden;
+    background-color: #333;
+    position: relative;
+  }
+
+  ._topnav #myLinks {
+    display: none;
+  }
+
+  /* Style navigation menu links */
+  ._topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    background-color: #333;
+    text-align: center;
+  }
+
+  /* Style the hamburger menu */
+  ._topnav a._icon {
+    background: #333;
+    float: left;
+    display: block;
+  }
+
+  /* Add a grey background color on mouse-over */
+  ._topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Style the active link (or home/logo) */
+  ._topnav a._active {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+  }
+
+  .topnav1 {
+    background-color: #333;
+    overflow: hidden;
+  }
+
+  /* Style the links inside the navigation bar */
+  .topnav1 a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    width: 100;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  /* Change the color of links on hover */
+  .topnav1 a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Add an active class to highlight the current page */
+  .topnav1 a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  /* Hide the link that should open and close the topnav on small screens */
+  .topnav1 .icon {
+    display: none;
+  }
+
+  .topnav1 .icon2 {
+    display: none;
+  }
+
+
+  /* --------------- */
+
+
+
+  ._topnav1 {
+    overflow-x: scroll;
+    background-color: #333;
+    position: relative;
+  }
+
+  ._topnav1 #myLinks {
+    display: none;
+  }
+
+  /* Style navigation menu links */
+  ._topnav1 a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    background-color: #333;
+    text-align: center;
+  }
+
+  /* Style the hamburger menu */
+  ._topnav1 a._icon {
+    background: #333;
+    float: left;
+    display: block;
+  }
+
+  /* Add a grey background color on mouse-over */
+  ._topnav1 a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Style the active link (or home/logo) */
+  ._topnav1 a._active {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+  }
 </style>
 
 </html>

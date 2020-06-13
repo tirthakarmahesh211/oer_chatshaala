@@ -7,6 +7,7 @@ const secrets=require('./secrets.js');
 const func=require('./functions.js');
 const md5 = require('md5');
 const session = require('express-session');
+const https=require("https");
 
 const home = '/home';
 const feedback = '/feedback';
@@ -24,7 +25,6 @@ const badges='/badges';
 const messages='/messages';
 const pref='/preferences';
 
-
 app.set('views','./public/views');
 app.set('view engine', 'ejs');
 app.use(parser.urlencoded({
@@ -39,7 +39,6 @@ app.use(session({
         maxAge: 60*60*1000
     }
 }));
-
 
 //Starting local server
 app.listen(3000, function (req, res) {
@@ -70,13 +69,13 @@ app.post('/register', function (req, res) {
       res.render('register.ejs',{status:'Password should be atleast 10 characters long'});
     }
     else{
-    var new_user=new func.getUser(req.body.email, md5(req.body.pass1), req.body.name, req.body.username1, req.body.identity);
+    var new_user=new func.getUser(req.body.email, req.body.pass1, req.body.name, req.body.username1, req.body.identity);
     func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
     }
   } else if (req.body.hasOwnProperty('login')) {
     var curr_user = func.resetCurrUser();
     curr_user.userName = req.body.username2;
-    curr_user.password = md5(req.body.pass2);
+    curr_user.password = req.body.pass2;
     func.verifyUser(req,res,curr_user.userName,curr_user.password);
   } else if (req.body.hasOwnProperty('forgot')) {
     res.send('forgot password page');
@@ -87,6 +86,7 @@ app.post('/register', function (req, res) {
 });
 
 app.get('/home', function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
     res.render('home.ejs', {
@@ -96,63 +96,169 @@ app.get('/home', function (req, res) {
   }
 });
 
+app.post('/home',function(req,res){
+  let user=req.session.user;
+  //console.log(req.body);
+
+  if(req.body.hasOwnProperty('search_button')){
+    func.search(req.body.search_text,res);
+  }
+
+
+
+
+});
+
 app.get("/feedback", function (req, res) {
   let curr_user=req.session.user;
   if (curr_user) {
     res.render('feedback.ejs', {
-      home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
+      curr_user:curr_user,home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   } else {
-    res.redirect('/register');
+    res.render('feedback.ejs', {
+      curr_user:curr_user,home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
   }
 });
 
 
 app.get("/about", function (req, res) {
   let curr_user=req.session.user;
-  if (curr_user) {
-    res.render('about.ejs',{home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
-  } else {
-    res.redirect('/register');
-  }
+  var body3='';
+  var url2 ="https://t2.metastudio.org/about.json";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+     body3 = JSON.parse(body3);
+    // console.log(body3);
+
+      if (curr_user) {
+        res.render("about.ejs", {abouts:body3, curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      } else {
+        res.render("about.ejs", { abouts:body3,curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      }
+    });
 });
+});
+
 app.get("/blog", function (req, res) {
   let curr_user=req.session.user;
-  if (curr_user) {
-    res.render("blog.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
-  } else {
-    res.redirect('/register');
-  }
+  var body3='';
+  var url2 ="https://t2.metastudio.org/c/blogs/11.json";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+     body3 = JSON.parse(body3);
+    //  console.log(body3.topic_list.topics);
+      var projects=body3.topic_list.topics;
+      if (curr_user) {
+        res.render("blog.ejs", {projects:projects, curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      } else {
+        res.render("blog.ejs", { projects:projects,curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      }
+    });
 });
+});
+
 app.get("/project", function (req, res) {
   let curr_user=req.session.user;
-  if (curr_user) {
-    res.render("project.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
-  } else {
-    res.redirect('/register');
-  }
+  var body3='';
+  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page=0";
+//  console.log(url2);
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+    //  console.log(body3.topic_list);
+      var projects=body3.topic_list;
+      if (curr_user) {
+        res.render("project.ejs", {projects:projects, curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      } else {
+        res.render("project.ejs", { projects:projects,curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+      }
+    });
+
 });
+});
+app.get("/project/more/:offset", function (req, res) {
+  let curr_user=req.session.user;
+  var body3='';
+  var url2 ="https://t2.metastudio.org/c/projects/17/l/latest.json?page="+req.params.offset;
+//  console.log(url2);
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+  //    console.log(body3.topic_list);
+      var projects=body3.topic_list;
+      res.json(projects);
+    });
+
+});
+});
+
+
+
+
+
 app.get("/FAQ", function (req, res) {
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("FAQ.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+    res.render("FAQ.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/register');
+
+    res.render("FAQ.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   }
 });
 app.get("/Terms", function (req, res) {
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("Terms.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+    res.render("Terms.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   } else {
-    res.redirect('/register');
+    res.render("Terms.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
   }
 });
  app.get("/privacy", function (req, res) {
    let curr_user=req.session.user;
    if (curr_user) {
-     res.render("privacy.ejs", {home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
+     res.render("privacy.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
    } else {
-     res.redirect('/register');
+    res.render("privacy.ejs", { curr_user:curr_user,home: home , about: about , blog: blog , project: project ,FAQ: FAQ , profile:profile, Terms: Terms , privacy: privacy , feedback: feedback, logout: logout});
    }
 });
 
@@ -169,54 +275,67 @@ app.post("/feedback", function (req, res) {
 
 
 app.get("/profile", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
+
   if (curr_user) {
-    res.render("profile.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+    var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    func.request_summary(res,obj,'curr_profile');
   } else {
     res.redirect('/register');
   }
 });
 
 app.get("/activity", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("activity.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+    var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("activity.ejs", obj);
   } else {
     res.redirect('/register');
   }
 });
 
 app.get("/notifications", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("notification.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("notification.ejs", obj);
   } else {
     res.redirect('/register');
   }
 });
 
 app.get("/messages", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("messages.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("messages.ejs", obj);
   } else {
     res.redirect('/register');
   }
 });
 
 app.get("/badges", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("badges.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+      func.showBadges(res,obj);
   } else {
     res.redirect('/register');
   }
 });
 
 app.get("/preferences", function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
-    res.render("preferences.ejs", { home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile:profile,activity:activity,notification:notifications,message:messages,badge:badges,pref:pref});
+      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    res.render("preferences.ejs",obj);
   } else {
     res.redirect('/register');
   }
@@ -235,17 +354,245 @@ app.get('/logout', function (req, res) {
 
 //NEWLY_ADDED
 app.get("/", function (req, res) {
+  let curr_user=req.session.user;
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
-  func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile);
+  func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile,curr_user);
 });
 
 
 
 app.get("/group/:topic/:id", function (req, res) {
+  let curr_user=req.session.user;
   var id= req.params.topic;
-  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,id);
+  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,id,curr_user);
       // res.render("group",{Head:post.title,Para:post.content});
 });
 
-//res.redirect("/");
+
+app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
+
+  let curr_user=req.session.user;
+  var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
+
+  //console.log(url);
+
+  // res.render("groups.ejs",{
+  //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
+ func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile,url,curr_user);
+});
+
+
+
+app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
+
+  let curr_user=req.session.user;
+  var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
+//  console.log(url);
+
+  var body = '';
+
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+      //console.log("hello");
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      for(var i=0;i<body.post_stream.posts.length;i++){
+        //console.log(body.post_stream.posts[i].post_number);
+      }
+
+
+     // console.log(groups);
+    // console.log(body.post_stream.posts);
+     res.json(body.post_stream.posts);
+
+    });
+  }).on('error', function () {
+    console.log('errorr');
+  });
+});
+
+
+
+app.post("/",function(req,res){
+  let user=req.session.user;
+  var item=req.body.newGroup;
+  //console.log(item);
+  if(user){
+  func.createGroup(req,res,item);
+  res.redirect("/");
+}else{
+  res.redirect('/');
+}
+});
+
+
+
+app.get("/group/:topic/:id/:offset", function (req, res) {
+  let curr_user = req.session.user;
+  var id = req.params.topic;
+  var i=req.params.offset;
+
+  var body3='';
+  var url2 = secrets.url + 'groups/' + id + '/members' + '.json'+"?offset="+i+"&order=&desc=&filter=";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+      res.json(body3);
+  });
+      //console.log(body3);
+
+      });
+
+    });
+
+
+app.get("/group/:name/post/load/:offset", function (req, res) {
+
+  let curr_user = req.session.user;
+  var id = req.params.name;
+  var i=req.params.offset;
+
+   var body3='';
+   var url2 = secrets.url + 'groups/' + id + '/posts' + '.json?'+'before_post_id='+i;
+  // console.log(url2);
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      body3 += data;
+    });
+    response.on('end', function () {
+      body3 = JSON.parse(body3);
+      res.json(body3);
+  });
+     // console.log(body3);
+
+      });
+
+
+    });
+
+
+
+
+app.get("/user/:uname",function(req,res){
+  let curr_user = req.session.user;
+  var id=req.params.uname;
+  var body='';
+  var url=secrets.url+"users/"+id+".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+     //console.log(body.user);
+     var user_det=body.user;
+     var obj={user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
+    // res.send("hi");
+     func.request_summary(res,obj,'other_profile');
+  // console.log("jk");
+    });
+     // console.log(body3);
+
+      });
+});
+
+
+
+app.get("/sent/:id",function(req,res){
+  let curr_user = req.session.user;
+  var id=req.params.id;
+  var body='';
+  var url="https://t2.metastudio.org/topics/private-messages-sent/"+id+".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+     //console.log(body);
+     var user_det=body;
+     res.send("hi");
+
+    // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+  // console.log("jk");
+    });
+     // console.log(body3);
+
+      });
+});
+
+app.get("/receive/:id",function(req,res){
+  let curr_user = req.session.user;
+  var id=req.params.id;
+  var body='';
+  var url="https://t2.metastudio.org/topics/private-messages/"+id+".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+    // console.log(body.topic_list.topics);
+
+     res.json(body.topic_list.topics);
+
+    // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+  // console.log("jk");
+    });
+     // console.log(body3);
+
+      });
+});
