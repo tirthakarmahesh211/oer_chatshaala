@@ -7,6 +7,7 @@
   <meta name="description" content="STEMChat">
   <title>STEMChat</title>
   <link rel="shortcut icon" href="./favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="/css/pure_css.css">
@@ -42,7 +43,15 @@
         <button class="search-but" name="search_button" type="submit"><i class="fa fa-search"></i></button>
         <input class="search-bar" type="text" placeholder="Search.." name="search_text">
       </form>
+
+      <div id="holder2">
+
+      </div>
+      <form>
+          <button type="button" id="HButton2"> Load More </button>
+      </form>
     </div>
+
 
 
   </div>
@@ -137,6 +146,36 @@
 
 
   <script src="/js/home.js"></script>
+ 
+ <script>
+    $(document).ready(function () {
+                var my_div = $("#holder2");
+        $("#HButton2").on("click", function () {
+          //alert("hi");
+            console.log("hi");
+            $.ajax({
+                url: "receive/G_N"
+            })
+
+                .done(function (data) {
+
+                    console.log(data);
+                     var elements = '';
+                     
+
+                     for(var i=0;i<data.length;i++){
+
+                       elements= elements +'<h3 class="subhead">'+'@'+data[i].title+'</h3>'+'<div>'+'</div>'+'<br>'+'<hr></hr>';
+                   
+                     }
+                 
+                    $('#holder2').append(elements);
+                });
+        });
+    });
+</script>
+
+
   <script>
     function myFunction(x){
 

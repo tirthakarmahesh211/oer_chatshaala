@@ -104,6 +104,9 @@ app.post('/home',function(req,res){
     func.search(req.body.search_text,res);
   }
 
+
+
+
 });
 
 app.get("/feedback", function (req, res) {
@@ -522,6 +525,70 @@ app.get("/user/:id",function(req,res){
      var user_det=body.user;
     // res.send("hi");
      res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+   console.log("jk");
+    });
+     // console.log(body3);
+
+      });
+});
+
+
+    
+app.get("/sent/:id",function(req,res){
+  let curr_user = req.session.user;
+  var id=req.params.id;
+  var body='';
+  var url="https://t2.metastudio.org/topics/private-messages-sent/"+id+".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+     console.log(body);
+     var user_det=body;
+     res.send("hi");
+
+    // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+   console.log("jk");
+    });
+     // console.log(body3);
+
+      });
+});
+
+app.get("/receive/:id",function(req,res){
+  let curr_user = req.session.user;
+  var id=req.params.id;
+  var body='';
+  var url="https://t2.metastudio.org/topics/private-messages/"+id+".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+     console.log(body.topic_list.topics);
+     
+     res.json(body.topic_list.topics)
+
+    // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
    console.log("jk");
     });
      // console.log(body3);
