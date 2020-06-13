@@ -22,7 +22,7 @@
 
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='#' class="active"><%= body.group.name%></a>
+            <a href='#' class="active"><%= body.group.name.split('_').join(' ');%></a>
             <%if(curr_user){%>
             <a href='<%=home%>'>Home</a>
             <%}%>
@@ -48,10 +48,7 @@
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
-                <h1 class="brand-title">Group-<%= body.group.name%></h1>
-
-
-
+                <h1 class="brand-title">Group<br><%= body.group.name.split('_').join(' ');%></h1>
             </div>
         </div>
 
@@ -60,17 +57,15 @@
             <div class="content pure-u-1 pure-u-md-1">
 
                 <!-- A wrapper for all the blog posts -->
-                <h1>
+            <h1>
 
-                    <%= body.group.name%>
+            <%= body.group.name.split('_').join(' ');%>
             <img id="plus" src="<%= body.group.flair_url%>">
             </h1>
-            <h2>
-                <%= body.group.name%>
-            </h2>
+            <button type="button" name="button">📝 Request Membership</button>
             <p class="post-description"> <%= body.group.bio_raw%></p>
             <p class="post-description"><%=body.group.membership_request_template%></p>
-            <a class="tab" href="#">Request</a>
+
 
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
             <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Posts</button>

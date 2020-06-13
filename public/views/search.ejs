@@ -47,9 +47,8 @@
                 <%var str=users[i].avatar_template%>
                 <%var str='https://t2.metastudio.org/'+str%>
                 <%var str=str.replace('{size}','40')%>
-                <h4> <img id="uimg" src='<%=str%>'> <%=users[i].name%> </h4>
-                <h4>@<%=users[i].username%></h4>
-                <a href="" data-topic-id="3682" class="link_head">
+                <h4> <img id="uimg" src='<%=str%>'>  <span><%=users[i].name%><br>@<%=users[i].username%> </span></h4>
+                <a href="/user/<%=users[i].username%>" data-topic-id="3682" class="link_head">
                   <h6>View Profile</h6>
                 </a>
                 <button type="button" name="button">📨 Send Message</button>
@@ -161,9 +160,15 @@
   #contents_page {
     height: auto;
   }
+  span{
+    display: inline-block;
+  }
   #uimg{
     border: 5px;
     border-radius: 50px;
+    height: 3em;
+    width: 3em;
+    margin-right:10px;
   }
 .posts{
   border: 1px;

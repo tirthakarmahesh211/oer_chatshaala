@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
-    <!-- <link rel="stylesheet" href="css/blog.css"> -->
+
 </head>
 
 <body>
@@ -32,7 +32,7 @@
             <a href="/">Groups</a>
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
-                <a href='<%=profile%>'>Profile</a>
+                <a href='/profile'>Profile</a>
                 <%}%>
             <%if(!curr_user){%>
                 <a href='<%=home%>'>Login</a>
@@ -47,7 +47,7 @@
 
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
-           
+
         </div>
 
         <div id="main">
@@ -57,7 +57,7 @@
                     <%var str=user_det.avatar_template ;%>
                     <% str=str.replace("{size}","80");%>
                     <%str="https://t2.metastudio.org"+str;%>
-                    <h2><img src=<%=str%>><span>@<%=user_det.username%><br><%=user_det.name%></span></h2>
+                    <h2><img src=<%=str%> id='uimg'>  <span><%=user_det.name%><br>@<%=user_det.username%></span></h2>
                     <%-user_det.bio_cooked%>
                     <p>
                        Visit me at:<a href=<%=user_det.website%></a> <%=user_det.website_name%></a>
@@ -66,27 +66,26 @@
                         Location: <%=user_det.location%>
                     </p>
 
+                <h2>Groups</h2>
+                <ul>
+
 
                 <%for(var i=0;i<user_det.groups.length;i++){%>
+                  <%if(!user_det.groups[i].name.includes('trust_level')){%>
+                  <li>
                     <header class="post-title">
 
-                        <h4><a href="/group/<%=user_det.groups[i].name%>/<%=user_det.groups[i].id%>"><%=user_det.groups[i].name%></a> </h4>
-        
-                      </header>
+                        <h4><a href="/group/<%=user_det.groups[i].name%>/<%=user_det.groups[i].id%>"><%=user_det.groups[i].name.split('_').join(' ')%></a> </h4>
 
-                    <div class="post-description elip_here">
-                        <p class="para">
+                    </header>
 
-
-                        </p>
-
-                    </div>
-
+                  </li>
+                  <%}%>
                 <%}%>
-                        
-         
-                   
-                  
+                </ul>
+
+
+
              </div>
 
 
@@ -116,7 +115,7 @@
 
 
     <script src="/js/ui.js"></script>
-    
+
 
     <script>
           function myFunction1() {
@@ -169,6 +168,11 @@
 
 
 <style>
+#uimg{
+  border: 5px;
+  border-radius: 50px;
+  margin-right:10px;
+}
 
     * {
         -webkit-box-sizing: border-box;

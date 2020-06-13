@@ -2,179 +2,187 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
-    <title>STEMChat</title>
-    <link rel="shortcut icon" href="./favicon.ico">
-    <link rel="stylesheet" href="/css/pure_css.css">
-    <link rel="stylesheet" href="css/feedback.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+  <title>STEMChat</title>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="stylesheet" href="/css/pure_css.css">
+  <link rel="stylesheet" href="css/feedback.css">
 </head>
 
 <body>
 
 
 
-    <div class="topnav" id="myTopnav1">
-        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
-            <i>☰</i>
-        </a>
+  <div class="topnav" id="myTopnav1">
+    <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
+      <i>☰</i>
+    </a>
 
-        <!-- Navigation links (hidden by default) -->
-        <div id="myLinks">
-            <a href='<%=about%>' class="active">About</a>
-            <%if(curr_user){%>
-            <a href='<%=home%>'>Home</a>
-            <%}%>
+    <!-- Navigation links (hidden by default) -->
+    <div id="myLinks">
+      <a href='<%=about%>' class="active">About</a>
+      <%if(curr_user){%>
+      <a href='<%=home%>'>Home</a>
+      <%}%>
            <a href='<%=blog%>'>Blogs</a>
-            <a href='<%=project%>'>Projects</a>
-            <a href='/'>Groups</a>
-            <a href='<%=feedback%>'>Feedback</a>
-            <%if(curr_user){%>
-            <a href='<%=profile%>'>Profile</a>
-            <%}%>
+      <a href='<%=project%>'>Projects</a>
+      <a href='/'>Groups</a>
+      <a href='<%=feedback%>'>Feedback</a>
+      <%if(curr_user){%>
+      <a href='<%=profile%>'>Profile</a>
+      <%}%>
             <%if(!curr_user){%>
-            <a href='<%=home%>'>Login</a>
-            <%}%>
+      <a href='<%=home%>'>Login</a>
+      <%}%>
             <%if(curr_user){%>
-            <a href="<%=logout%>">Logout</a>
-            <%}%>
+      <a href="<%=logout%>">Logout</a>
+      <%}%>
 
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
-    <div class="topnav" id="myTopnav2">
-        <a href='<%=about%>' class="active2">About</a>
-<a href='<%=FAQ%>'>FAQ</a>
-<a href='<%=Terms%>'>Terms of Service</a>
-<a href='<%=privacy%>'>Privacy</a>
+    <div class="topnav1" id="myTopnav2">
 
-<a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
-    <i> &#x2630</i>
-</a>
-</div>
+      <a href='<%=FAQ%>'>FAQ</a>
+      <a href='<%=Terms%>'>Terms of Service</a>
+      <a href='<%=privacy%>'>Privacy</a>
+
+      <a href="javascript:void(0);" class="icon2" onclick="myFunction2()">
+        <i> ☰</i>
+      </a>
+    </div>
     <div id="layout">
-        <div id="main">
-            <div class="content">
-             
+      <div id="main">
+        <div class="content">
 
-                
-        <div class="para">
+
+
+          <div class="para">
             <h3 class="head_"> <%=abouts.about.description%></h3>
             <UL>
-                <LH>Admins</LH>
-                <%for(var i=0;i<abouts.about.admins.length;i++){%>
-                <LI class="box">
-                    <%var str=abouts.about.admins[i].avatar_template ;%>
-                    <% str=str.replace("{size}","80");%>
-                    <%str="https://t2.metastudio.org"+str;%>
-                    <img src=<%=str%>>  <a href='/user/<%=abouts.about.admins[i].username%>'>
-                        <span><p class="para heading"><%=abouts.about.admins[i].name%></p>
-                           <p  class="para light"> @<%=abouts.about.admins[i].username%></p></span>
-                        <span><p class="head_"><%=abouts.about.admins[i].title%></p></span>
-                    </a>
+              <LH>Admins</LH>
+              <%for(var i=0;i<abouts.about.admins.length;i++){%>
+              <LI class="box">
+                <%var str=abouts.about.admins[i].avatar_template ;%>
+                <% str=str.replace("{size}","80");%>
+                <%str="https://t2.metastudio.org"+str;%>
+                <img src=<%=str%>> <a href='/user/<%=abouts.about.admins[i].username%>'>
+                  <span>
+                    <p class="para heading"><%=abouts.about.admins[i].name%></p>
+                    <p class="para light"> @<%=abouts.about.admins[i].username%></p>
+                  </span>
+                  <span>
+                    <p class="head_"><%=abouts.about.admins[i].title%></p>
+                  </span>
+                </a>
 
-                </LI>
-                <%}%>
+              </LI>
+              <%}%>
             </UL>
             <UL>
                 <LH>Moderators</LH>
                 <%for(var i=0;i<abouts.about.moderators.length;i++){%>
-                <LI class="box">
-                    <%var str=abouts.about.moderators[i].avatar_template ;%>
-                    <% str=str.replace("{size}","80");%>
-                    <%str="https://t2.metastudio.org"+str;%>
-                     <img src=<%=str%>> <a href='/user/<%=abouts.about.moderators[i].username%>'>
-                        <span><p class="para heading"><%=abouts.about.moderators[i].name%></p>
-                               <p class="para light"> @<%=abouts.about.moderators[i].username%></p></span>
-                        <span><p class="head_"><%=abouts.about.moderators[i].title%></p></span>
-                    </a>
-<br>
-                </LI>
-                <%}%>
+              <LI class="box">
+                <%var str=abouts.about.moderators[i].avatar_template ;%>
+                <% str=str.replace("{size}","80");%>
+                <%str="https://t2.metastudio.org"+str;%>
+                <img src=<%=str%>> <a href='/user/<%=abouts.about.moderators[i].username%>'>
+                  <span>
+                    <p class="para heading"><%=abouts.about.moderators[i].name%></p>
+                    <p class="para light"> @<%=abouts.about.moderators[i].username%></p>
+                  </span>
+                  <span>
+                    <p class="head_"><%=abouts.about.moderators[i].title%></p>
+                  </span>
+                </a>
+                <br>
+              </LI>
+              <%}%>
             </UL>
         </div>
         <%console.log(abouts.about.admins)%>
 
 
-        </div>
+          </div>
 
-        <!--
+          <!--
             <div class='foot'>
                 <p> MADE BY BITS 2020</p>
             </div>
             -->
 
-<center>
+          <center>
 
-<h4>Stats</h4>
-    <table class="table">
-        <tbody>
-          <tr>
-            <th>&nbsp;</th>
-            <th>Last 7</th>
-            <th>Last 30</th>
-            <th>All Time</th>
-          </tr>
-          <tr>
-            <td class="title">Topics</td>
-            <td><span class="number"><%=abouts.about.stats.topics_7_days%></span></td>
-            <td><span class="number"><%=abouts.about.stats.topics_30_days%></span></td>
-            <td><span class="number"><%=abouts.about.stats.topic_count%></span></td>
-          </tr>
-          <tr>
-            <td>Posts</td>
-            <td><span class="number"><%=abouts.about.stats.posts_7_days%></span></td>
-            <td><span class="number" title="1,086"><%=abouts.about.stats.posts_30_days%></span></td>
-            <td><span class="number" title="12,502"><%=abouts.about.stats.post_count%></span></td>
-          </tr>
-          <tr>
-            <td>Users</td>
-            <td><span class="number"><%=abouts.about.stats.users_7_days%></span></td>
-            <td><span class="number"><%=abouts.about.stats.users_30_days%></span></td>
-            <td><span class="number" title="1,224"><%=abouts.about.stats.user_count%></span></td>
-          </tr>
-          <tr>
-            <td>Active Users</td>
-            <td><span class="number"><%=abouts.about.stats.active_users_7_days%></span></td>
-            <td><span class="number"><%=abouts.about.stats.active_users_30_days%></span></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>Likes</td>
-            <td><span class="number"><%=abouts.about.stats.likes_7_days%></span></td>
-            <td><span class="number" title="2,435"><%=abouts.about.stats.likes_30_days%></span></td>
-            <td><span class="number" title="13,606"><%=abouts.about.stats.like_count%></span></td>
-          </tr>
-        </tbody>
-      </table>
-      </center>
+            <h4>Stats</h4>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th>Last 7</th>
+                  <th>Last 30</th>
+                  <th>All Time</th>
+                </tr>
+                <tr>
+                  <td class="title">Topics</td>
+                  <td><span class="number"><%=abouts.about.stats.topics_7_days%></span></td>
+                  <td><span class="number"><%=abouts.about.stats.topics_30_days%></span></td>
+                  <td><span class="number"><%=abouts.about.stats.topic_count%></span></td>
+                </tr>
+                <tr>
+                  <td>Posts</td>
+                  <td><span class="number"><%=abouts.about.stats.posts_7_days%></span></td>
+                  <td><span class="number" title="1,086"><%=abouts.about.stats.posts_30_days%></span></td>
+                  <td><span class="number" title="12,502"><%=abouts.about.stats.post_count%></span></td>
+                </tr>
+                <tr>
+                  <td>Users</td>
+                  <td><span class="number"><%=abouts.about.stats.users_7_days%></span></td>
+                  <td><span class="number"><%=abouts.about.stats.users_30_days%></span></td>
+                  <td><span class="number" title="1,224"><%=abouts.about.stats.user_count%></span></td>
+                </tr>
+                <tr>
+                  <td>Active Users</td>
+                  <td><span class="number"><%=abouts.about.stats.active_users_7_days%></span></td>
+                  <td><span class="number"><%=abouts.about.stats.active_users_30_days%></span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td>Likes</td>
+                  <td><span class="number"><%=abouts.about.stats.likes_7_days%></span></td>
+                  <td><span class="number" title="2,435"><%=abouts.about.stats.likes_30_days%></span></td>
+                  <td><span class="number" title="13,606"><%=abouts.about.stats.like_count%></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </center>
 
-    </div>
-</div>
+        </div>
+      </div>
 
-    <script src="/js/ui.js"></script>
+      <script src="/js/ui.js"></script>
 
-    <script>
+      <script>
         function myFunction1() {
-            var x = document.getElementById("myTopnav1");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
+          var x = document.getElementById("myTopnav1");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
         }
+
         function myFunction2() {
-            var x = document.getElementById("myTopnav2");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
-            }
+          var x = document.getElementById("myTopnav2");
+          if (x.className === "topnav") {
+            x.className += " responsive";
+          } else {
+            x.className = "topnav";
+          }
         }
-    </script>
+      </script>
 </body>
 
 
@@ -183,198 +191,290 @@
 
 
 <style>
-    table, th, td {
-     
-  border: 1px solid rgb(194, 182, 182);
-  border-collapse: collapse;
-}
-    .light{
-        font-weight: lighter;
-    }
-    @media screen and (min-width: 601px) {
-  li {
-    font-size: 1em;
+  table,
+  th,
+  td {
+
+    border: 1px solid rgb(194, 182, 182);
+    border-collapse: collapse;
   }
-}
 
-/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
-@media screen and (max-width: 600px) {
- li {
-    font-size: 1em;
+  .light {
+    font-weight: lighter;
   }
-  .heading{
-        font-weight: bold;
-        font-size: small;
-    }
-}
-    .box {
-        display: flex;
-        align-items: center;
-        margin: 1.2em;
-    }
 
-    /*  */
-    img {
-      
-        height: auto;
-        border-radius: 50%;
+  @media screen and (min-width: 601px) {
+    li {
+      font-size: 1em;
+    }
+  }
+
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+    li {
+      font-size: 1em;
     }
 
-    ul {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        word-break: break-word;
+    .heading {
+      font-weight: bold;
+      font-size: small;
+    }
+  }
+
+  .box {
+    display: flex;
+    align-items: center;
+    margin: 1.2em;
+  }
+
+  /*  */
+  img {
+
+    height: auto;
+    border-radius: 50%;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    word-break: break-word;
+  }
+
+  LH {
+    font-weight: bolder;
+    font-size: x-large;
+    font-weight: bolder;
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: medium;
+  }
+
+  .head_ {
+    color: gray;
+  }
+
+  .para {
+    margin: 0em;
+    font-style: normal;
+    color: #333;
+  }
+
+  @media screen and (max-width: 600px) {
+    .topnav a:not(:first-child) {
+      display: none;
     }
 
-    LH {
-        font-weight: bolder;
-        font-size:x-large;
-        font-weight: bolder;
-    }
-    .heading{
-        font-weight: bold;
-        font-size: medium;
+    .topnav a.icon {
+      float: left;
+      display: block;
     }
 
-    .head_ {
-        color: gray;
+    .topnav a.icon2 {
+      float: right;
+      display: block;
+    }
+  }
+
+  /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
+  @media screen and (max-width: 600px) {
+    .topnav.responsive {
+      position: relative;
     }
 
-    .para {
-        margin: 0em;
-        font-style: normal;
-        color: #333;
+    .topnav.responsive a.icon {
+      float: left;
+      display: block;
     }
 
-    @media screen and (max-width: 600px) {
-        .topnav a:not(:first-child) {
-            display: none;
-        }
-
-        .topnav a.icon {
-            float: left;
-            display: block;
-        }
-
-        .topnav a.icon2 {
-            float: right;
-            display: block;
-        }
+    .topnav.responsive a.icon2 {
+      position: absolute;
+      right: 0;
+      top: 0;
     }
 
-    /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens (display the links vertically instead of horizontally) */
-    @media screen and (max-width: 600px) {
-        .topnav.responsive {
-            position: relative;
-        }
-
-        .topnav.responsive a.icon {
-            float: left;
-            display: block;
-        }
-
-        .topnav.responsive a.icon2 {
-            position: absolute;
-            right: 0;
-            top: 0;
-        }
-
-        .topnav.responsive a {
-            float: none;
-            display: block;
-            text-align: left;
-        }
+    .topnav.responsive a {
+      float: none;
+      display: block;
+      text-align: left;
     }
+  }
 
-    .topnav {
-        background-color: #333;
-        overflow: hidden;
-    }
+  .topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
 
-    /* Style the links inside the navigation bar */
-    .topnav a {
-        float: left;
-        display: block;
-        color: #f2f2f2;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-    }
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
 
-    /* Change the color of links on hover */
-    .topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
 
-    /* Add an active class to highlight the current page */
-    .topnav a.active {
-        background-color: #4CAF50;
-        color: white;
-    }
-    .topnav a.active2 {
-        background-color: gray;;
-        color: white;
-    }
+  /* Add an active class to highlight the current page */
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }
 
-    /* Hide the link that should open and close the topnav on small screens */
-    .topnav .icon {
-        display: none;
-    }
+  .topnav a.active2 {
+    background-color: gray;
+    ;
+    color: white;
+  }
 
-    .topnav .icon2 {
-        display: none;
-    }
+  /* Hide the link that should open and close the topnav on small screens */
+  .topnav .icon {
+    display: none;
+  }
 
-
-
-
-    /* --------------- */
+  .topnav .icon2 {
+    display: none;
+  }
 
 
 
-    ._topnav {
-        overflow: hidden;
-        background-color: #333;
-        position: relative;
-    }
 
-    ._topnav #myLinks {
-        display: none;
-    }
+  /* --------------- */
 
-    /* Style navigation menu links */
-    ._topnav a {
-        color: white;
-        padding: 14px 16px;
-        text-decoration: none;
-        font-size: 17px;
-        display: block;
-        background-color: #333;
-        text-align: center;
-    }
 
-    /* Style the hamburger menu */
-    ._topnav a._icon {
-        background: #333;
-        float: left;
-        display: block;
-    }
 
-    /* Add a grey background color on mouse-over */
-    ._topnav a:hover {
-        background-color: #ddd;
-        color: black;
-    }
+  ._topnav {
+    overflow: hidden;
+    background-color: #333;
+    position: relative;
+  }
 
-    /* Style the active link (or home/logo) */
-    ._topnav a._active {
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-    }
+  ._topnav #myLinks {
+    display: none;
+  }
+
+  /* Style navigation menu links */
+  ._topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+    background-color: #333;
+    text-align: center;
+  }
+
+  /* Style the hamburger menu */
+  ._topnav a._icon {
+    background: #333;
+    float: left;
+    display: block;
+  }
+
+  /* Add a grey background color on mouse-over */
+  ._topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+
+  /* Style the active link (or home/logo) */
+  ._topnav a._active {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+  }
+
+  .topnav1 {
+      background-color: #333;
+      overflow: hidden;
+  }
+
+  /* Style the links inside the navigation bar */
+  .topnav1 a {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      width: 100;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+  }
+
+  /* Change the color of links on hover */
+  .topnav1 a:hover {
+      background-color: #ddd;
+      color: black;
+  }
+
+  /* Add an active class to highlight the current page */
+  .topnav1 a.active {
+      background-color: #4CAF50;
+      color: white;
+  }
+
+  /* Hide the link that should open and close the topnav on small screens */
+  .topnav1 .icon {
+      display: none;
+  }
+  .topnav1 .icon2 {
+      display: none;
+  }
+
+
+  /* --------------- */
+
+
+
+  ._topnav1 {
+      overflow-x: scroll;
+      background-color: #333;
+      position: relative;
+  }
+
+  ._topnav1 #myLinks {
+      display: none;
+  }
+
+  /* Style navigation menu links */
+  ._topnav1 a {
+      color: white;
+      padding: 14px 16px;
+      text-decoration: none;
+      font-size: 17px;
+      display: block;
+      background-color: #333;
+      text-align: center;
+  }
+
+  /* Style the hamburger menu */
+  ._topnav1 a._icon {
+      background: #333;
+      float: left;
+      display: block;
+  }
+
+  /* Add a grey background color on mouse-over */
+  ._topnav1 a:hover {
+      background-color: #ddd;
+      color: black;
+  }
+
+  /* Style the active link (or home/logo) */
+  ._topnav1 a._active {
+      background-color: #4CAF50;
+      color: white;
+      text-align: center;
+  }
 </style>
 
 </html>

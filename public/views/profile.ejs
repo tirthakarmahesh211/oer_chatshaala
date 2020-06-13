@@ -60,14 +60,7 @@
           <div class="info">
             <%var str=curr_user.avatar_template;%>
             <%var str=str.replace('{size}','80');%>
-
-            <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>
-
-            <h1><%=curr_user.name%></h1>
-            <h2>@<%=curr_user.username%></h2>
-            <h3><%=curr_user.user_fields['1']%></h3>
-
-
+            <h1> <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <span><%=curr_user.name%><br>@<%=curr_user.username%><br><%=curr_user.user_fields['1']%></span></h1>
             <hr color='black' size='3px'>
           </div>
           <div class="data">
@@ -171,6 +164,11 @@
     border: 5px;
     border-radius: 100px;
     height: 4em;
+    width: 4em;
+    margin-right: 10px;
+  }
+  span{
+    display: inline-block;
   }
 
   .para {
