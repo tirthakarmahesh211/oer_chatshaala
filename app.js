@@ -560,8 +560,7 @@ app.get("/sent/:id",function(req,res){
     response.on('end', function () {
       body = JSON.parse(body);
      //console.log(body);
-     var user_det=body;
-     res.send("hi");
+     res.json(body.topic_list.topics);
 
     // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
   // console.log("jk");
