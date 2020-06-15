@@ -13,7 +13,8 @@ module.exports = {
   createGroup: createGroup,
   search: search,
   request_summary: request_summary,
-  showBadges: showBadges
+  showBadges: showBadges,
+  create_topic:create_topic
 };
 
 function resetCurrUser() {
@@ -515,7 +516,7 @@ function request_summary(res, obj, type) {
             response.on('end',()=>{
               body=JSON.parse(body);
               obj.summary=body;
-              console.log(body.user_summary);
+              //console.log(body.user_summary);
                 res.render('user.ejs',obj);
             });
           }else{
@@ -553,4 +554,42 @@ function showBadges(res, obj) {
       });
     }
   });
+}
+
+function create_topic(req,res){
+    var title=req.body.title;
+    var category=req.body.category;
+    var desc=req.body.desc;
+    var url=secrets.url+'/posts.json';
+    var options={
+      method:"POST",
+      headers:{
+      'Api-Key': secrets.key,
+      'Api-Username': req.session.user.username
+      }
+    };
+    var data1= { "title": title,
+      "raw": desc,
+      "category": Number(category),
+      "archetype": "regular"
+    };
+    //console.log(data1);
+    var request=https.request(url,options,(response)=>{
+      //  console.log(response.statusCode);
+        if(response.statusCode===200){
+          var body='';
+          response.on('data',(data)=>{
+            body+=data;
+          });
+          response.on('end',()=>{
+            body=JSON.parse(body);
+            //console.log(body);
+            res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
+          });
+        }else{
+          res.redirect('/');
+        }
+    });
+    request.write(querystring.stringify(data1));
+    request.end();
 }

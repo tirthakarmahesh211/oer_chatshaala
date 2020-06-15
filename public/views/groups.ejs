@@ -162,16 +162,17 @@
         <h1>Create Topic</h1>
         <form action="/" method="POST">
 
-          <input type="text" name="newGroup" autocomplete="off" placeholder="Group Name"> <br>
+          <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
+          <input type="text" name="desc" required='' autocomplete="off" placeholder="Description"> <br>
           <select id = "multi-role" name='category' required="" placeholder='Select a Category'>
               <option value="" disabled selected>Select your Category</option>
           </select>
           <br />
-          <input type="text" name="users" placeholder="Add Users(for private topic)" list="users1">
+          <input type="text" name="user_search" placeholder="Add User (for private chat)" list="users1" autocomplete="off">
           <datalist id='users1'>
 
           </datalist>
-
+          <br>
           <button type="submit" id='on_but'>Create</button>
 
         </form>
@@ -237,8 +238,10 @@
               url:'/categories'
             }).done(
               (data)=>{
+                $('select[name="category"] option').remove();
+                $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
                   for(var i=0;i<data.length;i++){
-                    $('select[name="category"]').append('<option value='+data[i].name+'>'+data[i].name+'</option>');
+                    $('select[name="category"]').append('<option value=\"'+data[i].id+'\">'+data[i].name+'</option>');
                   }
               }
             );
@@ -246,19 +249,18 @@
             alert_func();
         }
     });
-    $('input[name="users"]').keyup(()=>{
-      var text=$('input[name="users"]').val();
+
+    $('input[name="user_search"]').keyup(()=>{
+      var text=$('input[name="user_search"]').val();
       $.ajax({
         url:'/find',
         data:{text:text}
       }).done(
         (data)=>{
           $('#users1 option').remove();
-          if(data.length===0){
-            $('#users1').html('No such User exists');
-          }
           for(var i=0;i<data.length;i++){
-            $('#users1').append('<option value='+data[i].username+'>'+data[i].name+' (@'+data[i].username+')'+'</option>');
+            var txt=data[i].name+' (@'+data[i].username+')';
+            $('#users1').append('<option value=\"'+data[i].username+'\">'+txt+'</option>');
           }
         }
       );

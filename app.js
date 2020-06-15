@@ -106,7 +106,17 @@ app.post('/home',function(req,res){
   //console.log(req.body);
 
   if(req.body.hasOwnProperty('search_button')){
-    func.search(req.body.search_text,res);
+    res.redirect('/search?text='+req.body.search_text);
+
+  }
+});
+
+app.get('/search',(req,res)=>{
+  let curr_user=req.session.user;
+  if(curr_user){
+    func.search(req.query.text,res);
+  }else{
+    res.redirect('/');
   }
 });
 app.get('/find',(req,res)=>{
@@ -468,12 +478,18 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
 
 app.post("/",function(req,res){
   let user=req.session.user;
-  console.log(req.body);
-  var item=req.body.newGroup;
-  //console.log(item);
   if(user){
 //  func.createGroup(req,res,item);
-  res.redirect("/");
+    if(req.body.user_search===''){
+      //public topics
+      //console.log('creating topic');
+     func.create_topic(req,res);
+    }
+    else{
+      //Create Private message
+      res.redirect('/');
+    }
+
 }else{
   res.redirect('/');
 }
