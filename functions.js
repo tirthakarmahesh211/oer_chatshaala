@@ -565,17 +565,17 @@ function create_topic(req,res){
       method:"POST",
       headers:{
       'Api-Key': secrets.key,
-      'Api-Username': 'system',
-      'Content-Type': 'multipart/form-data'
+      'Api-Username': req.session.user.username
       }
     };
     var data1= { "title": title,
       "raw": desc,
-      "category": category,
+      "category": Number(category),
       "archetype": "regular"
     };
+    //console.log(data1);
     var request=https.request(url,options,(response)=>{
-        console.log(response.statusCode);
+      //  console.log(response.statusCode);
         if(response.statusCode===200){
           var body='';
           response.on('data',(data)=>{
@@ -583,9 +583,11 @@ function create_topic(req,res){
           });
           response.on('end',()=>{
             body=JSON.parse(body);
-            console.log(body);
+            //console.log(body);
             res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
           });
+        }else{
+          res.redirect('/');
         }
     });
     request.write(querystring.stringify(data1));

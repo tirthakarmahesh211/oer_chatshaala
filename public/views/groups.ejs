@@ -168,7 +168,7 @@
               <option value="" disabled selected>Select your Category</option>
           </select>
           <br />
-          <input type="text" name="users_search" placeholder="Add User (for private chat)" list="users1" autocomplete="off">
+          <input type="text" name="user_search" placeholder="Add User (for private chat)" list="users1" autocomplete="off">
           <datalist id='users1'>
 
           </datalist>
@@ -249,12 +249,9 @@
             alert_func();
         }
     });
-      $('input[name="users_search"]').click(()=>{
-          $('input[name="users_search"]').val('');
-          $('input[name="users_search"] option').remove();
-      });
-    $('input[name="users_search"]').keyup(()=>{
-      var text=$('input[name="users_search"]').val();
+
+    $('input[name="user_search"]').keyup(()=>{
+      var text=$('input[name="user_search"]').val();
       $.ajax({
         url:'/find',
         data:{text:text}

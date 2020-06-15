@@ -480,12 +480,13 @@ app.post("/",function(req,res){
   let user=req.session.user;
   if(user){
 //  func.createGroup(req,res,item);
-    if(req.body.users===''){
+    if(req.body.user_search===''){
       //public topics
-      console.log('creating topic');
-    //  func.create_topic(req,res);
+      //console.log('creating topic');
+     func.create_topic(req,res);
     }
     else{
+      //Create Private message
       res.redirect('/');
     }
 
