@@ -106,7 +106,17 @@ app.post('/home',function(req,res){
   //console.log(req.body);
 
   if(req.body.hasOwnProperty('search_button')){
-    func.search(req.body.search_text,res);
+    res.redirect('/search?text='+req.body.search_text);
+
+  }
+});
+
+app.get('/search',(req,res)=>{
+  let curr_user=req.session.user;
+  if(curr_user){
+    func.search(req.query.text,res);
+  }else{
+    res.redirect('/');
   }
 });
 app.get('/find',(req,res)=>{

@@ -515,7 +515,7 @@ function request_summary(res, obj, type) {
             response.on('end',()=>{
               body=JSON.parse(body);
               obj.summary=body;
-              console.log(body.user_summary);
+              //console.log(body.user_summary);
                 res.render('user.ejs',obj);
             });
           }else{
