@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <link rel="stylesheet" href="css/blog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -47,31 +48,59 @@
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
-                <h1 class="brand-title">COOOL STEMGames-Groups</h1>
+                <h1 class="brand-title">COOOL STEMGames</h1>
                 <h2 class="brand-tagline"> Welcome to metaStudio! This is a platform for Collaborative Open Online and Ongoing Learning through STEM (Science, Technology, Engineering, and Mathematics) games.</h2>
                 <h4>
-                    Join the Relevant Groups and Collaborate in this Learning process
+
                 </h4>
 
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://purecss.io">Pure</a> -->
-                        </li>
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://yuilibrary.com">YUI Library</a> -->
-                        </li>
-                    </ul>
-                </nav>
             </div>
         </div>
 
         <div id="main">
+          <div class="content pure-u-1 pure-u-md-1">
+              <div>
+                  <!-- A wrapper for all the blog posts -->
+                  <div class="posts">
+                    <h1>Latest Topics</h1>
 
-            <div class="content pure-u-1 pure-u-md-1">
+
+          <!-- A single blog post -->
+          <%for(var i=0;i<topics.length;i++){%>
+          <section class="post">
+              <header class="post-header">
+
+                  <h1 class="content-subhead"></h1>
+                  <a href="/post/t/<%=topics[i].title.split(' ').join('-')%>/<%=topics[i].id%>/1" data-topic-id="3682" class="link_head">
+                      <h1><%=topics[i].title.split('_').join(' ')%> <%if(topics[i].pinned){%>
+                        📌
+                      <%}%></h1>
+                  </a>
+
+
+                  <p class="post-meta">
+                    Post Count: <%=topics[i].posts_count%>
+                    <br>
+                    ❤️: <%=topics[i].like_count%>
+                  </p>
+              </header>
+
+              <div class="post-description elip_here">
+                  <p class="para">
+                      <%=topics[i].excerpt%>
+                  </p>
+              </div>
+
+          </section>
+          <%}%>
+        </div>
+      </div>
+      <br>
+
                 <div>
                     <!-- A wrapper for all the blog posts -->
                     <div class="posts">
+                      <h1>Groups</h1>
                         <%var k=0;%>
 
             <!-- A single blog post -->
@@ -86,8 +115,7 @@
                         <h1><%=groups[i].name.split('_').join(' ')%></h1>
 
                     </a>
-                    <!-- <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg"> -->
+
 
                     <p class="post-meta">
                       User Count: <%=groups[i].user_count%>
@@ -97,7 +125,6 @@
                 <div class="post-description elip_here">
                     <p class="para">
                         <%=groups[i].bio_raw%>
-
                     </p>
                   <button  class="myButton" type="button" name="button"> Request Membership</button>
                 </div>
@@ -107,9 +134,8 @@
 
         </div>
 
-
-        <img id="plus" src="plus.png">
-
+      </div>
+      <img id="plus" src="plus.png">
     </div>
 
 
@@ -127,16 +153,24 @@
     </div>
     </div>
     </div>
-    </div>
-    </div>
+
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close">✖</span>
+        <h1>Create Topic</h1>
         <form action="/" method="POST">
-          <h2>Enter the Group Name</h2>
-          <input type="text" name="newGroup" autocomplete="off"> <br>
+
+          <input type="text" name="newGroup" autocomplete="off" placeholder="Group Name"> <br>
+          <select id = "multi-role" name='category' required="" placeholder='Select a Category'>
+              <option value="" disabled selected>Select your Category</option>
+          </select>
+          <br />
+          <input type="text" name="users" placeholder="Add Users(for private topic)" list="users1">
+          <datalist id='users1'>
+
+          </datalist>
 
           <button type="submit" id='on_but'>Create</button>
 
@@ -190,18 +224,45 @@
     // Get the button that opens the modal
     var btn = document.getElementById("plus");
 
+
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal
-
-    btn.addEventListener('click',function() {
-      if( document.getElementById('home') ){
-          modal.style.display = "block";
-      }else{
-          alert_func();
-      }
-
+    $(document).ready(function(){
+      btn.addEventListener('click',function() {
+        if( document.getElementById('home') ){
+            modal.style.display = "block";
+            $.ajax({
+              url:'/categories'
+            }).done(
+              (data)=>{
+                  for(var i=0;i<data.length;i++){
+                    $('select[name="category"]').append('<option value='+data[i].name+'>'+data[i].name+'</option>');
+                  }
+              }
+            );
+        }else{
+            alert_func();
+        }
+    });
+    $('input[name="users"]').keyup(()=>{
+      var text=$('input[name="users"]').val();
+      $.ajax({
+        url:'/find',
+        data:{text:text}
+      }).done(
+        (data)=>{
+          $('#users1 option').remove();
+          if(data.length===0){
+            $('#users1').html('No such User exists');
+          }
+          for(var i=0;i<data.length;i++){
+            $('#users1').append('<option value='+data[i].username+'>'+data[i].name+' (@'+data[i].username+')'+'</option>');
+          }
+        }
+      );
+    });
   });
 
     // When the user clicks on <span> (x), close the modal
@@ -251,8 +312,8 @@
     @media (min-width:600px)
 {
     #plus {
-        height: 6rem;
-        width: 6rem;
+        height: 5rem;
+        width: 5rem;
         position: fixed;
         bottom: 2.5rem;
         right: 2.5rem;
@@ -261,24 +322,25 @@
 
     #plus:hover {
         opacity: 1.0;
-    }  
+    }
 }
 @media (max-width:600px)
 {
     #plus{
-        width: 4rem;
-        height:4rem;
+        width: 2.5rem;
+        height: 2.5rem;
         position: fixed;
-        bottom: 2.5rem;
-        right: 2.5rem;
+        bottom: 1rem;
+        right: 3.5rem;
+        z-index: 100;
         opacity: 0.5;
     }
     #plus:hover {
         opacity: 1.0;
-    }  
+    }
 
 }
-    
+
     @media screen and (max-width: 600px) {
         .topnav a:not(:first-child) {
             display: none;

@@ -1,81 +1,132 @@
 <!doctype html>
 <html lang="en">
 
+
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
-    <title>STEMChat</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="/css/pure_css.css">
-    <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
+     <meta charset="utf-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta name="description"
+         content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+     <title>STEMChat</title>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <link rel="stylesheet" href="/css/pure_css.css">
+     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
 
 </head>
 
 <body>
 
-    <div class="topnav" id="myTopnav1">
-        <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
-            <i>☰</i>
-        </a>
-
-        <!-- Navigation links (hidden by default) -->
-        <div id="myLinks">
-            <a href="javascript:history.back()"  class="active">Go back</a>
-            <%if(curr_user){%>
-                <a href='<%=home%>'>Home</a>
+     <div class="topnav" id="myTopnav1">
+         <a href="javascript:void(0);" class="icon" onclick="myFunction1()">
+             <i>☰</i>
+         </a>
+ 
+         <!-- Navigation links (hidden by default) -->
+         <div id="myLinks">
+             <a href="javascript:history.back()"  class="active">Go back</a>
+             <%if(curr_user){%>
+                 <a href='<%=home%>'>Home</a>
                 <%}%>
-            <a href='<%=about%>'>About</a>
-            <a href='<%=blog%>'>Blogs</a>
-            <a href='<%=project%>'>Projects</a>
-            <a href="/">Groups</a>
-            <a href='<%=feedback%>'>Feedback</a>
-            <%if(curr_user){%>
+             <a href='<%=about%>'>About</a>
+             <a href='<%=blog%>'>Blogs</a>
+             <a href='<%=project%>'>Projects</a>
+             <a href="/">Groups</a>
+             <a href='<%=feedback%>'>Feedback</a>
+             <%if(curr_user){%>
                 <a href='/profile'>Profile</a>
-                <%}%>
-            <%if(!curr_user){%>
-                <a href='<%=home%>'>Login</a>
+                 <%}%>
+            < %if(!curr_user){%>
+                 <a href='<%=home%>'>Login</a>
                 <%}%>
             <%if(curr_user){%>
-                <a href="<%=logout%>">Logout</a>
-                <%}%>
-        </div>
+                 <a href="<%=logout%>">Logout</a>
+                 <%}%>
+         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
-    </div>
-
-    <div id="layout" class="pure-g">
-        <div class="sidebar pure-u-1">
-
-        </div>
-
+     </div>
+ 
+      <div id="layout" class="pure-g">
+         <div class="sidebar pure-u-1">
+ 
+         </div>
+ 
         <div id="main">
-
-            <div class="content pure-u-1 pure-u-md-1">
-                <div>
+ 
+             <div class="content pure-u-1 pure-u-md-1">
+                 <div>
                     <%var str=user_det.avatar_template ;%>
-                    <% str=str.replace("{size}","80");%>
-                    <%str="https://t2.metastudio.org"+str;%>
+                     <% str=str.replace("{size}","80");%>
+                     <%str="https://t2.metastudio.org"+str;%>
                     <h2><img src=<%=str%> id='uimg'>  <span><%=user_det.name%><br>@<%=user_det.username%></span></h2>
                     <%-user_det.bio_cooked%>
-                    <p>
+                      <p>
+                         <%if(user_det.website && user_det.website_name){%>
                        Visit me at:<a href=<%=user_det.website%></a> <%=user_det.website_name%></a>
+          <%}%>
                     </p>
                     <p>
+                        <%if(user_det.location){%>
                         Location: <%=user_det.location%>
+                        <%}%>
                     </p>
+                    <hr color='black' size='3px'>
+                    <div class="data">
+                        Created: <%=user_det_more.created_at.split('T').join(', ').split('.')[0]%>
+                        <br>
+                        <%if(user_det_more.last_seen_at){var ls=user_det_more.last_seen_at.split('T').join(', ').split('.')[0]}%>
+                        Last seen at: <%=ls%>
+                        <br>
+                        Days Visited: <%=user_det_more.days_visited%>
+                        <br>
+                        <%var hr=Math.floor(user_det_more.time_read/3600);%>
+                        <%var min=Math.floor(user_det_more.time_read/60)%>
+                        Read Time: <%=hr%>hrs and <%=min%> mins
+                        <br>
+                        Topics Read: <%=user_det_more.topics_entered%>
+                        <br>
+                        Posts Read: <%=user_det_more.posts_read_count%>
+                        <br>
+                        Likes Given ❤️: <%=user_det_more.like_given_count%>
+                        <br>
+                        Topics Created: <%=user_det_more.topic_count%>
+                        <br>
+                        Posts Created: <%=user_det_more.post_count%>
+                        <br>
+                        Likes Received ❤️: <%=user_det_more.like_count%>
+                        <hr>
+                        
+                      </div>
+            
 
-                <h2>Groups</h2>
+                 <h2>Groups</h2>
+                 <ul>
+ 
+ 
+                 <%for(var i=0;i<user_det.groups.length;i++){%>
+                   <%if(!user_det.groups[i].name.includes('trust_level')){%>
+                  <li>
+                     <header class="post-title">
+ 
+                         <h4><a href="/group/<%=user_det.groups[i].name%>/<%=user_det.groups[i].id%>"><%=user_det.groups[i].name.split('_').join(' ')%></a> </h4>
+ 
+                     </header>
+ 
+                   </li>
+                   <%}%>
+                 <%}%>
+                 </ul>
+                <h2>Topics</h2>
                 <ul>
 
 
-                <%for(var i=0;i<user_det.groups.length;i++){%>
-                  <%if(!user_det.groups[i].name.includes('trust_level')){%>
+                <%for(var i=0;i<summary.topics.length;i++){%>
+                  <%if(1==1){%>
                   <li>
                     <header class="post-title">
 
-                        <h4><a href="/group/<%=user_det.groups[i].name%>/<%=user_det.groups[i].id%>"><%=user_det.groups[i].name.split('_').join(' ')%></a> </h4>
+                        <h4><a href="/post/t/<%=summary.topics[i].slug%>/<%=summary.topics[i].id%>/1"><%=summary.topics[i].title.split('_').join(' ')%></a> </h4>
 
                     </header>
 
@@ -83,29 +134,51 @@
                   <%}%>
                 <%}%>
                 </ul>
+                <h2>Top links</h2>
+                <ul>
+                    <%for(var i=0;i<summary.user_summary.links.length;i++){%>
+                        <%if(1==1){%>
+                        <li>
+                          <header class="post-title">
+      <%if(summary.user_summary.links[i].title){%>
+                              <h4><a href=<%=summary.user_summary.links[i].url%>><%=summary.user_summary.links[i].title%></a> </h4> 
+      <%}%>
+      <%if(!summary.user_summary.links[i].title){%>
+        <h4><a href=<%=summary.user_summary.links[i].url%>><%=summary.user_summary.links[i].url%></a> </h4> 
+        <%}%>
+                          </header>
+      
+                        </li>
+                        <%}%>
+                      <%}%>
 
 
-
-             </div>
-
-
+                
+                </ul>
 
 
-                <div class="footer">
-                    <div class="pure-menu pure-menu-horizontal">
+ 
 
-                        <center>
+              </div>
+ 
+ 
+ 
+
+                 <div class="footer">
+                     <div class="pure-menu pure-menu-horizontal">
+ 
+                         <center>
                           <!--
-                          <div class='foot'>
-                              <p> MADE BY BITS 2020</p>
-                          </div>
+                           <div class='foot'>
+                               <p> MADE BY BITS 2020</p>
+                           </div>
                           -->
-                        </center>
-                    </div>
-                </div>
-            </div>
+                         </center>
+                     </div>
+                 </div>
+             </div>
         </div>
-    </div>
+     </div>
 
 
 
@@ -114,44 +187,44 @@
 
 
 
-    <script src="/js/ui.js"></script>
+     <script src="/js/ui.js"></script>
 
 
-    <script>
+     <script>
           function myFunction1() {
-            var x = document.getElementById("myTopnav1");
-            if (x.className === "topnav") {
-                x.className += " responsive";
-            } else {
-                x.className = "topnav";
+             var x = document.getElementById("myTopnav1");
+             if (x.className === "topnav") {
+                 x.className += " responsive";
+             } else {
+                 x.className = "topnav";
             }
-        }
+         }
         function myFunction() {
-            var x = document.getElementById("myTopnav");
-            if (x.className === "topnav") {
+             var x = document.getElementById("myTopnav");
+             if (x.className === "topnav") {
                 x.className += " responsive";
             } else {
                 x.className = "topnav";
             }
         }
     </script>
-    <script>
-        function openPage(pageName, elmnt, color) {
+     <script>
+         function openPage(pageName, elmnt, color) {
             // Hide all elements with class="tabcontent" by default */
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
+             var i, tabcontent, tablinks;
+             tabcontent = document.getElementsByClassName("tabcontent");
+             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
-            }
+             }
 
-            // Remove the background color of all tablinks/buttons
-            tablinks = document.getElementsByClassName("tablink");
+             // Remove the background color of all tablinks/buttons
+              tablinks = document.getElementsByClassName("tablink");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].style.backgroundColor = "";
-            }
+             }
 
-            // Show the specific tab content
-            document.getElementById(pageName).style.display = "block";
+             // Show the specific tab content
+             document.getElementById(pageName).style.display = "block";
 
             // Add the specific color to the button used to open the tab content
             elmnt.style.backgroundColor = color;
@@ -167,8 +240,10 @@
 <!-- added here to be condeensed later -->
 
 
-<style>
-#uimg{
+<style> 
+
+
+ #uimg{
   border: 5px;
   border-radius: 50px;
   margin-right:10px;

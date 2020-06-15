@@ -10,6 +10,7 @@ const session = require('express-session');
 const https=require("https");
 
 const home = '/home';
+const home2='/home2';
 const feedback = '/feedback';
 const about = '/about';
 const FAQ = '/FAQ';
@@ -95,6 +96,10 @@ app.get('/home', function (req, res) {
     res.redirect('/register');
   }
 });
+app.get('/home2',function(req,res){
+res.render("home2.ejs", {
+  home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
+});
 
 app.post('/home',function(req,res){
   let user=req.session.user;
@@ -103,11 +108,49 @@ app.post('/home',function(req,res){
   if(req.body.hasOwnProperty('search_button')){
     func.search(req.body.search_text,res);
   }
-
-
-
-
 });
+app.get('/find',(req,res)=>{
+  if(req.session.user){
+  var text=req.query.text;
+  var url = secrets.url + "/search/query?term=" + text + "&include_blurbs=true";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system',
+      'Accept': 'application/json, text/javascript, */*; q=0.01',
+      'Discourse-Visible': true,
+      'DNT': 1,
+      'Referer': secrets.url,
+      'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Mobile Safari/537.36',
+      'X-CSRF-Token': 'undefined',
+      'X-Requested-With': 'XMLHttpRequest'
+    }
+  };
+  https.get(url, options, function(response) {
+    var body = '';
+
+    response.on('data', function(data) {
+      body += data;
+
+    });
+    response.on('end', function() {
+      body = JSON.parse(body);
+      if(body.grouped_search_result && body.grouped_search_result.user_ids){
+      res.json(body.users);
+    }else{
+      res.json([]);
+    }
+    });
+  }).on('error', function() {
+    console.log('error');
+  });
+}else{
+  res.redirect('/');
+}
+});
+
+
 
 app.get("/feedback", function (req, res) {
   let curr_user=req.session.user;
@@ -375,7 +418,6 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   let curr_user=req.session.user;
   var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
 
-  //console.log(url);
 
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
@@ -426,10 +468,11 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
 
 app.post("/",function(req,res){
   let user=req.session.user;
+  console.log(req.body);
   var item=req.body.newGroup;
   //console.log(item);
   if(user){
-  func.createGroup(req,res,item);
+//  func.createGroup(req,res,item);
   res.redirect("/");
 }else{
   res.redirect('/');
@@ -499,7 +542,26 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
 
     });
 
-
+app.get('/categories',(req,res)=>{
+  var url=secrets.url+'/categories.json';
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url,options,(response)=>{
+    var body='';
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      res.json(body.category_list.categories);
+  });
+  });
+});
 
 
 app.get("/user/:uname",function(req,res){
@@ -555,8 +617,7 @@ app.get("/sent/:id",function(req,res){
     response.on('end', function () {
       body = JSON.parse(body);
      //console.log(body);
-     var user_det=body;
-     res.send("hi");
+     res.json(body.topic_list.topics);
 
     // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
   // console.log("jk");

@@ -83,7 +83,7 @@
 
 
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
-            <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Posts</button>
+            <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Topics</button>
 
 
             <div id="Users_list" class="tabcontent">
@@ -107,13 +107,7 @@
 
                     </header>
 
-                    <div class="post-description elip_here">
-                        <p class="para">
 
-
-                        </p>
-
-                    </div>
 
                 </section>
                 <%}%>
@@ -210,7 +204,7 @@
                     url: "/group/<%=body.group.name%>/<%=body.group.id%>/"+i
                 })
                     .done(function (data) {
-                        console.log(data.members[0].username);
+                        //console.log(data.members[0].username);
                         var elements = '';
                         for(var i=0;i<data.members.length;i++){
                             var str=data.members[i].avatar_template ;
@@ -236,7 +230,7 @@
                     url: "/group/<%=body.group.name%>/post/load/"+l
                 })
                     .done(function (data) {
-                        console.log(data[0]);
+                        //console.log(data[0]);
                         var elements = '';
                         for(var i=0;i<data.length;i++){
                             var str=data[i].user.avatar_template ;
