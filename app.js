@@ -10,6 +10,7 @@ const session = require('express-session');
 const https=require("https");
 
 const home = '/home';
+const home2='/home2';
 const feedback = '/feedback';
 const about = '/about';
 const FAQ = '/FAQ';
@@ -94,6 +95,10 @@ app.get('/home', function (req, res) {
   } else {
     res.redirect('/register');
   }
+});
+app.get('/home2',function(req,res){
+res.render("home2.ejs", {
+  home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
 });
 
 app.post('/home',function(req,res){
@@ -375,7 +380,7 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
   let curr_user=req.session.user;
   var url= secrets.url+ req.params.url1+"/"+ req.params.url2+ "/"+req.params.url3+"/"+ req.params.url4+".json";
 
-  //console.log(url);
+  console.log(url);
 
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
@@ -574,8 +579,7 @@ app.get("/sent/:id",function(req,res){
     response.on('end', function () {
       body = JSON.parse(body);
      //console.log(body);
-     var user_det=body;
-     res.send("hi");
+     res.json(body.topic_list.topics);
 
     // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
   // console.log("jk");

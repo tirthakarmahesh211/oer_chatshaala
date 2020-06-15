@@ -44,9 +44,10 @@
         <input class="search-bar" type="text" placeholder="Search.." name="search_text">
       </form>
 
-      <div id="holder2">
+      <div class="tab" id="holder2">
 
       </div>
+
       <form>
           <button type="button" id="HButton2"> Load More </button>
       </form>
@@ -55,7 +56,7 @@
 
 
   </div>
-  <div class="column right">
+  <div id="London" class="column right tabcontent">
     <div class="chatArea" id='chat'>
 
       <div class="chat_">
@@ -140,17 +141,126 @@
     </div>
 
 
+</div>
+
+<div id="Paris" class="column right tabcontent">
+  <div class="chatArea" id='chat'>
+
+    <div class="chat_">
+      <div class="chat-header_">
+        <div class="profile_">
+          <div class="left_">
+            <img src="stemlogo.png" class="arrow">
+            <img src="img/pp.png" class="pp">
+            <h2>User</h2>
+            <span>online/offline</span>
+          </div>
+          <div class="right_">
+            <img src="img/more.png" class="icon">
+          </div>
+        </div>
+      </div>
+      <div class="chat-box_">
+        <div class="chat-r">
+          <div class="sp"></div>
+          <div class="mess mess-r">
+            <p><img src="img/emoji-1.png" class="emoji">
+              Hi, Elias
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+              <img src="img/check-2.png">
+
+            </div>
+            <button class="btn-secondary like-review"   onclick="myFunction(this)">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
+            <button class="btn-secondary like-review"   onclick="myFunction(this)">
+              <i class="fa fa-reply" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="chat-l">
+          <div class="mess">
+            <p>
+              Oh! hi <img src="stemlogo.png" class="emoji">
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+            </div>
+          </div>
+          <div class="sp"></div>
+        </div>
+
+        <div class="chat-r">
+          <div class="sp"></div>
+          <div class="mess mess-r">
+            <p>
+              How are you doing Paris?
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+              <img src="img/check-2.png">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div  class="chat-footer_">
+        <div class="footer">
+
+
+
+
+            <div contenteditable="true" class="edit" id='editor'></div>
+
+          <button type="button" name="post" id='saveDelta'>POST</button>
+
+          <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+
+        </div>
+      </div>
+
+    </div>
+
+
+
   </div>
 
+
+</div>
 
 
 
   <script src="/js/home.js"></script>
+  <script>
+    function openCity(evt, cityName) {
+      alert(cityName);
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the link that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+  </script>
  
  <script>
     $(document).ready(function () {
                 var my_div = $("#holder2");
-        $("#HButton2").on("click", function () {
+       
           //alert("hi");
             console.log("hi");
             $.ajax({
@@ -165,14 +275,14 @@
 
                      for(var i=0;i<data.length;i++){
 
-                       elements= elements +'<h3 class="subhead">'+'@'+data[i].title+'</h3>'+'<div>'+'</div>'+'<br>'+'<hr></hr>';
+                       elements= elements +'<button class="tablinks" onclick="alert("hi")">'+'<h3 class="subhead">'+'@'+data[i].title+'</h3>'+'</button>'+'<div>'+'</div>'+'<br>'+'<hr></hr>';
                    
                      }
                  
                     $('#holder2').append(elements);
                 });
         });
-    });
+  
 </script>
 
 

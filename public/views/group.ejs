@@ -11,6 +11,21 @@
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <!-- <link rel="stylesheet" href="css/blog.css"> -->
+    <style>
+        .myButton {
+	background-color:#0E76BD;
+	border-radius:2rem;
+	border:1px solid #0E76BD;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size: 0.8;
+	padding:0.3rem 0.5rem;
+    text-decoration:none;
+    margin-top: 1rem;
+}
+    </style>
 </head>
 
 <body>
@@ -62,7 +77,7 @@
             <%= body.group.name.split('_').join(' ');%>
             <img id="plus" src="<%= body.group.flair_url%>">
             </h1>
-            <button type="button" name="button">📝 Request Membership</button>
+            <button class="myButton" type="button" name="button">Request Membership</button>
             <p class="post-description"> <%= body.group.bio_raw%></p>
             <p class="post-description"><%=body.group.membership_request_template%></p>
 
@@ -322,7 +337,12 @@
     .tablink:hover {
         background-color: #777;
     }
-
+    @media (max-width:600px)
+{
+   .tablink{
+       width:30%;
+   }
+}
     /* Style the tab content (and add height:100% for full page content) */
     .tabcontent {
         color: black;
