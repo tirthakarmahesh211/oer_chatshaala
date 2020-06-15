@@ -5,9 +5,11 @@
   <meta charset="utf-8">
   <!--  This file has been downloaded from https://bootdey.com  -->
   <!--  All snippets are MIT license https://bootdey.com/license -->
-  <title>Bootdey.com</title>
+  <title>Home-StemChat</title>
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/quill.css">
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
     /* The sidebar menu */
@@ -110,6 +112,11 @@
       margin-top: 20px;
       background: #eee;
     }
+    .ql-toolbar.ql-snow{
+  
+  display: none;
+}
+
 
     .contacts li>.info-combo>h3.name {
       font-size: 12px;
@@ -174,7 +181,7 @@
 
     .messages-panel {
       width: 100%;
-      height: calc(100vh - 150px);
+      height: 100%;
       min-height: 460px;
       background-color: #fbfcff;
       display: inline-block;
@@ -460,6 +467,14 @@
       font-size: 10px;
     }
 
+
+.container {
+    padding-right: 0px; 
+     padding-left: 0px;
+     margin-right: auto;
+    margin-left: auto;
+}
+
     .message-body {
       background-color: #fbfcff;
       height: 100%;
@@ -550,6 +565,11 @@
       position: relative;
       padding: 0 10px;
     }
+    .chat-footer.edit {
+      display: block;
+      position: relative;
+      padding: 0 10px;
+    }
 
     .chat-footer.new-message-textarea .send-message-button {
       right: 35px;
@@ -572,7 +592,7 @@
     .chat-body {
       width: calc(100% + 17px);
       min-height: 290px;
-      height: calc(100vh - 320px);
+      height: 75%;
       background-color: #fbfcff;
       margin-bottom: 30px;
       padding: 30px 5px 5px 5px;
@@ -1077,10 +1097,27 @@
 
     @media (min-width: 768px) {
       .container {
-        width: 80%;
+        width: 100%;
         height: 100%;
       }
     }
+
+  div.edit {
+    width:100%;
+    display:inline-block;
+    flex:1;
+    padding: 10px;
+      max-height: 50%;
+      background: white;
+      overflow-y: scroll;
+      border-radius: 5px;
+      outline: none;
+        margin-bottom: 5px;
+      font-size: 17px;
+  }
+  [contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder) }
+
   </style>
 </head>
 
@@ -1308,12 +1345,10 @@
             </div>
 
             <div class="chat-footer">
-              <textarea class="send-message-text"></textarea>
-              <label class="upload-file">
-                <input type="file" required="">
-                <i class="fa fa-paperclip"></i>
-              </label>
-              <button type="button" class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+              <div contenteditable="true" class="edit" id='editor'></div>
+              <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
+              
+              <button type="button"  name="post" id='saveDelta' class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
             </div>
           </div>
         </div>
@@ -1330,7 +1365,50 @@
 
 
   </script>
-  <script>
+
+<script src="/js/quill.js"></script>
+<script>
+ 
+   document.getElementById('editor').style.display = "none";
+  function showDiv() {
+      
+   document.getElementById('editor').style.display = "inline-block";
+   document.getElementById('temp_editor').style.display = "none";
+   document.querySelector('.ql-toolbar.ql-snow').style.display="inline-block";
+   const selection = this.editor.getSelection(); // get position of cursor (index of selection)
+this.editor.insertText(selection.index, 'ABCD'); 
+  }
+  var options=[
+    ['bold','italics','underline','strike'],
+    ['blockquote','code-block'],
+    [{'header':1},{'header':2}],
+    [{'list':'ordered'},{'list':'bullet'}],
+     [{ 'script': 'sub'}, { 'script': 'super' }],
+     [{ 'indent': '-1'}, { 'indent': '+1' }],
+ [{ 'direction': 'rtl' }],
+ [{ 'color': [] }, { 'background': [] }],
+ [{ 'font': [] }],
+ [{ 'align': [] }],
+ ['link','image','video']
+  ];
+
+
+  var quill = new Quill('#editor', {
+    modules:{
+      toolbar:options,
+
+    },
+    placeholder:"Type your message",
+    scrollingContainer: '#editor',
+    theme: 'snow'
+  });
+  document.getElementById('saveDelta').addEventListener('click',function(){
+    quill_c.setContents(quill.getContents());
+    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
+    quill.setContents('');
+  });
+</script>
+<script>
     $(document).ready(function () {
 
       var my_div = $("#holder2");
