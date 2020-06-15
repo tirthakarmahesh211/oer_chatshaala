@@ -478,12 +478,17 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
 
 app.post("/",function(req,res){
   let user=req.session.user;
-  console.log(req.body);
-  var item=req.body.newGroup;
-  //console.log(item);
   if(user){
 //  func.createGroup(req,res,item);
-  res.redirect("/");
+    if(req.body.users===''){
+      //public topics
+      console.log('creating topic');
+    //  func.create_topic(req,res);
+    }
+    else{
+      res.redirect('/');
+    }
+
 }else{
   res.redirect('/');
 }
