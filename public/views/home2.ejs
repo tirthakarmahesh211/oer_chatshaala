@@ -13,6 +13,12 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
     /* The sidebar menu */
+    html{
+      height: 100%;
+    }
+    body{
+      height: 100%;
+    }
     .sidebar {
       height: 100%;
       /* 100% Full-height */
@@ -113,7 +119,7 @@
       background: #eee;
     }
     .ql-toolbar.ql-snow{
-  
+
   display: none;
 }
 
@@ -469,7 +475,7 @@
 
 
 .container {
-    padding-right: 0px; 
+    padding-right: 0px;
      padding-left: 0px;
      margin-right: auto;
     margin-left: auto;
@@ -818,9 +824,10 @@
     }
 
     .chat-footer {
-      position: relative;
-      width: 100%;
+      position: fixed;
+      width: 70%;
       padding: 0 80px;
+      bottom: 0px;
     }
 
     .chat-footer .send-message-text {
@@ -1272,7 +1279,7 @@
       <div class="tab-content">
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
-            <a class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> New Message </a>
+            <a class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> Create New Message </a>
 
             <div class="new-message-wrapper">
               <div class="form-group">
@@ -1345,17 +1352,19 @@
             </div>
 
             <div class="chat-footer">
+              <center>
               <div contenteditable="true" class="edit" id='editor'></div>
               <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
-              
+
               <button type="button"  name="post" id='saveDelta' class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
+            </center>
             </div>
           </div>
         </div>
 
-     
 
-        
+
+
       </div>
     </div>
   </div>
@@ -1368,15 +1377,15 @@
 
 <script src="/js/quill.js"></script>
 <script>
- 
+
    document.getElementById('editor').style.display = "none";
   function showDiv() {
-      
+
    document.getElementById('editor').style.display = "inline-block";
    document.getElementById('temp_editor').style.display = "none";
    document.querySelector('.ql-toolbar.ql-snow').style.display="inline-block";
    const selection = this.editor.getSelection(); // get position of cursor (index of selection)
-this.editor.insertText(selection.index, 'ABCD'); 
+this.editor.insertText(selection.index, 'ABCD');
   }
   var options=[
     ['bold','italics','underline','strike'],
