@@ -180,39 +180,47 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
       'Api-Username': 'system'
     }
   };
-  https.get(url, options, function(response) {
-    response.on('data', function(data) {
-      body += data;
-      //console.log("hello");
-
+  https.get(secrets.url+'/latest.json',options,(response)=>{
+    var body1='';
+    response.on('data',(data)=>{
+      body1+=data;
     });
-    response.on('end', function() {
-      body = JSON.parse(body);
-      var groups = [];
-      groups = body.groups;
-      // console.log(groups);
+    response.on('end',()=>{
+      body1=JSON.parse(body1);
+      var topics=body1.topic_list.topics;
+      https.get(url, options, function(response) {
+        response.on('data', function(data) {
+          body += data;
+          //console.log("hello");
 
-      res.render("groups.ejs", {
-        curr_user: curr_user,
-        home: home,
-        about: about,
-        blog: blog,
-        project: project,
-        feedback: feedback,
-        logout: logout,
-        profile: profile,
-        groups: groups
-      });
+        });
+        response.on('end', function() {
+          body = JSON.parse(body);
+          var groups = [];
+          groups = body.groups;
+          // console.log(groups);
 
+          res.render("groups.ejs", {
+            curr_user: curr_user,
+            home: home,
+            about: about,
+            blog: blog,
+            project: project,
+            feedback: feedback,
+            logout: logout,
+            profile: profile,
+            groups: groups,
+            topics:topics
+          });
+
+        });
+
+
+      }).on('error', function() {
+          console.log('errorr');
+        });
     });
-
-
-  }).on('error', function() {
-    console.log('errorr');
   });
-
-
-
 }
 
 

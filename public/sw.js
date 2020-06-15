@@ -65,10 +65,10 @@ self.addEventListener('fetch', function(event) {
   const url=event.request.url;
 
     event.respondWith(
-    fetch(event.request).catch(function(){
+      fetch(event.request).catch(function(){
       return caches.match(event.request);
     }));
-  
+
 });
 
 self.addEventListener('push',function(eve){
