@@ -499,7 +499,26 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
 
     });
 
-
+app.get('/categories',(req,res)=>{
+  var url=secrets.url+'/categories.json';
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url,options,(response)=>{
+    var body='';
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      res.json(body.category_list.categories);
+  });
+  });
+});
 
 
 app.get("/user/:uname",function(req,res){

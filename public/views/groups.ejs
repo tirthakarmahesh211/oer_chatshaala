@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <link rel="stylesheet" href="css/blog.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -88,8 +89,7 @@
                         <h1><%=groups[i].name.split('_').join(' ')%></h1>
 
                     </a>
-                    <!-- <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
-                                    src="https://stemgames.metastudio.org/uploads/default/optimized/2X/a/a2347835900c889169306706f4db45f0051d92b2_2_100x100.jpeg"> -->
+
 
                     <p class="post-meta">
                       User Count: <%=groups[i].user_count%>
@@ -99,7 +99,6 @@
                 <div class="post-description elip_here">
                     <p class="para">
                         <%=groups[i].bio_raw%>
-
                     </p>
                   <button type="button" name="button">📝 Request Membership</button>
                 </div>
@@ -135,10 +134,13 @@
 
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close">&times;</span>
+        <span class="close">✖</span>
         <form action="/" method="POST">
-          <h2>Enter the Group Name</h2>
-          <input type="text" name="newGroup" autocomplete="off"> <br>
+
+          <input type="text" name="newGroup" autocomplete="off" placeholder="Group Name"> <br>
+          <select id = "multi-role" name='category' required="" placeholder='Select a Category'>
+              <option value="" disabled selected>Select your Category</option>
+          </select>
 
           <button type="submit" id='on_but'>Create</button>
 
@@ -192,17 +194,28 @@
     // Get the button that opens the modal
     var btn = document.getElementById("plus");
 
+
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks the button, open the modal
-
-    btn.addEventListener('click',function() {
-      if( document.getElementById('home') ){
-          modal.style.display = "block";
-      }else{
-          alert_func();
-      }
+    $(document).ready(function(){
+      btn.addEventListener('click',function() {
+        if( document.getElementById('home') ){
+            modal.style.display = "block";
+            $.ajax({
+              url:'/categories'
+            }).done(
+              (data)=>{
+                  for(var i=0;i<data.length;i++){
+                    $('select[name="category"]').append('<option value='+data[i].name+'>'+data[i].name+'</option>');
+                  }
+              }
+            );
+        }else{
+            alert_func();
+        }
+    });
 
   });
 
