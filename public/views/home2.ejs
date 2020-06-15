@@ -13,12 +13,14 @@
   <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <style type="text/css">
     /* The sidebar menu */
-    html{
+    html {
       height: 100%;
     }
-    body{
+
+    body {
       height: 100%;
     }
+
     .sidebar {
       height: 100%;
       /* 100% Full-height */
@@ -115,13 +117,14 @@
     }
 
     body {
-      margin-top: 20px;
+      
       background: #eee;
     }
-    .ql-toolbar.ql-snow{
 
-  display: none;
-}
+    .ql-toolbar.ql-snow {
+
+      display: none;
+    }
 
 
     .contacts li>.info-combo>h3.name {
@@ -246,7 +249,7 @@
     }
 
     .contacts-list .inbox-categories>div:nth-child(2) {
-      color:rgb(76, 175, 80);
+      color: rgb(76, 175, 80);
       border-right-color: rgba(14, 200, 162, 0.06);
       border-bottom: 4px solid rgb(76, 175, 80);
     }
@@ -474,12 +477,12 @@
     }
 
 
-.container {
-    padding-right: 0px;
-     padding-left: 0px;
-     margin-right: auto;
-    margin-left: auto;
-}
+    .container {
+      padding-right: 0px;
+      padding-left: 0px;
+      margin-right: auto;
+      margin-left: auto;
+    }
 
     .message-body {
       background-color: #fbfcff;
@@ -571,6 +574,7 @@
       position: relative;
       padding: 0 10px;
     }
+
     .chat-footer.edit {
       display: block;
       position: relative;
@@ -695,6 +699,7 @@
       text-align: left;
       padding: 3px 13px 10px 13px;
       font-size: 14px;
+      word-break: break-word;
     }
 
     .message.my-message .message-body {
@@ -1109,22 +1114,47 @@
       }
     }
 
-  div.edit {
-    width:100%;
-    display:inline-block;
-    flex:1;
-    padding: 10px;
+    div.edit {
+      width: 100%;
+      display: inline-block;
+      flex: 1;
+      padding: 10px;
       max-height: 50%;
       background: white;
       overflow-y: scroll;
       border-radius: 5px;
       outline: none;
-        margin-bottom: 5px;
+      margin-bottom: 5px;
       font-size: 17px;
-  }
-  [contentEditable=true]:empty:not(:focus):before{
-    content:attr(data-placeholder) }
+    }
 
+    [contentEditable=true]:empty:not(:focus):before {
+      content: attr(data-placeholder)
+    }
+
+    svg {
+      display: none;
+    }
+
+    pre {
+      white-space: pre-line;
+      word-wrap: break-word;
+      text-align: justify;
+    }
+
+    span {
+      display: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .emoji {
+      height: 1em;
+      width: 1em;
+    }
   </style>
 </head>
 
@@ -1175,104 +1205,7 @@
               </ul>
             </div>
           </div>
-          <div id="sent" class="contacts-outter-wrapper tab-pane">
-            <form class="panel-search-form success form-group has-feedback no-margin-bottom">
-              <input type="text" class="form-control" name="search" placeholder="Search">
-              <span class="fa fa-search form-control-feedback"></span>
-            </form>
-            <div class="contacts-outter">
-              <ul class="list-unstyled contacts success">
-                <li data-toggle="tab" data-target="#sent-message-1">
-                  <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
 
-                  <div class="vcentered info-combo">
-                    <h3 class="no-margin-bottom name"> David Beckham </h3>
-                    <h5> I would like to take a look at it this evening, is it possible ? </h5>
-                  </div>
-                  <div class="contacts-add">
-                    <span class="message-time"> 2:24 <sup>AM</sup></span>
-                    <i class="fa fa-trash-o"></i>
-                    <i class="fa fa-paperclip"></i>
-                  </div>
-                </li>
-                <li data-toggle="tab" data-target="#sent-message-2">
-                  <div class="message-count"> 7 </div>
-                  <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                  <div class="vcentered info-combo">
-                    <h3 class="no-margin-bottom name"> Jeff Williams </h3>
-                    <h5> Hello, Dennis. I will take a look at it tomorrow, because I'm </h5>
-                  </div>
-                  <div class="contacts-add">
-                    <span class="message-time"> 12:41 <sup>AM</sup></span>
-                    <i class="fa fa-trash-o"></i>
-                    <i class="fa fa-paperclip"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div id="marked" class="contacts-outter-wrapper tab-pane">
-            <form class="panel-search-form warning form-group has-feedback no-margin-bottom">
-              <input type="text" class="form-control" name="search" placeholder="Search">
-              <span class="fa fa-search form-control-feedback"></span>
-            </form>
-            <div class="contacts-outter">
-              <ul class="list-unstyled contacts warning">
-                <li data-toggle="tab" data-target="#marked-message-1">
-                  <div class="message-count"> 2 </div>
-                  <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                  <div class="vcentered info-combo">
-                    <h3 class="no-margin-bottom name"> Jessica Franco </h3>
-                    <h5> Hello, Dennis. I wanted to let you know we reviewed your proposal and decided </h5>
-                  </div>
-                  <div class="contacts-add">
-                    <span class="message-time"> 1:44 <sup>AM</sup></span>
-                    <i class="fa fa-trash-o"></i>
-                    <i class="fa fa-paperclip"></i>
-                  </div>
-                </li>
-                <li data-toggle="tab" data-target="#marked-message-2">
-                  <div class="message-count"> 1 </div>
-                  <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                  <div class="vcentered info-combo">
-                    <h3 class="no-margin-bottom name"> Pavel Durov </h3>
-                    <h5> Hey, we need your help for our next Telegram re-design. </h5>
-                  </div>
-                  <div class="contacts-add">
-                    <span class="message-time"> 3:23 <sup>AM</sup></span>
-                    <i class="fa fa-trash-o"></i>
-                    <i class="fa fa-paperclip"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div id="drafts" class="contacts-outter-wrapper tab-pane">
-            <form class="panel-search-form dark form-group has-feedback no-margin-bottom">
-              <input type="text" class="form-control" name="search" placeholder="Search">
-              <span class="fa fa-search form-control-feedback"></span>
-            </form>
-            <div class="contacts-outter">
-              <ul class="list-unstyled contacts dark">
-                <li data-toggle="tab" data-target="#draft-message-1">
-                  <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                  <div class="vcentered info-combo">
-                    <h3 class="no-margin-bottom name"> Milla Shiffman </h3>
-                    <h5> Hello, Mila, can you send me the latest pack of icons, I need </h5>
-                  </div>
-                  <div class="contacts-add">
-                    <span class="message-time"> 4:22 <sup>AM</sup></span>
-                    <i class="fa fa-trash-o"></i>
-                    <i class="fa fa-paperclip"></i>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -1300,64 +1233,22 @@
 
           <div class="message-chat">
             <div class="chat-body">
-              <div class="message info">
-                <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
+              <div id="holder3">
 
-                <div class="message-body">
-                  <div class="message-info">
-                    <h4> Elon Musk </h4>
-                    <h5> <i class="fa fa-clock-o"></i> 2:25 PM </h5>
-                  </div>
-                  <hr>
-                  <div class="message-text">
-                    I've seen your new template, Dauphin, it's amazing !
-                  </div>
-                </div>
-                <br>
+
+
               </div>
 
-              <div class="message my-message">
-                <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                <div class="message-body">
-                  <div class="message-body-inner">
-                    <div class="message-info">
-                      <h4> Dennis Novac </h4>
-                      <h5> <i class="fa fa-clock-o"></i> 2:28 PM </h5>
-                    </div>
-                    <hr>
-                    <div class="message-text">
-                      Thanks, I think I will use this for my next dashboard system.
-                    </div>
-                  </div>
-                </div>
-                <br>
-              </div>
-
-              <div class="message info">
-                <img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">
-
-                <div class="message-body">
-                  <div class="message-info">
-                    <h4> Elon Musk </h4>
-                    <h5> <i class="fa fa-clock-o"></i> 2:32 PM </h5>
-                  </div>
-                  <hr>
-                  <div class="message-text">
-                    Hah, too late, I already bought it and my team is impleting the new design right now.
-                  </div>
-                </div>
-                <br>
-              </div>
             </div>
 
             <div class="chat-footer">
               <center>
-              <div contenteditable="true" class="edit" id='editor'></div>
-              <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
+                <div contenteditable="true" class="edit" id='editor'></div>
+                <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
 
-              <button type="button"  name="post" id='saveDelta' class="send-message-button btn-info"> <i class="fa fa-send"></i> </button>
-            </center>
+                <button type="button" name="post" id='saveDelta' class="send-message-button btn-info"> <i
+                    class="fa fa-send"></i> </button>
+              </center>
             </div>
           </div>
         </div>
@@ -1375,49 +1266,49 @@
 
   </script>
 
-<script src="/js/quill.js"></script>
-<script>
+  <script src="/js/quill.js"></script>
+  <script>
 
-   document.getElementById('editor').style.display = "none";
-  function showDiv() {
+    document.getElementById('editor').style.display = "none";
+    function showDiv() {
 
-   document.getElementById('editor').style.display = "inline-block";
-   document.getElementById('temp_editor').style.display = "none";
-   document.querySelector('.ql-toolbar.ql-snow').style.display="inline-block";
-   const selection = this.editor.getSelection(); // get position of cursor (index of selection)
-this.editor.insertText(selection.index, 'ABCD');
-  }
-  var options=[
-    ['bold','italics','underline','strike'],
-    ['blockquote','code-block'],
-    [{'header':1},{'header':2}],
-    [{'list':'ordered'},{'list':'bullet'}],
-     [{ 'script': 'sub'}, { 'script': 'super' }],
-     [{ 'indent': '-1'}, { 'indent': '+1' }],
- [{ 'direction': 'rtl' }],
- [{ 'color': [] }, { 'background': [] }],
- [{ 'font': [] }],
- [{ 'align': [] }],
- ['link','image','video']
-  ];
+      document.getElementById('editor').style.display = "inline-block";
+      document.getElementById('temp_editor').style.display = "none";
+      document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
+      const selection = this.editor.getSelection(); // get position of cursor (index of selection)
+      this.editor.insertText(selection.index, 'ABCD');
+    }
+    var options = [
+      ['bold', 'italics', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ 'header': 1 }, { 'header': 2 }],
+      [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+      [{ 'script': 'sub' }, { 'script': 'super' }],
+      [{ 'indent': '-1' }, { 'indent': '+1' }],
+      [{ 'direction': 'rtl' }],
+      [{ 'color': [] }, { 'background': [] }],
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+      ['link', 'image', 'video']
+    ];
 
 
-  var quill = new Quill('#editor', {
-    modules:{
-      toolbar:options,
+    var quill = new Quill('#editor', {
+      modules: {
+        toolbar: options,
 
-    },
-    placeholder:"Type your message",
-    scrollingContainer: '#editor',
-    theme: 'snow'
-  });
-  document.getElementById('saveDelta').addEventListener('click',function(){
-    quill_c.setContents(quill.getContents());
-    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
-    quill.setContents('');
-  });
-</script>
-<script>
+      },
+      placeholder: "Type your message",
+      scrollingContainer: '#editor',
+      theme: 'snow'
+    });
+    document.getElementById('saveDelta').addEventListener('click', function () {
+      quill_c.setContents(quill.getContents());
+      document.querySelector("#chat").scrollTop = document.querySelector("#chat").scrollHeight;
+      quill.setContents('');
+    });
+  </script>
+  <script>
     $(document).ready(function () {
 
       var my_div = $("#holder2");
@@ -1435,23 +1326,24 @@ this.editor.insertText(selection.index, 'ABCD');
 
 
           for (var i = 0; i < data.length; i++) {
-            var mydate, newdate, newtime;
+            var mydate, newdate, newtime, slud, ide;
 
             mydate = data[i].last_posted_at;
-
-            newdate = mydate[8]+mydate[9]+"/"+mydate[5]+mydate[6];
+            slug = data[i].slug;
+            ide = data[i].id;
+            newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
 
-            newtime = mydate[11]+mydate[12]+mydate[13]+mydate[14]+mydate[15];
-           // alert('newtime: ' + newtime);
+            newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+            // alert('newtime: ' + newtime);
 
-            elements = elements + '<li class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate+'<br>'+newtime+ '<sup>'  + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
           $('#holder2').append(elements);
         });
-        $.ajax({
+      $.ajax({
         url: "sent/G_N"
       })
 
@@ -1462,23 +1354,61 @@ this.editor.insertText(selection.index, 'ABCD');
 
 
           for (var i = 0; i < data.length; i++) {
-            var mydate, newdate, newtime;
+            var mydate, newdate, newtime, slug, ide;
 
             mydate = data[i].last_posted_at;
+            slug = data[i].slug;
+            ide = data[i].id;
 
-            newdate = mydate[8]+mydate[9]+"/"+mydate[5]+mydate[6];
+            newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
 
-            newtime = mydate[11]+mydate[12]+mydate[13]+mydate[14]+mydate[15];
-           // alert('newtime: ' + newtime);
+            newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+            // alert('newtime: ' + newtime);
 
-            elements = elements + '<li class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate+'<br>'+newtime+ '<sup>'  + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/16" + '")' + '>' + '<li class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
           $('#holder2').append(elements);
         });
     });
+  </script>
+  <script>
+    function load_posts(x) {
+      //alert(x);
+
+      var my_div = $("#holder3");
+
+      //alert("hi");
+      //console.log("hi");
+      $.ajax({
+        url: "post/more/t/" + x
+      })
+
+        .done(function (data) {
+
+          console.log(data);
+          var elements = '';
+
+
+          for (var i = 0; i < data.length; i++) {
+
+            if(data[i].username!="G_N")
+            {//for receive
+            elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/'+data[i].username+'/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +"@"+ data[i].username +"--"+ data[i].name + '</b>' + ' </h3>' + '<h5>' +  '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+            }
+            else{
+              //for sent
+              elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/'+data[i].username+'/120/671_2.png">' + '<div class="message-body">'+ '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' +"@" +data[i].username + "--"+data[i].name + '</b>' + ' </h3>' + '<h5>' +  '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+
+            }
+          }
+
+          $('#holder3').html(elements);
+        });
+    };
+
   </script>
   <script>
     /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
