@@ -234,7 +234,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
   var url1 = secrets.url + 'groups/' + id + '.json';
   var url2 = secrets.url + 'groups/' + id + '/members' + '.json';
   var url3 = secrets.url + 'groups/' + id + '/posts' + '.json';
-  // console.log(url);
+   console.log(url3);
   var options = {
     method: 'GET',
     headers: {
