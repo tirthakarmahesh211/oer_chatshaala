@@ -673,3 +673,20 @@ app.get("/receive/:id",function(req,res){
 
       });
 });
+
+app.get('/groups.json',(req,res)=>{
+  var url=secrets.url+'/groups.json';
+  https.get(url,(response)=>{
+    if(response.statusCode===200){
+      var body='';
+      response.on('data',(data)=>{
+        body+=data;
+      });
+      response.on('end',()=>{
+        body=JSON.parse(body);
+
+        res.json(body.groups);
+      });
+    }
+  });
+});

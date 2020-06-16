@@ -51,19 +51,12 @@
                 <h2 class="brand-title"><%=body.title%></h2>
                 <h2 class="brand-tagline"></h2>
                 <h4>
-
+                  <button type="button" name="button">Category:
+                  <a href="" id='cat' name='<%=body.category_id%>'>Unknown</a>
+                  </button>
                 </h4>
 
-                <nav class="nav">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://purecss.io">Pure</a> -->
-                        </li>
-                        <li class="nav-item">
-                            <!-- <a class="pure-button" href="http://yuilibrary.com">YUI Library</a> -->
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
         </div>
 
@@ -123,19 +116,45 @@
     <script src="/js/ui.js"></script>
     <script>
         $(document).ready(function () {
+          $.ajax({
+            url:'/categories'
+          }).done((data)=>{
+              var cat_id=Number($('#cat').attr('name'));
+              for(var i=0;i<data.length;i++){
+                  if(cat_id===data[i].id){
+                    $('#cat').html(data[i].name);
+                    if(data[i].name==='Blogs'){
+                      $('#cat').attr('href','/blog');
+                    }
+                    $.ajax({
+                      url:'/groups.json'
+                    }).done((data1)=>{
+                      for(var j=0;j<data1.length;j++){
+                        if(data[i].name===data1[j].name.split('_').join(' ')){
+                          var url='/group/'+data1[j].name+'/'+data[j].id;
+                          $('#cat').attr('href',url);
+                          break;
+                        }
+                      }
+
+                    });
+                    break;
+                  }
+              }
+          });
             var l = (<%=ko%>);
 
             var my_div = $("#holder2");
             $("#HButton2").on("click", function () {
               //alert("hi");
-                console.log(l);
+
                 $.ajax({
                     url: "/post/more/t/<%=body.slug%>/<%=body.id%>/"+l
                 })
 
                     .done(function (data) {
 
-                        console.log(data);
+
                         var elements = '';
                         var i;
                         if(data[0].post_number>l){

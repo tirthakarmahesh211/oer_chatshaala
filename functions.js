@@ -343,7 +343,7 @@ function fetchPosts(req, res, home, about, blog, project, feedback, logout, prof
       response.on('end', function() {
         //  console.log(body);
         body = JSON.parse(body);
-        //console.log(body.post_stream.posts);
+        //console.log(body.category_id);
         res.render("post.ejs", {
           curr_user: curr_user,
           home: home,
