@@ -37,7 +37,7 @@
 
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href='#' class="active"><%= body.group.name.split('_').join(' ');%></a>
+            <a href='javascript:history.back()' class="active">Go Back</a>
             <%if(curr_user){%>
             <a href='<%=home%>'>Home</a>
             <%}%>
@@ -77,7 +77,9 @@
             <%= body.group.name.split('_').join(' ');%>
             <img id="plus" src="<%= body.group.flair_url%>">
             </h1>
+            <%if(body.group.allow_membership_requests){%>
             <button class="myButton" type="button" name="button">Request Membership</button>
+            <%}%>
             <p class="post-description"> <%= body.group.bio_raw%></p>
             <p class="post-description"><%=body.group.membership_request_template%></p>
 
