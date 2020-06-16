@@ -1132,9 +1132,7 @@
       content: attr(data-placeholder)
     }
 
-    svg {
-      display: none;
-    }
+    
 
     pre {
       white-space: pre-line;
@@ -1154,6 +1152,9 @@
     .emoji {
       height: 1em;
       width: 1em;
+    }
+    li{
+      display: block;
     }
   </style>
 </head>
@@ -1193,11 +1194,11 @@
 
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
             <form class="panel-search-form info form-group has-feedback no-margin-bottom">
-              <input type="text" class="form-control" name="search" placeholder="Search">
+              <input type="text" id="myInput" onkeyup="myFunc()" class="form-control" name="search" placeholder="Search">
               <span class="fa fa-search form-control-feedback"></span>
             </form>
             <div class="contacts-outter">
-              <ul class="list-unstyled contacts">
+              <ul id="myUL" class="list-unstyled contacts">
                 <div id="holder2">
 
 
@@ -1268,6 +1269,31 @@
 
   <script src="/js/quill.js"></script>
   <script>
+    function myFunc() {
+      //alert("hi");
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.getElementById("myUL");
+  li = ul.getElementsByTagName('li');
+//alert(filter);
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].id;
+    txtValue = a;
+  //alert(txtValue);
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+     // alert(li[i].id);
+      li[i].style.display = "";
+    } else {
+     // alert("hi");
+      li[i].style.display = "none";
+    }
+  }
+}
+  </script>
+  <script>
 
     document.getElementById('editor').style.display = "none";
     function showDiv() {
@@ -1337,7 +1363,7 @@
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="'+data[i].fancy_title+'" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1366,7 +1392,7 @@
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/16" + '")' + '>' + '<li class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="yahh" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1388,7 +1414,7 @@
 
         .done(function (data) {
 
-          console.log(data);
+         // console.log(data);
           var elements = '';
 
 
