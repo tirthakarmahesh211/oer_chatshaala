@@ -417,8 +417,9 @@ app.get("/", function (req, res) {
 
 app.get("/group/:topic/:id", function (req, res) {
   let curr_user=req.session.user;
-  var id= req.params.topic;
-  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,id,curr_user);
+  var topic=req.params.topic;
+  var id= req.params.id;
+  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile,topic,id,curr_user);
       // res.render("group",{Head:post.title,Para:post.content});
 });
 
@@ -526,15 +527,16 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
     });
 
 
-app.get("/group/:name/post/load/:offset", function (req, res) {
+app.get("/group/:name/:id/load/:offset", function (req, res) {
 
   let curr_user = req.session.user;
-  var id = req.params.name;
+  var name = req.params.name;
+  var id=req.params.id;
   var i=req.params.offset;
 
    var body3='';
-   var url2 = secrets.url + 'groups/' + id + '/posts' + '.json?'+'before_post_id='+i;
-  // console.log(url2);
+   var url2 = secrets.url + 'c/' + name+"/"+id + '.json'+'?page='+i;
+  console.log(url2);
 
   var options = {
     method: 'GET',
@@ -549,6 +551,7 @@ app.get("/group/:name/post/load/:offset", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
+      console.log(body3.topic_list.topics);
       res.json(body3);
   });
      // console.log(body3);

@@ -173,7 +173,7 @@ function fetchUserInfo(req, res, userName, password) {
 
 function fetchGroups(req, res, home, about, blog, project, feedback, logout, profile, curr_user) {
   var body = '';
-  var url = secrets.url + 'groups' + '.json';
+  var url = secrets.url + 'categories' + '.json';
   var options = {
     method: 'GET',
     headers: {
@@ -198,7 +198,8 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
         response.on('end', function() {
           body = JSON.parse(body);
           var groups = [];
-          groups = body.groups;
+          groups = body.category_list.categories;
+         
           // console.log(groups);
 
           res.render("groups.ejs", {
@@ -227,14 +228,15 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
 
 
-function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, id, curr_user) {
+function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, topic,id, curr_user) {
   var body = '';
   var body2 = '';
   var body3 = '';
-  var url1 = secrets.url + 'groups/' + id + '.json';
-  var url2 = secrets.url + 'groups/' + id + '/members' + '.json';
-  var url3 = secrets.url + 'groups/' + id + '/posts' + '.json';
-   console.log(url3);
+  var topic_head='';
+  
+  var url= secrets.url + 'categories' +'.json';
+  var url3 = secrets.url + 'c/' + topic+"/"+id  + '.json';
+   //console.log(url3);
   var options = {
     method: 'GET',
     headers: {
@@ -242,14 +244,22 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
       'Api-Username': 'system'
     }
   };
-  https.get(url1, options, function(response) {
+  https.get(url, options, function(response) {
     response.on('data', function(data) {
       body += data;
     });
     response.on('end', function() {
       body = JSON.parse(body);
+
+      var list=(body.category_list.categories);
+      for(var i=0;i<list.length;i++){
+        if(list[i].slug==topic){
+          topic_head=list[i];
+         // console.log(topic_head);
+        }
+      }
       // console.log("1");
-      https.get(url2, options, function(response) {
+      https.get(url3, options, function(response) {
         response.on('data', function(data) {
           body2 += data;
 
@@ -257,20 +267,17 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
         response.on('end', function() {
           body2 = JSON.parse(body2);
 
-          var members = [];
-          members = body2.members;
+          ;
           //console.log("2");
           https.get(url3, options, function(response) {
             response.on('data', function(data) {
               body3 += data;
+             
 
             });
             response.on('end', function() {
               body3 = JSON.parse(body3);
-              //console.log("3");
-              //console.log(body3);
-              //console.log("hello");
-              //console.log(members);
+              console.log(body3);
               res.render("group.ejs", {
                 curr_user: curr_user,
                 home: home,
@@ -280,10 +287,10 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
                 feedback: feedback,
                 logout: logout,
                 profile: profile,
-                body: body,
-                members: members,
-                posts: body3
+                topic_head:topic_head,
+                body3:body3
               });
+             // res.send("ji");
 
             });
 

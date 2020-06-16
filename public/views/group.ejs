@@ -63,7 +63,11 @@
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
-                <h1 class="brand-title">Group<br><%= body.group.name.split('_').join(' ');%></h1>
+                <h1 class="brand-title"><%=topic_head.name%></h1>
+                <h2 class="brand-tagline"></h2>
+                <p>
+                    <%=topic_head.description%>
+                </p>
             </div>
         </div>
 
@@ -71,18 +75,7 @@
 
             <div class="content pure-u-1 pure-u-md-1">
 
-                <!-- A wrapper for all the blog posts -->
-            <h1>
-
-            <%= body.group.name.split('_').join(' ');%>
-            <img id="plus" src="<%= body.group.flair_url%>">
-            </h1>
-            <%if(body.group.allow_membership_requests){%>
-            <button class="myButton" type="button" name="button">Request Membership</button>
-            <%}%>
-            <p class="post-description"> <%= body.group.bio_raw%></p>
-            <p class="post-description"><%=body.group.membership_request_template%></p>
-
+          
 
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
             <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Topics</button>
@@ -90,21 +83,22 @@
 
             <div id="Users_list" class="tabcontent">
 
-                <%for(var i=0;i<members.length;i++){%>
+                <%for(var i=0;i<body3.users.length;i++){%>
+
 
 
                 <section class="post">
                     <header class="post-header">
-                        <%var str=members[i].avatar_template %>
+                        <%var str=body3.users[i].avatar_template %>
                         <%str=str.replace("{size}","80")%>
                         <%str="https://t2.metastudio.org"+str%>
 
 
 
+                        
+                        <h3><a class="name_" href="/user/<%=body3.users[i].username%>"><%=body3.users[i].name%></a><img id="plus2" src='<%=str%>'></h3>
 
-                        <h3><%=members[i].name%><img id="plus2" src='<%=str%>'></h3>
-
-                        <h1 class="content-subhead">@<%=members[i].username%></h1>
+                        <h1 class="content-subhead">@<%=body3.users[i].username%></h1>
 
 
                     </header>
@@ -113,34 +107,33 @@
 
                 </section>
                 <%}%>
-                <div id="holder">
-
-                </div>
-                <form>
-                    <button type="button" id="HButton"> Load More </button>
-                </form>
+                
 
             </div>
             <div id="News" class="tabcontent">
 
-                <%for(var i=0;i<posts.length;i++){%>
+                <%for(var i=0;i<body3.topic_list.topics.length;i++){%>
 
 
                 <section class="post">
                     <header class="post-header">
-                        <%var str=posts[i].user.avatar_template %>
-                        <%str=str.replace("{size}","80")%>
-                        <%str="https://t2.metastudio.org"+str%>
+                        <%var str;%>
+                       <% if(body3.topic_list.topics[i].image_url!=null){%>
+                        <%str=body3.topic_list.topics[i].image_url;%>
+                       <% }%>
+                       <% if(body3.topic_list.topics[i].image_url==null){%>
+                        <%str="public/stemlogo.png";%>
+                       <% }%>
+
+                      
 
 
 
-
-                        <h3><a class="name_" href="/post<%=posts[i].url%>"><%=posts[i].title%></a><img id="plus2"
-                                src='<%=str%>'></h3>
-                        <%if(posts[i].user.name!=null){%>
-                        <h1 class="content-subhead">@<%=posts[i].user.name%></h1>
+                        <h3><a class="name_" href="/post/t/<%=body3.topic_list.topics[i].slug%>/<%=body3.topic_list.topics[i].id%>/1"><%=body3.topic_list.topics[i].title%></a><img height="100" width="100" id="plus2" src='<%=str%>'></h3>
+                        <%if(body3.topic_list.topics[i].last_poster_username!=null){%>
+                        <h1 class="content-subhead">@<%=body3.topic_list.topics[i].last_poster_username%></h1>
                         <%}%>
-                            <%if(posts[i].user.name==null){%>
+                            <%if(body3.topic_list.topics[i].last_poster_username==null){%>
                         <h1 class="content-subhead"></h1>
                         <%}%>
 
@@ -148,12 +141,9 @@
 
                         <div class="post-description elip_here">
 
-                            <p class="para">
-                                <%-(posts[i].excerpt)%>
-                        </p>
+                            
 
 
-                        <%var ko=posts[i].id;%>
 
             </div>
 
@@ -197,58 +187,28 @@
 
     <script src="/js/ui.js"></script>
     <script>
-        $(document).ready(function () {
-            var i=0;
-            var my_div = $("#holder");
-            $("#HButton").on("click", function () {
-                i=i+100;
-                $.ajax({
-                    url: "/group/<%=body.group.name%>/<%=body.group.id%>/"+i
-                })
-                    .done(function (data) {
-                        //console.log(data.members[0].username);
-                        var elements = '';
-                        for(var i=0;i<data.members.length;i++){
-                            var str=data.members[i].avatar_template ;
-                            str=str.replace("{size}","80");
-                            str="https://t2.metastudio.org"+str;
-                            elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+data.members[i].name+'<img id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+"@"+ data.members[i].username +'</h1>'+ '</header>'+'</section>';
-                        }
-
-                        $('#holder').append(elements);
-                    });
-            });
-        });
-    </script>
-     <script>
-        $(document).ready(function () {
-            var l = (<%=ko%>);
-
-            var my_div = $("#holder2");
+           var my_div = $("#holder2");
+           var l=1;
             $("#HButton2").on("click", function () {
-
-                console.log(l);
-                $.ajax({
-                    url: "/group/<%=body.group.name%>/post/load/"+l
+                console.log("hi");
+                   $.ajax({
+                    url: "/group/<%=topic_head.slug%>/<%=topic_head.id%>/load/"+l
                 })
                     .done(function (data) {
-                        //console.log(data[0]);
                         var elements = '';
-                        for(var i=0;i<data.length;i++){
-                            var str=data[i].user.avatar_template ;
-                            str=str.replace("{size}","80");
-                            str="https://t2.metastudio.org"+str;
-                            elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="name_" href="/post'+data[i].url+'">'+data[i].title+'</a>'+'<img id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+ "@"+data[i].user.name +'</h1>'+ '</header>'+'<div class="post-description elip_here">'+'<p class="para">'+data[i].excerpt+'</p>'+'</div>'+'</section>';
-                            ko=data[i].id;
-
+                        for(var i=0;i<data.topic_list.topics.length;i++){
+                            var str=data.topic_list.topics[i].image_url ;
+                            elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="name_" href="/post/t/'+data.topic_list.topics[i].slug+"/"+data.topic_list.topics[i].id+'/1">'+data.topic_list.topics[i].title+'</a>'+'<img height="100" width="100" id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+ "@"+data.topic_list.topics[i].last_poster_username +'</h1>'+ '</header>'+'<div class="post-description elip_here">'+'</div>'+'</section>';
                         }
-                       l=ko;
+                        l=l+1;
+                        console.log(l);
                         $('#holder2').append(elements);
                     });
             });
-        });
     </script>
 
+
+     
                 <script>
                     function myFunction1() {
                         var x = document.getElementById("myTopnav1");
@@ -309,6 +269,7 @@
     .name_ {
         color: rgb(41, 38, 38);
         font-size: larger;
+        text-decoration: none;
     }
 
     body {
@@ -316,9 +277,10 @@
         background-color: beige;
     }
 
-    a {
+    .anchor {
         text-decoration: none;
-        color: rgb(61, 146, 201);
+        color: rgb(19, 20, 20);
+        font-weight: bolder;
     }
 
 
