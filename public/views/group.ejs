@@ -136,12 +136,15 @@
 
             </div>
             <div id="News" class="tabcontent">
-
+                  <%if(body3 && body3.topic_list){%>
                 <%for(var i=0;i<body3.topic_list.topics.length;i++){%>
 
 
                 <section class="post">
                     <header class="post-header">
+
+
+
                         <%var str;%>
                        <% if(body3.topic_list.topics[i].image_url!=null){%>
                         <%str=body3.topic_list.topics[i].image_url;%>
@@ -154,7 +157,7 @@
 
 
 
-                        <h3><a class="name_" href="/post/t/<%=body3.topic_list.topics[i].slug%>/<%=body3.topic_list.topics[i].id%>/1"><%=body3.topic_list.topics[i].title%></a><img height="100" width="100" id="plus2" src='<%=str%>'></h3>
+                        <h3><a class="name_" href="/post/t/<%=body3.topic_list.topics[i].slug%>/<%=body3.topic_list.topics[i].id%>/1"><%=body3.topic_list.topics[i].title%></a><img height="100" width="100" id="plus2" src='<%=str%>' onerror="this.onerror=null;this.src='/stemlogo.png';"></h3>
                         <%if(body3.topic_list.topics[i].last_poster_username!=null){%>
                         <h1 class="content-subhead">@<%=body3.topic_list.topics[i].last_poster_username%></h1>
                         <%}%>
@@ -173,6 +176,7 @@
             </div>
 
             </section>
+            <%}%>
             <%}%>
 
             <div id="holder2">
@@ -299,7 +303,10 @@
                     .done(function (data) {
                         var elements = '';
                         for(var i=0;i<data.topic_list.topics.length;i++){
-                            var str=data.topic_list.topics[i].image_url ;
+                            var str='/stemlogo.png'
+                            if(data.topic_list.topics[i].image_url){
+                            str=data.topic_list.topics[i].image_url ;
+                            }
                             elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="name_" href="/post/t/'+data.topic_list.topics[i].slug+"/"+data.topic_list.topics[i].id+'/1">'+data.topic_list.topics[i].title+'</a>'+'<img height="100" width="100" id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+ "@"+data.topic_list.topics[i].last_poster_username +'</h1>'+ '</header>'+'<div class="post-description elip_here">'+'</div>'+'</section>';
                         }
                         l=l+1;
