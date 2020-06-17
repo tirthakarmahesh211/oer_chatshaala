@@ -21,15 +21,18 @@
 
       <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
-        <a href='/profile' class="active">Profile</a>
+        <a href="/">Home</a>
+        
+        <a href='<%=about%>'>About</a>
         <%if(curr_user_more){%>
-        <a href='<%=home%>'>Home</a>
+        <a href='<%=home%>'>Chat</a>
         <%}%>
-            <a href='<%=about%>'>About</a>
+          
         <a href='<%=blog%>'>Blogs</a>
         <a href='<%=project%>'>Projects</a>
-        <a href="/">Groups</a>
         <a href='<%=feedback%>'>Feedback</a>
+        <a href='/profile' class="active">Profile</a>
+       
         <%if(!curr_user_more){%>
         <a href='<%=home%>'>Login</a>
         <%}%>

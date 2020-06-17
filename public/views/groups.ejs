@@ -22,11 +22,12 @@
 
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
-      <a href='/' class="active">Groups</a>
+      <a href='/' class="active">Home</a>
+      <a href='<%=about%>'>About</a>
       <%if(curr_user){%>
-      <a href="<%=home%>" id='home'>Home</a>
+      <a href="<%=home%>" id='home'>Chat</a>
       <%}%>
-            <a href='<%=about%>'>About</a>
+           
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
       <a href='<%=feedback%>'>Feedback</a>

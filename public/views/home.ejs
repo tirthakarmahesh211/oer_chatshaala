@@ -1187,6 +1187,10 @@
 
     padding: 12px 18px;
 }
+.active_ {
+        background-color: #4CAF50;
+        color: white;
+    }
 
   </style>
 </head>
@@ -1198,13 +1202,15 @@
 
   <div class="container">
     <div id="mySidebar" class="sidebar">
-      <a href='/home'>Home</a>
+      
+      <a href="/">Home</a>
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
       <a href='<%=about%>'>About</a>
+      <a class="active_" href='/home'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
-      <a href="/">Groups</a>
+      
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
 
