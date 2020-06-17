@@ -12,6 +12,29 @@
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
     <!-- <link rel="stylesheet" href="css/blog.css"> -->
     <style>
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      padding-top: 100px; /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%;
+    }
+
         .myButton {
 	background-color:#0E76BD;
 	border-radius:2rem;
@@ -75,7 +98,7 @@
 
             <div class="content pure-u-1 pure-u-md-1">
 
-          
+
 
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
             <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Topics</button>
@@ -83,6 +106,7 @@
 
             <div id="Users_list" class="tabcontent">
 
+              <%if(body3 && body3.users){%>
                 <%for(var i=0;i<body3.users.length;i++){%>
 
 
@@ -95,8 +119,8 @@
 
 
 
-                        
-                        <h3><a class="name_" href="/user/<%=body3.users[i].username%>"><%=body3.users[i].name%></a><img id="plus2" src='<%=str%>'></h3>
+
+                        <h3><a class="name_" href="/user/<%=body3.users[i].username%>"><%=body3.users[i].name%></a><img id="plus2" src='<%=str%>' onerror="this.onerror=null;this.src='/stemlogo.png';"></h3>
 
                         <h1 class="content-subhead">@<%=body3.users[i].username%></h1>
 
@@ -107,7 +131,8 @@
 
                 </section>
                 <%}%>
-                
+                <%}%>
+
 
             </div>
             <div id="News" class="tabcontent">
@@ -121,11 +146,11 @@
                        <% if(body3.topic_list.topics[i].image_url!=null){%>
                         <%str=body3.topic_list.topics[i].image_url;%>
                        <% }%>
-                       <% if(body3.topic_list.topics[i].image_url==null){%>
-                        <%str="public/stemlogo.png";%>
+                       <% if(body3.topic_list.topics[i].image_url===null){%>
+                        <%str="/stemlogo.png";%>
                        <% }%>
 
-                      
+
 
 
 
@@ -141,7 +166,7 @@
 
                         <div class="post-description elip_here">
 
-                            
+
 
 
 
@@ -162,7 +187,7 @@
 
 
 
-
+            <img id="plus" src="/plus.png">
 
                 <div class="footer">
                     <div class="pure-menu pure-menu-horizontal">
@@ -177,8 +202,34 @@
             </div>
         </div>
     </div>
+
     </div>
 
+    <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <span  style="cursor:pointer" class="close">✖</span>
+        <h1>Create Topic</h1>
+        <form action="/group/<%=topic_head.slug%>/<%=topic_head.id%>" method="POST">
+
+          <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
+          <input type="text" name="desc" required='' autocomplete="off" placeholder="Description"> <br>
+          <select id = "multi-role" name='category' required="" placeholder=''>
+              <option value="<%=topic_head.id%>"  selected><%=topic_head.name%></option>
+          </select>
+          <br>
+          <button type="submit" id='on_but' name='create_topic'>Create</button>
+
+        </form>
+
+      </div>
+      <%if(curr_user){%>
+      <div class="user">
+
+      </div>
+      <%}%>
+    </div>
 
 
 
@@ -187,6 +238,57 @@
 
     <script src="/js/ui.js"></script>
     <script>
+    function alert_func() {
+      alert('Kindly Login First');
+    }
+      function _myFunction2() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
+        } else {
+          x.style.display = "block";
+        }
+      }
+      // Get the modal
+      var modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      var btn = document.getElementById("plus");
+
+
+      // Get the <span> element that closes the modal
+      var span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks the button, open the modal
+      $(document).ready(function () {  btn.addEventListener('click',  ()=> {
+
+          if (document.querySelector('.user')) {
+            modal.style.display = "block";
+          } else {
+            alert_func();
+          }
+        });
+
+      });
+
+
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function () {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function (event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+
+    </script>
+    <script>
+
            var my_div = $("#holder2");
            var l=1;
             $("#HButton2").on("click", function () {
@@ -208,7 +310,7 @@
     </script>
 
 
-     
+
                 <script>
                     function myFunction1() {
                         var x = document.getElementById("myTopnav1");
@@ -557,12 +659,17 @@
         width: 1em;
     }
 
-    #plus {
-        height: 6rem;
-        width: 6rem;
-        position: relative;
-        float: right;
-
+    #plus{
+        width: 4rem;
+        height: 4rem;
+        position: fixed;
+        bottom: 1rem;
+        right: 4.5rem;
+        z-index: 100;
+        opacity: 0.5;
+    }
+    #plus:hover {
+        opacity: 1.0;
     }
 
     #plus2 {
@@ -573,6 +680,19 @@
     }
 
     @media screen and (max-width: 600px) {
+      #plus{
+          width: 2.5rem;
+          height: 2.5rem;
+          position: fixed;
+          bottom: 1rem;
+          right: 1.5rem;
+          z-index: 100;
+          opacity: 0.5;
+      }
+      #plus:hover {
+          opacity: 1.0;
+      }
+    }
         .topnav a:not(:first-child) {
             display: none;
         }

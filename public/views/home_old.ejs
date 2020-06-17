@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="STEMChat">
+  <title>STEMChat</title>
+  <link rel="shortcut icon" href="./favicon.ico">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="/css/pure_css.css">
+  <link rel="stylesheet" href="/css/quill.css">
+</head>
+
+<body>
+  <!-- <div class="_topnav">
+
+   <a href='<%=home%>' class="_active">Home</a>
+  </div> -->
+  <div class="column left">
+    <div id="mySidebar" class="sidebar">
+      <a href='/home'>Home</a>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
+
+      <a href='<%=about%>'>About</a>
+      <a href='<%=blog%>'>Blogs</a>
+      <a href='<%=project%>'>Projects</a>
+      <a href="/">Groups</a>
+      <a href='<%=feedback%>'>Feedback</a>
+      <a href='<%=profile%>'>Profile</a>
+
+      <a href="<%=logout%>">Logout</a>
+
+
+    </div>
+
+    <div class="header">
+      <button class="openbtn" onclick="openNav()">☰</button>
+
+      <form class="" action="/home" method="post">
+        <button class="search-but" name="search_button" type="submit"><i class="fa fa-search"></i></button>
+        <input class="search-bar" type="text" placeholder="Search.." name="search_text">
+      </form>
+
+      <div class="tab" id="holder2">
+
+      </div>
+
+      <form>
+          <button type="button" id="HButton2"> Load More </button>
+      </form>
+    </div>
+
+
+
+  </div>
+  <div id="London" class="column right tabcontent">
+    <div class="chatArea" id='chat'>
+
+      <div class="chat_">
+        <div class="chat-header_">
+          <div class="profile_">
+            <div class="left_">
+              <img src="stemlogo.png" class="arrow">
+              <img src="img/pp.png" class="pp">
+              <h2>User</h2>
+              <span>online/offline</span>
+            </div>
+            <div class="right_">
+              <img src="img/more.png" class="icon">
+            </div>
+          </div>
+        </div>
+        <div class="chat-box_">
+          <div class="chat-r">
+            <div class="sp"></div>
+            <div class="mess mess-r">
+              <p><img src="img/emoji-1.png" class="emoji">
+                Hi, Elias
+              </p>
+              <div class="check">
+                <span>4:00 PM</span>
+                <img src="img/check-2.png">
+
+              </div>
+              <button class="btn-secondary like-review"   onclick="myFunction(this)">
+                <i class="fa fa-heart" aria-hidden="true"></i>
+              </button>
+              <button class="btn-secondary like-review"   onclick="myFunction(this)">
+                <i class="fa fa-reply" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+          <div class="chat-l">
+            <div class="mess">
+              <p>
+                Oh! hi <img src="stemlogo.png" class="emoji">
+              </p>
+              <div class="check">
+                <span>4:00 PM</span>
+              </div>
+            </div>
+            <div class="sp"></div>
+          </div>
+
+          <div class="chat-r">
+            <div class="sp"></div>
+            <div class="mess mess-r">
+              <p>
+                How are you doing?
+              </p>
+              <div class="check">
+                <span>4:00 PM</span>
+                <img src="img/check-2.png">
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div  class="chat-footer_">
+          <div class="footer">
+
+
+
+
+              <div contenteditable="true" class="edit" id='editor'></div>
+
+            <button type="button" name="post" id='saveDelta'>POST</button>
+
+            <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+</div>
+
+<div id="Paris" class="column right tabcontent">
+  <div class="chatArea" id='chat'>
+
+    <div class="chat_">
+      <div class="chat-header_">
+        <div class="profile_">
+          <div class="left_">
+            <img src="stemlogo.png" class="arrow">
+            <img src="img/pp.png" class="pp">
+            <h2>User</h2>
+            <span>online/offline</span>
+          </div>
+          <div class="right_">
+            <img src="img/more.png" class="icon">
+          </div>
+        </div>
+      </div>
+      <div class="chat-box_">
+        <div class="chat-r">
+          <div class="sp"></div>
+          <div class="mess mess-r">
+            <p><img src="img/emoji-1.png" class="emoji">
+              Hi, Elias
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+              <img src="img/check-2.png">
+
+            </div>
+            <button class="btn-secondary like-review"   onclick="myFunction(this)">
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </button>
+            <button class="btn-secondary like-review"   onclick="myFunction(this)">
+              <i class="fa fa-reply" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+        <div class="chat-l">
+          <div class="mess">
+            <p>
+              Oh! hi <img src="stemlogo.png" class="emoji">
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+            </div>
+          </div>
+          <div class="sp"></div>
+        </div>
+
+        <div class="chat-r">
+          <div class="sp"></div>
+          <div class="mess mess-r">
+            <p>
+              How are you doing Paris?
+            </p>
+            <div class="check">
+              <span>4:00 PM</span>
+              <img src="img/check-2.png">
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div  class="chat-footer_">
+        <div class="footer">
+
+
+
+
+            <div contenteditable="true" class="edit" id='editor'></div>
+
+          <button type="button" name="post" id='saveDelta'>POST</button>
+
+          <!--  <textarea class="text-area" placeholder="Type your message"></textarea>  -->
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+
+</div>
+
+
+
+  <script src="/js/home.js"></script>
+  <script>
+    function openCity(evt, cityName) {
+      alert(cityName);
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the link that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+  </script>
+ 
+ <script>
+    $(document).ready(function () {
+                var my_div = $("#holder2");
+       
+          //alert("hi");
+            console.log("hi");
+            $.ajax({
+                url: "receive/G_N"
+            })
+
+                .done(function (data) {
+
+                    console.log(data);
+                     var elements = '';
+                     
+
+                     for(var i=0;i<data.length;i++){
+
+                       elements= elements +'<button class="tablinks" onclick="alert("hi")">'+'<h3 class="subhead">'+'@'+data[i].title+'</h3>'+'</button>'+'<div>'+'</div>'+'<br>'+'<hr></hr>';
+                   
+                     }
+                 
+                    $('#holder2').append(elements);
+                });
+        });
+  
+</script>
+
+
+  <script>
+    function myFunction(x){
+
+      if(x.style.background=="red"){
+        x.style.background="gray";
+      }
+     else{
+      x.style.background="red";
+     }
+
+    }
+  </script>
+
+  <script>
+    function _myFunction2() {
+      var x = document.getElementById("myLinks");
+      if (x.style.display === "block") {
+        x.style.display = "none";
+      } else {
+        x.style.display = "block";
+        x
+      }
+    }
+  </script>
+
+  <script src="/js/quill.js"></script>
+
+  <!-- Initialize Quill editor -->
+  <!-- <script>
+
+var quill_c = new Quill('#chat', {
+  modules:{
+    toolbar:false
+  },
+  placeholder:"",
+  scrollingContainer: '#chat',
+});
+quill_c.enable(false);
+-->
+<script>
+  var options=[
+    ['bold','italics','underline','strike'],
+    ['blockquote','code-block'],
+    [{'header':1},{'header':2}],
+    [{'list':'ordered'},{'list':'bullet'}],
+     [{ 'script': 'sub'}, { 'script': 'super' }],
+     [{ 'indent': '-1'}, { 'indent': '+1' }],
+ [{ 'direction': 'rtl' }],
+ [{ 'color': [] }, { 'background': [] }],
+ [{ 'font': [] }],
+ [{ 'align': [] }],
+ ['link','image','video']
+  ];
+
+
+  var quill = new Quill('#editor', {
+    modules:{
+      toolbar:options,
+
+    },
+    placeholder:"Type your message",
+    scrollingContainer: '#editor',
+    theme: 'snow'
+  });
+  document.getElementById('saveDelta').addEventListener('click',function(){
+    quill_c.setContents(quill.getContents());
+    document.querySelector("#chat").scrollTop=document.querySelector("#chat").scrollHeight;
+    quill.setContents('');
+  });
+</script>
+</body>
+<style>
+  /* --------------- */
+.sidebar a._active{
+background: green;
+color: honeydew;
+}
+#saveDelta{
+ float: right;
+
+
+
+}
+
+  /* Style navigation menu links */
+
+</style>
+
+</html>

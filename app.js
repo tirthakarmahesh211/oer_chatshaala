@@ -97,7 +97,7 @@ app.get('/home', function (req, res) {
   }
 });
 app.get('/home2',function(req,res){
-res.render("home2.ejs", {
+res.render("home_old.ejs", {
   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
 });
 
@@ -488,7 +488,7 @@ app.post("/",function(req,res){
     }
     else{
       //Create Private message
-      res.redirect('/');
+      func.pvt_msg(req,res);
     }
 
 }else{
@@ -536,7 +536,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
 
    var body3='';
    var url2 = secrets.url + 'c/' + name+"/"+id + '.json'+'?page='+i;
-  console.log(url2);
+  //console.log(url2);
 
   var options = {
     method: 'GET',
@@ -551,7 +551,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      console.log(body3.topic_list.topics);
+    //  console.log(body3.topic_list.topics);
       res.json(body3);
   });
      // console.log(body3);
@@ -692,4 +692,10 @@ app.get('/groups.json',(req,res)=>{
       });
     }
   });
+});
+
+app.post('/group/:topic/:id/',(req,res)=>{
+  console.log(req.body);
+
+  res.redirect('/group/'+req.params.topic+'/'+req.params.id);
 });

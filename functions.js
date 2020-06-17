@@ -14,7 +14,8 @@ module.exports = {
   search: search,
   request_summary: request_summary,
   showBadges: showBadges,
-  create_topic:create_topic
+  create_topic:create_topic,
+  pvt_msg:pvt_msg
 };
 
 function resetCurrUser() {
@@ -199,7 +200,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
           body = JSON.parse(body);
           var groups = [];
           groups = body.category_list.categories;
-         
+
           // console.log(groups);
 
           res.render("groups.ejs", {
@@ -233,7 +234,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
   var body2 = '';
   var body3 = '';
   var topic_head='';
-  
+
   var url= secrets.url + 'categories' +'.json';
   var url3 = secrets.url + 'c/' + topic+"/"+id  + '.json';
    //console.log(url3);
@@ -253,7 +254,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
 
       var list=(body.category_list.categories);
       for(var i=0;i<list.length;i++){
-        if(list[i].slug==topic){
+        if(list[i].slug===topic){
           topic_head=list[i];
          // console.log(topic_head);
         }
@@ -267,17 +268,17 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
         response.on('end', function() {
           body2 = JSON.parse(body2);
 
-          ;
           //console.log("2");
           https.get(url3, options, function(response) {
             response.on('data', function(data) {
               body3 += data;
-             
+
 
             });
             response.on('end', function() {
               body3 = JSON.parse(body3);
-              console.log(body3);
+            //  console.log(body3);
+
               res.render("group.ejs", {
                 curr_user: curr_user,
                 home: home,
@@ -290,7 +291,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
                 topic_head:topic_head,
                 body3:body3
               });
-             // res.send("ji");
+
 
             });
 
@@ -599,4 +600,60 @@ function create_topic(req,res){
     });
     request.write(querystring.stringify(data1));
     request.end();
+}
+
+
+function pvt_msg(req,res){
+  var title=req.body.title;
+  var category=req.body.category;
+  var desc=req.body.desc;
+  var user=req.body.user_search;
+  var url=secrets.url+'/posts.json';
+  var options={
+    method:"POST",
+    headers:{
+    'Api-Key': secrets.key,
+    'Api-Username': req.session.user.username,
+    'Content-Type': 'multipart/form-data'
+    }
+  };
+  https.get(secrets.url+'users/'+req.body.user_search+'.json',(response)=>{
+
+    if(response.statusCode===200){
+        var det='';
+        response.on('data',(chunk)=>{
+          det+=chunk;
+        });
+        response.on('end',()=>{
+          det=JSON.parse(det);
+          var data1= { "title": title,
+            "raw": desc,
+            "target_recipients":det.user.username,
+            "archetype": "private_message"
+          };
+          console.log(data1);
+          var request=https.request(url,options,(response)=>{
+              console.log(response.statusCode);
+              if(response.statusCode===200){
+                var body='';
+                response.on('data',(data)=>{
+                  body+=data;
+                });
+                response.on('end',()=>{
+                  body=JSON.parse(body);
+                  console.log(body);
+                  res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
+                });
+              }else{
+                res.redirect('/');
+              }
+          });
+          request.write(querystring.stringify(data1));
+          request.end();
+        });
+    }else{
+      res.redirect('/');
+    }
+  });
+
 }

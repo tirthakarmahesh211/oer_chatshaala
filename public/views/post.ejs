@@ -122,8 +122,7 @@
               var cat_id=Number($('#cat').attr('name'));
               for(var i=0;i<data.length;i++){
                   if(cat_id===data[i].id){
-                      console.log(data[i]);
-                      console.log(cat_id);
+
                     $('#cat').html(data[i].name);
                     if(data[i].name==='Blogs'){
                       $('#cat').attr('href','/blog');
@@ -135,19 +134,8 @@
                     var url='/group/'+data[i].slug+'/'+data[i].id;
                     $('#cat').attr('href',url);
                     }
-                    // $.ajax({
-                    //   url:'/groups.json'
-                    // }).done((data1)=>{
-                    //   for(var j=0;j<data1.length;j++){
-                    //     if(data[i].name===data1[j].name.split('_').join(' ')){
-                    //       var url='/group/'+data1[j].name+'/'+data[j].id;
-                    //       $('#cat').attr('href',url);
-                    //       break;
-                    //     }
-                    //   }
 
-                    // });
-                    // break;
+                    break;
                   }
               }
           });

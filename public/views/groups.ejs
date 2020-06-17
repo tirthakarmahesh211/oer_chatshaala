@@ -4,8 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+  <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
   <title>STEMChat</title>
   <link rel="manifest" href="./manifest.webmanifest" crossorigin="use-credentials">
   <link rel="stylesheet" href="/css/pure_css.css">
@@ -65,52 +64,50 @@
                     <!-- A wrapper for all the blog posts -->
                     <div class="posts">
                       <h1>Groups</h1>
-                       
+
 
       <!-- A single blog post -->
       <%for(var i=0;i<groups.length;i++){%>
       <%if(1==1){%>
-        <%if(groups[i].uploaded_logo!=null){%>
-            <%var str=groups[i].uploaded_logo.url;%>
-            <%str="https://t2.metastudio.org"+str;%>
-          <%}%>
+      <%if(groups[i].uploaded_logo!=null){%>
+      <%var str=groups[i].uploaded_logo.url;%>
+      <%str="https://t2.metastudio.org"+str;%>
+      <%}%>
           <%if(groups[i].uploaded_logo==null){%>
-            <%str="stemlogo.png";%>
-            <%}%>
-      
-     
+      <%str="stemlogo.png";%>
+      <%}%>
+
+
 
       <section class="post">
         <header class="post-header">
 
           <h1 class="content-subhead"></h1>
           <a href="/group/<%=groups[i].slug%>/<%=groups[i].id%>" data-topic-id="3682" class="link_head">
-            <h1><%=groups[i].name.split('_').join(' ')%></h1>
+      <h1><%=groups[i].name.split('_').join(' ')%></h1>
 
-          </a>
+      </a>
 
-          <img height="100" width="100" id="plus2" src=<%=str%>>
-          <p class="post-meta">
-            Topic Count: <%=groups[i].topic_count%>
-          </p>
-          <p class="post-meta">
-            Post Count: <%=groups[i].post_count%>
-          </p>
-        </header>
+      <img height="100" width="100" id="plus2" src=<%=str%>>
+      <p class="post-meta">
+        Topic Count: <%=groups[i].topic_count%>
+      </p>
+      <p class="post-meta">
+        Post Count: <%=groups[i].post_count%>
+      </p>
+      </header>
 
-        <div class="post-description elip_here">
-          <p class="para">
-            <%=groups[i].description%>
-          </p>
-          <%if(1==1){%>
-          <button class="myButton" type="button" name="button">Request Membership</button>
-          <%}%>
+      <div class="post-description elip_here">
+        <p class="para">
+          <%=groups[i].description%>
+        </p>
+
                 </div>
 
             </section>
             <%}}%>
 
-        </div>
+      </div>
 
     </div>
     <br>
@@ -126,9 +123,8 @@
           <header class="post-header">
 
             <h1 class="content-subhead"></h1>
-            <a href="/post/t/<%=topics[i].title.split(' ').join('-')%>/<%=topics[i].id%>/1" data-topic-id="3682"
-              class="link_head">
-              <h1><%=topics[i].title.split('_').join(' ')%> <%if(topics[i].pinned){%>
+            <a href="/post/t/<%=topics[i].title.split(' ').join('-').split('/').join('-')%>/<%=topics[i].id%>/1" data-topic-id="3682" class="link_head">
+              <h1><%=topics[i].title.split('_').join(' ').split('/').join('-')%> <%if(topics[i].pinned){%>
                 📌
                 <%}%></h1>
           </a>
@@ -168,12 +164,12 @@
         </div>
     </div>
     </div>
-
+    </div>
     <div id="myModal" class="modal">
 
       <!-- Modal content -->
       <div class="modal-content">
-        <span class="close">✖</span>
+        <span  style="cursor:pointer" class="close">✖</span>
         <h1>Create Topic</h1>
         <form action="/" method="POST">
 
@@ -194,7 +190,6 @@
 
       </div>
 
-    </div>
     </div>
 
 
@@ -227,7 +222,7 @@
           x.className = "topnav";
         }
       }
-    </script>
+</script>
     <script>
       function _myFunction2() {
         var x = document.getElementById("myLinks");
@@ -248,8 +243,7 @@
       var span = document.getElementsByClassName("close")[0];
 
       // When the user clicks the button, open the modal
-      $(document).ready(function () {
-        btn.addEventListener('click', function () {
+      $(document).ready(function () {  btn.addEventListener('click',  ()=> {
           if (document.getElementById('home')) {
             modal.style.display = "block";
             $.ajax({
@@ -282,8 +276,9 @@
               }
             }
           );
-        });
-      });
+        });});
+
+
 
       // When the user clicks on <span> (x), close the modal
       span.onclick = function () {
@@ -296,6 +291,7 @@
           modal.style.display = "none";
         }
       }
+
 
     </script>
 </body>
