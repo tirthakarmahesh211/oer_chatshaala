@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <link rel="stylesheet" href="/css/quill.css">
-  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
     /* The sidebar menu */
     html {
@@ -205,6 +205,7 @@
     .messages-panel .tab-content {
       border: none;
       background-color: transparent;
+      height: 100%;
     }
 
     .contacts-list {
@@ -602,9 +603,9 @@
     .chat-body {
       width: calc(100% + 17px);
       min-height: 290px;
-      height: 75%;
+      height: 70vh;
       background-color: #fbfcff;
-      margin-bottom: 30px;
+      margin-bottom: 10px;
       padding: 30px 5px 5px 5px;
       overflow-y: scroll;
     }
@@ -829,14 +830,18 @@
     }
 
     .chat-footer {
-      position: fixed;
+
+      position: relative;
+      margin: auto;
       width: 70%;
+      height: 25vh;
       padding: 0 80px;
       bottom: 0px;
     }
 
     .chat-footer .send-message-text {
       position: relative;
+      margin-top: 15vh;
       display: block;
       width: 100%;
       min-height: 55px;
@@ -911,6 +916,7 @@
         width: 100%;
         direction: ltr;
         padding-left: 0;
+        height: 100%;
       }
 
       .contacts-list .inbox-categories>div {
@@ -919,7 +925,7 @@
 
       .message-body {
         width: 100%;
-        margin: 20px 0;
+        margin: auto;
         border: 1px solid #dce2e9;
         background-color: #fff;
       }
@@ -936,6 +942,7 @@
       .chat-footer {
         margin-bottom: 20px;
         padding: 0 20px;
+        height: 35vh;
       }
 
       .chat-footer .send-message-button {
@@ -1143,7 +1150,8 @@
     span {
       display: none;
     }
-    .closes{
+
+    .closes {
       display: block;
     }
 
@@ -1156,42 +1164,57 @@
       height: 1em;
       width: 1em;
     }
-    li{
+
+    li {
       display: block;
     }
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 100; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 60%;
-}
-.btn{
-
-    padding: 12px 18px;
-}
-.active_ {
-        background-color: #4CAF50;
-        color: white;
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 100;
+      /* Sit on top */
+      padding-top: 100px;
+      /* Location of the box */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
     }
 
+    /* Modal Content */
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 60%;
+    }
+
+    .btn {
+
+      padding: 12px 18px;
+    }
+
+    .active_ {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    #back_ {
+      display: none;
+    }
   </style>
 </head>
 
@@ -1202,7 +1225,7 @@
 
   <div class="container">
     <div id="mySidebar" class="sidebar">
-      
+
       <a href="/">Home</a>
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
@@ -1210,7 +1233,7 @@
       <a class="active_" href='/home'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
-      
+
       <a href='<%=feedback%>'>Feedback</a>
       <a href='<%=profile%>'>Profile</a>
 
@@ -1230,11 +1253,17 @@
         </div>
         <div class="tab-content">
 
+
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
             <form class="panel-search-form info form-group has-feedback no-margin-bottom">
-              <input type="text" id="myInput" onkeyup="myFunc()" class="form-control" name="search" placeholder="Search">
+              <input type="text" id="myInput" onkeyup="myFunc()" class="form-control" name="search"
+                placeholder="Search">
               <span class="fa fa-search form-control-feedback"></span>
             </form>
+            <center>
+              <a id="new_message" class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> Create New
+                Message </a>
+            </center>
             <div class="contacts-outter">
               <ul id="myUL" class="list-unstyled contacts">
                 <div id="holder2">
@@ -1245,9 +1274,7 @@
             </div>
 
           </div>
-          <center>
-          <a id="new_message" class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> Create New Message </a>
-        </center>
+
         </div>
       </div>
 
@@ -1255,7 +1282,7 @@
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
 
-
+            <button id="back_" class="openbtn" onclick="my_func2()">Back</button>
             <div class="new-message-wrapper">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Send message to...">
@@ -1328,105 +1355,108 @@
 
   </script>
   <script>
-       // Get the modal
-       var modal = document.getElementById("myModal");
+    // Get the modal
+    var modal = document.getElementById("myModal");
 
-// Get the button that opens the modal
-var btn = document.getElementById("new_message");
+    // Get the button that opens the modal
+    var btn = document.getElementById("new_message");
 
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("closes")[0];
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("closes")[0];
 
-// When the user clicks the button, open the modal
-$(document).ready(function(){
-  btn.addEventListener('click',function() {
-   // alert("ji");
-    if( document.getElementById('home') ){
-        modal.style.display = "block";
+    // When the user clicks the button, open the modal
+    $(document).ready(function () {
+      btn.addEventListener('click', function () {
+        // alert("ji");
+        if (document.getElementById('home')) {
+          modal.style.display = "block";
+          $.ajax({
+            url: '/categories'
+          }).done(
+            (data) => {
+              $('select[name="category"] option').remove();
+              $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+              for (var i = 0; i < data.length; i++) {
+                $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+              }
+            }
+          );
+        } else {
+          modal.style.display = "block";
+
+          $.ajax({
+            url: '/categories'
+          }).done(
+            (data) => {
+              $('select[name="category"] option').remove();
+              $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+              for (var i = 0; i < data.length; i++) {
+                $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+              }
+            }
+          );
+        }
+
+      });
+
+
+      $('input[name="user_search"]').keyup(() => {
+        var text = $('input[name="user_search"]').val();
         $.ajax({
-          url:'/categories'
+          url: '/find',
+          data: { text: text }
         }).done(
-          (data)=>{
-            $('select[name="category"] option').remove();
-            $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-              for(var i=0;i<data.length;i++){
-                $('select[name="category"]').append('<option value=\"'+data[i].id+'\">'+data[i].name+'</option>');
-              }
+          (data) => {
+            $('#users1 option').remove();
+            for (var i = 0; i < data.length; i++) {
+              var txt = data[i].name + ' (@' + data[i].username + ')';
+              $('#users1').append('<option value=\"' + data[i].username + '\">' + txt + '</option>');
+            }
           }
         );
-    }else{
-      modal.style.display = "block";
+      });
+    });
 
-      $.ajax({
-          url:'/categories'
-        }).done(
-          (data)=>{
-            $('select[name="category"] option').remove();
-            $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-              for(var i=0;i<data.length;i++){
-                $('select[name="category"]').append('<option value=\"'+data[i].id+'\">'+data[i].name+'</option>');
-              }
-          }
-        );
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      modal.style.display = "none";
     }
-});
 
-$('input[name="user_search"]').keyup(()=>{
-  var text=$('input[name="user_search"]').val();
-  $.ajax({
-    url:'/find',
-    data:{text:text}
-  }).done(
-    (data)=>{
-      $('#users1 option').remove();
-      for(var i=0;i<data.length;i++){
-        var txt=data[i].name+' (@'+data[i].username+')';
-        $('#users1').append('<option value=\"'+data[i].username+'\">'+txt+'</option>');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
       }
     }
-  );
-});
-});
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
   </script>
+
 
   <script src="/js/quill.js"></script>
   <script>
     function myFunc() {
       //alert("hi");
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.getElementById('myInput');
-  filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
-//alert(filter);
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].id;
-    txtValue = a;
-  //alert(txtValue);
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-     // alert(li[i].id);
-      li[i].style.display = "";
-    } else {
-     // alert("hi");
-      li[i].style.display = "none";
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById('myInput');
+      filter = input.value.toUpperCase();
+      ul = document.getElementById("myUL");
+      li = ul.getElementsByTagName('li');
+      //alert(filter);
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].id;
+        txtValue = a;
+        //alert(txtValue);
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          // alert(li[i].id);
+          li[i].style.display = "";
+        } else {
+          // alert("hi");
+          li[i].style.display = "none";
+        }
+      }
     }
-  }
-}
   </script>
   <script>
 
@@ -1498,7 +1528,7 @@ window.onclick = function(event) {
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="'+data[i].fancy_title+'" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1536,8 +1566,34 @@ window.onclick = function(event) {
     });
   </script>
   <script>
+    function my_Function(z) {
+
+      if (z.matches) { // If media query matches
+        //alert("hi");
+        document.getElementById("inbox").style.display = "None";
+        document.getElementById("back_").style.display = "Block";
+      }
+    }
+    function my_Function2(z) {
+
+      if (z.matches) { // If media query matches
+        //alert("hi");
+        document.getElementById("inbox").style.display = "Block";
+        document.getElementById("inbox-message-1").style.display = "None";
+       
+      }
+    }
+    function my_func2() {
+     // alert("ki");
+      var z = window.matchMedia("(max-width: 767px)")
+      my_Function2(z) // Call listener function at run time
+      z.addListener(my_Function2) // Attach listener function on state changes
+
+
+    }
+
     function load_posts(x) {
-      //alert(x);
+
 
       var my_div = $("#holder3");
 
@@ -1549,25 +1605,28 @@ window.onclick = function(event) {
 
         .done(function (data) {
 
-         // console.log(data);
+          // console.log(data);
           var elements = '';
 
 
           for (var i = 0; i < data.length; i++) {
 
-            if(data[i].username!="G_N")
-            {//for receive
-            elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/'+data[i].username+'/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +"@"+ data[i].username +"--"+ data[i].name + '</b>' + ' </h3>' + '<h5>' +  '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+            if (data[i].username != "G_N") {//for receive
+              elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
             }
-            else{
+            else {
               //for sent
-              elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/'+data[i].username+'/120/671_2.png">' + '<div class="message-body">'+ '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' +"@" +data[i].username + "--"+data[i].name + '</b>' + ' </h3>' + '<h5>' +  '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+              elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
 
             }
           }
 
           $('#holder3').html(elements);
         });
+      var z = window.matchMedia("(max-width: 767px)")
+      my_Function(z) // Call listener function at run time
+      z.addListener(my_Function) // Attach listener function on state changes
+      //alert(x);
     };
 
   </script>
