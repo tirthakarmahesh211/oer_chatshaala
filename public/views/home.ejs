@@ -1230,7 +1230,7 @@
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
       <a href='<%=about%>'>About</a>
-      <a class="active_" href='/home'>Chat</a>
+      <a  href='/home'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
 
@@ -1397,7 +1397,6 @@
             }
           );
         }
-
       });
 
 
@@ -1462,6 +1461,7 @@
 
     document.getElementById('editor').style.display = "none";
     function showDiv() {
+      $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
   //  alert("hi");
       $(".chat-footer").css('height', "30%");
       $(".chat-body").css('height', "70vh");
@@ -1514,7 +1514,7 @@
 
         .done(function (data) {
 
-          console.log(data);
+
           var elements = '';
 
 
@@ -1535,6 +1535,7 @@
           }
 
           $('#holder2').append(elements);
+          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
         });
       $.ajax({
         url: "sent/G_N"
@@ -1564,7 +1565,11 @@
           }
 
           $('#holder2').append(elements);
+          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
         });
+      setTimeout(function () {
+        $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
+      }, 1);
     });
   </script>
   <script>
@@ -1605,7 +1610,7 @@
       var my_div = $("#holder3");
 
       //alert("hi");
-      console.log("hi");
+
       $.ajax({
         url: "post/more/t/" + x
       })

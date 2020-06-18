@@ -8,6 +8,8 @@ const func=require('./functions.js');
 const md5 = require('md5');
 const session = require('express-session');
 const https=require("https");
+const passPhrase='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien urna, placerat ut erat eget, vehicula vestibulum quam. Quisque vitae ante quis purus eleifend dapibus. Suspendisse potenti. Donec ut ex quis purus pellentesque varius. Aenean eu velit nam.';
+const CryptoJS=require('crypto-js');
 
 const home = '/home';
 const home2='/home2';
@@ -20,11 +22,8 @@ const blog = '/blog';
 const logout = '/logout';
 const project = '/project';
 const profile='/profile';
-const activity='/activity';
-const notifications='/notifications';
 const badges='/badges';
-const messages='/messages';
-const pref='/preferences';
+
 
 app.set('views','./public/views');
 app.set('view engine', 'ejs');
@@ -66,6 +65,10 @@ app.post('/register', function (req, res) {
     return;
   }else{
   if (req.body.hasOwnProperty('signup')) {
+    var key=passPhrase;
+    var bytes=CryptoJS.AES.decrypt(req.body.pass1, key);
+    req.body.pass1=bytes.toString(CryptoJS.enc.Utf8);
+    
     if(req.body.pass1.length <10){
       res.render('register.ejs',{status:'Password should be atleast 10 characters long'});
     }
@@ -74,6 +77,11 @@ app.post('/register', function (req, res) {
     func.addNewUser(req,res,new_user.name,new_user.email,new_user.password,new_user.userName,new_user.identity);
     }
   } else if (req.body.hasOwnProperty('login')) {
+
+    var key1=passPhrase;
+    var bytes1=CryptoJS.AES.decrypt(req.body.pass2, key1);
+    req.body.pass2=bytes1.toString(CryptoJS.enc.Utf8);
+
     var curr_user = func.resetCurrUser();
     curr_user.userName = req.body.username2;
     curr_user.password = req.body.pass2;
@@ -339,39 +347,6 @@ app.get("/profile", function (req, res) {
   }
 });
 
-app.get("/activity", function (req, res) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  let curr_user=req.session.user;
-  if (curr_user) {
-    var obj={curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
-    res.render("activity.ejs", obj);
-  } else {
-    res.redirect('/register');
-  }
-});
-
-app.get("/notifications", function (req, res) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  let curr_user=req.session.user;
-  if (curr_user) {
-      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
-    res.render("notification.ejs", obj);
-  } else {
-    res.redirect('/register');
-  }
-});
-
-app.get("/messages", function (req, res) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  let curr_user=req.session.user;
-  if (curr_user) {
-      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
-    res.render("messages.ejs", obj);
-  } else {
-    res.redirect('/register');
-  }
-});
-
 app.get("/badges", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
@@ -383,16 +358,6 @@ app.get("/badges", function (req, res) {
   }
 });
 
-app.get("/preferences", function (req, res) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  let curr_user=req.session.user;
-  if (curr_user) {
-      var obj={  curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout};
-    res.render("preferences.ejs",obj);
-  } else {
-    res.redirect('/register');
-  }
-});
 
 app.get('/logout', function (req, res) {
   let user=req.session.user;
@@ -698,4 +663,12 @@ app.post('/group/:topic/:id/',(req,res)=>{
   console.log(req.body);
 
   res.redirect('/group/'+req.params.topic+'/'+req.params.id);
+});
+
+app.get('/u/:uname',(req,res)=>{
+  res.redirect('/user/'+req.params.uname);
+});
+
+app.get('/t/:tname/:tid',(req,res)=>{
+  res.redirect('/post/t/'+req.params.tname+'/'+req.params.tid+'/1');
 });

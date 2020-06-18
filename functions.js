@@ -14,8 +14,8 @@ module.exports = {
   search: search,
   request_summary: request_summary,
   showBadges: showBadges,
-  create_topic:create_topic,
-  pvt_msg:pvt_msg
+  create_topic: create_topic,
+  pvt_msg: pvt_msg
 };
 
 function resetCurrUser() {
@@ -182,14 +182,14 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
       'Api-Username': 'system'
     }
   };
-  https.get(secrets.url+'/latest.json',options,(response)=>{
-    var body1='';
-    response.on('data',(data)=>{
-      body1+=data;
+  https.get(secrets.url + '/latest.json', options, (response) => {
+    var body1 = '';
+    response.on('data', (data) => {
+      body1 += data;
     });
-    response.on('end',()=>{
-      body1=JSON.parse(body1);
-      var topics=body1.topic_list.topics;
+    response.on('end', () => {
+      body1 = JSON.parse(body1);
+      var topics = body1.topic_list.topics;
       https.get(url, options, function(response) {
         response.on('data', function(data) {
           body += data;
@@ -213,15 +213,15 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
             logout: logout,
             profile: profile,
             groups: groups,
-            topics:topics
+            topics: topics
           });
 
         });
 
 
       }).on('error', function() {
-          console.log('errorr');
-        });
+        console.log('errorr');
+      });
     });
   });
 }
@@ -229,15 +229,15 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
 
 
-function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, topic,id, curr_user) {
+function fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, topic, id, curr_user) {
   var body = '';
   var body2 = '';
   var body3 = '';
-  var topic_head='';
+  var topic_head = '';
 
-  var url= secrets.url + 'categories' +'.json';
-  var url3 = secrets.url + 'c/' + topic+"/"+id  + '.json';
-   //console.log(url3);
+  var url = secrets.url + 'categories' + '.json';
+  var url3 = secrets.url + 'c/' + topic + "/" + id + '.json';
+  //console.log(url3);
   var options = {
     method: 'GET',
     headers: {
@@ -252,11 +252,11 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
     response.on('end', function() {
       body = JSON.parse(body);
 
-      var list=(body.category_list.categories);
-      for(var i=0;i<list.length;i++){
-        if(list[i].slug===topic){
-          topic_head=list[i];
-         // console.log(topic_head);
+      var list = (body.category_list.categories);
+      for (var i = 0; i < list.length; i++) {
+        if (list[i].slug === topic) {
+          topic_head = list[i];
+          // console.log(topic_head);
         }
       }
       // console.log("1");
@@ -277,7 +277,7 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
             });
             response.on('end', function() {
               body3 = JSON.parse(body3);
-            //  console.log(body3);
+              //  console.log(body3);
 
               res.render("group.ejs", {
                 curr_user: curr_user,
@@ -288,8 +288,8 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
                 feedback: feedback,
                 logout: logout,
                 profile: profile,
-                topic_head:topic_head,
-                body3:body3
+                topic_head: topic_head,
+                body3: body3
               });
 
 
@@ -468,71 +468,73 @@ function request_summary(res, obj, type) {
     }
   };
   if (type === 'curr_profile') {
-    var url = secrets.url + "admin/users/" + obj.curr_user.id +'.json';
+    var url = secrets.url + "admin/users/" + obj.curr_user.id + '.json';
     https.get(url, options, function(response) {
       var body = '';
       //  console.log(response.statusCode);
-      if(response.statusCode===200){
-      response.on('data', function(data) {
-        body += data;
-        //console.log("hello");
-      });
-      response.on('end', function() {
-        body = JSON.parse(body);
-        obj.curr_user_more = body;
-        body='';
-        url= secrets.url + "users/" + obj.curr_user.username +'/summary.json';
-        https.get(url,options,(response)=>{
-          if(response.statusCode===200){
-            response.on('data',(data)=>{
-              body+=data;
-            });
-            response.on('end',()=>{
-              body=JSON.parse(body);
-              obj.summary=body;
-                res.render('profile.ejs', obj);
-            });
-          }else{
-            console.log('error');
-          }
+      if (response.statusCode === 200) {
+        response.on('data', function(data) {
+          body += data;
+          //console.log("hello");
         });
-      });
-    }}).on('error', function() {
+        response.on('end', function() {
+          body = JSON.parse(body);
+          obj.curr_user_more = body;
+          body = '';
+          url = secrets.url + "users/" + obj.curr_user.username + '/summary.json';
+          https.get(url, options, (response) => {
+            if (response.statusCode === 200) {
+              response.on('data', (data) => {
+                body += data;
+              });
+              response.on('end', () => {
+                body = JSON.parse(body);
+                obj.summary = body;
+                res.render('profile.ejs', obj);
+              });
+            } else {
+              console.log('error');
+            }
+          });
+        });
+      }
+    }).on('error', function() {
       console.log('error');
     });
-  }else if(type==='other_profile'){
-    var url1 = secrets.url + "admin/users/" + obj.user_det.id +'.json';
+  } else if (type === 'other_profile') {
+    var url1 = secrets.url + "admin/users/" + obj.user_det.id + '.json';
     https.get(url1, options, function(response) {
       var body = '';
       //  console.log(response.statusCode);
-      if(response.statusCode===200){
-      response.on('data', function(data) {
-        body += data;
-        //console.log("hello");
-      });
-      response.on('end', function() {
-        body = JSON.parse(body);
-        //console.log(body);
-        obj.user_det_more = body;
-        body='';
-        url1= secrets.url + "users/" + obj.user_det.username +'/summary.json';
-        https.get(url1,options,(response)=>{
-          if(response.statusCode===200){
-            response.on('data',(data)=>{
-              body+=data;
-            });
-            response.on('end',()=>{
-              body=JSON.parse(body);
-              obj.summary=body;
-              //console.log(body.user_summary);
-                res.render('user.ejs',obj);
-            });
-          }else{
-            console.log('error');
-          }
+      if (response.statusCode === 200) {
+        response.on('data', function(data) {
+          body += data;
+          //console.log("hello");
         });
-      });
-    }}).on('error', function() {
+        response.on('end', function() {
+          body = JSON.parse(body);
+          //console.log(body);
+          obj.user_det_more = body;
+          body = '';
+          url1 = secrets.url + "users/" + obj.user_det.username + '/summary.json';
+          https.get(url1, options, (response) => {
+            if (response.statusCode === 200) {
+              response.on('data', (data) => {
+                body += data;
+              });
+              response.on('end', () => {
+                body = JSON.parse(body);
+                obj.summary = body;
+                //console.log(body.user_summary);
+                res.render('user.ejs', obj);
+              });
+            } else {
+              console.log('error');
+            }
+          });
+        });
+      }
+    }).on('error', function() {
       console.log('error');
     });
   }
@@ -564,96 +566,98 @@ function showBadges(res, obj) {
   });
 }
 
-function create_topic(req,res){
-    var title=req.body.title;
-    var category=req.body.category;
-    var desc=req.body.desc;
-    var url=secrets.url+'/posts.json';
-    var options={
-      method:"POST",
-      headers:{
+function create_topic(req, res) {
+  var title = req.body.title;
+  var category = req.body.category;
+  var desc = req.body.desc;
+  var url = secrets.url + '/posts.json';
+  var options = {
+    method: "POST",
+    headers: {
       'Api-Key': secrets.key,
       'Api-Username': req.session.user.username
-      }
-    };
-    var data1= { "title": title,
-      "raw": desc,
-      "category": Number(category),
-      "archetype": "regular"
-    };
-    //console.log(data1);
-    var request=https.request(url,options,(response)=>{
-      //  console.log(response.statusCode);
-        if(response.statusCode===200){
-          var body='';
-          response.on('data',(data)=>{
-            body+=data;
-          });
-          response.on('end',()=>{
-            body=JSON.parse(body);
-            //console.log(body);
-            res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
-          });
-        }else{
-          res.redirect('/');
-        }
-    });
-    request.write(querystring.stringify(data1));
-    request.end();
-}
-
-
-function pvt_msg(req,res){
-  var title=req.body.title;
-  var category=req.body.category;
-  var desc=req.body.desc;
-  var user=req.body.user_search;
-  var url=secrets.url+'/posts.json';
-  var options={
-    method:"POST",
-    headers:{
-    'Api-Key': secrets.key,
-    'Api-Username': req.session.user.username,
-    'Content-Type': 'multipart/form-data'
     }
   };
-  https.get(secrets.url+'users/'+req.body.user_search+'.json',(response)=>{
-
-    if(response.statusCode===200){
-        var det='';
-        response.on('data',(chunk)=>{
-          det+=chunk;
-        });
-        response.on('end',()=>{
-          det=JSON.parse(det);
-          var data1= { "title": title,
-            "raw": desc,
-            "target_recipients":det.user.username,
-            "archetype": "private_message"
-          };
-          console.log(data1);
-          var request=https.request(url,options,(response)=>{
-              console.log(response.statusCode);
-              if(response.statusCode===200){
-                var body='';
-                response.on('data',(data)=>{
-                  body+=data;
-                });
-                response.on('end',()=>{
-                  body=JSON.parse(body);
-                  console.log(body);
-                  res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
-                });
-              }else{
-                res.redirect('/');
-              }
-          });
-          request.write(querystring.stringify(data1));
-          request.end();
-        });
-    }else{
+  var data1 = {
+    "title": title,
+    "raw": desc,
+    "category": Number(category),
+    "archetype": "regular"
+  };
+  //console.log(data1);
+  var request = https.request(url, options, (response) => {
+    //  console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        body = JSON.parse(body);
+        //console.log(body);
+        res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id + '/1');
+      });
+    } else {
       res.redirect('/');
     }
   });
+  request.write(querystring.stringify(data1));
+  request.end();
+}
 
+
+function pvt_msg(req, res) {
+  var title = req.body.title;
+  // var category=req.body.category;
+  var desc = req.body.desc;
+  var user = req.body.user_search;
+  var url = secrets.url + '/posts.json';
+  var options = {
+    method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': secrets.session.user.username
+    }
+  };
+  https.get(secrets.url + 'users/' + user + '.json', (response) => {
+
+    if (response.statusCode === 200) {
+      var det = '';
+      response.on('data', (chunk) => {
+        det += chunk;
+      });
+      response.on('end', () => {
+        det = JSON.parse(det);
+
+        var data1 = {
+          'title': title,
+          'raw': desc,
+          // “category”: Number(category),
+          'target_recipients': det.user.username,
+          'archetype': 'private_message'
+        };
+      //  console.log(data1);
+        var request = https.request(url, options, (response) => {
+          console.log(response.statusCode);
+          if (response.statusCode === 200) {
+            var body = '';
+            response.on('data', (data) => {
+              body += data;
+            });
+            response.on('end', () => {
+              body = JSON.parse(body);
+              //console.log(body);
+            res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
+            });
+          } else {
+            res.redirect('/');
+          }
+        });
+        request.write(querystring.stringify(data1));
+        request.end();
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
 }

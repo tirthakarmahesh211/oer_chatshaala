@@ -24,16 +24,16 @@
         <div id="myLinks">
             <a href="/">Home</a>
             <a href='<%=about%>'>About</a>
-           
+
             <%if(curr_user){%>
                 <a href='<%=home%>'>Chat</a>
                 <%}%>
-            
+
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
             <a href='<%=feedback%>'>Feedback</a>
             <a href='/badges' class="active">Profile</a>
-          
+
             <%if(!curr_user){%>
                 <a href='<%=home%>'>Login</a>
                 <%}%>
@@ -46,11 +46,9 @@
     </div>
     <div class="topnav1" id="myTopnav">
       <a href='/profile'>Summary</a>
-        <a href='/activity'>Activity</a>
-        <a href='/notifications'>Notifications</a>
-        <a href='/messages'>Messages</a>
+
         <a href='/badges' class="active">Badges</a>
-        <a href='/preferences'>Peferences</a>
+      
 
 
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
