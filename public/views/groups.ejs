@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+  <meta name="description"
+    content="A layout example with a side menu that hides on mobile, just like the Pure website.">
   <title>STEMChat</title>
   <link rel="manifest" href="./manifest.webmanifest" crossorigin="use-credentials">
   <link rel="stylesheet" href="/css/pure_css.css">
@@ -103,49 +104,50 @@
           <%=groups[i].description%>
         </p>
 
-                </div>
-
-            </section>
-            <%}}%>
-
       </div>
 
+      </section>
+      <%}}%>
+
     </div>
-    <br>
-    <div>
-      <!-- A wrapper for all the blog posts -->
-      <div class="posts">
-        <h1>Latest Topics</h1>
+
+  </div>
+  <br>
+  <div>
+    <!-- A wrapper for all the blog posts -->
+    <div class="posts">
+      <h1>Latest Topics</h1>
 
 
-        <!-- A single blog post -->
-        <%for(var i=0;i<topics.length;i++){%>
-        <section class="post">
-          <header class="post-header">
+      <!-- A single blog post -->
+      <%for(var i=0;i<topics.length;i++){%>
+      <section class="post">
+        <header class="post-header">
 
-            <h1 class="content-subhead"></h1>
-            <a href="/post/t/<%=topics[i].title.split(' ').join('-').split('/').join('-')%>/<%=topics[i].id%>/1" data-topic-id="3682" class="link_head">
-              <h1><%=topics[i].title.split('_').join(' ').split('/').join('-')%> <%if(topics[i].pinned){%>
-                📌
-                <%}%></h1>
+          <h1 class="content-subhead"></h1>
+          <a href="/post/t/<%=topics[i].title.split(' ').join('-').split('/').join('-')%>/<%=topics[i].id%>/1"
+            data-topic-id="3682" class="link_head">
+            <h1><%=topics[i].title.split('_').join(' ').split('/').join('-')%> <%if(topics[i].pinned){%>
+              📌
+              <%}%></h1>
           </a>
 
 
           <p class="post-meta">
             Post Count: <%=topics[i].posts_count%>
-                <br>
-                ❤️: <%=topics[i].like_count%>
-                </p>
-          </header>
+              <br>
+              ❤️: <%=topics[i].like_count%>
+              </p>
+        </header>
 
-          <div class="post-description elip_here">
-            <p class="para">
-              <%=topics[i].excerpt%>
-            </p>
-          </div>
+        <div class="post-description elip_here">
+          <p class="para">
+            <%=topics[i].excerpt%>
+          </p>
+        </div>
 
-        </section>
-        <%}%>
+      </section>
+      <%}%>
 </div>
 </div>
       <img id="plus" src="plus.png">
@@ -171,7 +173,9 @@
       <!-- Modal content -->
       <div class="modal-content">
         <span  style="cursor:pointer" class="close">✖</span>
+        <center>
         <h1>Create Topic</h1>
+        </center>
         <form action="/" method="POST">
 
           <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
@@ -185,8 +189,9 @@
 
           </datalist>
           <br>
+          <p align="right">
           <button type="submit" id='on_but'>Create</button>
-
+</p>
         </form>
 
       </div>
@@ -223,7 +228,7 @@
           x.className = "topnav";
         }
       }
-</script>
+    </script>
     <script>
       function _myFunction2() {
         var x = document.getElementById("myLinks");
@@ -244,7 +249,8 @@
       var span = document.getElementsByClassName("close")[0];
 
       // When the user clicks the button, open the modal
-      $(document).ready(function () {  btn.addEventListener('click',  ()=> {
+      $(document).ready(function () {
+        btn.addEventListener('click', () => {
           if (document.getElementById('home')) {
             modal.style.display = "block";
             $.ajax({
@@ -277,7 +283,8 @@
               }
             }
           );
-        });});
+        });
+      });
 
 
 
@@ -303,6 +310,9 @@
 
 
 <style>
+  #plus{
+    right: 1.5rem;
+  }
    #plus2 {
         border-radius: 50%;
         position: relative;
@@ -339,22 +349,26 @@
         width: 5rem;
         position: fixed;
         bottom: 2.5rem;
-        right: 2.5rem;
+        right: 1.5rem;
         opacity: 0.5;
     }
 
     #plus:hover {
         opacity: 1.0;
     }
+    
 }
 @media (max-width:600px)
 {
+  .modal-content{
+      width:80%
+    }
     #plus{
         width: 2.5rem;
         height: 2.5rem;
         position: fixed;
         bottom: 1rem;
-        right: 4.5rem;
+        right: 1.5rem;
         z-index: 100;
         opacity: 0.5;
     }

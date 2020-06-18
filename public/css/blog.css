@@ -36,14 +36,18 @@ a {
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+#multi-role{
+    padding: 4px 12px;
+}
 
 /* Modal Content */
 .modal-content {
+    border-radius: 1em;
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 60%;
+  width: 40%;
 }
 
 #mylogo{
