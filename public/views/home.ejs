@@ -603,7 +603,7 @@
     .chat-body {
       width: calc(100% + 17px);
       min-height: 290px;
-      height: 70vh;
+      height: 83vh;
       background-color: #fbfcff;
       margin-bottom: 10px;
       padding: 30px 5px 5px 5px;
@@ -834,14 +834,14 @@
       position: relative;
       margin: auto;
       width: 70%;
-      height: 25vh;
+      height: 7vh;
       padding: 0 80px;
       bottom: 0px;
     }
 
     .chat-footer .send-message-text {
       position: relative;
-      margin-top: 15vh;
+      margin-top: 1vh;
       display: block;
       width: 100%;
       min-height: 55px;
@@ -942,7 +942,7 @@
       .chat-footer {
         margin-bottom: 20px;
         padding: 0 20px;
-        height: 35vh;
+        height: 7vh;
       }
 
       .chat-footer .send-message-button {
@@ -1462,12 +1462,14 @@
 
     document.getElementById('editor').style.display = "none";
     function showDiv() {
+  //  alert("hi");
+      $(".chat-footer").css('height', "30%");
+      $(".chat-body").css('height', "70vh");
+     // alert("hello");
 
       document.getElementById('editor').style.display = "inline-block";
       document.getElementById('temp_editor').style.display = "none";
       document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
-      const selection = this.editor.getSelection(); // get position of cursor (index of selection)
-      this.editor.insertText(selection.index, 'ABCD');
     }
     var options = [
       ['bold', 'italics', 'underline', 'strike'],
@@ -1572,6 +1574,11 @@
         //alert("hi");
         document.getElementById("inbox").style.display = "None";
         document.getElementById("back_").style.display = "Block";
+        document.getElementById("inbox-message-1").style.display = "Block";
+      }
+      else {
+        document.getElementById("inbox").style.display = "Block";
+        document.getElementById("inbox-message-1").style.display = "Block";
       }
     }
     function my_Function2(z) {
@@ -1580,11 +1587,11 @@
         //alert("hi");
         document.getElementById("inbox").style.display = "Block";
         document.getElementById("inbox-message-1").style.display = "None";
-       
+
       }
     }
     function my_func2() {
-     // alert("ki");
+      // alert("ki");
       var z = window.matchMedia("(max-width: 767px)")
       my_Function2(z) // Call listener function at run time
       z.addListener(my_Function2) // Attach listener function on state changes
