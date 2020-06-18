@@ -1567,6 +1567,7 @@
         });
     });
   </script>
+ 
   <script>
     function my_Function(z) {
 
@@ -1579,6 +1580,7 @@
       else {
         document.getElementById("inbox").style.display = "Block";
         document.getElementById("inbox-message-1").style.display = "Block";
+        document.getElementById("back_").style.display = "None";
       }
     }
     function my_Function2(z) {
@@ -1600,7 +1602,12 @@
     }
 
     function load_posts(x) {
-
+      //alert("hua");
+     
+     // alert('clicked');
+        $('li').removeClass('active');
+        $(this).addClass('active');
+      
 
       var my_div = $("#holder3");
 
