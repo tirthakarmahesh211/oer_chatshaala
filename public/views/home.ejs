@@ -1063,6 +1063,7 @@
         width: 20%;
         margin-left: 0;
       }
+     
     }
 
     @media (max-width: 545px) {
@@ -1084,7 +1085,7 @@
       .right {
         display: none;
       }
-
+     
 
     }
 
@@ -1195,12 +1196,24 @@
 
     /* Modal Content */
     .modal-content {
-      background-color: #fefefe;
+      background-color: rgb(230, 236, 221);
+    margin: auto;;
       margin: auto;
       padding: 20px;
       border: 1px solid #888;
-      width: 60%;
+      width: 40%;
     }
+    @media only screen and (max-width: 600px) {
+  .modal-content {
+   width: 80%;
+  }
+}
+
+
+input {
+    width: 70%;
+   
+}
 
     .btn {
 
@@ -1214,6 +1227,9 @@
 
     #back_ {
       display: none;
+    }
+    #on_but{
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -1333,6 +1349,7 @@
     <!-- Modal content -->
     <div class="modal-content">
       <span style="cursor:pointer" class="closes">✖</span>
+      <center>
       <h1>Start discussion</h1>
       <form action="/" method="POST">
 
@@ -1341,9 +1358,11 @@
 
         </datalist>
         <br>
+        <p align="right">
         <button type="submit" id='on_but' name='compose'>Compose</button>
-
+</p>
       </form>
+</center>
 
     </div>
 
