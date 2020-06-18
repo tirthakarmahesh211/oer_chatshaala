@@ -1230,7 +1230,7 @@
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
       <a href='<%=about%>'>About</a>
-      <a  href='/home'>Chat</a>
+      <a href='/home'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
 
@@ -1300,8 +1300,8 @@
             </div>
           </div>
 
-          <div class="message-chat">
-            <div class="chat-body">
+          <div  class="message-chat">
+            <div id="chat_" class="chat-body">
               <div id="holder3">
 
 
@@ -1461,11 +1461,11 @@
 
     document.getElementById('editor').style.display = "none";
     function showDiv() {
-      $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
-  //  alert("hi");
+      $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
+      //  alert("hi");
       $(".chat-footer").css('height', "30%");
       $(".chat-body").css('height', "70vh");
-     // alert("hello");
+      // alert("hello");
 
       document.getElementById('editor').style.display = "inline-block";
       document.getElementById('temp_editor').style.display = "none";
@@ -1535,7 +1535,7 @@
           }
 
           $('#holder2').append(elements);
-          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
+          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
       $.ajax({
         url: "sent/G_N"
@@ -1565,14 +1565,14 @@
           }
 
           $('#holder2').append(elements);
-          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
+          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
       setTimeout(function () {
-        $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight")}, 1000);
+        $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
       }, 1);
     });
   </script>
- 
+
   <script>
     function my_Function(z) {
 
@@ -1607,12 +1607,13 @@
     }
 
     function load_posts(x) {
-      //alert("hua");
+
      
-     // alert('clicked');
-        $('li').removeClass('active');
-        $(this).addClass('active');
-      
+
+      //  alert('clicked');
+      $('li').removeClass('active');
+      $(this).addClass('active');
+
 
       var my_div = $("#holder3");
 
@@ -1641,12 +1642,16 @@
           }
 
           $('#holder3').html(elements);
+          document.getElementById('chat_').scrollTop = 9999999;
         });
-      var z = window.matchMedia("(max-width: 767px)")
+        
+      
+        var z = window.matchMedia("(max-width: 767px)")
       my_Function(z) // Call listener function at run time
       z.addListener(my_Function) // Attach listener function on state changes
       //alert(x);
-    };
+     
+    }
 
   </script>
   <script>
