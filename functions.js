@@ -456,6 +456,7 @@ function search(text, res) {
     });
   }).on('error', function() {
     console.log('error');
+    res.redirect('/');
   });
 }
 

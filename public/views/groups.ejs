@@ -40,11 +40,18 @@
             <%if(curr_user){%>
       <a href="<%=logout%>">Logout</a>
       <%}%>
+      <form class="" action="/search_site" method="post">
+        <center>
+        <input class="search-bar" type="text" placeholder="Search.." name="search_text">
+        <button class="search-but" name="search_button" type="submit"><i class="fa fa-search">🔍</i></button>
+
+      </center>
+      </form>
+      <br>
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
     </div>
-
     <div id="layout" class="pure-g">
         <div class="sidebar pure-u-1">
             <div class="header">
@@ -339,12 +346,16 @@
 
 
 <style>
+input[name="search_text"]{
+  border: 5px;
+  border-radius: 30px;
+}
   .button-secondary {
       background: rgb(28, 184, 65);
       border-radius: 4px;
       text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
       padding: 7px 11px;
-      
+
       font-weight: bold;
 
       border: none;
@@ -356,8 +367,8 @@
       font-size: 14px;
     }
     .button-tertiary {
-      
-  color: black; 
+
+  color: black;
   border: 2px solid black;
   padding: 6px 10px;
   text-align: center;

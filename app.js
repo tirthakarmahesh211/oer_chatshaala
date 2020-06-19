@@ -117,14 +117,18 @@ app.post('/chat',function(req,res){
     res.redirect('/search?text='+req.body.search_text);
   }
 });
+app.post('/search_site',function(req,res){
+  //console.log(req.body);
+
+  if(req.body.hasOwnProperty('search_button')){
+    res.redirect('/search?text='+req.body.search_text);
+  }
+});
 
 app.get('/search',(req,res)=>{
-  let curr_user=req.session.user;
-  if(curr_user){
+
     func.search(req.query.text,res);
-  }else{
-    res.redirect('/');
-  }
+
 });
 app.get('/find',(req,res)=>{
   if(req.session.user){

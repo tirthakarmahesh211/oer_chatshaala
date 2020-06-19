@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <title>STEMChat</title>
       <link rel="shortcut icon" href="./favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,7 +22,7 @@
 
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
-            <a href="javascript:history.back()"  class="active">Go back </a>
+            <a href="javascript:history.back()"  class="active">⬅️ Go Back</a>
             <a href="/">Home</a>
             <a href='<%=about%>'>About</a>
             <%if(curr_user){%>
@@ -69,6 +69,7 @@
 
                 <!-- A wrapper for all the blog posts -->
                 <div class="posts">
+                  <%if(body.post_stream && body.post_stream.posts){%>
                     <%for(var i=0;i<body.post_stream.posts.length;i++){%>
                         <h3 class="subhead">@<%=body.post_stream.posts[i].username%> <%=body.post_stream.posts[i].name%></h3>
 
@@ -80,6 +81,7 @@
                         <hr></hr>
                         <%var ko=body.post_stream.posts[i].post_number;%>
 
+                    <%}%>
                     <%}%>
                     <div id="holder2">
 
