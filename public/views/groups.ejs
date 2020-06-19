@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>STEMChat</title>
   <link rel="manifest" href="./manifest.webmanifest" crossorigin="use-credentials">
-    <link rel="shortcut icon" href="./favicon.ico">
+  <link rel="shortcut icon" href="./favicon.ico">
   <link rel="stylesheet" href="/css/pure_css.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
   <link rel="stylesheet" href="css/blog.css">
@@ -185,10 +185,10 @@
           </select>
           <br>
           <br>
-          <button type="button" name="pvt_msg" id='pvt_msg'>Create Private Message</button>
+          <button class="button-tertiary" type="button" name="pvt_msg" id='pvt_msg'>Switch to Private Message</button>
           <br>
           <p align="right">
-          <button type="submit" id='on_but' name="compose_topic">Create</button>
+          <button class="button-secondary" type="submit" id='on_but' name="compose_topic">Compose</button>
           </p>
         </form>
 
@@ -204,10 +204,10 @@
           <br>
           <br>
 
-          <button type="button" name="topic" id='create_topic'>Create Topic</button>
+          <button class="button-tertiary" type="button" name="topic" id='create_topic'>Switch to Create Topic</button>
           <br>
           <p align="right">
-          <button type="submit" id='on_but' name="compose_pvt_msg">Create</button>
+          <button  class="button-secondary" type="submit" id='on_but' name="compose_pvt_msg">Compose</button>
           </p>
         </form>
       </center>
@@ -269,12 +269,12 @@
       $(document).ready(function () {
         $('#pvt_msg_form').hide();
 
-        $('#create_topic').click(()=>{
+        $('#create_topic').click(() => {
           $('#modal_head').html('Create Topic');
           $('#pvt_msg_form').hide();
           $('#topic_form').show();
         });
-        $('#pvt_msg').click(()=>{
+        $('#pvt_msg').click(() => {
           $('#modal_head').html('Create Private Message');
           $('#pvt_msg_form').show();
           $('#topic_form').hide();
@@ -339,6 +339,43 @@
 
 
 <style>
+  .button-secondary {
+      background: rgb(28, 184, 65);
+      border-radius: 4px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      padding: 7px 11px;
+      
+      font-weight: bold;
+
+      border: none;
+      color: white;
+
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .button-tertiary {
+      
+  color: black; 
+  border: 2px solid black;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+    .button-tertiary {
+  transition-duration: 0.4s;
+}
+
+.button-tertiary:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
   #plus{
     right: 1.5rem;
   }
