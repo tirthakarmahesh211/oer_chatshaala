@@ -11,7 +11,7 @@ const https=require("https");
 const passPhrase='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien urna, placerat ut erat eget, vehicula vestibulum quam. Quisque vitae ante quis purus eleifend dapibus. Suspendisse potenti. Donec ut ex quis purus pellentesque varius. Aenean eu velit nam.';
 const CryptoJS=require('crypto-js');
 
-const home = '/home';
+const home = '/chat';
 const home2='/home2';
 const feedback = '/feedback';
 const about = '/about';
@@ -61,14 +61,14 @@ app.get('/register', function (req, res) {
 app.post('/register', function (req, res) {
   let user=req.session.user;
   if(user){
-    res.redirect('/home');
+    res.redirect(home);
     return;
   }else{
   if (req.body.hasOwnProperty('signup')) {
     var key=passPhrase;
     var bytes=CryptoJS.AES.decrypt(req.body.pass1, key);
     req.body.pass1=bytes.toString(CryptoJS.enc.Utf8);
-    
+
     if(req.body.pass1.length <10){
       res.render('register.ejs',{status:'Password should be atleast 10 characters long'});
     }
@@ -94,7 +94,7 @@ app.post('/register', function (req, res) {
 }
 });
 
-app.get('/home', function (req, res) {
+app.get('/chat', function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user=req.session.user;
   if (curr_user) {
@@ -109,13 +109,12 @@ res.render("home_old.ejs", {
   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
 });
 
-app.post('/home',function(req,res){
+app.post('/chat',function(req,res){
   let user=req.session.user;
   //console.log(req.body);
 
   if(req.body.hasOwnProperty('search_button')){
     res.redirect('/search?text='+req.body.search_text);
-
   }
 });
 
@@ -446,14 +445,16 @@ app.post("/",function(req,res){
   let user=req.session.user;
   if(user){
 //  func.createGroup(req,res,item);
-    if(req.body.user_search===''){
+    if(req.body.hasOwnProperty('compose_topic') ){
       //public topics
-      //console.log('creating topic');
      func.create_topic(req,res);
+
     }
-    else{
+    else if(req.body.hasOwnProperty('compose_pvt_msg') ){
       //Create Private message
+
       func.pvt_msg(req,res);
+
     }
 
 }else{
@@ -461,6 +462,16 @@ app.post("/",function(req,res){
 }
 });
 
+app.post('/chatpost',(req,res)=>{
+  let user=req.session.user;
+  if(user){
+  if(req.body.hasOwnProperty('compose')){
+    func.pvt_msg(req,res);
+  }
+}else{
+  res.redirect('/');
+}
+});
 
 
 app.get("/group/:topic/:id/:offset", function (req, res) {
@@ -660,7 +671,7 @@ app.get('/groups.json',(req,res)=>{
 });
 
 app.post('/group/:topic/:id/',(req,res)=>{
-  console.log(req.body);
+  //console.log(req.body);
 
   res.redirect('/group/'+req.params.topic+'/'+req.params.id);
 });

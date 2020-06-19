@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    
     <title>STEMChat</title>
+      <link rel="shortcut icon" href="./favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
@@ -28,10 +28,10 @@
             <%if(curr_user){%>
                 <a href='<%=home%>'>Chat</a>
                 <%}%>
-            
+
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
-            
+
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
                 <a href='<%=profile%>'>Profile</a>

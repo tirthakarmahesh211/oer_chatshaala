@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <!--  This file has been downloaded from https://bootdey.com  -->
   <!--  All snippets are MIT license https://bootdey.com/license -->
-  <title>Home-StemChat</title>
-
+  <title>STEMChat</title>
+  <link rel="shortcut icon" href="./favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <link rel="stylesheet" href="/css/quill.css">
@@ -1063,7 +1063,7 @@
         width: 20%;
         margin-left: 0;
       }
-     
+
     }
 
     @media (max-width: 545px) {
@@ -1085,7 +1085,7 @@
       .right {
         display: none;
       }
-     
+
 
     }
 
@@ -1210,9 +1210,9 @@
 }
 
 
-input {
+input,textarea[name="desc"] {
     width: 70%;
-   
+
 }
 
     .btn {
@@ -1351,16 +1351,20 @@ input {
       <span style="cursor:pointer" class="closes">✖</span>
       <center>
       <h1>Start discussion</h1>
-      <form action="/" method="POST">
+      <form action="/chatpost" method="POST" id='pvt_msg_form'>
 
-        <input type="text" name="user_search" placeholder="Username" list="users1" autocomplete="off">
+        <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
+        <textarea name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
+
+        <input type="text" name="user_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
         <datalist id='users1'>
 
         </datalist>
         <br>
+
         <p align="right">
-        <button type="submit" id='on_but' name='compose'>Compose</button>
-</p>
+        <button type="submit" id='on_but' name="compose">Compose</button>
+        </p>
       </form>
 </center>
 
@@ -1627,7 +1631,7 @@ input {
 
     function load_posts(x) {
 
-     
+
 
       //  alert('clicked');
       $('li').removeClass('active');
@@ -1663,13 +1667,13 @@ input {
           $('#holder3').html(elements);
           document.getElementById('chat_').scrollTop = 9999999;
         });
-        
-      
+
+
         var z = window.matchMedia("(max-width: 767px)")
       my_Function(z) // Call listener function at run time
       z.addListener(my_Function) // Attach listener function on state changes
       //alert(x);
-     
+
     }
 
   </script>

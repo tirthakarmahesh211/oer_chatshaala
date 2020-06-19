@@ -4,8 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    
     <title>STEMChat</title>
     <link rel="shortcut icon" href="./favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -24,15 +23,15 @@
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
             <a href="/">Home</a>
-           
+
             <a href='<%=about%>'>About</a>
             <%if(curr_user){%>
                 <a href='<%=home%>'>Chat</a>
                 <%}%>
-           
+
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>' class="active">Projects</a>
-           
+
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
                 <a href='<%=profile%>'>Profile</a>
@@ -180,7 +179,7 @@
                     </div>
                     <%for(var i=0;i<projects.topics.length;i++){%>
                     <div class="posts">
-                       
+
 
                         <!-- A single blog post -->
                         <section class="post">
@@ -189,8 +188,8 @@
                                 <a href="/post/t/<%=projects.topics[i].slug%>/<%=projects.topics[i].id%>/1" class="link_head">
                                     <h3>
                                        &#9672 <%=projects.topics[i].title%>
-                                      
-                                   
+
+
                                 </a>
                                 <%if(projects.topics[i].image_url!=null){%>
                                 <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
@@ -204,25 +203,25 @@
 
                             <div class="post-description">
                                 <p class="content-subhead para">
-                                    
+
                                     <%for(var j=0;j<projects.topics[i].tags.length;j++){%>
                                     #<%=projects.topics[i].tags[j]%>
-                                    
-                                    <%}%>    
-                                   
+
+                                    <%}%>
+
                                 </p>
                             </div>
                         </section>
                     </div>
                     <%}%>
                     <div id="holder2">
-                    
+
                     </div>
                     <form>
                         <button type="button" id="HButton2"> Load More </button>
                     </form>
                     </div>
-                   
+
                     <div class="footer">
                         <div class="pure-menu pure-menu-horizontal">
                             <center>
@@ -253,28 +252,28 @@
 
             var my_div = $("#holder2");
             $("#HButton2").on("click", function () {
-              
+
                 console.log(l);
                 $.ajax({
                     url: "/project/more/"+l
                 })
                     .done(function (data) {
                         console.log(data.topics[0]);
-                        var elements = '';                      
+                        var elements = '';
                         for(var i=0;i<data.topics.length;i++){
                             var tags='';
                             var str=data.topics[i].image_url ;
                             for(var j=0;j<data.topics[i].tags.length;j++){
                                    tags=tags+ "#"+data.topics[i].tags[j]+" ";
-                
-                                } 
 
-                            
+                                }
+
+
                             if(data.topics[i].image_url!=null){
                             elements = elements +'<div class="posts">'+'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="link_head" href="/post/t/'+data.topics[i].slug+'/'+data.topics[i].id+'/1">'+"&#9672"+data.topics[i].title+'</a>'+'<img width="80" height="80" class="post-avatar" id="" src='+str+'>'+'</h3>'+ '</header>'+'<div class="post-description">'+'<p class="content-subhead para">'+tags+'</p>'+'</div>'+'</section>'+'</div>';
                             }
                             else{
-                                elements = elements +'<div class="posts">'+'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="link_head" href="/post/t/'+data.topics[i].slug+'/'+data.topics[i].id+'/1">'+"&#9672"+data.topics[i].title+'</a>'+'</h3>'+ '</header>'+'<div class="post-description">'+'<p class="content-subhead para">'+tags+'</p>'+'</div>'+'</section>'+'</div>';  
+                                elements = elements +'<div class="posts">'+'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="link_head" href="/post/t/'+data.topics[i].slug+'/'+data.topics[i].id+'/1">'+"&#9672"+data.topics[i].title+'</a>'+'</h3>'+ '</header>'+'<div class="post-description">'+'<p class="content-subhead para">'+tags+'</p>'+'</div>'+'</section>'+'</div>';
                             }
 
                         }

@@ -4,10 +4,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="A layout example with a side menu that hides on mobile, just like the Pure website.">
   <title>STEMChat</title>
   <link rel="manifest" href="./manifest.webmanifest" crossorigin="use-credentials">
+    <link rel="shortcut icon" href="./favicon.ico">
   <link rel="stylesheet" href="/css/pure_css.css">
   <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
   <link rel="stylesheet" href="css/blog.css">
@@ -28,7 +27,7 @@
       <%if(curr_user){%>
       <a href="<%=home%>" id='home'>Chat</a>
       <%}%>
-           
+
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
       <a href='<%=feedback%>'>Feedback</a>
@@ -175,24 +174,41 @@
         <span  style="cursor:pointer" class="close">✖</span>
         <center>
         <center>
-        <h1>Create Topic</h1>
+        <h1 id='modal_head'>Create Topic</h1>
         </center>
-        <form action="/" method="POST">
+        <form action="/" method="POST" id='topic_form'>
 
           <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
-          <input type="text" name="desc" required='' autocomplete="off" placeholder="Description"> <br>
+          <textarea name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
           <select id = "multi-role" name='category' required="" placeholder='Select a Category'>
               <option value="" disabled selected>Select your Category</option>
           </select>
-          <br />
-          <input type="text" name="user_search" placeholder="Add User (for private chat)" list="users1" autocomplete="off">
+          <br>
+          <br>
+          <button type="button" name="pvt_msg" id='pvt_msg'>Create Private Message</button>
+          <br>
+          <p align="right">
+          <button type="submit" id='on_but' name="compose_topic">Create</button>
+          </p>
+        </form>
+
+        <form action="/" method="POST" id='pvt_msg_form'>
+
+          <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
+          <textarea name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
+
+          <input type="text" name="user_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
           <datalist id='users1'>
 
           </datalist>
           <br>
+          <br>
+
+          <button type="button" name="topic" id='create_topic'>Create Topic</button>
+          <br>
           <p align="right">
-          <button type="submit" id='on_but'>Create</button>
-</p>
+          <button type="submit" id='on_but' name="compose_pvt_msg">Create</button>
+          </p>
         </form>
       </center>
       </div>
@@ -251,6 +267,18 @@
 
       // When the user clicks the button, open the modal
       $(document).ready(function () {
+        $('#pvt_msg_form').hide();
+
+        $('#create_topic').click(()=>{
+          $('#modal_head').html('Create Topic');
+          $('#pvt_msg_form').hide();
+          $('#topic_form').show();
+        });
+        $('#pvt_msg').click(()=>{
+          $('#modal_head').html('Create Private Message');
+          $('#pvt_msg_form').show();
+          $('#topic_form').hide();
+        });
         btn.addEventListener('click', () => {
           if (document.getElementById('home')) {
             modal.style.display = "block";
@@ -357,7 +385,7 @@
     #plus:hover {
         opacity: 1.0;
     }
-    
+
 }
 @media (max-width:600px)
 {

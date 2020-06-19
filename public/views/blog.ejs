@@ -4,8 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="A layout example with a side menu that hides on mobile, just like the Pure website.">
     <title>STEMChat</title>
     <link rel="shortcut icon" href="./favicon.ico">
     <link rel="stylesheet" href="/css/pure_css.css">
@@ -23,15 +21,15 @@
         <!-- Navigation links (hidden by default) -->
         <div id="myLinks">
             <a href="/">Home</a>
-           
+
             <a href='<%=about%>'>About</a>
             <%if(curr_user){%>
                 <a href="<%=home%>">Chat</a>
                 <%}%>
                 <a href='<%=blog%>' class="active">Blogs</a>
             <a href='<%=project%>'>Projects</a>
-            
-            
+
+
             <a href='<%=feedback%>'>Feedback</a>
             <%if(curr_user){%>
                 <a href='<%=profile%>'>Profile</a>
@@ -74,7 +72,7 @@
             <div class="content pure-u-1 pure-u-md-1">
                 <%for(var i=0;i<projects.length;i++){%>
                     <div class="posts">
-                       
+
 
                         <!-- A single blog post -->
                         <section class="post">
@@ -83,8 +81,8 @@
                                 <a href="/post/t/<%=projects[i].slug%>/<%=projects[i].id%>/22" class="link_head">
                                     <h3>
                                        &#9672 <%=projects[i].title%>
-                                      
-                                   
+
+
                                 </a>
                                 <%if(projects[i].image_url!=null){%>
                                 <img width="80" height="80" alt="Tilo Mitra&#x27;s avatar" class="post-avatar"
@@ -97,21 +95,21 @@
 
                             <div class="post-description">
                                 <p class="content-subhead para">
-                                    
+
                                     <%for(var j=0;j<projects[i].tags.length;j++){%>
                                     #<%=projects[i].tags[j]%>
-                                    <%}%>    
-                                   
+                                    <%}%>
+
                                 </p>
                             </div>
                         </section>
                     </div>
                     <%}%>
                     <!-- A wrapper for all the blog posts -->
-                   
 
-                       
-                       
+
+
+
 
                     <div class="footer">
                         <div class="pure-menu pure-menu-horizontal">
@@ -129,7 +127,7 @@
                 </div>
             </div>
         </div>
-   
+
 
 
 

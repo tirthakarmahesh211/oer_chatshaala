@@ -163,7 +163,7 @@ function fetchUserInfo(req, res, userName, password) {
       req.session.user = body.user; //storing user info
 
 
-      res.redirect('/home');
+      res.redirect('/chat');
     }).on('error', function() {
       console.log('error');
     });
@@ -616,7 +616,7 @@ function pvt_msg(req, res) {
     method: 'POST',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': secrets.session.user.username
+      'Api-Username': 'system'
     }
   };
   https.get(secrets.url + 'users/' + user + '.json', (response) => {
@@ -638,7 +638,7 @@ function pvt_msg(req, res) {
         };
       //  console.log(data1);
         var request = https.request(url, options, (response) => {
-          console.log(response.statusCode);
+        //  console.log(response.statusCode);
           if (response.statusCode === 200) {
             var body = '';
             response.on('data', (data) => {
@@ -647,7 +647,7 @@ function pvt_msg(req, res) {
             response.on('end', () => {
               body = JSON.parse(body);
               //console.log(body);
-            res.redirect('/post/t/'+body.topic_slug+'/'+body.topic_id+'/1');
+            res.redirect('/chat');
             });
           } else {
             res.redirect('/');
