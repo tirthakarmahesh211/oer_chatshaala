@@ -540,7 +540,7 @@ function request_summary(res, obj, type) {
       console.log('error');
     });
   }else{
-    res.render('/');
+    res.redirect('/');
   }
   }
 }
