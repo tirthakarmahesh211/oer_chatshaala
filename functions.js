@@ -503,6 +503,7 @@ function request_summary(res, obj, type) {
       console.log('error');
     });
   } else if (type === 'other_profile') {
+    if(obj && obj.user_det && obj.user_det.id){
     var url1 = secrets.url + "admin/users/" + obj.user_det.id + '.json';
     https.get(url1, options, function(response) {
       var body = '';
@@ -538,6 +539,9 @@ function request_summary(res, obj, type) {
     }).on('error', function() {
       console.log('error');
     });
+  }else{
+    res.render('/');
+  }
   }
 }
 
