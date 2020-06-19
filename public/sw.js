@@ -5,6 +5,7 @@ const staticAssets=[
   './',
   './css/blog.css',
   './css/feedback.css',
+  './css/bootstrap.css',
   './css/home.css',
   './css/register.css',
   './css/quill.css',
@@ -28,6 +29,7 @@ const staticAssets=[
   './favicon.ico',
   './plus.png',
   './stemgames.png',
+  './stemlogo.png',
   './views/groups.ejs',
   './views/group.ejs'
 ];
