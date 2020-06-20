@@ -1319,7 +1319,7 @@
             <div class="contacts-outter">
               <ul id="myUL" class="list-unstyled contacts">
                 <div class="pointer" onClick='function_pvt()'>
-                  <li id="" class="" data-toggle="" data-target="">
+                  <li id="private" class="" data-toggle="" data-target="">
                     <h3 class="">
                       <i class="fa fa-user" aria-hidden="true"></i>
 
@@ -1329,7 +1329,7 @@
                   </li>
                 </div>
                 <div class="pointer" onClick='function_category()'>
-                  <li id="" class="" data-toggle="" data-target="">
+                  <li id="group" class="" data-toggle="" data-target="">
                     <h3 class="">
                       <i style="font-size:24px" class="fa">&#xf0c0;</i>
 
@@ -1533,7 +1533,7 @@
       for (i = 0; i < li.length; i++) {
         a = li[i].id;
         txtValue = a;
-        //alert(txtValue);
+       // alert(txtValue);
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
           // alert(li[i].id);
           li[i].style.display = "";
@@ -1649,7 +1649,7 @@
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="yahh" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1677,7 +1677,7 @@
             var slug, ide;
             slug = data[i].slug;
             ide = data[i].id;
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="yahh" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
           }
           $('#holder4').html(elements);
         });
