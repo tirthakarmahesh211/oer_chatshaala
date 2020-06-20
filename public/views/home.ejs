@@ -1264,6 +1264,9 @@
       margin-inline-end: 0px;
       font-weight: bold;
     }
+    .pointer {cursor: pointer;
+    background-color: rgb(92, 184, 92);
+    color:white;}
   </style>
 </head>
 
@@ -1315,22 +1318,20 @@
             </center>
             <div class="contacts-outter">
               <ul id="myUL" class="list-unstyled contacts">
-                <div onClick='function_pvt()'>
-                  <li id="" class="" data-toggle="tab" data-target="">
+                <div class="pointer" onClick='function_pvt()'>
+                  <li id="" class="" data-toggle="" data-target="">
                     <h3 class="">
-                      <img alt="" class="img-circle medium-image"
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                      <i class="fa fa-user" aria-hidden="true"></i>
 
                       <b>Private Messages</b></h3>
                     <h5>
                     </h5>
                   </li>
                 </div>
-                <div onClick='function_category()'>
-                  <li id="" class="" data-toggle="tab" data-target="">
+                <div class="pointer" onClick='function_category()'>
+                  <li id="" class="" data-toggle="" data-target="">
                     <h3 class="">
-                      <img alt="" class="img-circle medium-image"
-                        src="https://bootdey.com/img/Content/avatar/avatar1.png">
+                      <i style="font-size:24px" class="fa">&#xf0c0;</i>
 
                       <b>Groups</h3>
                     <h5>
@@ -1342,6 +1343,10 @@
 
                 </div>
                 <div id="holder4">
+
+
+                </div>
+                <div id="holder5">
 
 
                 </div>
@@ -1585,9 +1590,9 @@
   </script>
   <script>
     function function_pvt() {
-      document.getElementById("holder2").style.display="Block";
+      document.getElementById("holder2").style.display = "Block";
       var my_div = $("#holder2");
-      
+
 
       //alert("hi");
 
@@ -1620,7 +1625,7 @@
           $('#holder2').append(elements);
           $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
-      
+
       $.ajax({
         url: "sent/G_N"
       })
@@ -1648,46 +1653,83 @@
 
           }
 
-          $('#holder2').append(elements);
+          $('#holder2').html(elements);
           $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
       setTimeout(function () {
         $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
       }, 1);
-      document.getElementById("holder4").style.display="None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
     }
-    function function_category(){
-      document.getElementById("holder4").style.display="Block";
-      document.getElementById("holder2").style.display="None";
+    function function_category() {
+      document.getElementById("holder4").style.display = "Block";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
       $.ajax({
-        url: "sent/G_N"
+        url: "/user/subscribed/G_N"
       })
 
         .done(function (data) {
-          
+          console.log(data);
+          var elements = '';
+          for (var i = 0; i < data.length; i++) {
+            var slug, ide;
+            slug = data[i].slug;
+            ide = data[i].id;
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="yahh" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+          }
+          $('#holder4').html(elements);
+        });
 
+
+    }
+  </script>
+  <script>
+    function load_topics(x) {
+      document.getElementById("holder5").style.display = "Block";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      var my_div = $("#holder5");
+      var l = 1;
+
+      console.log("hi");
+
+      $.ajax({
+
+        url: "/group/" + x
+      })
+        .done(function (data) {
+          // console.log(x);
+          console.log(data.topic_list.topics);
+          data = data.topic_list.topics;
 
           var elements = '';
 
 
           for (var i = 0; i < data.length; i++) {
-            var slug, ide;
-
-            mydate = data[i].last_posted_at;
+            var mydate, newdate, newtime, slug, ide;
             slug = data[i].slug;
             ide = data[i].id;
+            if (data[i].last_posted_at != null) {
+              mydate = data[i].last_posted_at;
 
+              newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+              newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
 
-            elements = elements + "hi";
-            //'<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="yahh" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
-
+            }
+            else{
+              newdate="";
+              newtime="";
+            }
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            console.log("hi");
           }
 
-          $('#holder4').append(elements);
-         
+
+          $('#holder5').html(elements);
         });
 
-      
     }
   </script>
 
@@ -1743,7 +1785,7 @@
 
         .done(function (data) {
 
-          // console.log(data);
+          console.log(data);
           var elements = '';
 
 

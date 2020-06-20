@@ -191,7 +191,7 @@
             </div>
 
 
-
+            
 
 
             <img id="plus" src="/plus.png">
@@ -224,6 +224,7 @@
           <input type="text" name="desc" required='' autocomplete="off" placeholder="Description"> <br>
           <select id = "multi-role" name='category' required="" placeholder=''>
               <option value="<%=topic_head.id%>"  selected><%=topic_head.name%></option>
+
           </select>
           <br>
           <button type="submit" id='on_but' name='create_topic'>Create</button>
@@ -300,7 +301,9 @@
            var l=1;
             $("#HButton2").on("click", function () {
                 console.log("hi");
+                
                    $.ajax({
+                   
                     url: "/group/<%=topic_head.slug%>/<%=topic_head.id%>/load/"+l
                 })
                     .done(function (data) {
