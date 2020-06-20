@@ -1315,7 +1315,33 @@
             </center>
             <div class="contacts-outter">
               <ul id="myUL" class="list-unstyled contacts">
+                <div onClick='function_pvt()'>
+                  <li id="" class="" data-toggle="tab" data-target="">
+                    <h3 class="">
+                      <img alt="" class="img-circle medium-image"
+                        src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                      <b>Private Messages</b></h3>
+                    <h5>
+                    </h5>
+                  </li>
+                </div>
+                <div onClick='function_category()'>
+                  <li id="" class="" data-toggle="tab" data-target="">
+                    <h3 class="">
+                      <img alt="" class="img-circle medium-image"
+                        src="https://bootdey.com/img/Content/avatar/avatar1.png">
+
+                      <b>Groups</h3>
+                    <h5>
+                    </h5>
+                  </li>
+                </div>
                 <div id="holder2">
+
+
+                </div>
+                <div id="holder4">
 
 
                 </div>
@@ -1558,9 +1584,10 @@
     });
   </script>
   <script>
-    $(document).ready(function () {
-
+    function function_pvt() {
+      document.getElementById("holder2").style.display="Block";
       var my_div = $("#holder2");
+      
 
       //alert("hi");
 
@@ -1593,6 +1620,7 @@
           $('#holder2').append(elements);
           $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
+      
       $.ajax({
         url: "sent/G_N"
       })
@@ -1626,7 +1654,41 @@
       setTimeout(function () {
         $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
       }, 1);
-    });
+      document.getElementById("holder4").style.display="None";
+    }
+    function function_category(){
+      document.getElementById("holder4").style.display="Block";
+      document.getElementById("holder2").style.display="None";
+      $.ajax({
+        url: "sent/G_N"
+      })
+
+        .done(function (data) {
+          
+
+
+          var elements = '';
+
+
+          for (var i = 0; i < data.length; i++) {
+            var slug, ide;
+
+            mydate = data[i].last_posted_at;
+            slug = data[i].slug;
+            ide = data[i].id;
+
+
+            elements = elements + "hi";
+            //'<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="yahh" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+
+          }
+
+          $('#holder4').append(elements);
+         
+        });
+
+      
+    }
   </script>
 
   <script>

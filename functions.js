@@ -433,16 +433,18 @@ function search(text, res) {
     //  console.log(response.statusCode);
     response.on('data', function(data) {
       body += data;
+      
       //console.log("hello");
     });
     response.on('end', function() {
       body = JSON.parse(body);
+      console.log(body.categories);
       //console.log(body);
       if (body.grouped_search_result) {
         res.render('search.ejs', {
           users: body.users,
           posts: body.posts,
-          groups: body.groups,
+          groups: body.categories,
           topics: body.topics
         });
       } else {
@@ -517,6 +519,7 @@ function request_summary(res, obj, type) {
           body = JSON.parse(body);
           //console.log(body);
           obj.user_det_more = body;
+          //console.log(body);
           body = '';
           url1 = secrets.url + "users/" + obj.user_det.username + '/summary.json';
           https.get(url1, options, (response) => {
