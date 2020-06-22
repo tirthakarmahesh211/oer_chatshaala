@@ -1281,6 +1281,8 @@
 <body>
   <div style="display: none;" id="curr_user" name='<%=curr_user.username%>'>
   </div>
+  <div style="display: none;" id="curr_user_id" name='<%=curr_user.id%>'>
+  </div>
   <div style="display: none;" id="slug">
   </div>
   <div style="display: none;" id="tid">
@@ -1619,7 +1621,7 @@
       //alert("hi");
 
       $.ajax({
-        url: "receive/" + "G_N"
+        url: "receive/" + username
       })
 
         .done(function (data) {
@@ -1637,7 +1639,7 @@
             ide = data[i].id;
             if (data[i].participants.length) {
               for (var j = 0; j < data[i].participants.length; j++) {
-                if (data[i].participants[j] && data[i].participants[j].user_id && data[i].participants[j].user_id != 34) {
+                if (data[i].participants[j] && data[i].participants[j].user_id && data[i].participants[j].user_id != $('#curr_user_id').attr('name')) {
                   user_id = data[i].participants[j].user_id;
                   $.ajax({
                     url: "user/more/" + user_id
@@ -1651,7 +1653,7 @@
 
                         img = img.replace("{size}", "80");
                         img = "https://t2.metastudio.org" + img;
-                        
+
 
                       }
                       else {
@@ -1660,16 +1662,16 @@
 
                       console.log(img);
                     });
-                    
+
 
                 }
-                
+
               }
 
 
 
             }
-            
+
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
 
@@ -1686,7 +1688,7 @@
 
 
       $.ajax({
-        url: "sent/" + "G_N"
+        url: "sent/" + username
       })
 
         .done(function (data) {

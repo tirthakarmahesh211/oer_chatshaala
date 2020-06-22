@@ -190,6 +190,7 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
     });
     response.on('end', () => {
       body1 = JSON.parse(body1);
+      if(body1 && body1.topic_list && body1.topic_list.topics){
       var topics = body1.topic_list.topics;
       https.get(url, options, function(response) {
         response.on('data', function(data) {
@@ -219,10 +220,12 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
 
         });
 
-
       }).on('error', function() {
         console.log('errorr');
       });
+    }else{
+
+    }
     });
   });
 }
@@ -625,7 +628,7 @@ function pvt_msg(req, res) {
     method: 'POST',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': 'system'
+      'Api-Username': req.session.user.username
     }
   };
   https.get(secrets.url + 'users/' + user + '.json', (response) => {
@@ -659,50 +662,82 @@ function pvt_msg(req, res) {
             res.redirect('/chat');
             });
           } else {
-            res.redirect('/');
+            res.redirect('/chat');
           }
         });
         request.write(querystring.stringify(data1));
         request.end();
       });
     } else {
-      res.redirect('/');
+      res.redirect('/chat');
     }
   });
 }
 
 
-function reply_pvt(slug,id,content,user,res){
+function reply_pvt(req,res){
   var url = secrets.url + '/posts.json';
+  var curr_user=req.session.user.username;
   var options = {
     method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user
+    }
+  };
+  var opt={
+    method: 'GET',
     headers: {
       'Api-Key': secrets.key,
       'Api-Username': 'system'
     }
   };
-  var data1={
-    "topic_id": Number(id),
-    "raw": content,
-    'target_recipients': user,
-    "archetype": "regular",
-  };
-
-  var request=https.request(url,options,(response)=>{
-    var body='';
-    //console.log(response.statusCode);
+  https.get(secrets.url+'t/'+req.params.slug+'/'+req.params.tid+'.json',opt,(response)=>{
+  //  console.log(response.statusCode);
     if(response.statusCode===200){
+      var data='';
       response.on('data',(chunk)=>{
-        body+=chunk;
+        data+=chunk;
       });
       response.on('end',()=>{
-        body=JSON.parse(body);
-        //console.log(body);
+        data=JSON.parse(data);
+        var users_list=data.details.participants;
+        uname_str='';
+        for(var i=0;i<users_list.length;i++){
+          if(users_list[i].username!==curr_user){
+          if(i!==users_list.length-1){
+            uname_str+=users_list[i].username+', ';
+          }else{
+            uname_str+=users_list[i].username;
+          }
+          }
+        }
+      //  console.log(uname_str);
+        var data1={
+          "topic_id": Number(req.params.tid),
+          "raw": req.body.body,
+         'target_recipients':uname_str,
+          "archetype": "regular",
+        };
+
+        var request=https.request(url,options,(response)=>{
+          var body='';
+          //console.log(response.statusCode);
+          if(response.statusCode===200){
+            response.on('data',(chunk)=>{
+              body+=chunk;
+            });
+            response.on('end',()=>{
+              body=JSON.parse(body);
+              //console.log(body);
+            });
+          }
+        });
+        request.write(querystring.stringify(data1));
+        request.end();
 
       });
     }
   });
-  request.write(querystring.stringify(data1));
-  request.end();
   res.redirect('/chat');
 }

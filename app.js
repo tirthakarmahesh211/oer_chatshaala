@@ -431,14 +431,19 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
     });
     response.on('end', function () {
       body = JSON.parse(body);
+      if(body && body.post_stream && body.post_stream.posts){
       for (var i = 0; i < body.post_stream.posts.length; i++) {
         //console.log(body.post_stream.posts[i].post_number);
       }
+          res.json(body.post_stream.posts);
+    }else{
+        res.json([]);
+    }
 
 
       // console.log(groups);
       // console.log(body.post_stream.posts);
-      res.json(body.post_stream.posts);
+
 
     });
   }).on('error', function () {
@@ -756,7 +761,7 @@ res.json(body3);
 app.post('/reply/:slug/:tid',(req,res)=>{
   let curr_user=req.session.user;
   if(curr_user){
-  func.reply_pvt(req.params.slug,req.params.tid,req.body.body,curr_user.username,res);
+  func.reply_pvt(req,res);
 }else{
   res.redirect('/');
 }
