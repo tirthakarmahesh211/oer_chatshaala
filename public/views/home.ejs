@@ -1265,22 +1265,26 @@
       margin-inline-end: 0px;
       font-weight: bold;
     }
-    .pointer {cursor: pointer;
-    background-color: rgb(92, 184, 92);
-    color:white;}
-    .message-text li{
+
+    .pointer {
+      cursor: pointer;
+      background-color: rgb(92, 184, 92);
+      color: white;
+    }
+
+    .message-text li {
       display: list-item;
     }
   </style>
 </head>
 
 <body>
-    <div style="display: none;" id="curr_user" name='<%=curr_user.username%>'>
-    </div>
-    <div style="display: none;" id="slug">
-    </div>
-    <div style="display: none;" id="tid" >
-    </div>
+  <div style="display: none;" id="curr_user" name='<%=curr_user.username%>'>
+  </div>
+  <div style="display: none;" id="slug">
+  </div>
+  <div style="display: none;" id="tid">
+  </div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -1403,7 +1407,7 @@
               <center>
                 <div contenteditable="true" class="edit" id='editor'></div>
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
-                <form class=""  action='/reply' method="post" id='reply_form'>
+                <form class="" action='/reply' method="post" id='reply_form'>
                   <input type="text" name="body" value="" id='reply_data' style="display: none;">
                   <button type="submit" name="post" id='saveDelta' class="send-message-button btn-info"> <i
                       class="fa fa-send"></i></button>
@@ -1546,7 +1550,7 @@
       for (i = 0; i < li.length; i++) {
         a = li[i].id;
         txtValue = a;
-       // alert(txtValue);
+        // alert(txtValue);
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
           // alert(li[i].id);
           li[i].style.display = "";
@@ -1572,7 +1576,7 @@
       document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     }
     var options = [
-      ['bold','italic' , 'underline', 'strike'],
+      ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
       [{ 'header': 1 }, { 'header': 2 }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
@@ -1581,7 +1585,7 @@
       [{ 'direction': 'rtl' }],
       [{ 'color': [] }, { 'background': [] }],
       [{ 'font': [] }],
-      [{ 'align': [] }],
+
       ['link', 'image', 'video']
     ];
 
@@ -1596,13 +1600,13 @@
       theme: 'snow'
     });
     document.getElementById('saveDelta').addEventListener('click', function () {
-      var body=document.querySelector('div.ql-editor').innerHTML;
-      var topic_id=$('#tid').attr('name');
-      var topic_slug=$('#slug').attr('name');
-      var url='/reply/'+topic_slug+'/'+topic_id;
+      var body = document.querySelector('div.ql-editor').innerHTML;
+      var topic_id = $('#tid').attr('name');
+      var topic_slug = $('#slug').attr('name');
+      var url = '/reply/' + topic_slug + '/' + topic_id;
       $('#reply_data').val(body);
       quill.setContents('');
-      $('#reply_form').attr('action',url);
+      $('#reply_form').attr('action', url);
       $('#reply_form').submit();
     });
   </script>
@@ -1611,32 +1615,68 @@
       document.getElementById("holder2").style.display = "Block";
       var my_div = $("#holder2");
 
-      var username=$('#curr_user').attr('name');
+      var username = $('#curr_user').attr('name');
       //alert("hi");
 
       $.ajax({
-        url: "receive/"+username
+        url: "receive/" + "G_N"
       })
 
         .done(function (data) {
+          console.log(data);
 
           var elements = '';
 
 
           for (var i = 0; i < data.length; i++) {
-            var mydate, newdate, newtime, slud, ide;
+            var mydate, user_id, newdate, newtime, slud, ide;
+            var  img = "https://bootdey.com/img/Content/avatar/avatar1.png";
 
             mydate = data[i].last_posted_at;
             slug = data[i].slug;
             ide = data[i].id;
+            if (data[i].participants.length) {
+              for (var j = 0; j < data[i].participants.length; j++) {
+                if (data[i].participants[j] && data[i].participants[j].user_id && data[i].participants[j].user_id != 34) {
+                  user_id = data[i].participants[j].user_id;
+                  $.ajax({
+                    url: "user/more/" + user_id
+                  })
+                    .done(function (data1) {
 
+
+
+                      if (data1.avatar_template) {
+                        img = data1.avatar_template;
+
+                        img = img.replace("{size}", "80");
+                        img = "https://t2.metastudio.org" + img;
+                        
+
+                      }
+                      else {
+                        img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                      }
+
+                      console.log(img);
+                    });
+                    
+
+                }
+                
+              }
+
+
+
+            }
+            
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
 
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1644,11 +1684,13 @@
           $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         });
 
+
       $.ajax({
-        url: "sent/"+username
+        url: "sent/" + "G_N"
       })
 
         .done(function (data) {
+          console.log(data);
 
 
           var elements = '';
@@ -1681,15 +1723,16 @@
       document.getElementById("holder5").style.display = "None";
     }
     function function_category() {
-      var username=$('#curr_user').attr('name');
+      var username = $('#curr_user').attr('name');
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       $.ajax({
-        url: "/user/subscribed/"+username
+        url: "/user/subscribed/" + username
       })
 
         .done(function (data) {
+          console.log(data);
 
           var elements = '';
           for (var i = 0; i < data.length; i++) {
@@ -1739,9 +1782,9 @@
               newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
 
             }
-            else{
-              newdate="";
-              newtime="";
+            else {
+              newdate = "";
+              newtime = "";
             }
             elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
 
@@ -1789,16 +1832,16 @@
 
     function load_posts(x) {
 
-      var username=$('#curr_user').attr('name');
+      var username = $('#curr_user').attr('name');
 
-      var y=x.split('/');
+      var y = x.split('/');
 
-      var tid=y[1];
-      var tslug=y[0];
+      var tid = y[1];
+      var tslug = y[0];
 
 
-      $('#slug').attr('name',tslug);
-      $('#tid').attr('name',tid);
+      $('#slug').attr('name', tslug);
+      $('#tid').attr('name', tid);
       //  alert('clicked');
       $('li').removeClass('active');
       $(this).addClass('active');

@@ -761,3 +761,35 @@ app.post('/reply/:slug/:tid',(req,res)=>{
   res.redirect('/');
 }
 });
+
+
+app.get("/user/more/:id", function (req, res) {
+  let curr_user = req.session.user;
+  var id = req.params.id;
+  var body = '';
+  var url = "https://t2.metastudio.org/admin/users/" + id + ".json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      body = JSON.parse(body);
+      // console.log(body.topic_list.topics);
+//console.log(body);
+      res.json(body);
+
+      // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});
+      // console.log("jk");
+    });
+    // console.log(body3);
+
+  });
+});
