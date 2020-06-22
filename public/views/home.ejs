@@ -835,8 +835,8 @@
       margin: auto;
       width: 70%;
       height: 7vh;
-      padding: 0 80px;
-      bottom: 0px;
+      padding: 0px;
+      bottom: 10px;
     }
 
     .chat-footer .send-message-text {
@@ -860,9 +860,9 @@
       position: absolute;
       width: 35px;
       height: 35px;
-      right: 100px;
+      right: 0px;
       top: 0;
-      bottom: 0;
+      bottom: 50px;
       margin: auto;
       border: 1px solid rgba(0, 0, 0, 0.05);
       outline: none;
@@ -946,7 +946,8 @@
       }
 
       .chat-footer .send-message-button {
-        right: 40px;
+        right: 0px;
+        bottom: 0px;
       }
 
       .chat-footer .upload-file {
@@ -1271,7 +1272,12 @@
 </head>
 
 <body>
-
+    <div style="display: none;" id="curr_user" name='<%=curr_user.username%>'>
+    </div>
+    <div style="display: none;" id="slug">
+    </div>
+    <div style="display: none;" id="tid" >
+    </div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -1394,9 +1400,11 @@
               <center>
                 <div contenteditable="true" class="edit" id='editor'></div>
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
-
-                <button type="button" name="post" id='saveDelta' class="send-message-button btn-info"> <i
-                    class="fa fa-send"></i> </button>
+                <form class=""  action='/reply' method="post" id='reply_form'>
+                  <input type="text" name="body" value="" id='reply_data' style="display: none;">
+                  <button type="submit" name="post" id='saveDelta' class="send-message-button btn-info"> <i
+                      class="fa fa-send"></i></button>
+                </form>
               </center>
             </div>
           </div>
@@ -1435,6 +1443,8 @@
     </div>
 
   </div>
+
+
 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
@@ -1559,7 +1569,7 @@
       document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     }
     var options = [
-      ['bold', 'italics', 'underline', 'strike'],
+      ['bold','italic' , 'underline', 'strike'],
       ['blockquote', 'code-block'],
       [{ 'header': 1 }, { 'header': 2 }],
       [{ 'list': 'ordered' }, { 'list': 'bullet' }],
@@ -1583,9 +1593,14 @@
       theme: 'snow'
     });
     document.getElementById('saveDelta').addEventListener('click', function () {
-      quill_c.setContents(quill.getContents());
-      document.querySelector("#chat").scrollTop = document.querySelector("#chat").scrollHeight;
+      var body=document.querySelector('div.ql-editor').innerHTML;
+      var topic_id=$('#tid').attr('name');
+      var topic_slug=$('#slug').attr('name');
+      var url='/reply/'+topic_slug+'/'+topic_id;
+      $('#reply_data').val(body);
       quill.setContents('');
+      $('#reply_form').attr('action',url);
+      $('#reply_form').submit();
     });
   </script>
   <script>
@@ -1593,15 +1608,14 @@
       document.getElementById("holder2").style.display = "Block";
       var my_div = $("#holder2");
 
-
+      var username=$('#curr_user').attr('name');
       //alert("hi");
 
       $.ajax({
-        url: "receive/G_N"
+        url: "receive/"+username
       })
 
         .done(function (data) {
-
 
           var elements = '';
 
@@ -1612,6 +1626,7 @@
             mydate = data[i].last_posted_at;
             slug = data[i].slug;
             ide = data[i].id;
+
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
 
@@ -1627,7 +1642,7 @@
         });
 
       $.ajax({
-        url: "sent/G_N"
+        url: "sent/"+username
       })
 
         .done(function (data) {
@@ -1663,22 +1678,25 @@
       document.getElementById("holder5").style.display = "None";
     }
     function function_category() {
+      var username=$('#curr_user').attr('name');
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       $.ajax({
-        url: "/user/subscribed/G_N"
+        url: "/user/subscribed/"+username
       })
 
         .done(function (data) {
-          console.log(data);
+
           var elements = '';
           for (var i = 0; i < data.length; i++) {
             var slug, ide;
             slug = data[i].slug;
             ide = data[i].id;
+
             elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
           }
+
           $('#holder4').html(elements);
         });
 
@@ -1693,7 +1711,7 @@
       var my_div = $("#holder5");
       var l = 1;
 
-      console.log("hi");
+
 
       $.ajax({
 
@@ -1701,7 +1719,7 @@
       })
         .done(function (data) {
           // console.log(x);
-          console.log(data.topic_list.topics);
+
           data = data.topic_list.topics;
 
           var elements = '';
@@ -1723,7 +1741,7 @@
               newtime="";
             }
             elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
-            console.log("hi");
+
           }
 
 
@@ -1768,8 +1786,16 @@
 
     function load_posts(x) {
 
+      var username=$('#curr_user').attr('name');
+
+      var y=x.split('/');
+
+      var tid=y[1];
+      var tslug=y[0];
 
 
+      $('#slug').attr('name',tslug);
+      $('#tid').attr('name',tid);
       //  alert('clicked');
       $('li').removeClass('active');
       $(this).addClass('active');
@@ -1785,13 +1811,12 @@
 
         .done(function (data) {
 
-          console.log(data);
           var elements = '';
 
 
           for (var i = 0; i < data.length; i++) {
 
-            if (data[i].username != "G_N") {//for receive
+            if (data[i].username != username) {//for receive
               elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
             }
             else {

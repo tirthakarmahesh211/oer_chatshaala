@@ -15,7 +15,8 @@ module.exports = {
   request_summary: request_summary,
   showBadges: showBadges,
   create_topic: create_topic,
-  pvt_msg: pvt_msg
+  pvt_msg: pvt_msg,
+  reply_pvt:reply_pvt
 };
 
 function resetCurrUser() {
@@ -433,12 +434,12 @@ function search(text, res) {
     //  console.log(response.statusCode);
     response.on('data', function(data) {
       body += data;
-      
+
       //console.log("hello");
     });
     response.on('end', function() {
       body = JSON.parse(body);
-      console.log(body.categories);
+      //console.log(body.categories);
       //console.log(body);
       if (body.grouped_search_result) {
         res.render('search.ejs', {
@@ -668,4 +669,40 @@ function pvt_msg(req, res) {
       res.redirect('/');
     }
   });
+}
+
+
+function reply_pvt(slug,id,content,user,res){
+  var url = secrets.url + '/posts.json';
+  var options = {
+    method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  var data1={
+    "topic_id": Number(id),
+    "raw": content,
+    'target_recipients': user,
+    "archetype": "private_message",
+  };
+  console.log(data1);
+  var request=https.request(url,options,(response)=>{
+    var body='';
+    console.log(response.statusCode);
+    if(response.statusCode===200){
+      response.on('data',(chunk)=>{
+        body+=chunk;
+      });
+      response.on('end',()=>{
+        body=JSON.parse(body);
+        console.log(body);
+        res.redirect('/chat');
+      });
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
+  res.redirect('/chat');
 }

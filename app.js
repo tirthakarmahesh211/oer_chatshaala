@@ -101,7 +101,7 @@ app.get('/chat', function (req, res) {
   let curr_user = req.session.user;
   if (curr_user) {
     res.render('home.ejs', {
-      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile
+      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile,curr_user:curr_user
     });
   } else {
     res.redirect('/register');
@@ -523,7 +523,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
 
   var body3 = '';
   var url2 = secrets.url + 'c/' + name + "/" + id + '.json' + '?page=' + i;
-  console.log(url2);
+  //console.log(url2);
 
   var options = {
     method: 'GET',
@@ -589,7 +589,7 @@ app.get("/user/:uname", function (req, res) {
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      
+
       var user_det = body.user;
       var obj = { user_det: user_det, curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout };
       // res.send("hi");
@@ -728,8 +728,8 @@ app.get("/user/subscribed/:uname", function (req, res) {
           body2 = JSON.parse(body2);
           body1=body1.category_list.categories;
           body2=body2.user.groups;
-          console.log(body1);
-          console.log(body2);
+          //console.log(body1);
+          //console.log(body2);
           for(var i=0;i<body2.length;i++){
             for(var j=0;j<body1.length;j++){
              // console.log(body1[j].name);
@@ -742,7 +742,7 @@ app.get("/user/subscribed/:uname", function (req, res) {
 
             }
           }
-          
+
 //console.log(body3);
 res.json(body3);
 
@@ -754,4 +754,11 @@ res.json(body3);
 
     });
   });
+});
+
+app.post('/reply/:slug/:tid',(req,res)=>{
+  let curr_user=req.session.user;
+  if(curr_user){
+  func.reply_pvt(req.params.slug,req.params.tid,req.body.body,curr_user.username,res);
+  }
 });
