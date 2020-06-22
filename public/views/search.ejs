@@ -93,7 +93,7 @@
 
               <div class="post-description elip_here">
                 <p class="para">
-                <%=posts[i].blurb%>
+                <%=posts[i].blurb.substring(0,97)%> ...
                 </p>
               </div>
 
@@ -158,6 +158,12 @@
 
 
 <style>
+html{
+  width:100%;
+}
+body{
+  width:100%;
+}
   #contents_page {
     height: auto;
   }
@@ -219,6 +225,11 @@
     .topnav a.icon {
       float: left;
       display: block;
+    }
+    p{
+      width: 100%;
+      height: auto;
+      overflow-wrap: break-word;
     }
   }
 

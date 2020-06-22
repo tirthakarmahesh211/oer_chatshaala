@@ -80,7 +80,7 @@
             <%if(curr_user){%>
             <a href="<%=logout%>">Logout</a>
             <%}%>
-            
+
         </div>
         <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
 
@@ -90,18 +90,12 @@
         <div class="sidebar pure-u-1">
             <div class="header">
                 <h1 class="brand-title"><%=topic_head.name%></h1>
-                <h2 class="brand-tagline"></h2>
-                <p>
-                    <%=topic_head.description%>
-                </p>
             </div>
         </div>
 
         <div id="main">
 
             <div class="content pure-u-1 pure-u-md-1">
-
-
 
             <button class="tablink" onclick="openPage('Users_list', this, 'green')">Users</button>
             <button class="tablink" onclick="openPage('News', this, 'green')" id="defaultOpen">Topics</button>
@@ -191,7 +185,7 @@
             </div>
 
 
-            
+
 
 
             <img id="plus" src="/plus.png">
@@ -301,9 +295,9 @@
            var l=1;
             $("#HButton2").on("click", function () {
                 console.log("hi");
-                
+
                    $.ajax({
-                   
+
                     url: "/group/<%=topic_head.slug%>/<%=topic_head.id%>/load/"+l
                 })
                     .done(function (data) {
@@ -407,10 +401,10 @@
         border: none;
         outline: none;
         cursor: pointer;
-        padding: 14px 16px;
+        padding: 10px 10px;
         font-size: 17px;
-        width: 25%;
-        margin-top: 1em;
+        width: 10%;
+        margin-top: 0.5em;
     }
 
     .tablink:hover {
@@ -426,10 +420,11 @@
     .tabcontent {
         color: black;
         display: none;
-        padding: 100px 20px;
+        padding: 50px 10px;
+        width:100%;
         height: 100%;
         background-color: white;
-        margin-top: 1em;
+        margin-top: 1.5em;
     }
 
 
@@ -526,7 +521,7 @@
     #main {
         background-color: #fff;
         margin: auto;
-        width: 80%;
+        width: 100%;
         display: inline-block;
         align-content: center;
         align-items: center;
@@ -535,7 +530,8 @@
     }
 
     .content {
-        padding: 2em 1em 0;
+        padding: 0.3em;
+        width:100%;
     }
 
     .post {
@@ -625,20 +621,19 @@
         }
 
         .content {
-            padding: 2em 10em 10em;
+            padding: 2em 3em 3em;
+            width:100%;
         }
 
         .header {
             text-align: center;
             top: auto;
-            padding: 2em;
+            padding: 0.5em;
             margin: auto;
-
-
         }
 
         #main {
-            width: 80%;
+            width: 100%;
             height: auto;
 
         }

@@ -1,7 +1,11 @@
+html{
+  width:100%;
+}
 body {
     color: #777;
     background-color: beige;
     text-align: center;
+    width:100%;
 }
 
 .pure-img-responsive {
@@ -38,7 +42,7 @@ The content `<div>` is where all your content goes.
 #main{
   background-color: #fff;
   margin: auto;
-  width: 80%;
+  width: 100%;
   display: inline-block;
   align-content: center;
   align-items: center;
@@ -53,7 +57,7 @@ The content `<div>` is where all your content goes.
     margin: 0 auto;
     padding: 0 2em;
     left: 0;
-    width: 80%;
+    width: 90%;
     margin-bottom: 50px;
     line-height: 1.6em;
     text-align: left;

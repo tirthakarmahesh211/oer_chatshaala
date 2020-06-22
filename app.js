@@ -208,8 +208,6 @@ app.get("/about", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      // console.log(body3);
-
       if (curr_user) {
         res.render("about.ejs", { abouts: body3, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout });
       } else {
@@ -236,7 +234,6 @@ app.get("/blog", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      //  console.log(body3.topic_list.topics);
       var projects = body3.topic_list.topics;
       if (curr_user) {
         res.render("blog.ejs", { projects: projects, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout });
@@ -251,7 +248,7 @@ app.get("/project", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
   var url2 = "https://t2.metastudio.org/c/projects/17/l/latest.json?page=0";
-  //  console.log(url2);
+  // console.log(url2);
   var options = {
     method: 'GET',
     headers: {
@@ -265,7 +262,7 @@ app.get("/project", function (req, res) {
     });
     response.on('end', function () {
       body3 = JSON.parse(body3);
-      //  console.log(body3.topic_list);
+      //console.log(body3.topic_list);
       var projects = body3.topic_list;
       if (curr_user) {
         res.render("project.ejs", { projects: projects, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout });
