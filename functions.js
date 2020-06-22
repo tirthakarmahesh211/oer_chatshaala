@@ -685,20 +685,20 @@ function reply_pvt(slug,id,content,user,res){
     "topic_id": Number(id),
     "raw": content,
     'target_recipients': user,
-    "archetype": "private_message",
+    "archetype": "regular",
   };
-  console.log(data1);
+
   var request=https.request(url,options,(response)=>{
     var body='';
-    console.log(response.statusCode);
+    //console.log(response.statusCode);
     if(response.statusCode===200){
       response.on('data',(chunk)=>{
         body+=chunk;
       });
       response.on('end',()=>{
         body=JSON.parse(body);
-        console.log(body);
-        res.redirect('/chat');
+        //console.log(body);
+
       });
     }
   });

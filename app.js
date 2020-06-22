@@ -757,5 +757,7 @@ app.post('/reply/:slug/:tid',(req,res)=>{
   let curr_user=req.session.user;
   if(curr_user){
   func.reply_pvt(req.params.slug,req.params.tid,req.body.body,curr_user.username,res);
-  }
+}else{
+  res.redirect('/');
+}
 });
