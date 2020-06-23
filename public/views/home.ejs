@@ -841,11 +841,15 @@
     .chat-footer {
 
       position: relative;
-      margin: auto;
-      width: 70%;
+      margin-left: 10px;
+      margin-right: 20px;
+      width: 90%;
       height: 7vh;
       padding: 0px;
       bottom: 10px;
+      background-color: white;
+      border: 1px solid black;
+      z-index: 100;
     }
 
     .chat-footer .send-message-text {
@@ -1434,9 +1438,11 @@
               </div>
 
             </div>
-
-            <div class="chat-footer">
               <center>
+            <div class="chat-footer">
+                  <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">⮟</button>
+                  <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">⮝</button>
+                <br>
                 <div contenteditable="true" class="edit" id='editor'></div>
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
                 <form class="" action='/reply' method="post" id='reply_form'>
@@ -1444,8 +1450,9 @@
                   <button type="submit" name="post" id='saveDelta' class="send-message-button btn-info"> <i
                       class="fa fa-send"></i></button>
                 </form>
-              </center>
+
             </div>
+              </center>
           </div>
         </div>
 
@@ -1611,8 +1618,19 @@
 
       document.getElementById('editor').style.display = "inline-block";
       document.getElementById('temp_editor').style.display = "none";
-      document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
+      $('#show_toolbar').show();
+      //document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     }
+    $('#show_toolbar').click(()=>{
+      $('#show_toolbar').hide();
+      $('#hide_toolbar').show();
+      document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
+    });
+    $('#hide_toolbar').click(()=>{
+      $('#hide_toolbar').hide();
+      $('#show_toolbar').show();
+      document.querySelector('.ql-toolbar.ql-snow').style.display = "none";
+    });
     var options = [
       ['bold', 'italic', 'underline', 'strike'],
       ['blockquote', 'code-block'],
