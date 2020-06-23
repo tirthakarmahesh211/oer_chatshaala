@@ -101,7 +101,7 @@ app.get('/chat', function (req, res) {
   let curr_user = req.session.user;
   if (curr_user) {
     res.render('home.ejs', {
-      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile,curr_user:curr_user
+      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user
     });
   } else {
     res.redirect('/register');
@@ -431,14 +431,14 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      if(body && body.post_stream && body.post_stream.posts){
-      for (var i = 0; i < body.post_stream.posts.length; i++) {
-        //console.log(body.post_stream.posts[i].post_number);
-      }
-          res.json(body.post_stream.posts);
-    }else{
+      if (body && body.post_stream && body.post_stream.posts) {
+        for (var i = 0; i < body.post_stream.posts.length; i++) {
+          //console.log(body.post_stream.posts[i].post_number);
+        }
+        res.json(body.post_stream.posts);
+      } else {
         res.json([]);
-    }
+      }
 
 
       // console.log(groups);
@@ -705,7 +705,7 @@ app.get("/user/subscribed/:uname", function (req, res) {
 
   var body1 = '';
   var body2 = '';
-  var body3=[];
+  var body3 = [];
   var options = {
     method: 'GET',
     headers: {
@@ -728,15 +728,15 @@ app.get("/user/subscribed/:uname", function (req, res) {
         });
         response.on('end', function () {
           body2 = JSON.parse(body2);
-          body1=body1.category_list.categories;
-          body2=body2.user.groups;
+          body1 = body1.category_list.categories;
+          body2 = body2.user.groups;
           //console.log(body1);
           //console.log(body2);
-          for(var i=0;i<body2.length;i++){
-            for(var j=0;j<body1.length;j++){
-             // console.log(body1[j].name);
+          for (var i = 0; i < body2.length; i++) {
+            for (var j = 0; j < body1.length; j++) {
+              // console.log(body1[j].name);
               //console.log(body2[i].name.split('_').join(' '));
-              if(body2[i].name.split('_')[0].toLowerCase()==body1[j].slug){
+              if (body2[i].name.split('_')[0].toLowerCase() == body1[j].slug) {
                 //console.log("Yes");
                 //console.log(body1[j].name);
                 body3.push(body1[j]);
@@ -745,8 +745,8 @@ app.get("/user/subscribed/:uname", function (req, res) {
             }
           }
 
-//console.log(body3);
-res.json(body3);
+          //console.log(body3);
+          res.json(body3);
 
         });
 
@@ -758,13 +758,83 @@ res.json(body3);
   });
 });
 
-app.post('/reply/:slug/:tid',(req,res)=>{
-  let curr_user=req.session.user;
-  if(curr_user){
-  func.reply_pvt(req,res);
-}else{
-  res.redirect('/');
-}
+
+
+app.get("/user/common/:uname", function (req, res) {
+  var id = req.params.uname;
+  var url1 = secrets.url + '/categories.json';
+  var url2 = secrets.url + "users/" + id + ".json";
+  let curr_user = req.session.user;
+
+  var body1 = '';
+  var body2 = '';
+  var body3 = [];
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url1, options, (response) => {
+
+    response.on('data', function (data) {
+      body1 += data;
+    });
+    response.on('end', function () {
+      body1 = JSON.parse(body1);
+
+      https.get(url2, options, function (response) {
+        //console.log(url2);
+        response.on('data', function (data) {
+          body2 += data;
+        });
+        response.on('end', function () {
+          body2 = JSON.parse(body2);
+          body1 = body1.category_list.categories;
+          body2 = body2.user.groups;
+          //console.log(body1);
+          //console.log(body2);
+          for (var i = 0; i < body1.length; i++) {
+            var x = false;
+            for (var j = 0; j < body2.length; j++) {
+              if (body1[i].slug == body2[j].name.split('_')[0].toLowerCase()) {
+                x = true;
+
+              }
+
+            }
+            if (x == false) {
+              body3.push(body1[i]);
+
+
+            }
+          }
+
+          //console.log(body3);
+          res.json(body3);
+
+        });
+
+      });
+
+
+
+    });
+  });
+});
+
+
+
+
+
+app.post('/reply/:slug/:tid', (req, res) => {
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.reply_pvt(req, res);
+  } else {
+    res.redirect('/');
+  }
 });
 
 
@@ -788,7 +858,7 @@ app.get("/user/more/:id", function (req, res) {
     response.on('end', function () {
       body = JSON.parse(body);
       // console.log(body.topic_list.topics);
-//console.log(body);
+      //console.log(body);
       res.json(body);
 
       // res.render("user.ejs",{user_det:user_det,curr_user:curr_user,home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout});

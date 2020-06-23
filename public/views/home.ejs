@@ -1275,6 +1275,9 @@
     .message-text li {
       display: list-item;
     }
+    .active-tab{
+      background-color: dimgrey;
+    }
   </style>
 </head>
 
@@ -1333,7 +1336,7 @@
             </center>
             <div class="contacts-outter">
               <ul id="myUL" class="list-unstyled contacts">
-                <div class="pointer" onClick='function_pvt()'>
+                <div id="private_click" class="pointer" onClick='function_pvt()'>
                   <li id="private" class="" data-toggle="" data-target="">
                     <h3 class="">
                       <i class="fa fa-user" aria-hidden="true"></i>
@@ -1343,7 +1346,17 @@
                     </h5>
                   </li>
                 </div>
-                <div class="pointer" onClick='function_category()'>
+                <div  id="category_click"  class="pointer" onClick='function_category_common()'>
+                  <li id="category" class="" data-toggle="" data-target="">
+                    <h3 class="">
+                      <i class="fa fa-list-alt" aria-hidden="true"></i>
+
+                      <b>Categories</b></h3>
+                    <h5>
+                    </h5>
+                  </li>
+                </div>
+                <div id="group_click" class="pointer" onClick='function_category()'>
                   <li id="group" class="" data-toggle="" data-target="">
                     <h3 class="">
                       <i style="font-size:24px" class="fa">&#xf0c0;</i>
@@ -1362,6 +1375,10 @@
 
                 </div>
                 <div id="holder5">
+
+
+                </div>
+                <div id="holder6">
 
 
                 </div>
@@ -1459,6 +1476,12 @@
   <script type="text/javascript">
 
 
+  </script>
+  <script>
+       window.onload=function(){
+      document.getElementById("category_click").click();
+      
+    };
   </script>
   <script>
     // Get the modal
@@ -1614,8 +1637,15 @@
   </script>
   <script>
     function function_pvt() {
+      var e = document.getElementById("category_click");
+  e.classList.remove("active-tab");
+  var e = document.getElementById("private_click");
+  e.classList.add("active-tab");
+  var e = document.getElementById("group_click");
+  e.classList.remove("active-tab");
       document.getElementById("holder2").style.display = "Block";
       var my_div = $("#holder2");
+
 
       var username = $('#curr_user').attr('name');
       //alert("hi");
@@ -1626,13 +1656,13 @@
 
         .done(function (data) {
           console.log(data);
-
+          $('#holder2').html("");
           var elements = '';
 
 
           for (var i = 0; i < data.length; i++) {
             var mydate, user_id, newdate, newtime, slud, ide;
-            var  img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+            var img = "https://bootdey.com/img/Content/avatar/avatar1.png";
 
             mydate = data[i].last_posted_at;
             slug = data[i].slug;
@@ -1645,16 +1675,11 @@
                     url: "user/more/" + user_id
                   })
                     .done(function (data1) {
-
-
-
                       if (data1.avatar_template) {
                         img = data1.avatar_template;
 
                         img = img.replace("{size}", "80");
                         img = "https://t2.metastudio.org" + img;
-
-
                       }
                       else {
                         img = "https://bootdey.com/img/Content/avatar/avatar1.png";
@@ -1662,14 +1687,8 @@
 
                       console.log(img);
                     });
-
-
                 }
-
               }
-
-
-
             }
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
@@ -1683,54 +1702,64 @@
           }
 
           $('#holder2').append(elements);
-          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
+          
+          $.ajax({
+            url: "sent/" + username
+          })
+
+            .done(function (data2) {
+              console.log(data2);
+
+
+              var elements = '';
+
+
+              for (var i = 0; i < data2.length; i++) {
+                var mydate, newdate, newtime, slug, ide;
+
+                mydate = data2[i].last_posted_at;
+                slug = data2[i].slug;
+                ide = data2[i].id;
+
+                newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+                //alert('newdate: ' + newdate);
+
+                newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+                // alert('newtime: ' + newtime);
+
+                elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data2[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data2[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data2[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data2[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+
+              }
+
+              $('#holder2').append(elements);
+
+            });
+
+
         });
 
 
-      $.ajax({
-        url: "sent/" + username
-      })
-
-        .done(function (data) {
-          console.log(data);
-
-
-          var elements = '';
-
-
-          for (var i = 0; i < data.length; i++) {
-            var mydate, newdate, newtime, slug, ide;
-
-            mydate = data[i].last_posted_at;
-            slug = data[i].slug;
-            ide = data[i].id;
-
-            newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
-            //alert('newdate: ' + newdate);
-
-            newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
-            // alert('newtime: ' + newtime);
-
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
-
-          }
-
-          $('#holder2').html(elements);
-          $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
-        });
       setTimeout(function () {
         $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
       }, 1);
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder6").style.display = "None";
     }
     function function_category() {
+      var e = document.getElementById("category_click");
+  e.classList.remove("active-tab");
+  var e = document.getElementById("private_click");
+  e.classList.remove("active-tab");
+  var e = document.getElementById("group_click");
+  e.classList.add("active-tab");
       var username = $('#curr_user').attr('name');
+      document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       $.ajax({
-        url: "/user/subscribed/" + username
+        url: "/user/subscribed/" +"G_N"
       })
 
         .done(function (data) {
@@ -1746,6 +1775,39 @@
           }
 
           $('#holder4').html(elements);
+        });
+
+
+    }
+    function function_category_common() {
+      var e = document.getElementById("category_click");
+  e.classList.add("active-tab");
+  var e = document.getElementById("private_click");
+  e.classList.remove("active-tab");
+  var e = document.getElementById("group_click");
+  e.classList.remove("active-tab");
+      var username = $('#curr_user').attr('name');
+      document.getElementById("holder6").style.display = "Block";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
+      $.ajax({
+        url: "/user/common/" + "G_N"
+      })
+
+        .done(function (data) {
+          console.log(data);
+
+          var elements = '';
+          for (var i = 0; i < data.length; i++) {
+            var slug, ide;
+            slug = data[i].slug;
+            ide = data[i].id;
+
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-paperclip">' + '</i>' + '</div>' + '</li>' + '</div>';
+          }
+
+          $('#holder6').html(elements);
         });
 
 
