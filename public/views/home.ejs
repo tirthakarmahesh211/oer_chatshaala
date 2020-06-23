@@ -18,7 +18,8 @@
     body {
       height: 100%;
     }
-    #topic_head{
+
+    #topic_head {
       color: white;
     }
 
@@ -72,7 +73,7 @@
       cursor: pointer;
       background-color: #d6d4c7;
       color: #393e46;
-      padding: 10px 15px;
+      padding: 12px 20px;
       border: none;
     }
 
@@ -500,13 +501,16 @@
       min-height: 53px;
       height: auto;
     }
-    .message-body{
+
+    .message-body {
       background-color: #fff;
       border-bottom: 1px solid rgba(205, 211, 237, 0.5);
     }
-    .message-top{
-      background-color: #4CAF50;
-      border: 2px solid #000;
+
+    .message-top {
+      background-color: grey;
+      ;
+
     }
 
     .message-body .message-top .new-message-wrapper {
@@ -1286,8 +1290,55 @@
     .message-text li {
       display: list-item;
     }
-    .active-tab{
+
+    .active-tab {
       background-color: dimgrey;
+    }
+  </style>
+  <style>
+    .menu-btn {
+      background-color: rgb(76, 175, 80);
+      color: white;
+      border-radius: 5px;
+      font-weight: bold;
+      padding: 1em 2em;
+      font-size: 16px;
+      font-weight: bolder;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      border: none;
+    }
+
+    .dropdown-menu_ {
+      margin-left: 5em;
+
+      position: relative;
+      display: inline-block;
+    }
+
+    .menu-content {
+      display: none;
+      position: absolute;
+      background-color: #017575;
+      min-width: 160px;
+      z-index: 1;
+    }
+
+    .links {
+      color: rgb(255, 255, 255);
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+      font-size: 18px;
+      font-weight: bold;
+      border-bottom: 1px solid black;
+    }
+
+    .links:hover {
+      background-color: rgb(8, 107, 46);
+    }
+
+    .dropdown-menu:hover .menu-btn {
+      background-color: #3e8e41;
     }
   </style>
 </head>
@@ -1328,8 +1379,46 @@
           <button class="openbtn" onclick="openNav()">☰</button>
         </div>
         <div class="inbox-categories">
-          <div data-toggle="tab" data-target="#inbox" class="active _right"> Chats </div>
 
+          <div data-toggle="tab" data-target="#inbox" class="active _right" id="new_message"
+            class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> </div>
+
+        </div>
+        <div class="dropdown-menu_">
+          <button id="menu_active" class="menu-btn">Categories</button>
+          <div class="menu-content">
+            <div id="private_click" class="pointer links" onClick='function_pvt()'>
+              <li id="private" class="" data-toggle="" data-target="">
+                <h3 class="">
+                  <i class="fa fa-user" aria-hidden="true"></i>
+
+                  <b>Private Messages</b></h3>
+                <h5>
+                </h5>
+              </li>
+            </div>
+            <div id="group_click" class="pointer links" onClick='function_category()'>
+              <li id="group" class="" data-toggle="" data-target="">
+                <h3 class="">
+                  <i style="font-size:24px" class="fa">&#xf0c0;</i>
+
+                  <b>Groups</h3>
+                <h5>
+                </h5>
+              </li>
+            </div>
+            <div id="category_click" class="pointer links" onClick='function_category_common()'>
+              <li id="category" class="" data-toggle="" data-target="">
+                <h3 class="">
+                  <i class="fa fa-list-alt" aria-hidden="true"></i>
+
+                  <b>Categories</b></h3>
+                <h5>
+                </h5>
+              </li>
+            </div>
+
+          </div>
         </div>
         <div class="tab-content">
 
@@ -1340,43 +1429,14 @@
                 placeholder="Search">
               <span class="fa fa-search form-control-feedback"></span>
             </form>
-            <center>
-              <a id="new_message" class="btn btn btn-success new-message"> <i class="fa fa-envelope"></i> Create New
-                Message </a>
-            </center>
+
             <div class="contacts-outter">
+
               <ul id="myUL" class="list-unstyled contacts">
-                <div id="private_click" class="pointer" onClick='function_pvt()'>
-                  <li id="private" class="" data-toggle="" data-target="">
-                    <h3 class="">
-                      <i class="fa fa-user" aria-hidden="true"></i>
 
-                      <b>Private Messages</b></h3>
-                    <h5>
-                    </h5>
-                  </li>
-                </div>
 
-                <div id="group_click" class="pointer" onClick='function_category()'>
-                  <li id="group" class="" data-toggle="" data-target="">
-                    <h3 class="">
-                      <i style="font-size:24px" class="fa">&#xf0c0;</i>
 
-                      <b>Groups</h3>
-                    <h5>
-                    </h5>
-                  </li>
-                </div>
-                <div  id="category_click"  class="pointer" onClick='function_category_common()'>
-                  <li id="category" class="" data-toggle="" data-target="">
-                    <h3 class="">
-                      <i class="fa fa-list-alt" aria-hidden="true"></i>
 
-                      <b>Categories</b></h3>
-                    <h5>
-                    </h5>
-                  </li>
-                </div>
                 <div id="holder2">
 
 
@@ -1405,9 +1465,9 @@
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
             <center>
-            <div id="slug">
-            </div>
-          </center>
+              <div id="slug">
+              </div>
+            </center>
 
             <button id="back_" class="openbtn" onclick="my_func2()">Back</button>
             <div class="new-message-wrapper">
@@ -1436,10 +1496,10 @@
               </div>
 
             </div>
-              <center>
-            <div class="chat-footer">
-                  <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
-                  <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
+            <center>
+              <div class="chat-footer">
+                <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
+                <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
                 <br>
                 <div contenteditable="true" class="edit" id='editor'></div>
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
@@ -1449,8 +1509,8 @@
                       class="fa fa-send"></i></button>
                 </form>
 
-            </div>
-              </center>
+              </div>
+            </center>
           </div>
         </div>
 
@@ -1493,10 +1553,20 @@
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
 
-
   </script>
   <script>
-       window.onload=function(){
+    let dropdownBtn = document.querySelector('.menu-btn');
+    let menuContent = document.querySelector('.menu-content');
+    dropdownBtn.addEventListener('click', () => {
+      if (menuContent.style.display === "") {
+        menuContent.style.display = "block";
+      } else {
+        menuContent.style.display = "";
+      }
+    })
+  </script>
+  <script>
+    window.onload = function () {
       document.getElementById("category_click").click();
 
     };
@@ -1619,12 +1689,12 @@
       $('#show_toolbar').show();
       //document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     }
-    $('#show_toolbar').click(()=>{
+    $('#show_toolbar').click(() => {
       $('#show_toolbar').hide();
       $('#hide_toolbar').show();
       document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     });
-    $('#hide_toolbar').click(()=>{
+    $('#hide_toolbar').click(() => {
       $('#hide_toolbar').hide();
       $('#show_toolbar').show();
       document.querySelector('.ql-toolbar.ql-snow').style.display = "none";
@@ -1666,12 +1736,13 @@
   </script>
   <script>
     function function_pvt() {
+      $('#menu_active').text('Messages');
       var e = document.getElementById("category_click");
-  e.classList.remove("active-tab");
-  var e = document.getElementById("private_click");
-  e.classList.add("active-tab");
-  var e = document.getElementById("group_click");
-  e.classList.remove("active-tab");
+      e.classList.remove("active-tab");
+      var e = document.getElementById("private_click");
+      e.classList.add("active-tab");
+      var e = document.getElementById("group_click");
+      e.classList.remove("active-tab");
       document.getElementById("holder2").style.display = "Block";
       var my_div = $("#holder2");
 
@@ -1734,7 +1805,7 @@
                 newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
                 // alert('newtime: ' + newtime);
 
-                elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data2[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data2[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data2[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data2[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' +  '</div>' + '</li>' + '</div>';
+                elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data2[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data2[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data2[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data2[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
 
               }
 
@@ -1754,19 +1825,20 @@
       document.getElementById("holder6").style.display = "None";
     }
     function function_category() {
+      $('#menu_active').text('Groups');
       var e = document.getElementById("category_click");
-  e.classList.remove("active-tab");
-  var e = document.getElementById("private_click");
-  e.classList.remove("active-tab");
-  var e = document.getElementById("group_click");
-  e.classList.add("active-tab");
+      e.classList.remove("active-tab");
+      var e = document.getElementById("private_click");
+      e.classList.remove("active-tab");
+      var e = document.getElementById("group_click");
+      e.classList.add("active-tab");
       var username = $('#curr_user').attr('name');
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       $.ajax({
-        url: "/user/subscribed/" +username
+        url: "/user/subscribed/" + username
       })
 
         .done(function (data) {
@@ -1787,12 +1859,13 @@
 
     }
     function function_category_common() {
+      $('#menu_active').text('Categories');
       var e = document.getElementById("category_click");
-  e.classList.add("active-tab");
-  var e = document.getElementById("private_click");
-  e.classList.remove("active-tab");
-  var e = document.getElementById("group_click");
-  e.classList.remove("active-tab");
+      e.classList.add("active-tab");
+      var e = document.getElementById("private_click");
+      e.classList.remove("active-tab");
+      var e = document.getElementById("group_click");
+      e.classList.remove("active-tab");
       var username = $('#curr_user').attr('name');
       document.getElementById("holder6").style.display = "Block";
       document.getElementById("holder4").style.display = "None";
@@ -1803,15 +1876,21 @@
       })
 
         .done(function (data) {
-          console.log(data);
+          
 
           var elements = '';
           for (var i = 0; i < data.length; i++) {
-            var slug, ide;
+            var slug, ide, logo;
+            logo="https://bootdey.com/img/Content/avatar/avatar1.png";
             slug = data[i].slug;
             ide = data[i].id;
-
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' +'<div onClick=' + 'copy_topic("'+"/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' +'</div>' +'</div>' + '</li>' + '</div>';
+            if (data[i].uploaded_logo) {
+              logo = data[i].uploaded_logo.url;
+              logo="https://t2.metastudio.org"+logo;
+            }
+           
+           
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
           }
 
           $('#holder6').html(elements);
@@ -1821,8 +1900,8 @@
     }
   </script>
   <script>
-    function copy_topic(x){
-      alert("Copy: "+x);
+    function copy_topic(x) {
+      alert("Copy: " + x);
     }
 
     function load_topics(x) {
@@ -1840,7 +1919,7 @@
         url: "/group/" + x
       })
         .done(function (data) {
-          // console.log(x);
+          // console.log(data);
 
           data = data.topic_list.topics;
 
@@ -1848,9 +1927,10 @@
 
 
           for (var i = 0; i < data.length; i++) {
-            var mydate, newdate, newtime, slug, ide;
+            var mydate, newdate, newtime, slug, ide, logo;
             slug = data[i].slug;
             ide = data[i].id;
+
             if (data[i].last_posted_at != null) {
               mydate = data[i].last_posted_at;
 
@@ -1862,7 +1942,7 @@
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' +'<div onClick=' + 'copy_topic("'+"/post/t/" + slug + "/" + ide + "/1" + '")' + '>'+'<i class="fa fa-share-alt ">'+'</i>'+' </div>'+ '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
           }
 
@@ -1917,7 +1997,7 @@
 
 
       $('#slug').attr('name', tslug);
-      $('#slug').html('<h4 id="topic_head">'+tslug.split('_').join(' ').split('-').join(' ').toUpperCase()+'</h4>');
+      $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
       $('#tid').attr('name', tid);
       //  alert('clicked');
       $('li').removeClass('active');
