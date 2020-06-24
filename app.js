@@ -372,8 +372,9 @@ app.get('/logout', function (req, res) {
     req.session.destroy();
     req.session = null;
     res.redirect('/');
+  }else{
+      res.redirect('/');
   }
-  res.redirect('/');
 });
 
 //NEWLY_ADDED
