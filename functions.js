@@ -692,7 +692,7 @@ function reply_pvt(req,res){
       'Api-Username': 'system'
     }
   };
-  https.get(secrets.url+'t/'+req.params.slug+'/'+req.params.tid+'.json',opt,(response)=>{
+  https.get(secrets.url+'t/'+req.body.slug+'/'+req.body.tid+'.json',opt,(response)=>{
   //  console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';
@@ -714,7 +714,7 @@ function reply_pvt(req,res){
         }
       //  console.log(uname_str);
         var data1={
-          "topic_id": Number(req.params.tid),
+          "topic_id": Number(req.body.tid),
           "raw": req.body.body,
          'target_recipients':uname_str,
           "archetype": "regular",
@@ -735,9 +735,10 @@ function reply_pvt(req,res){
         });
         request.write(querystring.stringify(data1));
         request.end();
-
+        res.json({tid:req.body.tid,tslug:req.body.slug});
       });
+    }else{
+        res.redirect('/chat');
     }
   });
-  res.redirect('/chat');
 }

@@ -69,11 +69,11 @@
 
     /* The button used to open the sidebar */
     .openbtn {
-      font-size: 20px;
+      font-size: 16px;
       cursor: pointer;
       background-color: #d6d4c7;
       color: #393e46;
-      padding: 12px 20px;
+      padding: 1em;
       border: none;
     }
 
@@ -146,9 +146,9 @@
     }
 
     .contacts li>.info-combo>h5 {
-      width: 180px;
+      width: 200px;
       font-size: 12px;
-      height: 28px;
+      height: 30px;
       font-weight: 500;
       overflow: hidden;
       white-space: normal;
@@ -156,8 +156,8 @@
     }
 
     .contacts li>.info-combo>h3 {
-      width: 167px;
-      height: 20px;
+      width: 100%;
+      height: 50px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -605,8 +605,8 @@
     }
 
     .chat-footer.new-message-textarea .send-message-text {
-      padding-right: 100px;
-      height: 90px;
+
+      height: 50px;
     }
 
     .message-chat {
@@ -859,7 +859,7 @@
 
     .chat-footer .send-message-text {
       position: relative;
-      margin-top: 1vh;
+      margin-top: 1px;
       display: block;
       width: 100%;
       min-height: 55px;
@@ -1249,6 +1249,7 @@
 
     #back_ {
       display: none;
+      font-size: 0.9em;
     }
 
     #on_but {
@@ -1303,6 +1304,7 @@
       background-color: rgb(76, 175, 80);
       color: white;
       border-radius: 5px;
+      width: 100%;
       font-weight: bold;
       padding: 1em 2em;
       font-size: 16px;
@@ -1312,8 +1314,8 @@
     }
 
     .dropdown-menu_ {
-      margin-left: 5em;
-
+      margin-left: 4em;
+      width: 55%;
       position: relative;
       display: inline-block;
     }
@@ -1472,7 +1474,7 @@
               </div>
             </center>
 
-            <button id="back_" class="openbtn" onclick="my_func2()">Back</button>
+            <button id="back_" class="openbtn" onclick="my_func2()">⬅️ Back</button>
             <div class="new-message-wrapper">
               <div class="form-group">
                 <input type="text" class="form-control" placeholder="Send message to...">
@@ -1507,7 +1509,7 @@
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
                 <form class="" action='/reply' method="post" id='reply_form'>
                   <input type="text" name="body" value="" id='reply_data' style="display: none;">
-                  <button type="submit" name="post" id='saveDelta' class="send-message-button btn-info"> <i
+                  <button type="button" name="post" id='saveDelta' class="send-message-button btn-info"> <i
                       class="fa fa-send"></i></button>
                 </form>
 
@@ -1691,6 +1693,7 @@
       $('#show_toolbar').show();
       //document.querySelector('.ql-toolbar.ql-snow').style.display = "inline-block";
     }
+
     $('#show_toolbar').click(() => {
       $('#show_toolbar').hide();
       $('#hide_toolbar').show();
@@ -1732,8 +1735,23 @@
       var url = '/reply/' + topic_slug + '/' + topic_id;
       $('#reply_data').val(body);
       quill.setContents('');
-      $('#reply_form').attr('action', url);
-      $('#reply_form').submit();
+      $.ajax(url,{
+        type:'POST',
+        data:{
+          slug:topic_slug,
+          tid:topic_id,
+          body:body
+        },
+        success:function (data,status,xhr) {   // success callback function
+          $('#holder3').html('');
+          setTimeout(function(){
+            $('.pointer.links.active-tab').click();
+            load_posts(topic_slug+'/'+topic_id+'/1');
+            $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+          },1000);
+       },
+        error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+      });
     });
   </script>
   <script>
@@ -1757,7 +1775,7 @@
       })
 
         .done(function (data) {
-          console.log(data);
+          //console.log(data);
           $('#holder2').html("");
           var elements = '';
 
@@ -1788,7 +1806,7 @@
           })
 
             .done(function (data2) {
-              console.log(data2);
+              //console.log(data2);
 
 
               var elements = '';
@@ -1844,7 +1862,7 @@
       })
 
         .done(function (data) {
-          console.log(data);
+          //console.log(data);
 
           var elements = '';
           for (var i = 0; i < data.length; i++) {
@@ -1890,9 +1908,11 @@
               logo = data[i].uploaded_logo.url;
               logo="https://t2.metastudio.org"+logo;
             }
-
-
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+            if(data[i].description){
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+          }else{
+              elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+            }
           }
 
           $('#holder6').html(elements);
@@ -1921,7 +1941,7 @@
         url: "/group/" + x
       })
         .done(function (data) {
-          // console.log(data);
+          // //console.log(data);
 
           data = data.topic_list.topics;
 
