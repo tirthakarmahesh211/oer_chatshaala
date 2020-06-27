@@ -1,0 +1,72 @@
+.para {
+    color: #333;
+}
+
+#lis {
+    color: grey;
+    text-align: left;
+    list-style: none;
+    padding: 2px;
+
+}
+
+#lis li:before {
+    content: "<:>";
+
+
+}
+
+._link {
+
+    color: black;
+    font-size: large;
+    font-weight: 800;
+}
+
+._link2 {
+
+    color:green;
+    font-size: medium;
+    font-weight: 600;
+}
+
+._box {
+
+
+    text-align: center;
+    border: 2px solid rgb(0, 128, 0);
+    width: 100%;
+    margin: auto;
+
+    height: 12rem;
+    overflow: scroll;
+
+    /* border-collapse: separate; */
+    /* border-spacing: 100px; */
+}
+
+#plus {
+    height: 6rem;
+    width: 6rem;
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    opacity: 0.5;
+}
+
+#plus:hover {
+    opacity: 1.0;
+}
+
+@media screen and (max-width: 48em) {
+    ._box {
+        text-align: center;
+        border: 2px solid rgb(0, 128, 0);
+        width: 80%;
+        margin: auto;
+
+        height: 12rem;
+        overflow: scroll;
+    }
+
+}

@@ -1,0 +1,68 @@
+html{
+  width:100%;
+}
+body{
+  width:100%;
+}
+  #contents_page {
+    height: auto;
+  }
+  span{
+    display: inline-block;
+  }
+  #uimg{
+    border: 5px;
+    border-radius: 50px;
+    height: 3em;
+    width: 3em;
+    margin-right:10px;
+  }
+.posts{
+  border: 1px;
+  padding: 1em;
+  border-style: solid;
+  border-color:black;
+}
+
+  .tab {
+    display: block;
+    width: 115px;
+    height: auto;
+    background: grey;
+
+    text-align: center;
+    color: white;
+    font-weight: bold;
+  }
+
+  .para {
+    text-align: justify;
+    font-size: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+
+  }
+
+  #plus {
+    height: 6rem;
+    width: 6rem;
+    position: fixed;
+    bottom: 2.5rem;
+    right: 2.5rem;
+    opacity: 0.5;
+  }
+
+  #plus:hover {
+    opacity: 1.0;
+  }
+
+  @media screen and (max-width: 600px) {
+    p{
+      width: 100%;
+      height: auto;
+      overflow-wrap: break-word;
+    }
+  }
+
+  

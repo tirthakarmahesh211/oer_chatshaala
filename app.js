@@ -12,7 +12,7 @@ const passPhrase = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
 const CryptoJS = require('crypto-js');
 
 const home = '/chat';
-const home2 = '/home2';
+
 const feedback = '/feedback';
 const about = '/about';
 const FAQ = '/FAQ';
@@ -107,11 +107,7 @@ app.get('/chat', function (req, res) {
     res.redirect('/register');
   }
 });
-app.get('/home2', function (req, res) {
-  res.render("home_old.ejs", {
-    home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile
-  });
-});
+
 
 app.post('/chat', function (req, res) {
   let user = req.session.user;

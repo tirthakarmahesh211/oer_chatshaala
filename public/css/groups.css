@@ -1,0 +1,103 @@
+input[name="search_text"]{
+  border: 5px;
+  border-radius: 30px;
+}
+  .button-secondary {
+      background: rgb(28, 184, 65);
+      border-radius: 4px;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+      padding: 7px 11px;
+
+      font-weight: bold;
+
+      border: none;
+      color: white;
+
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 14px;
+    }
+    .button-tertiary {
+
+  color: black;
+  border: 2px solid black;
+  padding: 6px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+    .button-tertiary {
+  transition-duration: 0.4s;
+}
+
+.button-tertiary:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+  #plus{
+    right: 1.5rem;
+  }
+   #plus2 {
+        border-radius: 50%;
+        position: relative;
+        float: right;
+    }
+    .tab {
+        display: block;
+        width: 115px;
+        height: 25px;
+        background: grey;
+
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+    }
+
+    .para {
+        text-align: justify;
+        font-size: 20px;
+
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+
+    }
+
+    @media (min-width:600px)
+{
+    #plus {
+        height: 5rem;
+        width: 5rem;
+        position: fixed;
+        bottom: 2.5rem;
+        right: 1.5rem;
+        opacity: 0.5;
+    }
+
+    #plus:hover {
+        opacity: 1.0;
+    }
+
+}
+@media (max-width:600px)
+{    #plus{
+        width: 2.5rem;
+        height: 2.5rem;
+        position: fixed;
+        bottom: 1rem;
+        right: 1.5rem;
+        z-index: 100;
+        opacity: 0.5;
+    }
+    #plus:hover {
+        opacity: 1.0;
+    }
+
+}

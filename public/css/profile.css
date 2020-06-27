@@ -1,0 +1,40 @@
+.info {
+  width: 100%;
+  text-align: left;
+  height: auto;
+}
+
+.data {
+  width: 100%;
+  text-align: left;
+  height: auto;
+}
+
+#uimg {
+  border: 5px;
+  border-radius: 100px;
+  height: 4em;
+  width: 4em;
+  margin-right: 10px;
+}
+span{
+  display: inline-block;
+}
+
+.para {
+  text-align: justify;
+  font-size: 20px;
+}
+
+#plus {
+  height: 6rem;
+  width: 6rem;
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  opacity: 0.5;
+}
+
+#plus:hover {
+  opacity: 1.0;
+}

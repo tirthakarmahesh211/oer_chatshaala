@@ -1,0 +1,70 @@
+table,
+th,
+td {
+
+  border: 1px solid rgb(194, 182, 182);
+  border-collapse: collapse;
+}
+
+.light {
+  font-weight: lighter;
+}
+
+@media screen and (min-width: 601px) {
+  li {
+    font-size: 1em;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  li {
+    font-size: 1em;
+  }
+
+  .heading {
+    font-weight: bold;
+    font-size: small;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  margin: 1.2em;
+}
+
+/*  */
+img {
+
+  height: auto;
+  border-radius: 50%;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  word-break: break-word;
+}
+
+LH {
+  font-weight: bolder;
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: medium;
+}
+
+.head_ {
+  color: gray;
+}
+
+.para {
+  margin: 0em;
+  font-style: normal;
+  color: #333;
+}

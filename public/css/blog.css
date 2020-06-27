@@ -20,37 +20,7 @@ a {
     background: #fafafa;
 }
 
-/* The pop up for a new group*/
 
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-#multi-role,input,textarea{
-    width: 70%;
-    padding: 4px 12px;
-}
-
-/* Modal Content */
-.modal-content {
-    border-radius: 1em;
-  background-color: #e6ecdd;
-  margin: auto;
-  padding: 10px;
-  border: 1px solid #888;
-  width: 40%;
-
-}
 
 #mylogo{
   height: 1em;
@@ -99,30 +69,6 @@ h3 {
     color: black;
 }
 
-.nav-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-.nav-item {
-    display: inline-block;
-    *display: inline;
-    zoom: 1;
-}
-.nav-item a {
-    background: transparent;
-    border: 2px solid rgb(176, 202, 219);
-    color: #fff;
-    margin-top: 1em;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-size: 85%;
-}
-.nav-item a:hover,
-.nav-item a:focus {
-    border: 2px solid rgb(61, 146, 201);
-    text-decoration: none;
-}
 
 .content-subhead {
     text-transform: uppercase;
@@ -245,17 +191,4 @@ h3 {
     .brand-tagline{
         padding-top: 1.5rem; ;
     }
-}
-
-.myButton {
-	background-color:#0E76BD;
-	border-radius:2rem;
-	border:1px solid #0E76BD;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size: 0.8;
-	padding:0.3rem 0.5rem;
-    text-decoration:none;
 }
