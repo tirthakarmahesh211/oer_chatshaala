@@ -54,7 +54,7 @@
                <div>
                   <%var str=user_det.avatar_template ;%>
                    <% str=str.replace("{size}","80");%>
-                   <%str="https://t2.metastudio.org"+str;%>
+                   <%str=url.substring(0,url.length-1)+str;%>
                   <h2><img src='<%=str%>' id='uimg'>  <span><%=user_det.name%><br>@<%=user_det.username%></span></h2>
                   <%-user_det.bio_cooked%>
                     <p>

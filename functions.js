@@ -215,7 +215,8 @@ function fetchGroups(req, res, home, about, blog, project, feedback, logout, pro
             logout: logout,
             profile: profile,
             groups: groups,
-            topics: topics
+            topics: topics,
+            url:secrets.url
           });
 
         });
@@ -293,7 +294,8 @@ function fetch_Group(req, res, home, about, blog, project, feedback, logout, pro
                 logout: logout,
                 profile: profile,
                 topic_head: topic_head,
-                body3: body3
+                body3: body3,
+                url:secrets.url
               });
 
 
@@ -449,14 +451,16 @@ function search(text, res) {
           users: body.users,
           posts: body.posts,
           groups: body.categories,
-          topics: body.topics
+          topics: body.topics,
+          url:secrets.url
         });
       } else {
         res.render('search.ejs', {
           users: [],
           posts: [],
           groups: [],
-          topics: []
+          topics: [],
+          url:secrets.url
         });
       }
     });

@@ -266,7 +266,7 @@ function myFunc() {
             ide = data[i].id;
             if (data[i].uploaded_logo) {
               logo = data[i].uploaded_logo.url;
-              logo="https://t2.metastudio.org"+logo;
+              logo=myUrl+logo;
             }
             if(data[i].description){
             elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
@@ -399,11 +399,11 @@ function myFunc() {
           for (var i = 0; i < data.length; i++) {
 
             if (data[i].username != username) {//for receive
-              elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+              elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
             }
             else {
               //for sent
-              elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="https://t2.metastudio.org/user_avatar/t2.metastudio.org/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+              elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + "@" + data[i].username + "--" + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
 
             }
           }

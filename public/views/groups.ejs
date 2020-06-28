@@ -82,7 +82,7 @@
       <%if(1==1){%>
       <%if(groups[i].uploaded_logo!=null){%>
       <%var str=groups[i].uploaded_logo.url;%>
-      <%str="https://t2.metastudio.org"+str;%>
+      <%str=url.substring(0,url.length-1)+str;%>
       <%}%>
           <%if(groups[i].uploaded_logo==null){%>
       <%str="stemlogo.png";%>

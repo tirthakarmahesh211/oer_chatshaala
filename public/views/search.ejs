@@ -48,7 +48,7 @@
             <section class="post">
               <header class="post-header">
                 <%var str=users[i].avatar_template%>
-                <%var str='https://t2.metastudio.org/'+str%>
+                <%var str=url.substring(0,url.length-1)+str%>
                 <%var str=str.replace('{size}','40')%>
                 <h4> <img id="uimg" src='<%=str%>'>  <span><%=users[i].name%><br>@<%=users[i].username%> </span></h4>
                 <a href="/user/<%=users[i].username%>" data-topic-id="3682" class="link_head">
@@ -74,7 +74,7 @@
             <section class="post">
               <header class="post-header">
                 <%var str=posts[i].avatar_template%>
-                <%var str='https://t2.metastudio.org/'+str%>
+                <%var str=url.substring(0,url.length-1)+str%>
                 <%var str=str.replace('{size}','40')%>
                 <img id="uimg" src='<%=str%>'>
                 <h4>by <%=posts[i].name%> (@<%=posts[i].username%>)</h4>

@@ -62,7 +62,8 @@
           <div class="info">
             <%var str=curr_user.avatar_template;%>
             <%var str=str.replace('{size}','80');%>
-            <h1> <img src='https://t2.metastudio.org/<%=str%>' alt="profile pic round" id='uimg'>  <span><%=curr_user.name%><br>@<%=curr_user.username%><br><%=curr_user.user_fields['1']%></span></h1>
+            <%var url=url.substring(0,url.length-1);%>
+            <h1> <img src='<%=url%><%=str%>' alt="profile pic round" id='uimg'>  <span><%=curr_user.name%><br>@<%=curr_user.username%><br><%=curr_user.user_fields['1']%></span></h1>
             <%if(curr_user.location){%>
             <h2>From: <%=curr_user.location%></h2><br>
             <%}%>

@@ -101,7 +101,7 @@ app.get('/chat', function (req, res) {
   let curr_user = req.session.user;
   if (curr_user) {
     res.render('home.ejs', {
-      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user
+      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url
     });
   } else {
     res.redirect('/register');
@@ -190,7 +190,7 @@ app.get("/feedback", function (req, res) {
 app.get("/about", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
-  var url2 = "https://t2.metastudio.org/about.json";
+  var url2 = secrets.url+"about.json";
   var options = {
     method: 'GET',
     headers: {
@@ -205,9 +205,9 @@ app.get("/about", function (req, res) {
     response.on('end', function () {
       body3 = JSON.parse(body3);
       if (curr_user) {
-        res.render("about.ejs", { abouts: body3, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout });
+        res.render("about.ejs", { abouts: body3, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout,url:secrets.url });
       } else {
-        res.render("about.ejs", { abouts: body3, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout });
+        res.render("about.ejs", { abouts: body3, curr_user: curr_user, home: home, about: about, blog: blog, project: project, FAQ: FAQ, profile: profile, Terms: Terms, privacy: privacy, feedback: feedback, logout: logout,url:secrets.url });
       }
     });
   });
@@ -216,7 +216,7 @@ app.get("/about", function (req, res) {
 app.get("/blog", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
-  var url2 = "https://t2.metastudio.org/c/blogs/11.json";
+  var url2 = secrets.url+"c/blogs/11.json";
   var options = {
     method: 'GET',
     headers: {
@@ -243,7 +243,7 @@ app.get("/blog", function (req, res) {
 app.get("/project", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
-  var url2 = "https://t2.metastudio.org/c/projects/17/l/latest.json?page=0";
+  var url2 = secrets.url+"c/projects/17/l/latest.json?page=0";
   // console.log(url2);
   var options = {
     method: 'GET',
@@ -272,7 +272,7 @@ app.get("/project", function (req, res) {
 app.get("/project/more/:offset", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
-  var url2 = "https://t2.metastudio.org/c/projects/17/l/latest.json?page=" + req.params.offset;
+  var url2 = secrets.url+"/c/projects/17/l/latest.json?page=" + req.params.offset;
   //  console.log(url2);
   var options = {
     method: 'GET',
@@ -342,7 +342,7 @@ app.get("/profile", function (req, res) {
   let curr_user = req.session.user;
 
   if (curr_user) {
-    var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout };
+    var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
     func.request_summary(res, obj, 'curr_profile');
   } else {
     res.redirect('/register');
@@ -353,7 +353,7 @@ app.get("/badges", function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
-    var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout };
+    var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
     func.showBadges(res, obj);
   } else {
     res.redirect('/register');
@@ -590,7 +590,7 @@ app.get("/user/:uname", function (req, res) {
       body = JSON.parse(body);
 
       var user_det = body.user;
-      var obj = { user_det: user_det, curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout };
+      var obj = { user_det: user_det, curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
       // res.send("hi");
       func.request_summary(res, obj, 'other_profile');
       // console.log("jk");
@@ -606,7 +606,7 @@ app.get("/sent/:id", function (req, res) {
   let curr_user = req.session.user;
   var id = req.params.id;
   var body = '';
-  var url = "https://t2.metastudio.org/topics/private-messages-sent/" + id + ".json";
+  var url = secrets.url+"/topics/private-messages-sent/" + id + ".json";
 
   var options = {
     method: 'GET',
@@ -636,7 +636,7 @@ app.get("/receive/:id", function (req, res) {
   let curr_user = req.session.user;
   var id = req.params.id;
   var body = '';
-  var url = "https://t2.metastudio.org/topics/private-messages/" + id + ".json";
+  var url = secrets.url+"/topics/private-messages/" + id + ".json";
 
   var options = {
     method: 'GET',

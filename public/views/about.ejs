@@ -70,7 +70,7 @@
             <LI class="box">
               <%var str=abouts.about.admins[i].avatar_template ;%>
               <% str=str.replace("{size}","80");%>
-              <%str="https://t2.metastudio.org"+str;%>
+              <%str=url.substring(0,url.length-1)+str;%>
               <img src=<%=str%>> <a href='/user/<%=abouts.about.admins[i].username%>'>
                 <span>
                   <p class="para heading"><%=abouts.about.admins[i].name%></p>
@@ -90,7 +90,7 @@
             <LI class="box">
               <%var str=abouts.about.moderators[i].avatar_template ;%>
               <% str=str.replace("{size}","80");%>
-              <%str="https://t2.metastudio.org"+str;%>
+              <%str=url.substring(0,url.length-1)+str;%>
               <img src=<%=str%>> <a href='/user/<%=abouts.about.moderators[i].username%>'>
                 <span>
                   <p class="para heading"><%=abouts.about.moderators[i].name%></p>

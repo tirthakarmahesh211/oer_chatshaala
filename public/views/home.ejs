@@ -17,7 +17,8 @@
   </div>
   <div style="display: none;" id="curr_user_id" name='<%=curr_user.id%>'>
   </div>
-
+  <div style="display: none;" id="url" name='<%=url%>'>
+  </div>
   <div style="display: none;" id="tid">
   </div>
 
@@ -219,6 +220,10 @@
 
 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    var myUrl=$('#url').attr('name');
+    myUrl=myUrl.substring(0,myUrl.length-1);
+  </script>
   <script src="/js/chat.js" charset="utf-8"></script>
   <script src="/js/quill.js"></script>
   <script>

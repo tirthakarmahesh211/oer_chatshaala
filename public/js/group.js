@@ -48,34 +48,6 @@ function alert_func() {
     }
   };
 
-//Loading Topics and Users in a group/category
-
-       var my_div = $("#holder2");
-       var l=1;
-        $("#HButton2").on("click", function () {
-            console.log("hi");
-
-               $.ajax({
-
-                url: "/group/<%=topic_head.slug%>/<%=topic_head.id%>/load/"+l
-            })
-                .done(function (data) {
-                    var elements = '';
-                    for(var i=0;i<data.topic_list.topics.length;i++){
-                        var str='/stemlogo.png';
-                        if(data.topic_list.topics[i].image_url){
-                        str=data.topic_list.topics[i].image_url ;
-                        }
-                        elements = elements +'<section class='+"post"+'>'+'<header class="post-header">'+'<h3>'+'<a class="name_" href="/post/t/'+data.topic_list.topics[i].slug+"/"+data.topic_list.topics[i].id+'/1">'+data.topic_list.topics[i].title+'</a>'+'<img height="100" width="100" id="plus2" src='+str+'>'+'</h3>'+ '<h1 class="content-subhead">'+ "@"+data.topic_list.topics[i].last_poster_username +'</h1>'+ '</header>'+'<div class="post-description elip_here">'+'</div>'+'</section>';
-                    }
-                    l=l+1;
-                    console.log(l);
-                    $('#holder2').append(elements);
-                });
-        });
-
-
-
 
                 function myFunction1() {
                     var x = document.getElementById("myTopnav1");
