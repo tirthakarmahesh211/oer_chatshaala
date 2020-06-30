@@ -400,13 +400,13 @@ function myFunc() {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
-                for (let j = 0; j < data.length; j++) {
-                let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
-                if(data[i].post_number == data[j].reply_to_post_number){
-                  elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
-                }
-               }
+                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+               //  for (let j = 0; j < data.length; j++) {
+               //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
+               //  if(data[i].post_number == data[j].reply_to_post_number){
+               //    elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+               //  }
+               // }
               }
               else{
               elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
@@ -415,13 +415,13 @@ function myFunc() {
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
-                for (let j = 0; j < data.length; j++) {
-                let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
-                if(data[i].post_number == data[j].reply_to_post_number){
-                  elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
-                }
-               }
+                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+               //  for (let j = 0; j < data.length; j++) {
+               //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
+               //  if(data[i].post_number == data[j].reply_to_post_number){
+               //    elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+               //  }
+               // }
               }
               else{
                 elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
@@ -463,6 +463,59 @@ function myFunc() {
       event.preventDefault();
 
       // Log the clicked element in the console
-      console.log(event.target);
+      // console.log(event.target.id);
+
+      if (event.target.id){
+        var message_id = event.target.id
+        var fields = message_id.split('_');
+        var topic_id = fields[1];
+        var post_number = fields[2];
+        var reply_count = 0;
+        if (event.target.innerText){
+           reply_count = event.target.innerText.replace(/\D/g, '');
+           reply_count = Number(reply_count);
+           // console.log(reply_count);
+        }
+
+        var x = document.getElementById('msg_'+ topic_id + '_' + post_number);
+        var temp = false;
+        if (x.classList.length > 0){
+          temp = x.classList.toggle("show");
+        }
+          if (temp){
+            $.ajax({
+                url: "post/more/t/"+topic_id
+            })
+            .done(function (data) {
+                // console.log(data);
+                var elements = '';
+                let count = 1;
+                for (let i = 0; i < data.length; i++) {
+                  let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
+                  if(post_number == data[i].reply_to_post_number){
+                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    count = count + 1;
+                  }
+                 }
+                // console.log(elements);
+                // $('#msg_'+ topic_id + '_' + post_number).empty();
+                $('#msg_'+ topic_id + '_' + post_number).append(elements);
+            });
+          }
+          else{
+              var count = 1 ;
+              // console.log(reply_count);
+              while(reply_count+1 > count){
+                if (document.querySelector("#reply_msg_"+ topic_id + '_' + post_number+ '_'+count)){
+                  document.querySelector("#reply_msg_"+ topic_id + '_' + post_number+ '_'+count).remove();
+                }
+                count = count +1;
+              }
+          }
+        }
+        else{
+          alert("sorry. something went wrong. please try again later")
+        }
+
 
     }, false);
