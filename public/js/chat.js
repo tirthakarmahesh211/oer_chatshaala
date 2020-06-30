@@ -478,9 +478,15 @@ function myFunc() {
         }
 
         var x = document.getElementById('msg_'+ topic_id + '_' + post_number);
+        // console.log(x.classList);
         var temp = false;
+        var class_toggle = "info";
         if (x.classList.length > 0){
           temp = x.classList.toggle("show");
+          class_toggle = x.classList[0].includes("my-message");
+          if (class_toggle){
+            class_toggle = "my-message";
+          }
         }
           if (temp){
             $.ajax({
@@ -493,7 +499,7 @@ function myFunc() {
                 for (let i = 0; i < data.length; i++) {
                   let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
                   if(post_number == data[i].reply_to_post_number){
-                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message '+ class_toggle +'">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
                     count = count + 1;
                   }
                  }
