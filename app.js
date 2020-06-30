@@ -24,12 +24,12 @@ const project = '/project';
 const profile = '/profile';
 const badges = '/badges';
 
+app.use(parser.json({limit: '1024mb'}));
+app.use(parser.urlencoded({limit: '1024mb', extended: true}));
 
 app.set('views', './public/views');
 app.set('view engine', 'ejs');
-app.use(parser.urlencoded({
-  extended: true
-}));
+
 app.use(express.static("public"));
 app.use(session({
   secret: secrets.string,
@@ -405,14 +405,18 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 
-app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
+app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
 
   let curr_user = req.session.user;
-  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
-  //  console.log(url);
+
+  if (req.params && req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined){
+    var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
+  }
+  else{
+   var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
+  }
 
   var body = '';
-
 
   var options = {
     method: 'GET',
