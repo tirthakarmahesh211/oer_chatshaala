@@ -280,13 +280,40 @@ body {
   background-color: rgba(0, 0, 0, 0);
 }
 
+.panel-search-form{
+  margin:8px;
+}
 .contacts-outter-wrapper {
   position: relative;
-  width: 305px;
+  /* width: 305px;
   direction: rtl;
-  min-height: 405px;
+  min-height: 405px; */
   overflow: hidden;
+  padding: 5px;
 }
+.im_dialogs_search {
+  position: relative;
+}
+
+ .input-icons i { 
+            position: absolute; 
+        } 
+ .input-icons { 
+      width: 100%; 
+      margin-bottom: 10px; 
+  } 
+  .icon { 
+      padding: 10px; 
+      color: green; 
+      min-width: 50px; 
+      text-align: center; 
+  } 
+
+  .input-field { 
+    width: 100%; 
+    padding-left: 40px; 
+  } 
+
 
 .contacts-outter-wrapper:after,
 .contacts-outter-wrapper:nth-child(1):after {
