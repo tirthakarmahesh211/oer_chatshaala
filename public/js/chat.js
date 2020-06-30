@@ -400,7 +400,7 @@ function myFunc() {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ data[i].reply_count + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
                 for (let j = 0; j < data.length; j++) {
                 let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
                 if(data[i].post_number == data[j].reply_to_post_number){
@@ -415,7 +415,7 @@ function myFunc() {
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements + data[i].reply_count+'<div class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                elements = elements +'<div class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
                 for (let j = 0; j < data.length; j++) {
                 let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
                 if(data[i].post_number == data[j].reply_to_post_number){
