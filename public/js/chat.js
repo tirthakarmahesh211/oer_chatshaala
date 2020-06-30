@@ -400,22 +400,22 @@ function myFunc() {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+                elements = elements + '<div class="message info" onclick="addReply()">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
                 for (let j = 0; j < data.length; j++) {
                 let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
                 if(data[i].post_number == data[j].reply_to_post_number){
-                  elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                  elements = elements + '<div class="message info " onclick="addReply()" >' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
                 }
                }
               }
               else{
-              elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+              elements = elements + '<div class="message info" onclick="addReply()">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
               }
             }
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
-                elements = elements +'<div class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+                elements = elements +'<div class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button type="button" id="HButton2">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>' + '<span class="popuptext" id="myPopup">A Simple Popup!</span>';
                 for (let j = 0; j < data.length; j++) {
                 let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
                 if(data[i].post_number == data[j].reply_to_post_number){
@@ -453,3 +453,28 @@ function myFunc() {
       document.getElementById("mySidebar").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     }
+
+    function addReply(){
+      // alert('hi')
+      var btnReply = document.createElement("input");
+      btnReply.type = "button";
+      btnReply.name = "button";
+      btnReply.value = "Reply";
+
+      var btnDelete = document.createElement("input");
+      btnDelete.type = "button";
+      btnDelete.name = "button";
+      btnDelete.value = "Delete";
+
+      var btnLike = document.createElement("input");
+      btnLike.type = "button";
+      btnLike.name = "button";
+      btnLike.value = "like";
+
+      var foo = document.getElementsById("#header3");
+
+      foo.appendChild('btnReply');
+      foo.appendChild('btnDelete');foo.appendChild('btnLike');
+    }
+
+    
