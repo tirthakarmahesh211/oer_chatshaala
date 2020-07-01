@@ -405,6 +405,7 @@ function myFunc() {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
+
                 elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
 
               }
@@ -429,11 +430,13 @@ function myFunc() {
                 else{
                   elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
                 }  
+
               }
             }
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
+
                 elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
               }
               else{
@@ -486,6 +489,7 @@ function myFunc() {
       document.getElementById("mySidebar").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     }
+
 
     document.addEventListener('click', function (event) {
 
@@ -558,3 +562,26 @@ function myFunc() {
 
 
     }, false);
+
+    function addReply(){
+      // alert('hi')
+      var btnReply = document.createElement("input");
+      btnReply.type = "button";
+      btnReply.name = "button";
+      btnReply.value = "Reply";
+
+      var btnDelete = document.createElement("input");
+      btnDelete.type = "button";
+      btnDelete.name = "button";
+      btnDelete.value = "Delete";
+
+      var btnLike = document.createElement("input");
+      btnLike.type = "button";
+      btnLike.name = "button";
+      btnLike.value = "like";
+
+      var foo = document.getElementsById("header3");
+
+      foo.appendChild('btnReply');
+      foo.appendChild('btnDelete');foo.appendChild('btnLike');
+    }
