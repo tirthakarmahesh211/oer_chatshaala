@@ -394,37 +394,70 @@ function myFunc() {
         .done(function (data) {
 
           var elements = '';
-
+          var reply_message = '';
           //console.log(data);
+          var array_to_store_post_number = [];
+          for (let i = 0; i < data.length; i++) {
+            array_to_store_post_number.push(data[i].post_number);
+          }
+          // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
                 elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
-               //  for (let j = 0; j < data.length; j++) {
-               //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
-               //  if(data[i].post_number == data[j].reply_to_post_number){
-               //    elements = elements + '<div class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
-               //  }
-               // }
+
               }
               else{
-              elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+
+                let indexOfPreviousPost = array_to_store_post_number.indexOf(data[i].post_number);
+                let indexOfNextPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+                var difference = indexOfPreviousPost - indexOfNextPost;
+
+                if(data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
+                  let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+
+                  if (indexOfPost > 0){
+                    let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    reply_message = "";
+                  }
+                  else{
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                  }
+                }
+                else{
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                }  
               }
             }
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
                 elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
-               //  for (let j = 0; j < data.length; j++) {
-               //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
-               //  if(data[i].post_number == data[j].reply_to_post_number){
-               //    elements = elements + '<div class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[j].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[j].cooked + '</div>' + '</div>' + '<br>' + '</div>';
-               //  }
-               // }
               }
               else{
+
+                let indexOfPreviousPost = array_to_store_post_number.indexOf(data[i].post_number);
+                let indexOfNextPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+                var difference = indexOfPreviousPost - indexOfNextPost;
+
+                if( data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
+                  let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+
+                  if (indexOfPost > 0){
+                  let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                  reply_message = "";
+                  }
+                  else{
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                    reply_message = "";
+                  }
+                }
+                else{
                 elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                }
               }
             }
           }
