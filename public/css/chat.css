@@ -118,7 +118,7 @@ body {
 
 
 .contacts li>.info-combo>h3.name {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .contacts li .message-time {
@@ -135,7 +135,7 @@ body {
 
 .contacts li>.info-combo>h5 {
   width: 200px;
-  font-size: 12px;
+  font-size: 14px;
   height: 30px;
   font-weight: 500;
   overflow: hidden;
@@ -470,7 +470,7 @@ body {
 
 .contacts li>.info-combo>h5 {
   width: 180px;
-  font-size: 12px;
+  font-size: 14px;
   height: 28px;
   font-weight: 500;
   overflow: hidden;
@@ -657,7 +657,7 @@ body {
   border-radius: 4px;
   border: 1px solid #4CAF50;
   margin: 0 5px 20px 15px;
-  color: #788288;
+  color: rgb(46, 43, 43);
 }
 
 .message:after {
