@@ -394,13 +394,19 @@ function myFunc() {
         .done(function (data) {
 
           var elements = '';
-
+          var reply_message = '';
           //console.log(data);
+          var array_to_store_post_number = [];
+          for (let i = 0; i < data.length; i++) {
+            array_to_store_post_number.push(data[i].post_number);
+          }
+          // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
 
+<<<<<<< HEAD
                 elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
                //  for (let j = 0; j < data.length; j++) {
                //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
@@ -411,12 +417,40 @@ function myFunc() {
               }
               else{
               elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+=======
+                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+
+              }
+              else{
+
+                let indexOfPreviousPost = array_to_store_post_number.indexOf(data[i].post_number);
+                let indexOfNextPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+                var difference = indexOfPreviousPost - indexOfNextPost;
+
+                if(data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
+                  let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+
+                  if (indexOfPost > 0){
+                    let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    reply_message = "";
+                  }
+                  else{
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                  }
+                }
+                else{
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                }  
+
+>>>>>>> 1afd0cb601d275719c7db5e00446c001632acd88
               }
             }
             else {
               //for sent
               if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
 
+<<<<<<< HEAD
                 elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
                //  for (let j = 0; j < data.length; j++) {
                //  let User_Name = (data[j].username == null) ? data[j].name : data[j].username;
@@ -425,9 +459,32 @@ function myFunc() {
                //  }
                // }
 
+=======
+                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+>>>>>>> 1afd0cb601d275719c7db5e00446c001632acd88
               }
               else{
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+
+                let indexOfPreviousPost = array_to_store_post_number.indexOf(data[i].post_number);
+                let indexOfNextPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+                var difference = indexOfPreviousPost - indexOfNextPost;
+
+                if( data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
+                  let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
+
+                  if (indexOfPost > 0){
+                  let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                  reply_message = "";
+                  }
+                  else{
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                    reply_message = "";
+                  }
+                }
+                else{
+                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '</div>' + '<br>' + '</div>';
+                }
               }
             }
           }
@@ -460,7 +517,7 @@ function myFunc() {
     document.addEventListener('click', function (event) {
 
       // If the clicked element doesn't have the right selector, bail
-      if (!event.target.matches('.see_replies')) return;
+      if (!event.target.matches('.see_replies') && !event.target.matches('.reply_function')) return;
 
       // Don't follow the link
       event.preventDefault();
@@ -468,7 +525,7 @@ function myFunc() {
       // Log the clicked element in the console
       // console.log(event.target.id);
 
-      if (event.target.id){
+      if (event.target.matches('.see_replies') && event.target.id){
         var message_id = event.target.id
         var fields = message_id.split('_');
         var topic_id = fields[1];
@@ -522,9 +579,42 @@ function myFunc() {
               }
           }
         }
+        else if(event.target.matches('.reply_function') && event.target.id){
+          // alert(event.target.id);
+          $('.display_replies').empty();
+          $(".display_replies").css('margin', "1%");
+          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="remove" class="btn btn-sm">remove</button>');
+        }
         else{
           alert("sorry. something went wrong. please try again later")
         }
 
 
     }, false);
+
+    function addReply(){
+      // alert('hi')
+      var btnReply = document.createElement("input");
+      btnReply.type = "button";
+      btnReply.name = "button";
+      btnReply.value = "Reply";
+
+      var btnDelete = document.createElement("input");
+      btnDelete.type = "button";
+      btnDelete.name = "button";
+      btnDelete.value = "Delete";
+
+      var btnLike = document.createElement("input");
+      btnLike.type = "button";
+      btnLike.name = "button";
+      btnLike.value = "like";
+
+      // var foo = document.getElementsById("header3");
+
+      // foo.appendChild('btnReply');
+      // foo.appendChild('btnDelete');foo.appendChild('btnLike');
+    }
+
+    function removeReplyMessage(){
+      $('.display_replies').empty();
+    }

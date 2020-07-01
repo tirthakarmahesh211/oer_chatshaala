@@ -173,6 +173,10 @@
 
             </div>
             <center>
+              <div>
+              <div class="display_replies">
+
+              </div>
               <div class="chat-footer">
                 <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
                 <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
@@ -185,6 +189,8 @@
                 </form>
 
               </div>
+            </div>
+
             </center>
           </div>
         </div>
@@ -237,7 +243,7 @@
 
       document.getElementById('editor').style.display = "none";
       function showDiv() {
-        $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
+        // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         //  alert("hi");
         $(".chat-footer").css('height', "30%");
         $(".chat-body").css('height', "70vh");
