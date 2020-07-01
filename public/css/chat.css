@@ -340,10 +340,10 @@ body {
 .contacts-outter {
   position: relative;
   height: calc(100vh - 135px);
-  width: 325px;
+  /* width: 325px;
   direction: rtl;
-  overflow-y: scroll;
-  padding-left: 20px;
+  overflow-y: scroll; */
+  /* padding-left: 20px; */
 }
 
 @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
