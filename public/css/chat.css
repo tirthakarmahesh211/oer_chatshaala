@@ -537,7 +537,7 @@ body {
 .message-body .message-top {
   display: inline-block;
   width: 100%;
-  position:relative;
+  position:fixed;
   top: 0;
   /* overflow:hidden; */
   z-index: 1;
@@ -652,12 +652,14 @@ body {
 .message-chat {
   width: 100%;
   overflow: hidden;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .chat-body {
   width: calc(100% + 17px);
-  min-height: 290px;
-  height: 83vh;
+  /* min-height: 290px; */
+  /* height: 83vh; */
   background-color: #fbfcff;
   margin-bottom: 10px;
   padding: 30px 5px 5px 5px;
