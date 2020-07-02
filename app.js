@@ -409,6 +409,9 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
 
   let curr_user = req.session.user;
 
+  if (req.params && req.params.url4 == "1"){
+    req.params.url4="99999"
+  }
   if (req.params && req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined){
     var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
   }
