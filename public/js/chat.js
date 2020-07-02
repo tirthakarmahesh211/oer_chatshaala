@@ -556,9 +556,13 @@ function myFunc() {
           }
         }
         else if(event.target.matches('.reply_function') && event.target.id){
-          // alert(event.target.id);
+          var message_id = event.target.id
+          var fields = message_id.split('_');
+          var topic_id = fields[2];
+          var post_number = fields[3];
           $('.display_replies').empty();
           $(".display_replies").css('margin', "1%");
+          $('.display_replies').attr("id","rmv_btn_"+topic_id+'_'+post_number);
           $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="remove" class="btn btn-sm">remove</button>');
         }
         else{
