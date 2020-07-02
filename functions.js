@@ -16,7 +16,9 @@ module.exports = {
   showBadges: showBadges,
   create_topic: create_topic,
   pvt_msg: pvt_msg,
-  reply_pvt:reply_pvt
+  reply_pvt:reply_pvt,
+  reply_to_specific_pvt_msg:reply_to_specific_pvt_msg
+
 };
 
 function resetCurrUser() {
@@ -745,4 +747,47 @@ function reply_pvt(req,res){
         res.redirect('/chat');
     }
   });
+}
+
+
+function reply_to_specific_pvt_msg(req,res){
+  var topic_id = req.params.topic_id;
+  var category_id = req.params.category_id;
+  var raw = req.body.raw;
+  var reply_to_post_number = req.params.post_number
+  var url = secrets.url + '/posts.json';
+  var options = {
+    method: "POST",
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': req.session.user.username
+    }
+  };
+  var data1 = {
+    "topic_id": topic_id,
+    "raw": raw,
+    // "category": Number(category_id),
+    "archetype": "regular",
+    "reply_to_post_number": reply_to_post_number
+  };
+  // console.log(data1);
+  // console.log(options);
+  var request = https.request(url, options, (response) => {
+     // console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        body = JSON.parse(body);
+        //console.log(body);
+        res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
 }

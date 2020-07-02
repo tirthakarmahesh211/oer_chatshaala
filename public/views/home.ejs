@@ -173,9 +173,7 @@
             </div>
             <center>
               <div>
-              <div class="display_replies">
-
-              </div>
+              <div class="display_replies"></div>
               <div class="chat-footer">
                 <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
                 <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
@@ -289,33 +287,70 @@
         theme: 'snow'
       });
       document.getElementById('saveDelta').addEventListener('click', function () {
-        var body = document.querySelector('div.ql-editor').innerHTML;
+        var body = document.querySelector('div.ql-editor');
+        var reply_message = document.querySelector('div.display_replies');
+
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
-        var url = '/reply/' + topic_slug + '/' + topic_id;
-        $('#reply_data').val(body);
-        quill.setContents('');
-        $.ajax(url,{
+        // console.log(reply_message);
+        // console.log(reply_message.innerHTML);
+        if (reply_message && reply_message.innerHTML && body && body.innerHTML){
+          let fields = reply_message.id.split('_');
+          topic_id = fields[2];
+          let reply_to_post_number = fields[3];
+          // reply_message = reply_message.innerHTML.split("<button");
+          let raw = body.innerHTML;
+          category_id = 0;
+          let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
+          // console.log(url);
+          $.ajax(url,{
           type:'POST',
           data:{
-            slug:topic_slug,
-            tid:topic_id,
-            body:body
+            raw:raw,
           },
           success:function (data,status,xhr) {   // success callback function
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              load_posts(topic_slug+'/'+topic_id+'/1');
+              body.innerHTML='';
+              reply_message.innerHTML='';
+              load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1));
               setTimeout(()=>{
-                    $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+                    // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
               },500);
             },1000);
-         },
+          },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
-        });
+          });
+        }
+        else if(body){
+          // console.log("else sss");
+          var url = '/reply/' + topic_slug + '/' + topic_id;
+          // console.log(body.innerHTML);
+          var body = body.innerHTML
+          $('#reply_data').val(body.innerHTML);
+          quill.setContents('');
+          $.ajax(url,{
+            type:'POST',
+            data:{
+              slug:topic_slug,
+              tid:topic_id,
+              body:body
+            },
+            success:function (data,status,xhr) {   // success callback function
+              setTimeout(function(){
+                $('#holder3').html('');
+                $('.pointer.links.active-tab').click();
+                load_posts(topic_slug+'/'+topic_id+'/1');
+                setTimeout(()=>{
+                      $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+                },500);
+              },1000);
+           },
+            error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+          });
+        }
       });
-
   </script>
 </body>
 
