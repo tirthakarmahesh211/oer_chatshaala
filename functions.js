@@ -766,7 +766,7 @@ function reply_to_specific_pvt_msg(req,res){
   var data1 = {
     "topic_id": topic_id,
     "raw": raw,
-    "category": Number(category_id),
+    // "category": Number(category_id),
     "archetype": "regular",
     "reply_to_post_number": reply_to_post_number
   };
