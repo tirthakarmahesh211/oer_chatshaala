@@ -856,3 +856,13 @@ app.post('/reply/:topic_id?/:category_id?/:post_number?', (req, res) => {
   }
 
 });
+
+app.delete('/delete/:type/:id', (req, res) => {
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.delete_posts(req,res);
+  } else {
+    res.redirect('/register');
+  }
+
+});

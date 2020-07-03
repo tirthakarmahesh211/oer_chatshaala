@@ -17,7 +17,8 @@ module.exports = {
   create_topic: create_topic,
   pvt_msg: pvt_msg,
   reply_pvt:reply_pvt,
-  reply_to_specific_pvt_msg:reply_to_specific_pvt_msg
+  reply_to_specific_pvt_msg:reply_to_specific_pvt_msg,
+  delete_posts: delete_posts
 
 };
 
@@ -783,6 +784,34 @@ function reply_to_specific_pvt_msg(req,res){
         body = JSON.parse(body);
         //console.log(body);
         res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
+}
+
+function delete_posts(req,res){
+  var data1={}
+  var options = {
+    method: "DELETE",
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': req.session.user.username
+    }
+  };
+  var url = secrets.url + '/'+req.params.type+'/'+req.params.id;
+  var request = https.request(url, options, (response) => {
+     // console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        res.send("success");
       });
     } else {
       res.redirect('/');
