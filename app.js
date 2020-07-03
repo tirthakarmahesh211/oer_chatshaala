@@ -412,8 +412,12 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
   if (req.params && req.params.url4 == "1"){
     req.params.url4="99999"
   }
-  if (req.params && req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined){
-    var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
+
+  if (req.params && req.query && req.query.page_number == null && req.query.page_number == undefined && (req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined)){
+  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
+  }
+  else if(req.params && req.params.url2 && req.query && req.query.page_number){
+  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "?page="+req.query.page_number;
   }
   else{
    var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
@@ -436,10 +440,10 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
     response.on('end', function () {
       body = JSON.parse(body);
       if (body && body.post_stream && body.post_stream.posts) {
-        for (var i = 0; i < body.post_stream.posts.length; i++) {
-          //console.log(body.post_stream.posts[i].post_number);
-        }
-        res.json(body.post_stream.posts);
+        // for (var i = 0; i < body.post_stream.posts.length; i++) {
+        //   //console.log(body.post_stream.posts[i].post_number);
+        // }
+        res.json(body);
       } else {
         res.json([]);
       }
