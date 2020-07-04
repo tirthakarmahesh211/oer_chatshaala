@@ -838,6 +838,7 @@ app.get("/user/common/:uname", function (req, res) {
 
 app.post('/reply/:slug/:tid', (req, res) => {
   let curr_user = req.session.user;
+
   if (curr_user) {
     func.reply_pvt(req, res);
   } else {
@@ -849,6 +850,7 @@ app.post('/reply/:slug/:tid', (req, res) => {
 
 app.post('/reply/:topic_id?/:category_id?/:post_number?', (req, res) => {
   let curr_user = req.session.user;
+
   if (curr_user) {
     func.reply_to_specific_pvt_msg(req,res);
   } else {

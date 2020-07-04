@@ -2,6 +2,8 @@
 const https = require('https');
 const secrets = require('./secrets.js');
 const querystring = require('querystring');
+const fetch = require('node-fetch');
+const FormData = require('form-data');
 module.exports = {
   resetCurrUser: resetCurrUser,
   getUser: getUser,
@@ -708,6 +710,7 @@ function reply_pvt(req,res){
       });
       response.on('end',()=>{
         data=JSON.parse(data);
+
         var users_list=data.details.participants;
         uname_str='';
         for(var i=0;i<users_list.length;i++){
@@ -719,17 +722,18 @@ function reply_pvt(req,res){
           }
           }
         }
-      //  console.log(uname_str);
+
         var data1={
           "topic_id": Number(req.body.tid),
           "raw": req.body.body,
-         'target_recipients':uname_str,
+        "target_recipients":uname_str,
           "archetype": "regular",
         };
 
         var request=https.request(url,options,(response)=>{
           var body='';
-          //console.log(response.statusCode);
+          // console.log(response.statusCode);
+          // console.log(response.statusMessage);
           if(response.statusCode===200){
             response.on('data',(chunk)=>{
               body+=chunk;
@@ -755,42 +759,111 @@ function reply_to_specific_pvt_msg(req,res){
   var topic_id = req.params.topic_id;
   var category_id = req.params.category_id;
   var raw = req.body.raw;
+  var original_raw = req.body.raw;
   var reply_to_post_number = req.params.post_number
-  var url = secrets.url + '/posts.json';
-  var options = {
-    method: "POST",
-    headers: {
-      'Api-Key': secrets.key,
-      'Api-Username': req.session.user.username
+  var URL = secrets.url + '/posts.json';
+
+  var reg = /(^<p>|<\/p>$)/gi;
+  raw = raw.replace(reg, '');
+  var result = raw.match(/<img.*?src="(.*?)"[^\>]*>/gi);
+  // console.log(result);
+  if(result && result.length>0){
+
+    var bas64_encoded = result[0].match(/src="(.*?)"/)[1].replace("data:image/png;base64,","");
+
+    // console.log(bas64_encoded);
+
+    url = secrets.url + '/uploads.json';
+
+    // console.log(raw.split('<img src="'));
+    // console.log(url);
+
+    // let bufferObj = Buffer.from(raw.split('<img src="')[1].slice(0, -2).replace("data:image/png;base64,",""), "base64"); 
+    let bufferObj = Buffer.from(bas64_encoded, "base64"); 
+      
+    // Encode the Buffer as a utf8 string 
+    let decodedString = bufferObj.toString("utf8"); 
+
+    const form = new FormData();
+    form.append('files[]', bufferObj,"new.png");
+    form.append('type','composer');
+    // console.log(form);
+
+    fetch(url, {
+      method: 'POST',
+      body: form,
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data.url);
+      // res.send(data);
+      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg"){
+        img_tag = '<img src="'+ secrets.url+data.url +'" height="'+ data.height +'" width="'+ data.width +'" />'
+        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,img_tag)
+      }
+      // console.log(original_raw);
+      reply(original_raw)
+      // res.send(original_raw);
+    })
+    .catch(error => {
+      // console.error("error");
+      console.error(error);
+    })
+
+  }
+  else{
+    reply(original_raw);
+  }
+
+  function reply(original_raw){
+    // console.log("reply");
+    var options = {
+      method: "POST",
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+        // 'Content-Type': 'multipart/form-data',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
+
+    var data1 = {
+      "topic_id": topic_id,
+      "raw": original_raw,
+      // "category": Number(category_id),
+      "archetype": "regular",
+      "reply_to_post_number": reply_to_post_number
+    };
+    // console.log(data1);
+    // console.log(options);
+    
+    // console.log(url);
+    var request = https.request(URL, options, (response) => {
+       //  console.log(response.statusMessage);
+       // console.log(response.statusCode);
+      if (response.statusCode === 200) {
+        var body = '';
+        response.on('data', (data) => {
+          body += data;
+        });
+        response.on('end', () => {
+          body = JSON.parse(body);
+          //console.log(body);
+          // res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
+        });
+      } else {
+        // res.redirect('/');
+      }
+    });
+    request.write(querystring.stringify(data1));
+    request.end();
+    res.send(original_raw);
     }
-  };
-  var data1 = {
-    "topic_id": topic_id,
-    "raw": raw,
-    // "category": Number(category_id),
-    "archetype": "regular",
-    "reply_to_post_number": reply_to_post_number
-  };
-  // console.log(data1);
-  // console.log(options);
-  var request = https.request(url, options, (response) => {
-     // console.log(response.statusCode);
-    if (response.statusCode === 200) {
-      var body = '';
-      response.on('data', (data) => {
-        body += data;
-      });
-      response.on('end', () => {
-        body = JSON.parse(body);
-        //console.log(body);
-        res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
-      });
-    } else {
-      res.redirect('/');
-    }
-  });
-  request.write(querystring.stringify(data1));
-  request.end();
+  
 }
 
 function delete_posts(req,res){
