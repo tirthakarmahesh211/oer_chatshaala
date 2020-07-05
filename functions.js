@@ -764,14 +764,17 @@ function reply_to_specific_pvt_msg(req,res){
   var URL = secrets.url + '/posts.json';
 
   var reg = /(^<p>|<\/p>$)/gi;
+  var reg_for_base64 = /^data:.*\/.+;base64,/g;
+
   raw = raw.replace(reg, '');
   var result = raw.match(/<img.*?src="(.*?)"[^\>]*>/gi);
-  // console.log(result);
+  // console.log(result[0].match(/src="(.*?)"/));
   if(result && result.length>0){
 
-    var bas64_encoded = result[0].match(/src="(.*?)"/)[1].replace("data:image/png;base64,","");
-
-    // console.log(bas64_encoded);
+    var bas64_encoded = result[0].match(/src="(.*?)"/)[1].replace(reg_for_base64,"");
+    var extension = result[0].match(/src="(.*?)"/)[1].match(reg_for_base64);
+    // console.log(extension);
+    // console.log(extension[0].match(/\/(.+);/)[1]);
 
     url = secrets.url + '/uploads.json';
 
@@ -782,10 +785,10 @@ function reply_to_specific_pvt_msg(req,res){
     let bufferObj = Buffer.from(bas64_encoded, "base64"); 
       
     // Encode the Buffer as a utf8 string 
-    let decodedString = bufferObj.toString("utf8"); 
+    let decodedString = bufferObj.toString("utf8");
 
     const form = new FormData();
-    form.append('files[]', bufferObj,"new.png");
+    form.append('files[]', bufferObj,"new."+extension[0].match(/\/(.+);/)[1]);
     form.append('type','composer');
     // console.log(form);
 
@@ -799,18 +802,26 @@ function reply_to_specific_pvt_msg(req,res){
     })
     .then(response => response.json())
     .then(data => {
-      // console.log(data.url);
-      // res.send(data);
-      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg"){
-        img_tag = '<img src="'+ secrets.url+data.url +'" height="'+ data.height +'" width="'+ data.width +'" />'
-        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,img_tag)
+      // console.log("data");
+      // console.log(data);
+      original_raw = original_raw.replace(reg, '');
+      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || || data.extension == "svg"){
+        // img_tag = '<img src="'+ secrets.url+data.url +'" height="'+ data.height +'" width="'+ data.width +'" />'
+        no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
+        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,no_tag)
       }
+      else{
+        // no_tag = secrets.url+data.url
+        no_tag = "["+data.original_filename+"|attachment]("+data.url+") ("+data.human_filesize+")"
+        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,no_tag)
+      }
+      // original_raw = "[new1.pdf|attachment](https://t2.metastudio.org/uploads/default/original/2X/a/a629c0bcccb48138805c714b7e068b1bd90143fc.pdf) (6.2 KB)"
       // console.log(original_raw);
       reply(original_raw)
       // res.send(original_raw);
     })
     .catch(error => {
-      // console.error("error");
+      console.error("error");
       console.error(error);
     })
 
