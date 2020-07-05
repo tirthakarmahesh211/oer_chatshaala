@@ -175,10 +175,12 @@
               <div>
               <div class="display_replies"></div>
               <div class="chat-footer">
+                <input type="file" name="upload_files" id="upload_files" multiple/>
                 <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
                 <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
-                <div contenteditable="true" class="edit" id='editor'></div>
-                <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
+                <!-- <div contenteditable="true" class="edit" id='editor'></div> -->
+                <!-- <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea> -->
+                <textarea id="temp_editor" class="send-message-text"></textarea>
                 <form class="" action='/reply' method="post" id='reply_form'>
                   <input type="text" name="body" value="" id='reply_data' style="display: none;">
                   <button type="button" name="post" id='saveDelta' class="send-message-button btn-info"> <i
@@ -238,7 +240,7 @@
   <script>
   //Editor and posting
 
-      document.getElementById('editor').style.display = "none";
+      // document.getElementById('editor').style.display = "none";
       function showDiv() {
         // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         //  alert("hi");
@@ -277,29 +279,33 @@
       ];
 
 
-      var quill = new Quill('#editor', {
-        modules: {
-          toolbar: options,
+      // var quill = new Quill('#editor', {
+      //   modules: {
+      //     toolbar: options,
 
-        },
-        placeholder: "Type your message",
-        scrollingContainer: '#editor',
-        theme: 'snow'
-      });
+      //   },
+      //   placeholder: "Type your message",
+      //   scrollingContainer: '#editor',
+      //   theme: 'snow'
+      // });
       document.getElementById('saveDelta').addEventListener('click', function () {
-        var body = document.querySelector('div.ql-editor');
+        // var body = document.querySelector('div.ql-editor');
+        var body = document.querySelector('#temp_editor');
+        console.log("body");
+        console.log(body);
         var reply_message = document.querySelector('div.display_replies');
 
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
         // console.log(reply_message);
         // console.log(reply_message.innerHTML);
-        if (reply_message && reply_message.innerHTML && body && body.innerHTML){
+        if (reply_message && reply_message.innerHTML && body && body.value){
+          console.log("if else");
           let fields = reply_message.id.split('_');
           topic_id = fields[2];
           let reply_to_post_number = fields[3];
           // reply_message = reply_message.innerHTML.split("<button");
-          let raw = body.innerHTML;
+          let raw = body.value;
           category_id = 0;
           let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
           // console.log(url);
@@ -312,7 +318,7 @@
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              body.innerHTML='';
+              body.value='';
               reply_message.innerHTML='';
               load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1));
               setTimeout(()=>{
@@ -327,9 +333,11 @@
           // console.log("else sss");
           var url = '/reply/' + topic_slug + '/' + topic_id;
           // console.log(body.innerHTML);
-          var body = body.innerHTML
-          $('#reply_data').val(body.innerHTML);
-          quill.setContents('');
+          var body = body.value
+          $('#reply_data').val(body.value);
+          // quill.setContents('');
+          console.log(url);
+          console.log(body);
           $.ajax(url,{
             type:'POST',
             data:{
@@ -338,6 +346,7 @@
               body:body
             },
             success:function (data,status,xhr) {   // success callback function
+              console.log(data);
               setTimeout(function(){
                 $('#holder3').html('');
                 $('.pointer.links.active-tab').click();
@@ -351,6 +360,40 @@
           });
         }
       });
+
+
+    $('#upload_files').change(function(event){
+      var input = this;
+      var url = $(this).val();
+      // console.log(input);
+      console.log(url);
+      var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+      console.log(ext);
+      // var file_name = url.substring(url.lastIndexOf('\\') + 1).toLowerCase();
+      // console.log(file_name);
+      // console.log(input.dataset.topic_id);
+      topic_id = input.dataset.topic_id;
+      url = "/upload/"+topic_id;
+      console.log(url);
+      // $(this).val('');
+
+      var fileName = event.target.files[0].name;
+      console.log(event.target.files[0])
+      // alert('The file "' + fileName +  '" has been selected.');
+      // $.ajax(url,{
+      //     type:'POST',
+      //     data:{
+      //       file:file
+      //     },
+      //     success:function (data,status,xhr) {   // success callback function
+      //       console.log(data);
+      //    },
+      //     error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
+      //   });
+
+      });
+
+
   </script>
 </body>
 
