@@ -380,15 +380,17 @@ function myFunc() {
       var html_or_prepend = false;
 
       var username = $('#curr_user').attr('name');
+      var tid = null;
       if(Array.isArray(x) && x && x.length > 0){
         page_number = x[1];
+        tid = x[0];
         x=x[0]+".json";
         html_or_prepend = true;
       }
       else{
         var y = x.split('/');
 
-        var tid = y[1];
+        tid = y[1];
         var tslug = y[0];
         $('#slug').attr('name', tslug);
         $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
@@ -402,6 +404,7 @@ function myFunc() {
 
         //alert("hi");
       }
+      $("#upload_files").attr("data-topic_id",tid);
       // console.log(x);
       // console.log(page_number);
 
