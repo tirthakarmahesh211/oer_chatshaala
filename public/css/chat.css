@@ -199,14 +199,16 @@ body {
 }
 
 .contacts-list {
+  position: fixed;
   background-color: #fff;
   border-right: 1px solid #cfdbe2;
-  width: 305px;
+  width: 325px;
   height: 100%;
   border-top-left-radius: 5px;
   float: left;
+  overflow-y: overlay;
+  height:100%
 }
-
 /* Let's get this party started */
 ::-webkit-scrollbar {
   width: 5px;
@@ -309,7 +311,6 @@ background: rgba(36, 117, 47, 0.4);
 	color: #555;
 	background: #DDD;
 }
-
 
 .contacts-list .inbox-categories {
   width: 100%;
@@ -452,9 +453,7 @@ background: rgba(36, 117, 47, 0.4);
   scrollbar-color:rgb(62, 119, 62) rgb(239, 240, 239);
   /* padding-left: 20px; */
 }
-.project-list{
-  padding-right: 9px;
-}
+
 @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
   @media {
     .contacts-outter-wrapper {
@@ -617,7 +616,7 @@ background: rgba(36, 117, 47, 0.4);
 .message-body {
   /* background-color: #fbfcff; */
   height: 100%;
-  width: calc(100% - 305px);
+  width: calc(100% - 325px);
   float: right;
   
 }
@@ -625,7 +624,10 @@ background: rgba(36, 117, 47, 0.4);
 .message-body .message-top {
   display: inline-block;
   width: 100%;
-  position: relative;
+  position:fixed;
+  top: 0;
+  /* overflow:hidden; */
+  z-index: 1;
   min-height: 53px;
   height: auto;
 }
@@ -737,16 +739,18 @@ background: rgba(36, 117, 47, 0.4);
 .message-chat {
   width: 100%;
   overflow: hidden;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 .chat-body {
   width: calc(100% + 17px);
-  min-height: 290px;
-  height: 83vh;
+  /* min-height: 290px; */
+  /* height: 83vh; */
   background-color: #fbfcff;
   margin-bottom: 10px;
   padding: 30px 5px 5px 5px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 }
 
 .message {
@@ -767,7 +771,7 @@ background: rgba(36, 117, 47, 0.4);
   border-radius: 4px;
   border: 1px solid #4CAF50;
   margin: 0 5px 20px 15px;
-  color: #788288;
+  color: rgb(46, 43, 43);
 }
 
 .message:after {
@@ -977,10 +981,10 @@ background: rgba(36, 117, 47, 0.4);
 
 .chat-footer {
 
-  position: relative;
-  margin-left: 10px;
+  position: fixed;
+  margin-left: 50px;
   margin-right: 20px;
-  width: 90%;
+  width: 70%;
   height: 7vh;
   padding: 0px;
   bottom: 10px;
@@ -1337,7 +1341,7 @@ li {
   /* Full width */
   height: 100%;
   /* Full height */
-  overflow: auto;
+  /* overflow: auto; */
   /* Enable scroll if needed */
   background-color: rgb(0, 0, 0);
   /* Fallback color */
