@@ -362,13 +362,13 @@
             success:function (data,status,xhr) {   // success callback function
               // console.log(data);
               setTimeout(function(){
-                $('#holder3').html('');
+                // $('#holder3').html('');
                 $('#replyMessage').val('');
                 // $('.pointer.links.active-tab').click();
                 load_posts(topic_slug+'/'+topic_id+'/9999');
-                setTimeout(()=>{
-                      $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
-                },500);
+                // setTimeout(()=>{
+                //       $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+                // },500);
               },1000);
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
