@@ -805,7 +805,7 @@ function reply_to_specific_pvt_msg(req,res){
       // console.log("data");
       // console.log(data);
       original_raw = original_raw.replace(reg, '');
-      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || || data.extension == "svg"){
+      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
         // img_tag = '<img src="'+ secrets.url+data.url +'" height="'+ data.height +'" width="'+ data.width +'" />'
         no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
         original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,no_tag)
