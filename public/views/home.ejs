@@ -93,7 +93,7 @@
 
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
             <div class="im_diaglog_search">
-            <form class="panel-search-form info form-group has-feedback no-margin-bottom">
+            <file class="panel-search-form info form-group has-feedback no-margin-bottom">
               <div class="input-icons"> 
                 <i class="fa fa-search icon"> 
                 </i> 
@@ -191,15 +191,17 @@
             </center> -->
             <div class="display_replies"></div>
             <div class="replyBar">
+<!--               <form class="" method="post" id='reply_form'> -->
               <button class="replyBtn">
-                <i class="fa fa-paperclip fa-2x" aria-hidden="true"><input type="file" name="upload_files" id="upload_files" multiple/>
+                <i class="fa fa-paperclip fa-2x" aria-hidden="true">
+                <input type="file" name="upload_files" id="upload_files" multiple/>
                 </i>
               </button>
-
-              <input type="text" class="replyMessage" placeholder="Type your message..."/>
+              <!-- </form> -->
+              <textarea id="replyMessage" type="text" class="replyMessage" placeholder="Type your message..."/></textarea>
 
               <div class="otherTools">
-                <button class="toolButtons">
+                <button type="button" name="post" id='saveDelta' class="toolButtons">
                   <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
                 </button>
 
@@ -305,9 +307,9 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         // var body = document.querySelector('div.ql-editor');
-        var body = document.querySelector('#temp_editor');
-        console.log("body");
-        console.log(body);
+        var body = document.querySelector('#replyMessage');
+        // console.log("body");
+        // console.log(body);
         var reply_message = document.querySelector('div.display_replies');
 
         var topic_id = $('#tid').attr('name');
@@ -315,7 +317,6 @@
         // console.log(reply_message);
         // console.log(reply_message.innerHTML);
         if (reply_message && reply_message.innerHTML && body && body.value){
-          console.log("if else");
           let fields = reply_message.id.split('_');
           topic_id = fields[2];
           let reply_to_post_number = fields[3];
@@ -351,8 +352,6 @@
           var body = body.value
           // $('#reply_data').val(body.value);
           // quill.setContents('');
-          console.log(url);
-          console.log(body);
           $.ajax(url,{
             type:'POST',
             data:{
@@ -361,11 +360,12 @@
               body:body
             },
             success:function (data,status,xhr) {   // success callback function
-              console.log(data);
+              // console.log(data);
               setTimeout(function(){
                 $('#holder3').html('');
-                $('.pointer.links.active-tab').click();
-                load_posts(topic_slug+'/'+topic_id+'/1');
+                $('#replyMessage').val('');
+                // $('.pointer.links.active-tab').click();
+                load_posts(topic_slug+'/'+topic_id+'/9999');
                 setTimeout(()=>{
                       $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
                 },500);
@@ -380,31 +380,35 @@
     $('#upload_files').change(function(event){
       var input = this;
       var url = $(this).val();
-      // console.log(input);
-      console.log(url);
       var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-      console.log(ext);
-      // var file_name = url.substring(url.lastIndexOf('\\') + 1).toLowerCase();
-      // console.log(file_name);
-      // console.log(input.dataset.topic_id);
+
       topic_id = input.dataset.topic_id;
       url = "/upload/"+topic_id;
-      console.log(url);
-      // $(this).val('');
+      var file = event.target.files[0];
 
-      var fileName = event.target.files[0].name;
-      console.log(event.target.files[0])
-      // alert('The file "' + fileName +  '" has been selected.');
-      // $.ajax(url,{
-      //     type:'POST',
-      //     data:{
-      //       file:file
-      //     },
-      //     success:function (data,status,xhr) {   // success callback function
-      //       console.log(data);
-      //    },
-      //     error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
-      //   });
+      reader = new FileReader();
+
+      reader.onloadend = function () {
+        var b64 = reader.result.replace(/^data:.+;base64,/, '');
+
+        $.ajax(url,{
+          type:'POST',
+          data: {file:b64,filename:file.name},
+
+          success:function (data,status,xhr) {   // success callback function
+            console.log(data);
+            if(data && data.error!=null){
+              alert(data.error);
+            }
+            else{
+              $("#replyMessage").val($("#replyMessage").val() + data);  
+            }
+         },
+          error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
+        });
+      };
+
+      reader.readAsDataURL(file);
 
       });
 

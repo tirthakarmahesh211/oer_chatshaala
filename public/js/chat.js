@@ -405,6 +405,8 @@ function myFunc() {
         //alert("hi");
       }
       $("#upload_files").attr("data-topic_id",tid);
+      $("#reply_form").attr("action","/upload/"+tid);
+
       // console.log(x);
       // console.log(page_number);
 
