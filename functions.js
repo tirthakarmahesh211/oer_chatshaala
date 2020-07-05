@@ -20,7 +20,8 @@ module.exports = {
   pvt_msg: pvt_msg,
   reply_pvt:reply_pvt,
   reply_to_specific_pvt_msg:reply_to_specific_pvt_msg,
-  delete_posts: delete_posts
+  delete_posts: delete_posts,
+  upload_file: upload_file
 
 };
 
@@ -914,4 +915,8 @@ function delete_posts(req,res){
   });
   request.write(querystring.stringify(data1));
   request.end();
+}
+
+function upload_file(req, res){
+  
 }

@@ -868,3 +868,14 @@ app.delete('/delete/:type/:id', (req, res) => {
   }
 
 });
+
+app.post('/upload/:topic_id', (req, res) => {
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.upload_file(req,res);
+  } else {
+    res.redirect('/register');
+  }
+
+});
+

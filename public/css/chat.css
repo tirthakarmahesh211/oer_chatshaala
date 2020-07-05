@@ -453,6 +453,9 @@ background: rgba(36, 117, 47, 0.4);
   scrollbar-color:rgb(62, 119, 62) rgb(239, 240, 239);
   /* padding-left: 20px; */
 }
+.project-list{
+  padding-right: 9px;
+}
 
 @media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
   @media {
