@@ -63,6 +63,7 @@
                   <i class="fa fa-user" aria-hidden="true"></i>
 
                   Private Messages</h4>
+                <h4>
               </li>
             </div>
             <div id="group_click" class="pointer links" onClick='function_category()'>
@@ -70,10 +71,8 @@
                 <h4 class="menu_move">
                   <i style="font-size:24px" class="fa">&#xf0c0;</i>
 
-                  Groups
-                </h4>
+                  Groups</h4>
                 <h5>
-                </h5>
               </li>
             </div>
             <div id="category_click" class="pointer links" onClick='function_category_common()'>
@@ -171,15 +170,14 @@
               </div>
 
             </div>
-            <center>
+<!--             <center>
               <div>
-              <div class="display_replies"></div>
+              
               <div class="chat-footer">
-                <input type="file" name="upload_files" id="upload_files" multiple/>
                 <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
                 <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
-                <!-- <div contenteditable="true" class="edit" id='editor'></div> -->
-                <!-- <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea> -->
+                <div contenteditable="true" class="edit" id='editor'></div>
+                <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
                 <textarea id="temp_editor" class="send-message-text"></textarea>
                 <form class="" action='/reply' method="post" id='reply_form'>
                   <input type="text" name="body" value="" id='reply_data' style="display: none;">
@@ -190,7 +188,24 @@
               </div>
             </div>
 
-            </center>
+            </center> -->
+            <div class="display_replies"></div>
+            <div class="replyBar">
+              <button class="replyBtn">
+                <i class="fa fa-paperclip fa-2x" aria-hidden="true"><input type="file" name="upload_files" id="upload_files" multiple/>
+                </i>
+              </button>
+
+              <input type="text" class="replyMessage" placeholder="Type your message..."/>
+
+              <div class="otherTools">
+                <button class="toolButtons">
+                  <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                </button>
+
+              </div>
+            </div>  
+
           </div>
         </div>
 
@@ -334,7 +349,7 @@
           var url = '/reply/' + topic_slug + '/' + topic_id;
           // console.log(body.innerHTML);
           var body = body.value
-          $('#reply_data').val(body.value);
+          // $('#reply_data').val(body.value);
           // quill.setContents('');
           console.log(url);
           console.log(body);
