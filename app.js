@@ -840,7 +840,7 @@ app.post('/reply/:slug/:tid', (req, res) => {
   let curr_user = req.session.user;
 
   if (curr_user) {
-    func.reply_pvt(req, res);
+    func.reply_to_specific_pvt_msg(req, res);
   } else {
     res.redirect('/');
   }

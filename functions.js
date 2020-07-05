@@ -757,9 +757,10 @@ function reply_pvt(req,res){
 
 function reply_to_specific_pvt_msg(req,res){
   var topic_id = req.params.topic_id;
+  var tid = req.body.tid;
   var category_id = req.params.category_id;
-  var raw = req.body.raw;
-  var original_raw = req.body.raw;
+  var raw = (req.body.raw != undefined && req.body.raw != null ) ? req.body.raw: req.body.body;
+  var original_raw = raw;
   var reply_to_post_number = req.params.post_number
   var URL = secrets.url + '/posts.json';
 
@@ -842,13 +843,23 @@ function reply_to_specific_pvt_msg(req,res){
       },
     };
 
-    var data1 = {
-      "topic_id": topic_id,
-      "raw": original_raw,
-      // "category": Number(category_id),
-      "archetype": "regular",
-      "reply_to_post_number": reply_to_post_number
-    };
+    if (reply_to_post_number!= null && reply_to_post_number!=undefined){
+      var data1 = {
+        "topic_id": topic_id,
+        "raw": original_raw,
+        // "category": Number(category_id),
+        "archetype": "regular",
+        "reply_to_post_number": reply_to_post_number
+      };
+    }
+    else{
+      var data1 = {
+        "topic_id": tid,
+        "raw": original_raw,
+        "archetype": "regular"
+      };
+    }
+
     // console.log(data1);
     // console.log(options);
     
