@@ -59,30 +59,28 @@
           <div class="menu-content">
             <div id="private_click" class="pointer links" onClick='function_pvt()'>
               <li id="private" class="" data-toggle="" data-target="">
-                <h3 class="">
+                <h4 class="menu_move">
                   <i class="fa fa-user" aria-hidden="true"></i>
 
-                  <b>Private Messages</b></h3>
-                <h5>
-                </h5>
+                  Private Messages</h4>
+                <h4>
               </li>
             </div>
             <div id="group_click" class="pointer links" onClick='function_category()'>
               <li id="group" class="" data-toggle="" data-target="">
-                <h3 class="">
+                <h4 class="menu_move">
                   <i style="font-size:24px" class="fa">&#xf0c0;</i>
 
-                  <b>Groups</h3>
+                  Groups</h4>
                 <h5>
-                </h5>
               </li>
             </div>
             <div id="category_click" class="pointer links" onClick='function_category_common()'>
               <li id="category" class="" data-toggle="" data-target="">
-                <h3 class="">
+                <h4 class="menu_move">
                   <i class="fa fa-list-alt" aria-hidden="true"></i>
 
-                  <b>Categories</b></h3>
+                  Categories</h4>
                 <h5>
                 </h5>
               </li>
@@ -94,11 +92,17 @@
 
 
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
-            <form class="panel-search-form info form-group has-feedback no-margin-bottom">
-              <input type="text" id="myInput" onkeyup="myFunc()" class="form-control" name="search"
+            <div class="im_diaglog_search">
+            <file class="panel-search-form info form-group has-feedback no-margin-bottom">
+              <div class="input-icons"> 
+                <i class="fa fa-search icon"> 
+                </i> 
+              <input type="text" id="myInput" onkeyup="myFunc()" class="form-control input-field" name="search"
                 placeholder="Search">
-              <span class="fa fa-search form-control-feedback"></span>
+              <!-- <span class="fa fa-search form-control-feedback"></span> -->
+              </div>
             </form>
+            </div>
 
             <div class="contacts-outter">
 
@@ -166,12 +170,15 @@
               </div>
 
             </div>
-            <center>
+<!--             <center>
+              <div>
+              
               <div class="chat-footer">
                 <button type="button" name="show_toolbar" id="show_toolbar" style="display: none;">👇</button>
                 <button type="button" name="hide_toolbar" id="hide_toolbar" style="display:none;">👆</button>
                 <div contenteditable="true" class="edit" id='editor'></div>
                 <textarea id="temp_editor" class="send-message-text" onclick="showDiv()"></textarea>
+                <textarea id="temp_editor" class="send-message-text"></textarea>
                 <form class="" action='/reply' method="post" id='reply_form'>
                   <input type="text" name="body" value="" id='reply_data' style="display: none;">
                   <button type="button" name="post" id='saveDelta' class="send-message-button btn-info"> <i
@@ -179,7 +186,28 @@
                 </form>
 
               </div>
-            </center>
+            </div>
+
+            </center> -->
+            <div class="display_replies"></div>
+            <div class="replyBar">
+<!--               <form class="" method="post" id='reply_form'> -->
+              <button class="replyBtn">
+                <i class="fa fa-paperclip fa-2x" aria-hidden="true">
+                <input type="file" name="upload_files" id="upload_files" multiple/>
+                </i>
+              </button>
+              <!-- </form> -->
+              <textarea id="replyMessage" type="text" class="replyMessage" placeholder="Type your message..."/></textarea>
+
+              <div class="otherTools">
+                <button type="button" name="post" id='saveDelta' class="toolButtons">
+                  <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+                </button>
+
+              </div>
+            </div>  
+
           </div>
         </div>
 
@@ -229,9 +257,9 @@
   <script>
   //Editor and posting
 
-      document.getElementById('editor').style.display = "none";
+      // document.getElementById('editor').style.display = "none";
       function showDiv() {
-        $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
+        // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
         //  alert("hi");
         $(".chat-footer").css('height', "30%");
         $(".chat-body").css('height', "70vh");
@@ -268,42 +296,122 @@
       ];
 
 
-      var quill = new Quill('#editor', {
-        modules: {
-          toolbar: options,
+      // var quill = new Quill('#editor', {
+      //   modules: {
+      //     toolbar: options,
 
-        },
-        placeholder: "Type your message",
-        scrollingContainer: '#editor',
-        theme: 'snow'
-      });
+      //   },
+      //   placeholder: "Type your message",
+      //   scrollingContainer: '#editor',
+      //   theme: 'snow'
+      // });
       document.getElementById('saveDelta').addEventListener('click', function () {
-        var body = document.querySelector('div.ql-editor').innerHTML;
+        // var body = document.querySelector('div.ql-editor');
+        var body = document.querySelector('#replyMessage');
+        // console.log("body");
+        // console.log(body);
+        var reply_message = document.querySelector('div.display_replies');
+
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
-        var url = '/reply/' + topic_slug + '/' + topic_id;
-        $('#reply_data').val(body);
-        quill.setContents('');
-        $.ajax(url,{
+        // console.log(reply_message);
+        // console.log(reply_message.innerHTML);
+        if (reply_message && reply_message.innerHTML && body && body.value){
+          let fields = reply_message.id.split('_');
+          topic_id = fields[2];
+          let reply_to_post_number = fields[3];
+          // reply_message = reply_message.innerHTML.split("<button");
+          let raw = body.value;
+          category_id = 0;
+          let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
+          // console.log(url);
+          $.ajax(url,{
           type:'POST',
           data:{
-            slug:topic_slug,
-            tid:topic_id,
-            body:body
+            raw:raw,
           },
           success:function (data,status,xhr) {   // success callback function
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              load_posts(topic_slug+'/'+topic_id+'/1');
+              body.value='';
+              reply_message.innerHTML='';
+              load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1));
               setTimeout(()=>{
-                    $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+                    // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
               },500);
             },1000);
-         },
+          },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
-        });
+          });
+        }
+        else if(body){
+          // console.log("else sss");
+          var url = '/reply/' + topic_slug + '/' + topic_id;
+          // console.log(body.innerHTML);
+          var body = body.value
+          // $('#reply_data').val(body.value);
+          // quill.setContents('');
+          $.ajax(url,{
+            type:'POST',
+            data:{
+              slug:topic_slug,
+              tid:topic_id,
+              body:body
+            },
+            success:function (data,status,xhr) {   // success callback function
+              // console.log(data);
+              setTimeout(function(){
+                // $('#holder3').html('');
+                $('#replyMessage').val('');
+                // $('.pointer.links.active-tab').click();
+                load_posts(topic_slug+'/'+topic_id+'/9999');
+                // setTimeout(()=>{
+                //       $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+                // },500);
+              },1000);
+           },
+            error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+          });
+        }
       });
+
+
+    $('#upload_files').change(function(event){
+      var input = this;
+      var url = $(this).val();
+      var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+      topic_id = input.dataset.topic_id;
+      url = "/upload/"+topic_id;
+      var file = event.target.files[0];
+
+      reader = new FileReader();
+
+      reader.onloadend = function () {
+        var b64 = reader.result.replace(/^data:.+;base64,/, '');
+
+        $.ajax(url,{
+          type:'POST',
+          data: {file:b64,filename:file.name},
+
+          success:function (data,status,xhr) {   // success callback function
+            console.log(data);
+            if(data && data.error!=null){
+              alert(data.error);
+            }
+            else{
+              $("#replyMessage").val($("#replyMessage").val() + data);  
+            }
+         },
+          error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
+        });
+      };
+
+      reader.readAsDataURL(file);
+
+      });
+
 
   </script>
 </body>

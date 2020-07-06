@@ -2,6 +2,8 @@
 const https = require('https');
 const secrets = require('./secrets.js');
 const querystring = require('querystring');
+const fetch = require('node-fetch');
+const FormData = require('form-data');
 module.exports = {
   resetCurrUser: resetCurrUser,
   getUser: getUser,
@@ -16,7 +18,11 @@ module.exports = {
   showBadges: showBadges,
   create_topic: create_topic,
   pvt_msg: pvt_msg,
-  reply_pvt:reply_pvt
+  reply_pvt:reply_pvt,
+  reply_to_specific_pvt_msg:reply_to_specific_pvt_msg,
+  delete_posts: delete_posts,
+  upload_file: upload_file
+
 };
 
 function resetCurrUser() {
@@ -705,6 +711,7 @@ function reply_pvt(req,res){
       });
       response.on('end',()=>{
         data=JSON.parse(data);
+
         var users_list=data.details.participants;
         uname_str='';
         for(var i=0;i<users_list.length;i++){
@@ -716,17 +723,18 @@ function reply_pvt(req,res){
           }
           }
         }
-      //  console.log(uname_str);
+
         var data1={
           "topic_id": Number(req.body.tid),
           "raw": req.body.body,
-         'target_recipients':uname_str,
+        "target_recipients":uname_str,
           "archetype": "regular",
         };
 
         var request=https.request(url,options,(response)=>{
           var body='';
-          //console.log(response.statusCode);
+          // console.log(response.statusCode);
+          // console.log(response.statusMessage);
           if(response.statusCode===200){
             response.on('data',(chunk)=>{
               body+=chunk;
@@ -745,4 +753,212 @@ function reply_pvt(req,res){
         res.redirect('/chat');
     }
   });
+}
+
+
+function reply_to_specific_pvt_msg(req,res){
+  var topic_id = req.params.topic_id;
+  var tid = req.body.tid;
+  var category_id = req.params.category_id;
+  var raw = (req.body.raw != undefined && req.body.raw != null ) ? req.body.raw: req.body.body;
+  var original_raw = raw;
+  // console.log(original_raw);
+  var reply_to_post_number = req.params.post_number
+  var URL = secrets.url + '/posts.json';
+
+  var reg = /(^<p>|<\/p>$)/gi;
+  var reg_for_base64 = /^data:.*\/.+;base64,/g;
+
+  raw = raw.replace(reg, '');
+  var result = raw.match(/<img.*?src="(.*?)"[^\>]*>/gi);
+  // console.log(result[0].match(/src="(.*?)"/));
+  if(result && result.length>0){
+
+    var bas64_encoded = result[0].match(/src="(.*?)"/)[1].replace(reg_for_base64,"");
+    var extension = result[0].match(/src="(.*?)"/)[1].match(reg_for_base64);
+    // console.log(extension);
+    // console.log(extension[0].match(/\/(.+);/)[1]);
+
+    url = secrets.url + '/uploads.json';
+
+    // console.log(raw.split('<img src="'));
+    // console.log(url);
+
+    // let bufferObj = Buffer.from(raw.split('<img src="')[1].slice(0, -2).replace("data:image/png;base64,",""), "base64"); 
+    let bufferObj = Buffer.from(bas64_encoded, "base64"); 
+      
+    // Encode the Buffer as a utf8 string 
+    let decodedString = bufferObj.toString("utf8");
+
+    const form = new FormData();
+    form.append('files[]', bufferObj,"new."+extension[0].match(/\/(.+);/)[1]);
+    form.append('type','composer');
+    // console.log(form);
+
+    fetch(url, {
+      method: 'POST',
+      body: form,
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log("data");
+      // console.log(data);
+      original_raw = original_raw.replace(reg, '');
+      if(data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
+        // img_tag = '<img src="'+ secrets.url+data.url +'" height="'+ data.height +'" width="'+ data.width +'" />'
+        no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
+        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,no_tag)
+      }
+      else{
+        // no_tag = secrets.url+data.url
+        no_tag = "["+data.original_filename+"|attachment]("+data.url+") ("+data.human_filesize+")"
+        original_raw = original_raw.replace(/<img.*?src="(.*?)"[^\>]*>/gi,no_tag)
+      }
+      // original_raw = "[new1.pdf|attachment](https://t2.metastudio.org/uploads/default/original/2X/a/a629c0bcccb48138805c714b7e068b1bd90143fc.pdf) (6.2 KB)"
+      // console.log(original_raw);
+      reply(original_raw)
+      // res.send(original_raw);
+    })
+    .catch(error => {
+      console.error("error");
+      console.error(error);
+    })
+
+  }
+  else{
+    // console.log("else -");
+    reply(original_raw);
+  }
+
+  function reply(original_raw){
+    // console.log("reply");
+    var options = {
+      method: "POST",
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+        // 'Content-Type': 'multipart/form-data',
+        // "Content-Type": "application/x-www-form-urlencoded",
+      },
+    };
+
+    if (reply_to_post_number!= null && reply_to_post_number!=undefined){
+      var data1 = {
+        "topic_id": topic_id,
+        "raw": original_raw,
+        // "category": Number(category_id),
+        "archetype": "regular",
+        "reply_to_post_number": reply_to_post_number
+      };
+    }
+    else{
+      var data1 = {
+        "topic_id": tid,
+        "raw": original_raw,
+        "archetype": "regular"
+      };
+    }
+
+    // console.log(data1);
+    // console.log(options);
+    
+    var request = https.request(URL, options, (response) => {
+       //  console.log(response.statusMessage);
+       // console.log(response.statusCode);
+      if (response.statusCode === 200) {
+        var body = '';
+        response.on('data', (data) => {
+          body += data;
+        });
+        response.on('end', () => {
+          body = JSON.parse(body);
+          // console.log(body);
+          // res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
+        });
+      } else {
+        // res.redirect('/');
+      }
+    });
+    request.write(querystring.stringify(data1));
+    request.end();
+    res.send(original_raw);
+    }
+  
+}
+
+function delete_posts(req,res){
+  var data1={}
+  var options = {
+    method: "DELETE",
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': req.session.user.username
+    }
+  };
+  var url = secrets.url + '/'+req.params.type+'/'+req.params.id;
+  var request = https.request(url, options, (response) => {
+     // console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        res.send("success");
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
+}
+
+function upload_file(req, res){
+
+
+    url = secrets.url + '/uploads.json';
+
+    let bufferObj = Buffer.from(req.body.file, "base64");
+
+    let decodedString = bufferObj.toString("utf8");
+
+    const form = new FormData();
+    form.append('files[]', bufferObj, req.body.filename);
+    form.append('type','composer');
+
+    fetch(url, {
+      method: 'POST',
+      body: form,
+      // enctype: 'multipart/form-data',
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log("data");
+      console.log(data);
+      if(data && data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
+        no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
+        res.send(no_tag);
+      }
+      else if (data.original_filename!=undefined && data.url != undefined) {
+        no_tag = "["+data.original_filename+"|attachment]("+data.url+") ("+data.human_filesize+")"
+        res.send(no_tag);
+      }
+      else{
+        res.send({"error":"File is not uploaded"});
+      }
+    })
+    .catch(error => {
+      console.error("error in uploading");
+      console.error(error);
+    })
+
 }

@@ -24,12 +24,12 @@ const project = '/project';
 const profile = '/profile';
 const badges = '/badges';
 
+app.use(parser.json({limit: '1024mb'}));
+app.use(parser.urlencoded({limit: '1024mb', extended: true}));
 
 app.set('views', './public/views');
 app.set('view engine', 'ejs');
-app.use(parser.urlencoded({
-  extended: true
-}));
+
 app.use(express.static("public"));
 app.use(session({
   secret: secrets.string,
@@ -405,14 +405,25 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 
-app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
+app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
 
   let curr_user = req.session.user;
-  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
-  //  console.log(url);
+
+  if (req.params && req.params.url4 == "1"){
+    req.params.url4="99999"
+  }
+
+  if (req.params && req.query && req.query.page_number == null && req.query.page_number == undefined && (req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined)){
+  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
+  }
+  else if(req.params && req.params.url2 && req.query && req.query.page_number){
+  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "?page="+req.query.page_number;
+  }
+  else{
+   var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
+  }
 
   var body = '';
-
 
   var options = {
     method: 'GET',
@@ -429,10 +440,10 @@ app.get("/post/more/:url1/:url2/:url3/:url4", function (req, res) {
     response.on('end', function () {
       body = JSON.parse(body);
       if (body && body.post_stream && body.post_stream.posts) {
-        for (var i = 0; i < body.post_stream.posts.length; i++) {
-          //console.log(body.post_stream.posts[i].post_number);
-        }
-        res.json(body.post_stream.posts);
+        // for (var i = 0; i < body.post_stream.posts.length; i++) {
+        //   //console.log(body.post_stream.posts[i].post_number);
+        // }
+        res.json(body);
       } else {
         res.json([]);
       }
@@ -827,10 +838,44 @@ app.get("/user/common/:uname", function (req, res) {
 
 app.post('/reply/:slug/:tid', (req, res) => {
   let curr_user = req.session.user;
+
   if (curr_user) {
-    func.reply_pvt(req, res);
+    func.reply_to_specific_pvt_msg(req, res);
   } else {
     res.redirect('/');
   }
 
 });
+
+
+app.post('/reply/:topic_id?/:category_id?/:post_number?', (req, res) => {
+  let curr_user = req.session.user;
+
+  if (curr_user) {
+    func.reply_to_specific_pvt_msg(req,res);
+  } else {
+    res.redirect('/register');
+  }
+
+});
+
+app.delete('/delete/:type/:id', (req, res) => {
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.delete_posts(req,res);
+  } else {
+    res.redirect('/register');
+  }
+
+});
+
+app.post('/upload/:topic_id', (req, res) => {
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.upload_file(req,res);
+  } else {
+    res.redirect('/register');
+  }
+
+});
+
