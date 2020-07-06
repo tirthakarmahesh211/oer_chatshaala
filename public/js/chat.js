@@ -85,6 +85,12 @@ window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+  var menu_active = document.getElementById("menu_active");
+  // console.log(event.target);
+  if (event.target != menu_active) {
+    menucontent = document.getElementsByClassName("menu-content");
+    menucontent[0].style.display = "none";
+  }
 };
 
 function myFunc() {
@@ -405,6 +411,8 @@ function myFunc() {
         //alert("hi");
       }
       $("#upload_files").attr("data-topic_id",tid);
+      $("#reply_form").attr("action","/upload/"+tid);
+
       // console.log(x);
       // console.log(page_number);
 

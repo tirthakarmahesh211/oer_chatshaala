@@ -762,6 +762,7 @@ function reply_to_specific_pvt_msg(req,res){
   var category_id = req.params.category_id;
   var raw = (req.body.raw != undefined && req.body.raw != null ) ? req.body.raw: req.body.body;
   var original_raw = raw;
+  // console.log(original_raw);
   var reply_to_post_number = req.params.post_number
   var URL = secrets.url + '/posts.json';
 
@@ -829,6 +830,7 @@ function reply_to_specific_pvt_msg(req,res){
 
   }
   else{
+    // console.log("else -");
     reply(original_raw);
   }
 
@@ -864,7 +866,6 @@ function reply_to_specific_pvt_msg(req,res){
     // console.log(data1);
     // console.log(options);
     
-    // console.log(url);
     var request = https.request(URL, options, (response) => {
        //  console.log(response.statusMessage);
        // console.log(response.statusCode);
@@ -875,7 +876,7 @@ function reply_to_specific_pvt_msg(req,res){
         });
         response.on('end', () => {
           body = JSON.parse(body);
-          //console.log(body);
+          // console.log(body);
           // res.redirect('/post/t/' + body.topic_slug + '/' + body.topic_id +'/'+(Number(reply_to_post_number)+1));
         });
       } else {
@@ -918,5 +919,46 @@ function delete_posts(req,res){
 }
 
 function upload_file(req, res){
-  
+
+
+    url = secrets.url + '/uploads.json';
+
+    let bufferObj = Buffer.from(req.body.file, "base64");
+
+    let decodedString = bufferObj.toString("utf8");
+
+    const form = new FormData();
+    form.append('files[]', bufferObj, req.body.filename);
+    form.append('type','composer');
+
+    fetch(url, {
+      method: 'POST',
+      body: form,
+      // enctype: 'multipart/form-data',
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      // console.log("data");
+      console.log(data);
+      if(data && data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
+        no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
+        res.send(no_tag);
+      }
+      else if (data.original_filename!=undefined && data.url != undefined) {
+        no_tag = "["+data.original_filename+"|attachment]("+data.url+") ("+data.human_filesize+")"
+        res.send(no_tag);
+      }
+      else{
+        res.send({"error":"File is not uploaded"});
+      }
+    })
+    .catch(error => {
+      console.error("error in uploading");
+      console.error(error);
+    })
+
 }
