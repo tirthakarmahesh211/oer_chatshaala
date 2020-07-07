@@ -185,7 +185,7 @@ body {
   background-color: #fbfcff;
   display: inline-block;
   border-top-left-radius: 5px;
-  margin-bottom: -5px;
+  /* margin-bottom: -5px; */
 }
 
 .messages-panel img.img-circle {
@@ -260,10 +260,12 @@ background: rgba(36, 117, 47, 0.4);
 * THE REPLY BAR CSS */
 
 .replyBar {
-	width: 100%;
-	height: 70px;
+	width: 75%;
+  height: 70px;
+  /* bottom: 0; */
 	float: left;
-	background: #fff;
+  background: #fff;
+  /* position:fixed; */
 }
 
 .replyBar .replyBtn {
@@ -751,7 +753,7 @@ background: rgba(36, 117, 47, 0.4);
   width: 100%;
   overflow: hidden;
   margin-top: 50px;
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 
 .chat-body {
@@ -819,18 +821,18 @@ background: rgba(36, 117, 47, 0.4);
 .message .message-info {
   width: 100%;
   height: 22px;
-  color:#a2b8c5;
+  color:#6b6d6e;
 }
 
 .message .message-info>h5>i {
   font-size: 11px;
   font-weight: 700;
   margin: 0 2px 0 0;
-  color: #a2b8c5;
+  color: #6d6f70;
 }
 
 .message .message-info>h5 {
-  color: #a2b8c5;
+  color: #656869;
   margin: 8px 0 0 0;
   font-size: 12px;
   float: right;
