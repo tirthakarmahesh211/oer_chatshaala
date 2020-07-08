@@ -267,6 +267,7 @@ function myFunc() {
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
