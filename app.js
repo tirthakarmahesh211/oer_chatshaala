@@ -12,7 +12,7 @@ const passPhrase = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
 const CryptoJS = require('crypto-js');
 
 const home = '/chat';
-
+const home1 = '/'
 const feedback = '/feedback';
 const about = '/about';
 const FAQ = '/FAQ';
@@ -45,12 +45,18 @@ app.listen(3000, function (req, res) {
   console.log('Server Started on localhost:3000');
 });
 
+app.use(function (req, res, next) {
+   res.locals = {
+    topic_data: "", page_url: "", page_number: ""
+   };
+   next();
+});
 
 //Routing
 app.get('/register', function (req, res) {
   let user = req.session.user;
   if (user) {
-    res.redirect('/home');
+    res.redirect('/');
   } else {
     res.render('register.ejs', {
       status: ''
@@ -61,7 +67,7 @@ app.get('/register', function (req, res) {
 app.post('/register', function (req, res) {
   let user = req.session.user;
   if (user) {
-    res.redirect(home);
+    res.redirect(home1);
     return;
   } else {
     if (req.body.hasOwnProperty('signup')) {
@@ -100,14 +106,36 @@ app.get('/chat', function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
+    let page_url = "/chat";
     res.render('home.ejs', {
-      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url
+      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
     });
   } else {
     res.redirect('/register');
   }
 });
 
+app.get('/', function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  let curr_user = req.session.user;
+  if (curr_user) {
+    let page_url = "/";
+    res.render('home.ejs', {
+      home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url,page_url:page_url
+    });
+  } else {
+    res.redirect('/register');
+  }
+});
+
+app.post('/', function (req, res) {
+  let user = req.session.user;
+  //console.log(req.body);
+
+  if (req.body.hasOwnProperty('search_button')) {
+    res.redirect('/search?text=' + req.body.search_text);
+  }
+});
 
 app.post('/chat', function (req, res) {
   let user = req.session.user;
@@ -374,7 +402,7 @@ app.get('/logout', function (req, res) {
 });
 
 //NEWLY_ADDED
-app.get("/", function (req, res) {
+app.get("/site_info", function (req, res) {
   let curr_user = req.session.user;
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
@@ -558,7 +586,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
 
 });
 
-app.get('/categories', (req, res) => {
+app.get('/all/categories', (req, res) => {
   var url = secrets.url + '/categories.json';
   var options = {
     method: 'GET',
@@ -701,9 +729,9 @@ app.get('/u/:uname', (req, res) => {
   res.redirect('/user/' + req.params.uname);
 });
 
-app.get('/t/:tname/:tid', (req, res) => {
-  res.redirect('/post/t/' + req.params.tname + '/' + req.params.tid + '/1');
-});
+// app.get('/t/:tname/:tid', (req, res) => {
+//   res.redirect('/post/t/' + req.params.tname + '/' + req.params.tid + '/1');
+// });
 
 app.get("/user/subscribed/:uname", function (req, res) {
   var id = req.params.uname;
@@ -878,4 +906,27 @@ app.post('/upload/:topic_id', (req, res) => {
   }
 
 });
+
+app.get('/t/:topic_slug?/:topic_id?', function (req, res) {
+  // console.log(" get topics ");
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.get_topic(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
+
+app.get('/categories', function (req, res) {
+  // console.log(" get categories ");
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.get_categories(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
+
 

@@ -19,7 +19,8 @@
   </div>
   <div style="display: none;" id="url" name='<%=url%>'>
   </div>
-  <div style="display: none;" id="tid">
+  <div style="display: none;" id="tid"></div>
+  <div style="display: none;" id="page_url" name='<%=page_url%>'>    
   </div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
@@ -123,6 +124,12 @@
 
 
                 </div>
+                <div id="holder7">
+
+                  <%if(page_url == "topic"){%>
+                  <div><li id="About the STEM Chat category" class="" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count">11</div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>About the STEM Chat category</b> </h3><h5>Latest post by:G_N</h5></div><div class="contacts-add"><span class="message-time">06/07<br>14:15<sup></sup></span><i class="fa fa-trash-o"></i><div><i class="fa fa-share-alt "></i> </div></div></li></div>
+                  <%}%>
+                </div>
               </ul>
             </div>
 
@@ -136,6 +143,7 @@
           <div class="message-top">
             <center>
               <div id="slug">
+                <%if(page_url == "topic"){%> <h4 id="topic_head">  <%if(topic_data){%> <%=topic_data.title%> <%}%> </h4> <%}%>
               </div>
             </center>
 
@@ -160,11 +168,28 @@
           <div class="message-chat">
             <div id="chat_" class="chat-body">
               <div id="holder3">
+                <%if(topic_data){%>
+                <%for(var i=0;i<topic_data.post_stream.posts.length;i++){%>
+                <div id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" class="message <%= topic_data.post_stream.posts[i].username === curr_user.username ? 'my-message' : 'my-info' %>">
+                  <img alt="" class="img-circle medium-image" src="<%=url%>user_avatar/<%=url.substring(9)%>/<%=topic_data.post_stream.posts[i].username%>/120/671_2.png"><div class="message-body"><div class="message-body-inner"><div class="message-info"><b><%=topic_data.post_stream.posts[i].username%></b> <i id="reply_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>" type="button" class="fa fa-reply reply_function" title="<%=topic_data.post_stream.posts[i].cooked%>"></i>
+                    <%if(topic_data.post_stream.posts[i].username === curr_user.username){%>
+                    <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
+                    <%}%>
+                  </div><hr><div class="message-text"><%- topic_data.post_stream.posts[i].cooked%></div></div>
+                  <%if(topic_data.post_stream.posts[i].actions_summary.length > 0){%>
+                    <%for(var j=0;j<topic_data.post_stream.posts[i].actions_summary.length;j++){%>
+                      <%if(topic_data.post_stream.posts[i].actions_summary[j].count) {%>
+                      <%=topic_data.post_stream.posts[i].actions_summary[j].count %>
+                      <i class="fa fa-heart" style="color:red"></i>
+                      <%}%>
+                    <%}%>
+                  <%}%>
 
-
-
+                  04/12/19, 3:34 PM</div><br>
+                </div>
+                <%}%>
+                <%}%>
               </div>
-
             </div>
 <!--             <center>
               <div>

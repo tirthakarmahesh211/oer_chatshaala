@@ -10,7 +10,32 @@ dropdownBtn.addEventListener('click', () => {
 });
 //Loading categories on page Load
 window.onload = function () {
-  document.getElementById("private_click").click();
+  var page_url = document.getElementById("page_url");
+
+  document.getElementById("holder7").style.display = "None";
+  if(page_url && page_url.getAttribute("name") == "categories"){
+   document.getElementById("category_click").click();
+  }
+  else if (page_url && page_url.getAttribute("name") == "topic"){
+    document.getElementById("holder6").style.display = "None";
+    document.getElementById("holder4").style.display = "None"
+    document.getElementById("holder2").style.display = "None";
+    document.getElementById("holder5").style.display = "None";
+    document.getElementById("holder7").style.display = "Block";
+
+    $('#menu_active').text('Categories');
+    var e = document.getElementById("category_click");
+    e.classList.add("active-tab");
+    e = document.getElementById("private_click");
+    e.classList.remove("active-tab");
+    e = document.getElementById("group_click");
+    e.classList.remove("active-tab");
+
+    document.getElementById("inbox-message-1").style.display = "Block";
+  }
+  else{
+    document.getElementById("private_click").click();
+  }
 };
 //Modal functioning
 // Get the modal
@@ -29,31 +54,31 @@ $(document).ready(function () {
     // alert("ji");
     if (document.getElementById('home')) {
       modal.style.display = "block";
-      $.ajax({
-        url: '/categories'
-      }).done(
-        (data) => {
-          $('select[name="category"] option').remove();
-          $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-          for (var i = 0; i < data.length; i++) {
-            $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
-          }
-        }
-      );
+      // $.ajax({
+      //   url: '/all/categories'
+      // }).done(
+      //   (data) => {
+      //     $('select[name="category"] option').remove();
+      //     $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+      //     for (var i = 0; i < data.length; i++) {
+      //       $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+      //     }
+      //   }
+      // );
     } else {
       modal.style.display = "block";
 
-      $.ajax({
-        url: '/categories'
-      }).done(
-        (data) => {
-          $('select[name="category"] option').remove();
-          $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-          for (var i = 0; i < data.length; i++) {
-            $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
-          }
-        }
-      );
+      // $.ajax({
+      //   url: '/categories'
+      // }).done(
+      //   (data) => {
+      //     $('select[name="category"] option').remove();
+      //     $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+      //     for (var i = 0; i < data.length; i++) {
+      //       $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+      //     }
+      //   }
+      // );
     }
   });
 
@@ -131,15 +156,15 @@ function myFunc() {
       e.classList.add("active-tab");
       e = document.getElementById("group_click");
       e.classList.remove("active-tab");
-      document.getElementById("holder2").style.display = "Block";
+
       var my_div = $("#holder2");
 
 
       var username = $('#curr_user').attr('name');
       //alert("hi");
-
+      document.getElementById("holder2").style.display = "Block";
       $.ajax({
-        url: "receive/" + username
+        url: "/receive/" + username
       })
 
         .done(function (data) {
@@ -170,7 +195,7 @@ function myFunc() {
           $('#holder2').append(elements);
 
           $.ajax({
-            url: "sent/" + username
+            url: "/sent/" + username
           })
 
             .done(function (data2) {
@@ -203,7 +228,7 @@ function myFunc() {
 
 
         });
-
+        
 
       setTimeout(function () {
         $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
@@ -211,6 +236,8 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+
     }
     function function_category() {
       $('#menu_active').text('Groups');
@@ -225,6 +252,7 @@ function myFunc() {
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -263,6 +291,7 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -305,6 +334,7 @@ function myFunc() {
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
       var my_div = $("#holder5");
       var l = 1;
 
@@ -398,6 +428,7 @@ function myFunc() {
 
         tid = y[1];
         var tslug = y[0];
+        console.log(tslug);
         $('#slug').attr('name', tslug);
         $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
         $('#tid').attr('name', tid);
@@ -417,7 +448,7 @@ function myFunc() {
       // console.log(page_number);
 
       $.ajax({
-        url: "post/more/t/" + x,
+        url: "/post/more/t/" + x,
         data: {page_number:page_number}
       })
 
@@ -557,13 +588,13 @@ function myFunc() {
     /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
     function openNav() {
       document.getElementById("mySidebar").style.width = "250px";
-      document.getElementById("main").style.marginLeft = "250px";
+      // document.getElementById("main").style.marginLeft = "250px";
     }
 
     /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
     function closeNav() {
       document.getElementById("mySidebar").style.width = "0";
-      document.getElementById("main").style.marginLeft = "0";
+      // document.getElementById("main").style.marginLeft = "0";
     }
 
     document.addEventListener('click', function (event) {
@@ -606,7 +637,7 @@ function myFunc() {
         }
           if (temp){
             $.ajax({
-                url: "post/more/t/"+topic_id
+                url: "/post/more/t/"+topic_id
             })
             .done(function (data) {
                 var elements = '';

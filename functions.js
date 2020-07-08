@@ -21,7 +21,9 @@ module.exports = {
   reply_pvt:reply_pvt,
   reply_to_specific_pvt_msg:reply_to_specific_pvt_msg,
   delete_posts: delete_posts,
-  upload_file: upload_file
+  upload_file: upload_file,
+  get_topic: get_topic,
+  get_categories: get_categories
 
 };
 
@@ -170,7 +172,8 @@ function fetchUserInfo(req, res, userName, password) {
       req.session.user = body.user; //storing user info
 
 
-      res.redirect('/chat');
+      // res.redirect('/chat');
+      res.redirect('/');
     }).on('error', function() {
       console.log('error');
     });
@@ -960,5 +963,82 @@ function upload_file(req, res){
       console.error("error in uploading");
       console.error(error);
     })
+
+}
+
+function get_topic(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  console.log(req.params);
+  console.log(req.query);
+  console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
+  
+  https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/99999.json',options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        console.log("data----");
+        // console.log(data);
+        // var data = {"title":" kks ls a sas"}
+        data = JSON.parse(data);
+        console.log(data.posts_count);
+        page_number = Number(data.posts_count) / 20;
+        page_number = Math.floor(page_number);
+        page_number = page_number + 1;
+
+        let page_url = "topic";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, topic_data: data, page_url: page_url, page_number:page_number
+        });
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+}
+
+function get_categories(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  https.get(secrets.url+'categories.json',options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200 || response.statusCode===404){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        console.log("data");
+        // console.log(data);
+        let page_url = "categories";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
+        });
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
 
 }
