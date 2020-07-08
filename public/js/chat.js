@@ -34,7 +34,12 @@ window.onload = function () {
     document.getElementById("inbox-message-1").style.display = "Block";
   }
   else{
-    document.getElementById("private_click").click();
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+    document.getElementById("category_click").click();
   }
 };
 //Modal functioning
@@ -149,6 +154,14 @@ function myFunc() {
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
+
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder2").style.display = "Block";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
+
       $('#menu_active').text('Messages');
       var e = document.getElementById("category_click");
       e.classList.remove("active-tab");
@@ -163,6 +176,7 @@ function myFunc() {
       var username = $('#curr_user').attr('name');
       //alert("hi");
       document.getElementById("holder2").style.display = "Block";
+
       $.ajax({
         url: "/receive/" + username
       })
@@ -313,10 +327,16 @@ function myFunc() {
               logo = data[i].uploaded_logo.url;
               logo=myUrl+logo;
             }
-            if(data[i].description){
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
-          }else{
-              elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+            if(data[i] && data[i].subcategory_ids && data[i].subcategory_ids && data[i].subcategory_ids.length > 0){
+              elements = elements + '<div data-cid="'+data[i].id+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+            }
+            else
+            {
+              if(data[i].description){
+              elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+              }else{
+                elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+              }
             }
           }
 
@@ -330,11 +350,13 @@ function myFunc() {
     }
 
     function load_topics(x) {
+      $('#holder5').html("");
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
       var my_div = $("#holder5");
       var l = 1;
 
@@ -738,5 +760,41 @@ function myFunc() {
         post_number = id[3];
         var id = clicked_element_data.id;
         alert(window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number);
+      }
+    }
+
+    function load_subcategories(clicked_element_data){
+      console.log(clicked_element_data);
+      // console.log(clicked_element_data.dataset.cid);
+      // console.log(clicked_element_data.dataset.sub_cids);
+      document.getElementById("holder8").style.display = "block";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
+
+      $('#holder8').html("");
+      if(clicked_element_data){
+        var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
+        console.log(subcategory_ids);
+        for (let i = 0; i < subcategory_ids.length; i++) {
+          $.ajax({
+                url: "/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i],
+                type: 'GET'
+              })
+              .done(function (data) {
+                // console.log("load_subcategories")
+                var elements = '';
+                  var logo;
+                  logo="https://bootdey.com/img/Content/avatar/avatar1.png";
+                  // console.log(data.topic_list);
+                  if(data && data.topic_list.topics && data.topic_list.topics.length > 0){
+                    title = data.topic_list.topics[0].title.substring(10,data.topic_list.topics[0].title.length-9);
+                    // title = ""
+                    elements = elements + '<div_id onClick="load_topics(this)"' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+                    }
+              $('#holder8').append(elements);
+            });
+        }
       }
     }

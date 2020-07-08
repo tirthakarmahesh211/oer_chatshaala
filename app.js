@@ -929,4 +929,16 @@ app.get('/categories', function (req, res) {
   }
 });
 
+app.get('/c/:category_id?/:sub_category_id', function (req, res) {
+  // console.log(" get categories ");
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  let curr_user = req.session.user;
+  if (curr_user) {
+    func.get_sub_category(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
+
+
 
