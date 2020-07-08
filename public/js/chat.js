@@ -674,7 +674,7 @@ function myFunc() {
           $('.display_replies').empty();
           $(".display_replies").css('margin', "1%");
           $('.display_replies').attr("id","rmv_btn_"+topic_id+'_'+post_number);
-          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="remove" class="btn btn-sm">remove</button>');
+          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="cancel" class="btn btn-sm">cancel</button>');
         }
         else{
           alert("sorry. something went wrong. please try again later")

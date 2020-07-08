@@ -127,7 +127,12 @@
                 <div id="holder7">
 
                   <%if(page_url == "topic"){%>
-                  <div><li id="About the STEM Chat category" class="" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count">11</div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>About the STEM Chat category</b> </h3><h5>Latest post by:G_N</h5></div><div class="contacts-add"><span class="message-time">06/07<br>14:15<sup></sup></span><i class="fa fa-trash-o"></i><div><i class="fa fa-share-alt "></i> </div></div></li></div>
+                  <div><li id="<%= topic_data.title%>" class="active" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count">11</div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b><%= topic_data.title%></b> </h3><h5>Latest post by:<%=topic_data.details.last_poster.username%></h5></div><div class="contacts-add">
+                    <span class="message-time">
+                    <%var year_month = topic_data.last_posted_at.split("T")[0];time = topic_data.last_posted_at.split("T")[1]; %>
+                      <%= year_month.split("-")[2]+"/"+year_month.split("-")[1] %><br>
+                      <%= time.split(":")[0]+":"+time.split(":")[1] %>
+                    <sup></sup></span><i class="fa fa-trash-o"></i><div><i class="fa fa-share-alt "></i> </div></div></li></div>
                   <%}%>
                 </div>
               </ul>
@@ -172,6 +177,7 @@
                 <%for(var i=0;i<topic_data.post_stream.posts.length;i++){%>
                 <div id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" class="message <%= topic_data.post_stream.posts[i].username === curr_user.username ? 'my-message' : 'my-info' %>">
                   <img alt="" class="img-circle medium-image" src="<%=url%>user_avatar/<%=url.substring(9)%>/<%=topic_data.post_stream.posts[i].username%>/120/671_2.png"><div class="message-body"><div class="message-body-inner"><div class="message-info"><b><%=topic_data.post_stream.posts[i].username%></b> <i id="reply_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>" type="button" class="fa fa-reply reply_function" title="<%=topic_data.post_stream.posts[i].cooked%>"></i>
+                    <button id="share_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%=topic_data.slug%>" title="share a link to this post" onclick="share_function(this)">Share</button>
                     <%if(topic_data.post_stream.posts[i].username === curr_user.username){%>
                     <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
                     <%}%>
@@ -184,8 +190,10 @@
                       <%}%>
                     <%}%>
                   <%}%>
-
-                  04/12/19, 3:34 PM</div><br>
+                  <%var message_datetime = new Date(topic_data.post_stream.posts[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'}).split("/");
+                  message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2];%>
+                  <%= message_datetime%>
+                </div><br>
                 </div>
                 <%}%>
                 <%}%>

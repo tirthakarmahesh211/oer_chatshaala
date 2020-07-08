@@ -946,7 +946,7 @@ function upload_file(req, res){
     .then(response => response.json())
     .then(data => {
       // console.log("data");
-      console.log(data);
+      // console.log(data);
       if(data && data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
         no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
         res.send(no_tag);
@@ -976,9 +976,9 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
       'Api-Username': curr_user.username
     }
   };
-  console.log(req.params);
-  console.log(req.query);
-  console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
+  // console.log(req.params);
+  // console.log(req.query);
+  // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
   
   https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/99999.json',options,(response)=>{
    console.log(response.statusCode);
@@ -988,11 +988,11 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
         data+=chunk;
       });
       response.on('end',()=>{
-        console.log("data----");
+        // console.log("data----");
         // console.log(data);
         // var data = {"title":" kks ls a sas"}
         data = JSON.parse(data);
-        console.log(data.posts_count);
+        // console.log(data.posts_count);
         page_number = Number(data.posts_count) / 20;
         page_number = Math.floor(page_number);
         page_number = page_number + 1;
