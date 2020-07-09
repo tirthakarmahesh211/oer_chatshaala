@@ -52,6 +52,11 @@ app.use(function (req, res, next) {
    next();
 });
 
+app.get('/*', function (req, res, next) {
+    res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
+    next();
+});
+
 //Routing
 app.get('/register', function (req, res) {
   let user = req.session.user;
@@ -908,8 +913,6 @@ app.post('/upload/:topic_id', (req, res) => {
 });
 
 app.get('/t/:topic_slug/:topic_id', function (req, res) {
-  // console.log(" get topics ");
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
     func.get_topic(req,res);
@@ -919,8 +922,6 @@ app.get('/t/:topic_slug/:topic_id', function (req, res) {
 });
 
 app.get('/categories', function (req, res) {
-  // console.log(" get categories ");
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
     func.get_categories(req,res);
@@ -930,8 +931,6 @@ app.get('/categories', function (req, res) {
 });
 
 app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', function (req, res) {
-  // console.log(" get categories ");
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
     if (req.params && req.params.page_number!=null && req.params.page_number!=undefined){
