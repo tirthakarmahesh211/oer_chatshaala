@@ -352,7 +352,7 @@ function myFunc() {
     }
 
     function load_topics(x) {
-      console.log("load topics")
+      // console.log("load topics");
       $('#holder5').html("");
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
@@ -364,8 +364,8 @@ function myFunc() {
       var l = 1;
 
       if(x && x.startsWith("c/") && x.split("/").length > 0){
-        console.log("if block");
-        console.log(x);
+        // console.log("if block");
+        // console.log(x);
         $.ajax({
 
           url: "/"+x
@@ -389,6 +389,13 @@ function myFunc() {
                 newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
                 newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
 
+              }
+              else if(i==0 && data[0].created_at != null){
+                console.log("else if");
+                mydate = data[i].created_at;
+
+                newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+                newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
               }
               else {
                 newdate = "";
@@ -807,7 +814,7 @@ function myFunc() {
     }
 
     function load_subcategories(clicked_element_data){
-      console.log(clicked_element_data);
+      // console.log(clicked_element_data);
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
       document.getElementById("holder8").style.display = "block";
