@@ -24,8 +24,8 @@ module.exports = {
   upload_file: upload_file,
   get_topic: get_topic,
   get_categories: get_categories,
-  get_sub_category: get_sub_category
-
+  get_sub_category: get_sub_category,
+  get_topics: get_topics
 };
 
 function resetCurrUser() {
@@ -1044,7 +1044,7 @@ function get_categories(req, res, home, about, blog, project, feedback, logout, 
 
 }
 
-function get_sub_category(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+function get_sub_category(req, res){
 
   var curr_user=req.session.user;
   var options = {
@@ -1054,8 +1054,46 @@ function get_sub_category(req, res, home, about, blog, project, feedback, logout
       'Api-Username': curr_user.username
     }
   };
-  console.log(secrets.url+'c/'+req.params.category_id+'/'+req.params.sub_category_id+'.json');
-  https.get(secrets.url+'c/'+req.params.category_id+'/'+req.params.sub_category_id+'.json',options,(response)=>{
+  // console.log(req.params);
+  // console.log(req.query);
+
+  // console.log(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json');
+  https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json',options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        // console.log("data");
+        // console.log(data);
+        // let page_url = "sub_categories";
+         res.send(JSON.parse(data));
+        
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+
+}
+
+function get_topics(req, res){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  // console.log(req.params);
+  // console.log(req.query);
+  // console.log(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json');
+  https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json?page='+req.params.page_number,options,(response)=>{
    console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';

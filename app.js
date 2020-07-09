@@ -907,7 +907,7 @@ app.post('/upload/:topic_id', (req, res) => {
 
 });
 
-app.get('/t/:topic_slug?/:topic_id?', function (req, res) {
+app.get('/t/:topic_slug/:topic_id', function (req, res) {
   // console.log(" get topics ");
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
@@ -929,12 +929,17 @@ app.get('/categories', function (req, res) {
   }
 });
 
-app.get('/c/:category_id?/:sub_category_id', function (req, res) {
+app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', function (req, res) {
   // console.log(" get categories ");
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
-    func.get_sub_category(req,res);
+    if (req.params && req.params.page_number!=null && req.params.page_number!=undefined){
+      func.get_topics(req,res);
+    }
+    else{
+      func.get_sub_category(req,res);
+    }
   } else {
     res.redirect('/register');
   }
