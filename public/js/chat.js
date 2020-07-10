@@ -538,7 +538,7 @@ function myFunc() {
             page_number = Math.floor(page_number);
             page_number = page_number + 1;
           }
-          var elements = '';
+          var elements = '<button>Load More</button>';
           var reply_message = '';
           var array_to_store_post_number = [];
           var like_button = "";
@@ -858,3 +858,15 @@ function myFunc() {
         }
       }
     }
+
+function load_more(clicked_element_data){
+  var get_divs = document.querySelectorAll('div[id^="msg_"][style*="display:none"]');
+  console.log(get_divs);
+
+  if(get_divs && get_divs.length > 0){
+    console.log(get_divs.length)
+    for (var i = 0; i < get_divs.length; i++) {
+      get_divs[i].style.display = "block";
+    }
+  }
+}

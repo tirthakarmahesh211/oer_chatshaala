@@ -177,6 +177,7 @@
                 <%if(topic_data){%>
                 <% var temp = false %>
                 <% var display = 'style=display:none;' %>
+                <button onclick="load_more(this)">Load More</button>
                 <%for(var i=0;i<topic_data.post_stream.posts.length;i++){%>
                 <% var page_number = Math.ceil((topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[i].id)))+1) / 20) %>
                 <%if( temp == false && post_number!="" && topic_data.post_stream.posts[i].post_number.toString() != post_number ){%>
