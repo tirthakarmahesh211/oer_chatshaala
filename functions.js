@@ -25,7 +25,8 @@ module.exports = {
   get_topic: get_topic,
   get_categories: get_categories,
   get_sub_category: get_sub_category,
-  get_topics: get_topics
+  get_topics: get_topics,
+  get_specific_posts: get_specific_posts,
 };
 
 function resetCurrUser() {
@@ -977,12 +978,18 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
       'Api-Username': curr_user.username
     }
   };
-  // console.log(req.params);
-  // console.log(req.query);
+  console.log(req.params);
+  console.log(req.query);
   // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
-  
-  https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/99999.json',options,(response)=>{
-   console.log(response.statusCode);
+  if (req.params.post_number != "0" && req.params.post_number != null && req.params.post_number != undefined ){
+    post_number = req.params.post_number;
+  }
+  else{
+    post_number = "99999";
+  }
+  console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json')
+  https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json',options,(response)=>{
+   // console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';
       response.on('data',(chunk)=>{
@@ -994,10 +1001,16 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
         // var data = {"title":" kks ls a sas"}
         data = JSON.parse(data);
         // console.log(data.posts_count);
+        if (req.params && req.params.post_number){
+        page_number = Number(req.params.post_number) / 20;
+        page_number = Math.ceil(page_number);
+        }
+        else{
         page_number = Number(data.posts_count) / 20;
         page_number = Math.floor(page_number);
         page_number = page_number + 1;
-
+        }
+        console.log(page_number);
         let page_url = "topic";
         res.render('home.ejs', {
           home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, topic_data: data, page_url: page_url, page_number:page_number
@@ -1090,9 +1103,7 @@ function get_topics(req, res){
       'Api-Username': curr_user.username
     }
   };
-  // console.log(req.params);
-  // console.log(req.query);
-  // console.log(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json');
+
   https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json?page='+req.params.page_number,options,(response)=>{
    console.log(response.statusCode);
     if(response.statusCode===200){
@@ -1101,16 +1112,56 @@ function get_topics(req, res){
         data+=chunk;
       });
       response.on('end',()=>{
-        // console.log("data");
-        // console.log(data);
-        // let page_url = "sub_categories";
-         res.send(JSON.parse(data));
-        
+         res.send(JSON.parse(data));        
       });
       response.on('error', function() {
         console.log('error');
       });
     }
   });
+}
 
+function get_specific_posts(req, res,home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  var url = secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id;
+
+  if (req.params.page_number!="" && req.params.page_number != null && req.params.page_number != undefined){
+    url= url +'.json?page='+req.params.page_number
+  }
+  else if (req.params.post_number!="" && req.params.post_number != null && req.params.post_number != undefined){
+    url = url+"/"+ req.params.post_number + ".json"
+  }
+  else{
+    url = url+ ".json"
+  }
+
+  https.get(url,options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         // res.send(JSON.parse(data));
+        data = JSON.parse(data);
+        post_number = req.params.post_number
+        let page_url = "topic";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user, url:secrets.url, topic_data: data, page_url: page_url, post_number:post_number
+        });      
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
 }

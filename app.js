@@ -47,7 +47,7 @@ app.listen(3000, function (req, res) {
 
 app.use(function (req, res, next) {
    res.locals = {
-    topic_data: "", page_url: "", page_number: ""
+    topic_data: "", page_url: "", page_number: "",post_number: ""
    };
    next();
 });
@@ -912,10 +912,16 @@ app.post('/upload/:topic_id', (req, res) => {
 
 });
 
-app.get('/t/:topic_slug/:topic_id', function (req, res) {
+app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, res) {
+  console.log("topiccc");
   let curr_user = req.session.user;
   if (curr_user) {
-    func.get_topic(req,res);
+    if(req.params && req.params.post_number !="" && req.params.post_number !=null && req.params.post_number!=undefined ){
+      func.get_specific_posts(req,res, home, about, blog, project, feedback, logout, profile, curr_user);
+    }
+    else{
+      func.get_topic(req,res);
+    }
   } else {
     res.redirect('/register');
   }
