@@ -769,14 +769,14 @@ function myFunc() {
 
         var get_topic_id = document.querySelector('div[id^="msg_"]');
         var get_posts_count = document.getElementById('posts_count');
-
+        // console.log(get_posts_count.name);
         if(get_topic_id && get_topic_id.id){
           div_id = get_topic_id.id.split("_");
           topic_id = div_id[1];
           posts_count = div_id[3];
           page_number = div_id[4];
 
-          if ( get_posts_count != "" && posts_count && topic_id && page_number && posts_count>20){
+          if ( get_posts_count && (get_posts_count.name == "" || get_posts_count.name == null || get_posts_count.name == undefined) && posts_count && topic_id && page_number && posts_count>20){
 
             page_number = Number(page_number)-1;
 
