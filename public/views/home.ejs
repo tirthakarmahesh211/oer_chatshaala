@@ -22,6 +22,7 @@
   <div style="display: none;" id="tid"></div>
   <div style="display: none;" id="page_url" name='<%=page_url%>'></div>
   <div style="display: none;" id="posts_count" name='<%=topic_data.posts_count%>'></div>
+  <div style="display: none;" id="specific_posts_page" name='<%=specific_posts_page%>'></div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -212,6 +213,7 @@
                 <%}%>
                 <%}%>
               </div>
+              <button id="load_next_posts" style="display: none" onclick="load_next_posts(this)">Load Next Posts</button>
             </div>
 <!--             <center>
               <div>

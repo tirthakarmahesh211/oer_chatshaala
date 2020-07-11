@@ -41,6 +41,10 @@ window.onload = function () {
       document.getElementById("holder7").style.display = "None";
     document.getElementById("category_click").click();
   }
+  console.log(document.getElementById("specific_posts_page").getAttribute("name"));
+  if(document.getElementById("specific_posts_page").getAttribute("name") == "true"){
+    document.getElementById("load_next_posts").style.display = "block";
+  }
 };
 //Modal functioning
 // Get the modal
@@ -504,6 +508,8 @@ function myFunc() {
         html_or_prepend = true;
         url = "/t/"+x[0]+"/posts"
         array_of_post_ids = x[3]
+        $('#post_page').attr('name','true');
+        // $('#load_next_posts').show();
       }
       else{
         var y = x.split('/');
@@ -915,4 +921,8 @@ function load_more(clicked_element_data){
       load_posts(x);
     }
   }
+}
+
+function load_next_posts(clicked_element_data){
+  alert("load_next_posts");
 }

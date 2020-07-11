@@ -1133,11 +1133,12 @@ function get_specific_posts(req, res,home, about, blog, project, feedback, logou
     }
   };
   var url = secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id;
-
+  let specific_posts_page = "false";
   if (req.params.page_number!="" && req.params.page_number != null && req.params.page_number != undefined){
     url= url +'.json?page='+req.params.page_number
   }
   else if (req.params.post_number!="" && req.params.post_number != null && req.params.post_number != undefined){
+    specific_posts_page = "true";
     url = url+"/"+ req.params.post_number + ".json"
   }
   else{
@@ -1157,7 +1158,7 @@ function get_specific_posts(req, res,home, about, blog, project, feedback, logou
         post_number = req.params.post_number
         let page_url = "topic";
         res.render('home.ejs', {
-          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user, url:secrets.url, topic_data: data, page_url: page_url, post_number:post_number
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user, url:secrets.url, topic_data: data, page_url: page_url, post_number:post_number,specific_posts_page:specific_posts_page
         });      
       });
       response.on('error', function() {
