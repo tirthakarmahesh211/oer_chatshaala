@@ -27,6 +27,7 @@ module.exports = {
   get_sub_category: get_sub_category,
   get_topics: get_topics,
   get_specific_posts: get_specific_posts,
+  get_posts_using_post_ids: get_posts_using_post_ids,
 };
 
 function resetCurrUser() {
@@ -1164,4 +1165,46 @@ function get_specific_posts(req, res,home, about, blog, project, feedback, logou
       });
     }
   });
+}
+
+function get_posts_using_post_ids(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  post_ids = ""
+  for (let i = 0; i < req.query.post_ids.length; i++){
+    if( i == (req.query.post_ids.length-1))
+    {
+      post_ids = post_ids + 'post_ids[]='+req.query.post_ids[i]+''
+    }
+    else{
+      post_ids = post_ids + 'post_ids[]='+req.query.post_ids[i]+'&'
+    }
+  }
+  
+  if (post_ids !=null && post_ids != undefined){
+  var url = secrets.url+'t/'+req.params.topic_id+"/posts.json?"+post_ids;
+  // console.log(url);
+  https.get(url,options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         res.send(JSON.parse(data));
+
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+  }
 }

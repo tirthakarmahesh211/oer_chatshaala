@@ -489,11 +489,21 @@ function myFunc() {
 
       var username = $('#curr_user').attr('name');
       var tid = null;
-      if(Array.isArray(x) && x && x.length > 0){
+      var array_of_post_ids = null;
+      if(Array.isArray(x) && x && x.length > 0  && x.length >2 && x[2]!=-1){
         page_number = x[1];
         tid = x[0];
         x=x[0]+".json";
         html_or_prepend = true;
+        url = "/post/more/t/" + x
+      }
+      else if(x && x.length > 0  && x[2]==-1){
+        page_number = x[1];
+        tid = x[0];
+        // x=x[0]+".json";
+        html_or_prepend = true;
+        url = "/t/"+x[0]+"/posts"
+        array_of_post_ids = x[3]
       }
       else{
         var y = x.split('/');
@@ -512,6 +522,7 @@ function myFunc() {
         var my_div = $("#holder3");
 
         //alert("hi");
+        url = "/post/more/t/" + x
       }
       $("#upload_files").attr("data-topic_id",tid);
       $("#reply_form").attr("action","/upload/"+tid);
@@ -520,10 +531,9 @@ function myFunc() {
       // console.log(page_number);
 
       $.ajax({
-        url: "/post/more/t/" + x,
-        data: {page_number:page_number}
+        url: url,
+        data: {page_number:page_number, "post_ids[]": array_of_post_ids},
       })
-
         .done(function (data) {
           var posts_count = data.posts_count;
           var slug = data.slug;
@@ -538,7 +548,7 @@ function myFunc() {
             page_number = Math.floor(page_number);
             page_number = page_number + 1;
           }
-          var elements = '<button>Load More</button>';
+          var elements = '';
           var reply_message = '';
           var array_to_store_post_number = [];
           var like_button = "";
@@ -550,7 +560,7 @@ function myFunc() {
 
             var post_id = data[i].id;
             var post_id = 'data-post_id="'+post_id+'"';
-            console.log(post_id);
+            // console.log(post_id);
             let message_datetime = "";
             message_datetime = new Date(data[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'});
 
@@ -765,7 +775,7 @@ function myFunc() {
 
     $(window).scroll(function(){
 
-      if ($(window).scrollTop() <=0 ){
+      if ($(window).scrollTop() <=0 && false){
 
         var get_topic_id = document.querySelector('div[id^="msg_"]');
         var get_posts_count = document.getElementById('posts_count');
@@ -861,12 +871,48 @@ function myFunc() {
 
 function load_more(clicked_element_data){
   var get_divs = document.querySelectorAll('div[id^="msg_"][style*="display:none"]');
-  console.log(get_divs);
 
+  // console.log(get_divs);
+  var post_ids = document.getElementById("post_ids");
+  // console.log(post_ids);
   if(get_divs && get_divs.length > 0){
-    console.log(get_divs.length)
+    // console.log(get_divs.length)
     for (var i = 0; i < get_divs.length; i++) {
       get_divs[i].style.display = "block";
+    }
+  }
+  else if (post_ids!=null && post_ids!=undefined && post_ids.innerHTML != ""){
+    var get_topic_id = document.querySelector('div[id^="msg_"]');
+    var array_of_post_ids = post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
+    post_ids.innerHTML = "";
+    // console.log(array_of_post_ids);
+    posts_count = get_topic_id.id.split("_")[3];
+
+    // divisior_of_number = 
+    // page_number = -1
+
+    page_number = get_topic_id.id.split("_")[4];
+    // console.log(page_number);
+    x = [get_topic_id.id.split("_")[1], page_number,-1, array_of_post_ids, posts_count];
+    load_posts(x)
+
+  }
+  else
+  {
+    var get_topic_id = document.querySelector('div[id^="msg_"]');
+    page_number = Number(get_topic_id.id.split("_")[4]);
+    page_number = page_number -1;
+    posts_count = get_topic_id.id.split("_")[3];
+
+
+    x = [get_topic_id.id.split("_")[1], page_number,0, null, posts_count];
+    // console.log(page_number);
+    // console.log(posts_count);
+    if (Number(page_number) > 0){
+      if(Number(page_number) == 1){
+        $(clicked_element_data).hide();
+      }
+      load_posts(x);
     }
   }
 }

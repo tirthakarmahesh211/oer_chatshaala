@@ -912,8 +912,21 @@ app.post('/upload/:topic_id', (req, res) => {
 
 });
 
+app.get('/t/:topic_id/posts$/', function (req, res) {
+  // console.log("posts");
+  // console.log(req.params);
+  // console.log(req.query);
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.get_posts_using_post_ids(req,res);
+  }
+  else {
+    res.redirect('/register');
+  }
+});
+
 app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, res) {
-  console.log("topiccc");
+  // console.log("topiccc");
   let curr_user = req.session.user;
   if (curr_user) {
     if(req.params && req.params.post_number !="" && req.params.post_number !=null && req.params.post_number!=undefined ){
@@ -949,6 +962,7 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
     res.redirect('/register');
   }
 });
+
 
 
 

@@ -173,11 +173,14 @@
 
           <div class="message-chat">
             <div id="chat_" class="chat-body">
+              <button onclick="load_more(this)">Load More</button>
               <div id="holder3">
                 <%if(topic_data){%>
                 <% var temp = false %>
                 <% var display = 'style=display:none;' %>
-                <button onclick="load_more(this)">Load More</button>
+                <textarea id="post_ids" style="display: none;">
+                  <%= topic_data.post_stream.stream.slice(  (20* ((Math.ceil((topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[0].id)))-1) / 20)-1)  )) ,(Number(topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[0].id)))+1) -1)  )%>
+                  </textarea>
                 <%for(var i=0;i<topic_data.post_stream.posts.length;i++){%>
                 <% var page_number = Math.ceil((topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[i].id)))+1) / 20) %>
                 <%if( temp == false && post_number!="" && topic_data.post_stream.posts[i].post_number.toString() != post_number ){%>
