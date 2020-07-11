@@ -490,24 +490,27 @@ function myFunc() {
     function load_posts(x) {
       var page_number = null;
       var html_or_prepend = false;
-
+      var html_or_append = false;
       var username = $('#curr_user').attr('name');
       var tid = null;
       var array_of_post_ids = null;
-      if(Array.isArray(x) && x && x.length > 0  && x.length >2 && x[2]!=-1){
+      if(Array.isArray(x) && x && x.length > 0 && x[2]!=-1){
         page_number = x[1];
         tid = x[0];
         x=x[0]+".json";
         html_or_prepend = true;
         url = "/post/more/t/" + x
       }
-      else if(x && x.length > 0  && x[2]==-1){
+      else if(x && x.length > 0  && (x[2]==-1)){
         page_number = x[1];
         tid = x[0];
         // x=x[0]+".json";
         html_or_prepend = true;
         url = "/t/"+x[0]+"/posts"
         array_of_post_ids = x[3]
+        if(x[5] != undefined && x[5] == "append"){
+          html_or_append = true
+        }
         $('#post_page').attr('name','true');
         // $('#load_next_posts').show();
       }
@@ -534,7 +537,12 @@ function myFunc() {
       $("#reply_form").attr("action","/upload/"+tid);
 
       // console.log(x);
-      // console.log(page_number);
+      // console.log(page_numbr);
+      if(x[6] == "next_post_ids"){
+        tid = x[0];
+        x=x[0]+".json";
+        url = "/post/more/t/" + x
+      }
 
       $.ajax({
         url: url,
@@ -659,8 +667,11 @@ function myFunc() {
               }
             }
           }
-          if(html_or_prepend == false){
+          if(html_or_prepend == false && html_or_append == false){
             $('#holder3').html(elements);
+          }
+          else if(html_or_prepend == true && html_or_append == true){
+            $('#holder3').append(elements);
           }
           else{
             $('#holder3').prepend(elements);
@@ -924,5 +935,40 @@ function load_more(clicked_element_data){
 }
 
 function load_next_posts(clicked_element_data){
-  alert("load_next_posts");
+  // alert("load_next_posts");
+  var last_div = $("div.message").last();
+  var topic_id = $(last_div[0]).attr("id");
+  var last_post_id = $(last_div[0]).attr("data-post_id");
+  var count = $(last_div[0]).attr("data-count");
+  // console.log($(last_div[0]).attr("data-count"));
+
+  var posts_count = topic_id.split("_")[3];
+
+  page_number = Number(topic_id.split("_")[4]);
+  // page_number = page_number + 1;
+
+  // page_number = (20 * page_number) - Number(count);
+  console.log(page_number);
+  // if(((20 * Number(page_number)) - Number(count)) == 0){
+  //   page_number = page_number + 1
+  // }
+  var next_post_ids = document.getElementById("next_post_ids");
+
+  if (next_post_ids!=null && next_post_ids!=undefined && next_post_ids.innerHTML != ""){
+    var array_of_post_ids = next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
+    next_post_ids.innerHTML = "";
+    // console.log(array_of_post_ids);
+    // posts_count = topic_id.split("_")[3];
+
+    // page_number = topic_id.split("_")[4];
+    x = [topic_id.split("_")[1], page_number,-1, array_of_post_ids, posts_count,"append"];
+    load_posts(x)
+
+  }
+  else{
+      x = [topic_id.split("_")[1], (page_number+1),-1, null, posts_count,"append","next_post_ids"];
+      load_posts(x)
+      console.log(x);
+  }
+
 }

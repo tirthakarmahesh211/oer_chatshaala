@@ -213,7 +213,13 @@
                 <%}%>
                 <%}%>
               </div>
+              <%if(topic_data){%>
               <button id="load_next_posts" style="display: none" onclick="load_next_posts(this)">Load Next Posts</button>
+              <% var indexoflastpostid = (topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[19].id)))) %>
+              <textarea id="next_post_ids" style="display: none;">
+                <%= topic_data.post_stream.stream.slice(  Number(indexoflastpostid) +1 , (Math.ceil(Number((indexoflastpostid+1)/20)) *20)  )%>
+              </textarea>
+              <%}%>
             </div>
 <!--             <center>
               <div>
