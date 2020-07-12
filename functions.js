@@ -28,6 +28,7 @@ module.exports = {
   get_topics: get_topics,
   get_specific_posts: get_specific_posts,
   get_posts_using_post_ids: get_posts_using_post_ids,
+  get_post_replies: get_post_replies
 };
 
 function resetCurrUser() {
@@ -1208,4 +1209,35 @@ function get_posts_using_post_ids(req, res){
     }
   });
   }
+}
+
+function get_post_replies(req, res){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  var url = secrets.url+'posts/'+req.params.post_id+"/replies.json"
+  // console.log(url);
+  https.get(url,options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         res.send(JSON.parse(data));
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+
 }

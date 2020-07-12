@@ -963,6 +963,16 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
   }
 });
 
+app.get('/posts/:post_id/replies$', function (req, res) {
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.get_post_replies(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
+
+
 
 
 
