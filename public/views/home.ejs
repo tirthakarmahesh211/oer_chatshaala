@@ -197,7 +197,7 @@
                     <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
                     <%}%>
                   </div><hr><div class="message-text"><%- topic_data.post_stream.posts[i].cooked%></div></div>
-                  <%if(Number(topic_data.post_stream.posts[i].reply_count) > 0) {%>
+                  <%if(Number(topic_data.post_stream.posts[i].reply_count) > 0 && topic_data.post_stream.posts[i+1] && (topic_data.post_stream.posts[i].post_number != topic_data.post_stream.posts[i+1].reply_to_post_number) ) {%>
                   <button id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" data-post_id="<%=topic_data.post_stream.posts[i].id%>" type="button" class="see_replies"> <%= topic_data.post_stream.posts[i].reply_count%>
                     <%= (Number(topic_data.post_stream.posts[i].reply_count) == 1 ? ' Reply': ' Replies') %> </button>
                   <%}%>
