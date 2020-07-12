@@ -898,7 +898,7 @@ function load_more(clicked_element_data){
       get_divs[i].style.display = "block";
     }
   }
-  else if (post_ids!=null && post_ids!=undefined && post_ids.innerHTML != ""){
+  else if (post_ids!=null && post_ids!=undefined && post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ) != ""){
     var get_topic_id = document.querySelector('div[id^="msg_"]');
     var array_of_post_ids = post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
     post_ids.innerHTML = "";
@@ -953,9 +953,11 @@ function load_next_posts(clicked_element_data){
   //   page_number = page_number + 1
   // }
   var next_post_ids = document.getElementById("next_post_ids");
+  console.log(next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ));
 
-  if (next_post_ids!=null && next_post_ids!=undefined && next_post_ids.innerHTML != ""){
+  if (next_post_ids!=null && next_post_ids!=undefined && next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ) != ""){
     var array_of_post_ids = next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
+    console.log(array_of_post_ids);
     next_post_ids.innerHTML = "";
     // console.log(array_of_post_ids);
     // posts_count = topic_id.split("_")[3];
@@ -966,6 +968,7 @@ function load_next_posts(clicked_element_data){
 
   }
   else{
+    console.log("else ")
       x = [topic_id.split("_")[1], (page_number+1),-1, null, posts_count,"append","next_post_ids"];
       load_posts(x)
       console.log(x);
