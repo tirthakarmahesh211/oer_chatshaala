@@ -197,6 +197,10 @@
                     <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
                     <%}%>
                   </div><hr><div class="message-text"><%- topic_data.post_stream.posts[i].cooked%></div></div>
+                  <%if(Number(topic_data.post_stream.posts[i].reply_count) > 0) {%>
+                  <button id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" type="button" class="see_replies"> <%= topic_data.post_stream.posts[i].reply_count%>
+                    <%= (Number(topic_data.post_stream.posts[i].reply_count) == 1 ? ' Reply': ' Replies') %> </button>
+                  <%}%>
                   <%if(topic_data.post_stream.posts[i].actions_summary.length > 0){%>
                     <%for(var j=0;j<topic_data.post_stream.posts[i].actions_summary.length;j++){%>
                       <%if(topic_data.post_stream.posts[i].actions_summary[j].count) {%>
