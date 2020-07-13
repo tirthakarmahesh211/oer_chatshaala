@@ -496,7 +496,7 @@ function myFunc() {
     }
 
     function load_posts(x) {
-      $("#load_previous_posts").show();
+      
       $("#load_next_posts").show();
       var page_number = null;
       var html_or_prepend = false;
@@ -687,6 +687,23 @@ function myFunc() {
           }
           else{
             $('#holder3').prepend(elements);
+          }
+          var get_topic_id = document.querySelector('div[id^="msg_"]');
+          var last_div = $("div.message").last();
+          var last_div_id = $(last_div).attr("id");
+          // last_div_id = last_div_id.split("_");
+
+          if(get_topic_id && (get_topic_id.dataset.count == "0" || get_topic_id.dataset.count == "1")){
+            $("#load_previous_posts").hide();
+          }
+          else{
+            $("#load_previous_posts").show();
+          }
+          if(last_div && last_div_id.split("_")[3] == last_div.dataset.count ){
+            $("#load_next_posts").hide();
+          }
+          else{
+            $("#load_next_posts").show();
           }
           document.getElementById('chat_').scrollTop = 9999999;
         });

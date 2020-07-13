@@ -926,7 +926,7 @@ app.get('/t/:topic_id/posts$/', function (req, res) {
 });
 
 app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, res) {
-  console.log("topiccc");
+  // console.log("topiccc");
   let curr_user = req.session.user;
   if (curr_user) {
     if(req.params && req.params.post_number !="" && req.params.post_number !=null && req.params.post_number!=undefined ){

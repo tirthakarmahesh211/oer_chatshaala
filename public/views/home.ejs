@@ -174,11 +174,12 @@
 
           <div class="message-chat">
             <div id="chat_" class="chat-body">
-              <%if(topic_data && topic_data.post_stream && topic_data.post_stream.stream.indexOf(topic_data.post_stream.posts[0].post_number) != Number(post_number)){%>
+              <%if(topic_data && topic_data.post_stream && (topic_data.post_stream.posts[0].post_number != post_number ) && post_number != "" ){%>
                 <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
               <% } else if(page_url!="topic"){ %>
                 <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
               <%}%>
+              <%= post_number%>
               <div id="holder3">
                 <%if(topic_data){%>
                 <% var temp = false %>

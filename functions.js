@@ -980,8 +980,8 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
       'Api-Username': curr_user.username
     }
   };
-  console.log(req.params);
-  console.log(req.query);
+  // console.log(req.params);
+  // console.log(req.query);
   // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
   if (req.params.post_number != "0" && req.params.post_number != null && req.params.post_number != undefined ){
     post_number = req.params.post_number;
@@ -1147,7 +1147,7 @@ function get_specific_posts(req, res,home, about, blog, project, feedback, logou
   }
 
   https.get(url,options,(response)=>{
-   console.log(response.statusCode);
+   // console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';
       response.on('data',(chunk)=>{
