@@ -128,7 +128,7 @@
                 <div id="holder7">
 
                   <%if(page_url == "topic"){%>
-                  <div><li id="<%= topic_data.title%>" class="active" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count">11</div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b><%= topic_data.title%></b> </h3><h5>Latest post by:<%=topic_data.details.last_poster.username%></h5></div><div class="contacts-add">
+                  <div><li id="<%= topic_data.title%>" class="active" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count"><%= topic_data ? topic_data.posts_count : "0" %></div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b><%= topic_data.title%></b> </h3><h5>Latest post by:<%=topic_data.details.last_poster.username%></h5></div><div class="contacts-add">
                     <span class="message-time">
                     <%var year_month = topic_data.last_posted_at.split("T")[0];time = topic_data.last_posted_at.split("T")[1]; %>
                       <%= year_month.split("-")[2]+"/"+year_month.split("-")[1] %><br>
@@ -174,7 +174,11 @@
 
           <div class="message-chat">
             <div id="chat_" class="chat-body">
-              <button id="load_previous_posts" onclick="load_more(this)">Load More</button>
+              <%if(topic_data && topic_data.post_stream && topic_data.post_stream.stream.indexOf(topic_data.post_stream.posts[0].post_number) != Number(post_number)){%>
+                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <% } else if(page_url!="topic"){ %>
+                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <%}%>
               <div id="holder3">
                 <%if(topic_data){%>
                 <% var temp = false %>
