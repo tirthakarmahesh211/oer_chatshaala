@@ -19,8 +19,10 @@
   </div>
   <div style="display: none;" id="url" name='<%=url%>'>
   </div>
-  <div style="display: none;" id="tid">
-  </div>
+  <div style="display: none;" id="tid"></div>
+  <div style="display: none;" id="page_url" name='<%=page_url%>'></div>
+  <div style="display: none;" id="posts_count" name='<%=topic_data.posts_count%>'></div>
+  <div style="display: none;" id="specific_posts_page" name='<%=specific_posts_page%>'></div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -123,6 +125,18 @@
 
 
                 </div>
+                <div id="holder7">
+
+                  <%if(page_url == "topic"){%>
+                  <div><li id="<%= topic_data.title%>" class="active" data-toggle="tab" data-target="#inbox-message-0"><div class="message-count"><%= topic_data ? topic_data.posts_count : "0" %></div><img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png"><div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b><%= topic_data.title%></b> </h3><h5>Latest post by:<%=topic_data.details.last_poster.username%></h5></div><div class="contacts-add">
+                    <span class="message-time">
+                    <%var year_month = topic_data.last_posted_at.split("T")[0];time = topic_data.last_posted_at.split("T")[1]; %>
+                      <%= year_month.split("-")[2]+"/"+year_month.split("-")[1] %><br>
+                      <%= time.split(":")[0]+":"+time.split(":")[1] %>
+                    <sup></sup></span><i class="fa fa-trash-o"></i><div><i class="fa fa-share-alt "></i> </div></div></li></div>
+                  <%}%>
+                </div>
+                <div id="holder8" style="display: none;"></div>
               </ul>
             </div>
 
@@ -136,6 +150,7 @@
           <div class="message-top">
             <center>
               <div id="slug">
+                <%if(page_url == "topic"){%> <h4 id="topic_head">  <%if(topic_data){%> <%=topic_data.title%> <%}%> </h4> <%}%>
               </div>
             </center>
 
@@ -159,12 +174,61 @@
 
           <div class="message-chat">
             <div id="chat_" class="chat-body">
+              <%if(topic_data && topic_data.post_stream && (topic_data.post_stream.posts[0].post_number != post_number ) && post_number != "" ){%>
+                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <% } else if(page_url!="topic"){ %>
+                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <%}%>
+              <%= post_number%>
               <div id="holder3">
-
-
-
+                <%if(topic_data){%>
+                <% var temp = false %>
+                <% var display = 'style=display:none;' %>
+                <textarea id="post_ids" style="display: none;">
+                  <%= topic_data.post_stream.stream.slice(  (20* ((Math.ceil((topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[0].id)))-1) / 20)-1)  )) ,(Number(topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[0].id)))+1) -1)  )%>
+                  </textarea>
+                <%for(var i=0;i<topic_data.post_stream.posts.length;i++){%>
+                <% var page_number = Math.ceil((topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[i].id)))+1) / 20) %>
+                <%if( temp == false && post_number!="" && topic_data.post_stream.posts[i].post_number.toString() != post_number ){%>
+                  <% display = 'style=display:none;' %>
+                <%} else {%>
+                  <% display = 'style=display:block;' %>
+                  <% temp= true %>
+                <%}%>
+                <div <%= display %> id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" data-post_id="<%=topic_data.post_stream.posts[i].id%>" data-count="<%=topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[i].id)))+1%>" data-page_number="<%=page_number %>" class="message <%= topic_data.post_stream.posts[i].username === curr_user.username ? 'my-message' : 'my-info' %>">
+                  <img alt="" class="img-circle medium-image" src="<%=url%>user_avatar/<%=url.substring(9)%>/<%=topic_data.post_stream.posts[i].username%>/120/671_2.png"><div class="message-body"><div class="message-body-inner"><div class="message-info"><b><%=topic_data.post_stream.posts[i].username%></b> <i id="reply_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>" type="button" class="fa fa-reply reply_function" title="<%=topic_data.post_stream.posts[i].cooked%>"></i>
+                    <button id="share_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%=topic_data.slug%>" title="share a link to this post" onclick="share_function(this)">Share</button>
+                    <%if(topic_data.post_stream.posts[i].username === curr_user.username){%>
+                    <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
+                    <%}%>
+                  </div><hr><div class="message-text"><%- topic_data.post_stream.posts[i].cooked%></div></div>
+                  <%if(Number(topic_data.post_stream.posts[i].reply_count) > 0 && topic_data.post_stream.posts[i+1] && (topic_data.post_stream.posts[i].post_number != topic_data.post_stream.posts[i+1].reply_to_post_number) ) {%>
+                  <button id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" data-post_id="<%=topic_data.post_stream.posts[i].id%>" type="button" class="see_replies"> <%= topic_data.post_stream.posts[i].reply_count%>
+                    <%= (Number(topic_data.post_stream.posts[i].reply_count) == 1 ? ' Reply': ' Replies') %> </button>
+                  <%}%>
+                  <%if(topic_data.post_stream.posts[i].actions_summary.length > 0){%>
+                    <%for(var j=0;j<topic_data.post_stream.posts[i].actions_summary.length;j++){%>
+                      <%if(topic_data.post_stream.posts[i].actions_summary[j].count) {%>
+                      <%=topic_data.post_stream.posts[i].actions_summary[j].count %>
+                      <i class="fa fa-heart"></i>
+                      <%}%>
+                    <%}%>
+                  <%}%>
+                  <%var message_datetime = new Date(topic_data.post_stream.posts[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'}).split("/");
+                  message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2];%>
+                  <%= message_datetime%>
+                </div><br>
+                </div>
+                <%}%>
+                <%}%>
               </div>
-
+              <%if(topic_data && topic_data.post_stream.posts && topic_data.post_stream.posts[19]!=undefined ){%>
+              <button id="load_next_posts" style="display: none" onclick="load_next_posts(this)">Load Next Posts</button>
+              <% var indexoflastpostid = (topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[19].id)))) %>
+              <textarea id="next_post_ids" style="display: none;">
+                <%= topic_data.post_stream.stream.slice(  Number(indexoflastpostid) +1 , (Math.ceil(Number((indexoflastpostid+1)/20)) *20)  )%>
+              </textarea>
+              <%}%>
             </div>
 <!--             <center>
               <div>

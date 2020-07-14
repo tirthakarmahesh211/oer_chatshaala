@@ -21,8 +21,14 @@ module.exports = {
   reply_pvt:reply_pvt,
   reply_to_specific_pvt_msg:reply_to_specific_pvt_msg,
   delete_posts: delete_posts,
-  upload_file: upload_file
-
+  upload_file: upload_file,
+  get_topic: get_topic,
+  get_categories: get_categories,
+  get_sub_category: get_sub_category,
+  get_topics: get_topics,
+  get_specific_posts: get_specific_posts,
+  get_posts_using_post_ids: get_posts_using_post_ids,
+  get_post_replies: get_post_replies
 };
 
 function resetCurrUser() {
@@ -170,7 +176,8 @@ function fetchUserInfo(req, res, userName, password) {
       req.session.user = body.user; //storing user info
 
 
-      res.redirect('/chat');
+      // res.redirect('/chat');
+      res.redirect('/');
     }).on('error', function() {
       console.log('error');
     });
@@ -943,7 +950,7 @@ function upload_file(req, res){
     .then(response => response.json())
     .then(data => {
       // console.log("data");
-      console.log(data);
+      // console.log(data);
       if(data && data.extension == "png" || data.extension == "jpeg" || data.extension == "jpg" || data.extension == "gif" || data.extension == "svg"){
         no_tag = "!["+data.original_filename+"|"+data.thumbnail_width+"*"+data.thumbnail_height+"]("+secrets.url+data.url+")"
         res.send(no_tag);
@@ -960,5 +967,277 @@ function upload_file(req, res){
       console.error("error in uploading");
       console.error(error);
     })
+
+}
+
+function get_topic(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  // console.log(req.params);
+  // console.log(req.query);
+  // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'.json');
+  if (req.params.post_number != "0" && req.params.post_number != null && req.params.post_number != undefined ){
+    post_number = req.params.post_number;
+  }
+  else{
+    post_number = "99999";
+  }
+  // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json')
+  https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json',options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        // console.log("data----");
+        // console.log(data);
+        // var data = {"title":" kks ls a sas"}
+        data = JSON.parse(data);
+        // console.log(data.posts_count);
+        if (req.params && req.params.post_number){
+        page_number = Number(req.params.post_number) / 20;
+        page_number = Math.ceil(page_number);
+        }
+        else{
+        page_number = Number(data.posts_count) / 20;
+        page_number = Math.floor(page_number);
+        page_number = page_number + 1;
+        }
+        // console.log(page_number);
+        let page_url = "topic";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, topic_data: data, page_url: page_url, page_number:page_number
+        });
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+}
+
+function get_categories(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  https.get(secrets.url+'categories.json',options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200 || response.statusCode===404){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        console.log("data");
+        // console.log(data);
+        let page_url = "categories";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
+        });
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+
+}
+
+function get_sub_category(req, res){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  // console.log(req.params);
+  // console.log(req.query);
+
+  // console.log(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json');
+  https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json',options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+        // console.log("data");
+        // console.log(data);
+        // let page_url = "sub_categories";
+         res.send(JSON.parse(data));
+        
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+
+}
+
+function get_topics(req, res){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json?page='+req.params.page_number,options,(response)=>{
+   console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         res.send(JSON.parse(data));        
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+}
+
+function get_specific_posts(req, res,home, about, blog, project, feedback, logout, profile, curr_user){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  var url = secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id;
+  let specific_posts_page = "false";
+  if (req.params.page_number!="" && req.params.page_number != null && req.params.page_number != undefined){
+    url= url +'.json?page='+req.params.page_number
+  }
+  else if (req.params.post_number!="" && req.params.post_number != null && req.params.post_number != undefined){
+    specific_posts_page = "true";
+    url = url+"/"+ req.params.post_number + ".json"
+  }
+  else{
+    url = url+ ".json"
+  }
+
+  https.get(url,options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         // res.send(JSON.parse(data));
+        data = JSON.parse(data);
+        post_number = req.params.post_number
+        let page_url = "topic";
+        res.render('home.ejs', {
+          home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user, url:secrets.url, topic_data: data, page_url: page_url, post_number:post_number,specific_posts_page:specific_posts_page
+        });      
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+}
+
+function get_posts_using_post_ids(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  post_ids = ""
+  for (let i = 0; i < req.query.post_ids.length; i++){
+    if( i == (req.query.post_ids.length-1))
+    {
+      post_ids = post_ids + 'post_ids[]='+req.query.post_ids[i]+''
+    }
+    else{
+      post_ids = post_ids + 'post_ids[]='+req.query.post_ids[i]+'&'
+    }
+  }
+  
+  if (post_ids !=null && post_ids != undefined){
+  var url = secrets.url+'t/'+req.params.topic_id+"/posts.json?"+post_ids;
+  // console.log(url);
+  https.get(url,options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         res.send(JSON.parse(data));
+
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
+  }
+}
+
+function get_post_replies(req, res){
+
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  var url = secrets.url+'posts/'+req.params.post_id+"/replies.json"
+  // console.log(url);
+  https.get(url,options,(response)=>{
+   // console.log(response.statusCode);
+    if(response.statusCode===200){
+      var data='';
+      response.on('data',(chunk)=>{
+        data+=chunk;
+      });
+      response.on('end',()=>{
+         res.send(JSON.parse(data));
+      });
+      response.on('error', function() {
+        console.log('error');
+      });
+    }
+  });
 
 }

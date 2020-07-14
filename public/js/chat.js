@@ -10,7 +10,43 @@ dropdownBtn.addEventListener('click', () => {
 });
 //Loading categories on page Load
 window.onload = function () {
-  document.getElementById("private_click").click();
+  var page_url = document.getElementById("page_url");
+
+  document.getElementById("holder7").style.display = "None";
+  if(page_url && page_url.getAttribute("name") == "categories"){
+   document.getElementById("category_click").click();
+  }
+  else if (page_url && page_url.getAttribute("name") == "topic"){
+    document.getElementById("holder6").style.display = "None";
+    document.getElementById("holder4").style.display = "None"
+    document.getElementById("holder2").style.display = "None";
+    document.getElementById("holder5").style.display = "None";
+    document.getElementById("holder7").style.display = "Block";
+
+    $('#menu_active').text('Categories');
+    var e = document.getElementById("category_click");
+    e.classList.add("active-tab");
+    e = document.getElementById("private_click");
+    e.classList.remove("active-tab");
+    e = document.getElementById("group_click");
+    e.classList.remove("active-tab");
+
+    document.getElementById("inbox-message-1").style.display = "Block";
+  }
+  else{
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+    document.getElementById("category_click").click();
+  }
+  console.log(document.getElementById("specific_posts_page").getAttribute("name"));
+  if(document.getElementById("specific_posts_page").getAttribute("name") == "true"){
+    if(document.getElementById("load_next_posts") != null && document.getElementById("load_next_posts")!=undefined){
+      document.getElementById("load_next_posts").style.display = "block";
+    }
+  }
 };
 //Modal functioning
 // Get the modal
@@ -29,31 +65,31 @@ $(document).ready(function () {
     // alert("ji");
     if (document.getElementById('home')) {
       modal.style.display = "block";
-      $.ajax({
-        url: '/categories'
-      }).done(
-        (data) => {
-          $('select[name="category"] option').remove();
-          $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-          for (var i = 0; i < data.length; i++) {
-            $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
-          }
-        }
-      );
+      // $.ajax({
+      //   url: '/all/categories'
+      // }).done(
+      //   (data) => {
+      //     $('select[name="category"] option').remove();
+      //     $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+      //     for (var i = 0; i < data.length; i++) {
+      //       $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+      //     }
+      //   }
+      // );
     } else {
       modal.style.display = "block";
 
-      $.ajax({
-        url: '/categories'
-      }).done(
-        (data) => {
-          $('select[name="category"] option').remove();
-          $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
-          for (var i = 0; i < data.length; i++) {
-            $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
-          }
-        }
-      );
+      // $.ajax({
+      //   url: '/categories'
+      // }).done(
+      //   (data) => {
+      //     $('select[name="category"] option').remove();
+      //     $('select[name="category"]').append('<option value=\"\" disabled selected>Select your Category</option>');
+      //     for (var i = 0; i < data.length; i++) {
+      //       $('select[name="category"]').append('<option value=\"' + data[i].id + '\">' + data[i].name + '</option>');
+      //     }
+      //   }
+      // );
     }
   });
 
@@ -124,6 +160,14 @@ function myFunc() {
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
+
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder2").style.display = "Block";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
+
       $('#menu_active').text('Messages');
       var e = document.getElementById("category_click");
       e.classList.remove("active-tab");
@@ -131,15 +175,16 @@ function myFunc() {
       e.classList.add("active-tab");
       e = document.getElementById("group_click");
       e.classList.remove("active-tab");
-      document.getElementById("holder2").style.display = "Block";
+
       var my_div = $("#holder2");
 
 
       var username = $('#curr_user').attr('name');
       //alert("hi");
+      document.getElementById("holder2").style.display = "Block";
 
       $.ajax({
-        url: "receive/" + username
+        url: "/receive/" + username
       })
 
         .done(function (data) {
@@ -170,7 +215,7 @@ function myFunc() {
           $('#holder2').append(elements);
 
           $.ajax({
-            url: "sent/" + username
+            url: "/sent/" + username
           })
 
             .done(function (data2) {
@@ -203,7 +248,7 @@ function myFunc() {
 
 
         });
-
+        
 
       setTimeout(function () {
         $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
@@ -211,6 +256,8 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+
     }
     function function_category() {
       $('#menu_active').text('Groups');
@@ -225,6 +272,8 @@ function myFunc() {
       document.getElementById("holder4").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -263,6 +312,8 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -284,11 +335,17 @@ function myFunc() {
               logo = data[i].uploaded_logo.url;
               logo=myUrl+logo;
             }
-            if(data[i].description){
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
-          }else{
-              elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
-            }
+            // if(data[i] && data[i].subcategory_ids && data[i].subcategory_ids && data[i].subcategory_ids.length > 0){
+            //   elements = elements + '<div data-cid="'+data[i].id+'" data-cslug="'+data[i].slug+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+            // }
+            // else
+            // {
+              if(data[i].description){
+              elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+              }else{
+                elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+              }
+            // }
           }
 
           $('#holder6').html(elements);
@@ -296,20 +353,76 @@ function myFunc() {
     }
 
     //Loading each topic on left pane
-    function copy_topic(x) {
+    function copy_topic(event, x) {
       alert("Copy: " + x);
+      console.log(event);
+        if (event.stopPropagation) {
+      event.stopPropagation();   // W3C model
+  } else {
+      event.cancelBubble = true; // IE model
+  }
     }
 
     function load_topics(x) {
+      // console.log("load topics");
+      $('#holder5').html("");
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
       var my_div = $("#holder5");
       var l = 1;
 
+      if(x && x.startsWith("c/") && x.split("/").length > 0){
+        // console.log("if block");
+        // console.log(x);
+        $.ajax({
+
+          url: "/"+x
+        })
+          .done(function (data) {
+            // //console.log(data);
+
+            data = data.topic_list.topics;
+
+            var elements = '';
 
 
+            for (var i = 0; i < data.length; i++) {
+              var mydate, newdate, newtime, slug, ide, logo;
+              slug = data[i].slug;
+              ide = data[i].id;
+
+              if (data[i].last_posted_at != null) {
+                mydate = data[i].last_posted_at;
+
+                newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+                newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+
+              }
+              else if(i==0 && data[0].created_at != null){
+                console.log("else if");
+                mydate = data[i].created_at;
+
+                newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+                newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+              }
+              else {
+                newdate = "";
+                newtime = "";
+              }
+              elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+
+            }
+
+
+            $('#holder5').html(elements);
+          });
+
+      }
+      else{
       $.ajax({
 
         url: "/group/" + x
@@ -338,13 +451,14 @@ function myFunc() {
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic("' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
           }
 
 
           $('#holder5').html(elements);
         });
+        }
 
     }
 
@@ -382,22 +496,40 @@ function myFunc() {
     }
 
     function load_posts(x) {
+      
+      $("#load_next_posts").show();
       var page_number = null;
       var html_or_prepend = false;
-
+      var html_or_append = false;
       var username = $('#curr_user').attr('name');
       var tid = null;
-      if(Array.isArray(x) && x && x.length > 0){
+      var array_of_post_ids = null;
+      if(Array.isArray(x) && x && x.length > 0 && x[2]!=-1){
         page_number = x[1];
         tid = x[0];
         x=x[0]+".json";
         html_or_prepend = true;
+        url = "/post/more/t/" + x
+      }
+      else if(x && x.length > 0  && (x[2]==-1)){
+        page_number = x[1];
+        tid = x[0];
+        // x=x[0]+".json";
+        html_or_prepend = true;
+        url = "/t/"+x[0]+"/posts"
+        array_of_post_ids = x[3]
+        if(x[5] != undefined && x[5] == "append"){
+          html_or_append = true
+        }
+        $('#post_page').attr('name','true');
+        // $('#load_next_posts').show();
       }
       else{
         var y = x.split('/');
 
         tid = y[1];
         var tslug = y[0];
+        console.log(tslug);
         $('#slug').attr('name', tslug);
         $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
         $('#tid').attr('name', tid);
@@ -409,22 +541,28 @@ function myFunc() {
         var my_div = $("#holder3");
 
         //alert("hi");
+        url = "/post/more/t/" + x
       }
       $("#upload_files").attr("data-topic_id",tid);
       $("#reply_form").attr("action","/upload/"+tid);
 
       // console.log(x);
-      // console.log(page_number);
+      // console.log(page_numbr);
+      if(x[6] == "next_post_ids"){
+        tid = x[0];
+        x=x[0]+".json";
+        url = "/post/more/t/" + x
+      }
 
       $.ajax({
-        url: "post/more/t/" + x,
-        data: {page_number:page_number}
+        url: url,
+        data: {page_number:page_number, "post_ids[]": array_of_post_ids},
       })
-
         .done(function (data) {
           var posts_count = data.posts_count;
           var slug = data.slug;
           var type_of_msg = data.archetype;
+          var stream = data.post_stream.stream
           data = data.post_stream.posts
 
           if (page_number && page_number != null){
@@ -445,10 +583,23 @@ function myFunc() {
           // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
 
+            var post_id = data[i].id;
+            var post_id = 'data-post_id="'+post_id+'"';
+            // console.log(post_id);
+            let message_datetime = "";
+            message_datetime = new Date(data[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'});
+
+            if (message_datetime == null || message_datetime == undefined){
+              message_datetime = "";
+            }
+            else{
+              message_datetime = message_datetime.split("/");
+              message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2]
+            }
             if(data[i].actions_summary && data[i].actions_summary.length > 0){
               like_button = "";
               for (let j = 0; j < data[i].actions_summary.length; j++) {
-                console.log(data[i].actions_summary[j].id);
+                // console.log(data[i].actions_summary[j].id);
                 if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
                 {
                   like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
@@ -468,9 +619,9 @@ function myFunc() {
             }
 
             if (data[i].username != username) {//for receive
-              if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
+              if (data[i] && data[i].reply_count > 0 && data[i].cooked && data[i+1] && (data[i].post_number != data[i+1].reply_to_post_number || data[i].reply_count > 1)){
 
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>' + share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies')+' </button>'+like_button+'  ' + message_datetime +'</div>' + '<br>' + '</div>';
               }
               else{
 
@@ -483,24 +634,25 @@ function myFunc() {
 
                   if (indexOfPost > 0){
                     let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>'+like_button+'  ' + message_datetime+ '</div>' + '<br>' + '</div>';
                     reply_message = "";
                   }
                   else{
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' +like_button+'  '+ message_datetime+'</div>' + '<br>' + '</div>';
                   }
                 }
                 else{
-                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" class="message info">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';                }  
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+'</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>' +like_button+'  '+message_datetime+ '</div>' + '<br>' + '</div>';                }  
 
               }
             }
             else {
               //for sent
-              if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("href")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
+              // if (data[i] && data[i].reply_count > 1 && data[i].cooked && data[i].cooked.search("@")==-1 && data[i].cooked.search("/u/")==-1 && data[i].cooked.search("mention")==-1){
+                if (data[i] && data[i].reply_count > 0 && data[i].cooked && data[i+1] && (data[i].post_number != data[i+1].reply_to_post_number || data[i].reply_count > 1)){
 
 
-                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" class="message my-message"> '+ '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply  reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + posts_count+ '_' + page_number+'" type="button" class="see_replies">'+data[i].reply_count+' replies </button>' + '</div>' + '<br>' + '</div>';
+                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+''+(data[i].reply_count == 1? ' Reply': ' Replies')+' </button>'+like_button+'  ' + message_datetime +'</div>' + '<br>' + '</div>';
               }
               else{
 
@@ -513,25 +665,45 @@ function myFunc() {
 
                   if (indexOfPost > 0){
                   let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
-                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+ '</div>' + '<br>' + '</div>';
+                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+'  '+ message_datetime+'</div>' + '<br>' + '</div>';
                   reply_message = "";
                   }
                   else{
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+ '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+ '  '+ message_datetime+ '</div>' + '<br>' + '</div>';
                     reply_message = "";
                   }
                 }
                 else{
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" class="message my-message">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<button id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="reply_function">Reply</button>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+ '</div>' + '<br>' + '</div>';
+                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">' + '<div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<button id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)">Delete</button>'+ share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +like_button+ '  '+ message_datetime +'</div>' + '<br>' + '</div>';
                 }
               }
             }
           }
-          if(html_or_prepend == false){
+          if(html_or_prepend == false && html_or_append == false){
             $('#holder3').html(elements);
+          }
+          else if(html_or_prepend == true && html_or_append == true){
+            $('#holder3').append(elements);
           }
           else{
             $('#holder3').prepend(elements);
+          }
+          var get_topic_id = document.querySelector('div[id^="msg_"]');
+          var last_div = $("div.message").last();
+          var last_div_id = $(last_div).attr("id");
+          // last_div_id = last_div_id.split("_");
+
+          if(get_topic_id && (get_topic_id.dataset.count == "0" || get_topic_id.dataset.count == "1")){
+            $("#load_previous_posts").hide();
+          }
+          else{
+            $("#load_previous_posts").show();
+          }
+          if(last_div && last_div.dataset && last_div_id.split("_")[3] == last_div.dataset.count ){
+            $("#load_next_posts").hide();
+          }
+          else{
+            $("#load_next_posts").show();
           }
           document.getElementById('chat_').scrollTop = 9999999;
         });
@@ -548,13 +720,13 @@ function myFunc() {
     /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
     function openNav() {
       document.getElementById("mySidebar").style.width = "250px";
-      document.getElementById("main").style.marginLeft = "250px";
+      // document.getElementById("main").style.marginLeft = "250px";
     }
 
     /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
     function closeNav() {
       document.getElementById("mySidebar").style.width = "0";
-      document.getElementById("main").style.marginLeft = "0";
+      // document.getElementById("main").style.marginLeft = "0";
     }
 
     document.addEventListener('click', function (event) {
@@ -576,6 +748,9 @@ function myFunc() {
         var post_number = fields[2];
         var posts_count = fields[3];
         var page_number = fields[4];
+        // console.log(event.target);
+        var post_id = event.target.dataset.post_id;
+        // console.log(post_id);
         var reply_count = 0;
         if (event.target.innerText){
            reply_count = event.target.innerText.replace(/\D/g, '');
@@ -597,19 +772,20 @@ function myFunc() {
         }
           if (temp){
             $.ajax({
-                url: "post/more/t/"+topic_id
+                // url: "/post/more/t/"+topic_id
+                url: "/posts/"+post_id+"/replies"
             })
             .done(function (data) {
                 var elements = '';
                 let count = 1;
-                if (data && data.post_stream){
-                  data = data.post_stream.posts
+                if (data ){
+                  // data = data.post_stream.posts
                   for (let i = 0; i < data.length; i++) {
                   let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
-                  if(post_number == data[i].reply_to_post_number){
-                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message '+ class_toggle +'">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
-                    count = count + 1;
-                  }
+                  // if(post_number == data[i].reply_to_post_number){
+                  elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message '+ class_toggle +'">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                  count = count + 1;
+                  // }
                  }
                 }
                 $('#msg_'+ topic_id + '_' + post_number+'_'+posts_count+'_'+page_number).append(elements);
@@ -634,7 +810,7 @@ function myFunc() {
           $('.display_replies').empty();
           $(".display_replies").css('margin', "1%");
           $('.display_replies').attr("id","rmv_btn_"+topic_id+'_'+post_number);
-          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="remove" class="btn btn-sm">remove</button>');
+          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="cancel" class="btn btn-sm">cancel</button>');
         }
         else{
           alert("sorry. something went wrong. please try again later")
@@ -649,17 +825,18 @@ function myFunc() {
 
     $(window).scroll(function(){
 
-      if ($(window).scrollTop() <=0 ){
+      if ($(window).scrollTop() <=0 && false){
 
         var get_topic_id = document.querySelector('div[id^="msg_"]');
-
+        var get_posts_count = document.getElementById('posts_count');
+        // console.log(get_posts_count.name);
         if(get_topic_id && get_topic_id.id){
           div_id = get_topic_id.id.split("_");
           topic_id = div_id[1];
           posts_count = div_id[3];
           page_number = div_id[4];
 
-          if (posts_count && topic_id && page_number && posts_count>20){
+          if ( get_posts_count && (get_posts_count.name == "" || get_posts_count.name == null || get_posts_count.name == undefined) && posts_count && topic_id && page_number && posts_count>20){
 
             page_number = Number(page_number)-1;
 
@@ -697,6 +874,173 @@ function myFunc() {
         tid = id[2];
         post_number = id[3];
         var id = clicked_element_data.id;
+        // var copy_text = window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number
+        // console.log(copy_text);
+        // var txt_copy =  document.getElementsByClassName("HiddentText");
+        // console.log(txt_copy);
+        // txt_copy.textContent = copy_text;
+        // console.log(txt_copy);
+        // txt_copy.select();
+        // document.execCommand('copy');
+
         alert(window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number);
       }
     }
+
+    function load_subcategories(clicked_element_data){
+      // console.log(clicked_element_data);
+      // console.log(clicked_element_data.dataset.cid);
+      // console.log(clicked_element_data.dataset.sub_cids);
+      document.getElementById("holder8").style.display = "block";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
+
+      $('#holder8').html("");
+      if(clicked_element_data){
+        var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
+        for (let i = 0; i < subcategory_ids.length; i++) {
+          // console.log("/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i]);
+          $.ajax({
+                url: "/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i],
+                type: 'GET'
+              })
+              .done(function (data) {
+                // console.log("load_subcategories")
+                var elements = '';
+                  var logo;
+                  logo="https://bootdey.com/img/Content/avatar/avatar1.png";
+                  // console.log(data.topic_list);
+                  if(data && data.topic_list.topics && data.topic_list.topics.length > 0){
+                    title = data.topic_list.topics[0].title.substring(10,data.topic_list.topics[0].title.length-9);
+                    // title = ""
+                    // url = "c/14/21/0";
+                    // console.log(url)
+                    page_number = 0
+                    url = "c/"+clicked_element_data.dataset.cid+"/"+data.topic_list.topics[0].category_id+"/"+page_number
+                    elements = elements + '<div_id onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+                    // console.log(elements);
+                  }
+              $('#holder8').append(elements);
+            });
+        }
+      }
+    }
+
+function load_more(clicked_element_data){
+  var get_divs = document.querySelectorAll('div[id^="msg_"][style*="display:none"]');
+
+  // console.log(get_divs);
+  var post_ids = document.getElementById("post_ids");
+  // console.log(post_ids);
+  if(get_divs && get_divs.length > 0){
+    // console.log(get_divs.length)
+    for (var i = 0; i < get_divs.length; i++) {
+      get_divs[i].style.display = "block";
+    }
+  }
+  else if (post_ids!=null && post_ids!=undefined && post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ) != ""){
+    var get_topic_id = document.querySelector('div[id^="msg_"]');
+    var array_of_post_ids = post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
+    post_ids.innerHTML = "";
+    // console.log(array_of_post_ids);
+    posts_count = get_topic_id.id.split("_")[3];
+
+    // divisior_of_number = 
+    // page_number = -1
+
+    page_number = get_topic_id.id.split("_")[4];
+    // console.log(page_number);
+    x = [get_topic_id.id.split("_")[1], page_number,-1, array_of_post_ids, posts_count];
+    load_posts(x)
+
+  }
+  else
+  {
+    var get_topic_id = document.querySelector('div[id^="msg_"]');
+    // console.log(get_topic_id);
+
+    page_number = Number(get_topic_id.id.split("_")[4]);
+    page_number = page_number -1;
+    posts_count = get_topic_id.id.split("_")[3];
+    // console.log(page_number);
+
+    x = [get_topic_id.id.split("_")[1], page_number,0, null, posts_count];
+    // console.log(page_number);
+    // console.log(posts_count);
+    if (Number(page_number) > 0){
+      if(Number(page_number) == 1 && get_topic_id.dataset.count == "0"){
+        $(clicked_element_data).hide();
+      }
+      else{
+        load_posts(x);
+      }
+    }
+    if(get_topic_id && get_topic_id.dataset.count == "0"){
+      $("#load_previous_posts").hide();
+    }
+  }
+}
+
+function load_next_posts(clicked_element_data){
+  // alert("load_next_posts");
+  var last_div = $("div.message").last();
+  var topic_id = $(last_div[0]).attr("id");
+  var last_post_id = $(last_div[0]).attr("data-post_id");
+  var count = $(last_div[0]).attr("data-count");
+  // console.log($(last_div[0]).attr("data-count"));
+
+  var posts_count = topic_id.split("_")[3];
+
+  page_number = Number(topic_id.split("_")[4]);
+  // page_number = page_number + 1;
+
+  // page_number = (20 * page_number) - Number(count);
+  // console.log(page_number);
+  // if(((20 * Number(page_number)) - Number(count)) == 0){
+  //   page_number = page_number + 1
+  // }
+  var next_post_ids = document.getElementById("next_post_ids");
+  // console.log(next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ));
+
+  if (next_post_ids!=null && next_post_ids!=undefined && next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ) != ""){
+    var array_of_post_ids = next_post_ids.innerHTML.replace(/ /g, "").replace( /[\r\n]+/gm, "" ).split(",");
+    // console.log(array_of_post_ids);
+    next_post_ids.innerHTML = "";
+    // console.log(array_of_post_ids);
+    // posts_count = topic_id.split("_")[3];
+
+    // page_number = topic_id.split("_")[4];
+    x = [topic_id.split("_")[1], page_number,-1, array_of_post_ids, posts_count,"append"];
+    load_posts(x)
+
+  }
+  else{
+    // console.log("else ");
+    // console.log(posts_count);
+      x = [topic_id.split("_")[1], (page_number+1),-1, null, posts_count,"append","next_post_ids"];
+      if (posts_count == "undefined" || posts_count == undefined){
+        // console.log(posts_count);
+        posts_count = $("#posts_count").attr("name");
+        // console.log(posts_count)
+        if(posts_count != undefined || posts_count != "undefined"){
+          posts_count = Math.ceil((Number(posts_count) / 20))
+          // console.log(posts_count);
+          if (posts_count == page_number){
+            $("#load_next_posts").hide();
+          }
+          else{
+            load_posts(x)
+          }
+        }
+      }
+      else{
+        posts_count = Math.ceil((Number(posts_count) / 20))
+        if(page_number != posts_count){
+          load_posts(x);
+        }
+      }
+  }
+
+}
