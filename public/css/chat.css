@@ -1499,3 +1499,10 @@ svg {
 .meta {
   height: 0px;
 }
+
+.fa-heart {
+   color: red;
+}
+.fa-heart:hover {
+   color: orange;
+}

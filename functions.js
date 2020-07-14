@@ -989,7 +989,7 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
   else{
     post_number = "99999";
   }
-  console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json')
+  // console.log(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json')
   https.get(secrets.url+'t/'+req.params.topic_slug+'/'+req.params.topic_id+'/'+post_number+'.json',options,(response)=>{
    // console.log(response.statusCode);
     if(response.statusCode===200){
@@ -1012,7 +1012,7 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
         page_number = Math.floor(page_number);
         page_number = page_number + 1;
         }
-        console.log(page_number);
+        // console.log(page_number);
         let page_url = "topic";
         res.render('home.ejs', {
           home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, topic_data: data, page_url: page_url, page_number:page_number
