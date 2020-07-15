@@ -604,7 +604,9 @@ function myFunc() {
                 // console.log(data[i].actions_summary[j].id);
                 if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
                 {
-                  like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
+                  // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
+                  like_url = '/post_actions/'+data[i].id+'/2';
+                  like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_count_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a>'
                   // like_count = '<button id="share_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'">'+data[i].actions_summary[i].count+</button>';
                   break;
                 }
