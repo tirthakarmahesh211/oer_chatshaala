@@ -1084,7 +1084,7 @@ background: rgba(36, 117, 47, 0.4);
     width: 100%;
     direction: ltr;
     padding-left: 0;
-
+    background-color: #fff;
   }
 
   .contacts-list .inbox-categories>div {
@@ -1462,8 +1462,8 @@ textarea[name="desc"] {
 }
 
 .dropdown-menu_ {
-  margin-left: 4em;
-  width: 55%;
+  margin-left: 50px;
+  width: 84%;
   position: relative;
   display: inline-block;
 }
