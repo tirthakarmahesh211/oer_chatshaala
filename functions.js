@@ -28,7 +28,8 @@ module.exports = {
   get_topics: get_topics,
   get_specific_posts: get_specific_posts,
   get_posts_using_post_ids: get_posts_using_post_ids,
-  get_post_replies: get_post_replies
+  get_post_replies: get_post_replies,
+  like:like
 };
 
 function resetCurrUser() {
@@ -1240,4 +1241,41 @@ function get_post_replies(req, res){
     }
   });
 
+}
+
+function like(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'POST',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+
+  var data1 = {
+    "id": req.params.post_id,
+    "post_action_type_id": 2,
+    "flag_topic" :false
+  };
+
+  var url = secrets.url + '/post_actions'
+  var request = https.request(url, options, (response) => {
+     // console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        res.send("success");
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
+
+  
 }

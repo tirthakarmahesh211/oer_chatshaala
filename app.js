@@ -972,6 +972,15 @@ app.get('/posts/:post_id/replies$', function (req, res) {
   }
 });
 
+app.post('/post_actions/:post_id/:post_action_type_id', function (req, res) {
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.like(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
+
 
 
 

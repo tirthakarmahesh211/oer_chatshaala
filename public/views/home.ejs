@@ -208,8 +208,8 @@
                   <%if(topic_data.post_stream.posts[i].actions_summary.length > 0){%>
                     <%for(var j=0;j<topic_data.post_stream.posts[i].actions_summary.length;j++){%>
                       <%if(topic_data.post_stream.posts[i].actions_summary[j].count) {%>
-                      <%=topic_data.post_stream.posts[i].actions_summary[j].count %>
-                      <i class="fa fa-heart"></i>
+                      <span id="like_count_<%= topic_data.post_stream.posts[i].id%>" style="display: inline-block;"><%=topic_data.post_stream.posts[i].actions_summary[j].count %></span>
+                      <a id="like_icon_<%= topic_data.post_stream.posts[i].id%>" onclick="like_function(this,'/post_actions/<%= topic_data.post_stream.posts[i].id %>/2')"><i class="fa fa-heart"></i></a>
                       <%}%>
                     <%}%>
                   <%}%>

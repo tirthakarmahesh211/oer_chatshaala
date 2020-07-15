@@ -1044,3 +1044,21 @@ function load_next_posts(clicked_element_data){
   }
 
 }
+
+function like_function(clicked_element_data,url){
+// console.log(clicked_element_data.id);
+// console.log(url);
+
+var count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
+var count = Number(count) + 1;
+// console.log(count);
+$("#like_count_"+clicked_element_data.id.split("_")[2]).html(count);
+
+$.ajax({
+    url: "/post_actions/"+clicked_element_data.id.split("_")[2]+"/2",
+    type: 'POST'
+})
+.done(function (data) {
+
+});
+}
