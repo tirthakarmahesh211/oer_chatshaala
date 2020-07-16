@@ -205,13 +205,27 @@
                   <button id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" data-post_id="<%=topic_data.post_stream.posts[i].id%>" type="button" class="see_replies"> <%= topic_data.post_stream.posts[i].reply_count%>
                     <%= (Number(topic_data.post_stream.posts[i].reply_count) == 1 ? ' Reply': ' Replies') %> </button>
                   <%}%>
+                  <% var if_block=false %>
                   <%if(topic_data.post_stream.posts[i].actions_summary.length > 0){%>
                     <%for(var j=0;j<topic_data.post_stream.posts[i].actions_summary.length;j++){%>
                       <%if(topic_data.post_stream.posts[i].actions_summary[j].count) {%>
                       <span id="like_count_<%= topic_data.post_stream.posts[i].id%>" style="display: inline-block;"><%=topic_data.post_stream.posts[i].actions_summary[j].count %></span>
+                      <% if(topic_data.post_stream.posts[i].username != curr_user.username) {%>
                       <a id="like_icon_<%= topic_data.post_stream.posts[i].id%>" onclick="like_function(this,'/post_actions/<%= topic_data.post_stream.posts[i].id %>/2')"><i class="fa fa-heart"></i></a>
+                      <% } else {%>
+                      <a id="like_icon_<%= topic_data.post_stream.posts[i].id%>"><i style="color: red;" class="fa fa-heart"></i></a>
+                      <%}%>
+                      <% if_block = true %>
+                      <% break; %>
                       <%}%>
                     <%}%>
+                  <%}%>
+                  <% if(if_block == false && topic_data.post_stream.posts[i].username != curr_user.username) {%>
+                      <span id="like_count_<%= topic_data.post_stream.posts[i].id%>" style="display: inline-block;"></span>
+                      <a id="like_icon_<%= topic_data.post_stream.posts[i].id%>" onclick="like_function(this,'/post_actions/<%= topic_data.post_stream.posts[i].id %>/2')"><i class="fa fa-heart"></i></a>
+                  <%} else if(if_block == false && topic_data.post_stream.posts[i].username == curr_user.username) {%>
+                      <span id="like_count_<%= topic_data.post_stream.posts[i].id%>" style="display: inline-block;"></span>
+                      <a id="like_icon_<%= topic_data.post_stream.posts[i].id%>"><i style="color: red;" class="fa fa-heart"></i></a>
                   <%}%>
                   <%var message_datetime = new Date(topic_data.post_stream.posts[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'}).split("/");
                   message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2];%>
