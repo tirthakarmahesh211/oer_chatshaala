@@ -176,6 +176,11 @@ body {
 
 .img-circle {
   border-radius: 50%;
+  margin-top: -54px;
+    /* margin: -35px 2px; */
+    margin-left: -15px;
+    margin-right: 10px;
+    margin-bottom: -7px;
 }
 
 .messages-panel {
@@ -554,19 +559,20 @@ background: rgba(36, 117, 47, 0.4);
 .contacts li .message-time {
   text-align: right;
   display: block;
-  margin-left: -15px;
-  width: 70px;
-  height: 25px;
-  line-height: 28px;
-  font-size: 14px;
-  font-weight: 600;
+  margin-left: 35px;
+  width: 30px;
+  height: 15px;
+  color:grey;
+  line-height: 11px;
+  font-size: 11px;
+  font-weight: 200;
   padding-right: 5px;
 }
 
 .contacts li .contacts-add .fa-trash-o {
   position: absolute;
   font-size: 14px;
-  right: 12px;
+  right: 28px;
   bottom: 15px;
   color: #a6a6a6;
   cursor: pointer;
@@ -575,7 +581,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts li .contacts-add .fa-share-alt {
   position: absolute;
   font-size: 14px;
-  right: 34px;
+  right: 45px;
   bottom: 15px;
   color: #a6a6a6;
   cursor: pointer;
@@ -602,8 +608,29 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts li .message-count {
   position: absolute;
-  top: 8px;
-  left: 5px;
+/*  top: 8px;
+  left: 5px;*/
+  top:45px;
+  right:0px;
+  width: 23px;
+  height: 23px;
+  line-height: 20px;
+  text-align: center;
+  background-color: #4CAF50;
+  border-radius: 50%;
+  color: #FFF;
+  font-weight: 500;
+  font-size: 10px;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  margin-left: 40px;
+}
+
+@media screen and (max-width: 767px){
+ .contacts li .message-count {
+  top:50px;
+  right:5px;
   width: 23px;
   height: 23px;
   line-height: 20px;
@@ -616,6 +643,7 @@ background: rgba(36, 117, 47, 0.4);
   align-items: center;
   align-content: center;
   text-align: center;
+  }
 }
 
 
@@ -1127,9 +1155,9 @@ background: rgba(36, 117, 47, 0.4);
     width: 100%;
   }
 
-  .contacts-add {
+/*  .contacts-add {
     display: none;
-  }
+  }*/
 }
 
 /* Profile page */
