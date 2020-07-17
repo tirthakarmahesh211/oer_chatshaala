@@ -1276,6 +1276,4 @@ function like(req, res){
   });
   request.write(querystring.stringify(data1));
   request.end();
-
-  
 }

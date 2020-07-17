@@ -41,7 +41,7 @@ window.onload = function () {
       document.getElementById("holder7").style.display = "None";
     document.getElementById("category_click").click();
   }
-  console.log(document.getElementById("specific_posts_page").getAttribute("name"));
+  // console.log(document.getElementById("specific_posts_page").getAttribute("name"));
   if(document.getElementById("specific_posts_page").getAttribute("name") == "true"){
     if(document.getElementById("load_next_posts") != null && document.getElementById("load_next_posts")!=undefined){
       document.getElementById("load_next_posts").style.display = "block";
@@ -368,8 +368,15 @@ function myFunc() {
     }
 
     function load_topics(x) {
-      // console.log("load topics");
-      $('#holder5').html("");
+      // console.log(x);
+      // console.log(x.split("##").length);
+      y = x;
+      if(x && x.split("##").length == 1){
+        $('#holder5').html("");
+      }
+      else{
+        x = x.split("##")[0];
+      }
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
@@ -417,7 +424,7 @@ function myFunc() {
                 newdate = "";
                 newtime = "";
               }
-              elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+              elements = elements + '<div id="topic_'+ide+'" onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
             }
 
@@ -432,13 +439,15 @@ function myFunc() {
         url: "/group/" + x
       })
         .done(function (data) {
-          // //console.log(data);
-
+          // console.log("data");
+          // console.log("/group/" + x);
+          // console.log(data.topic_list.more_topics_url);
+          var more_topics_url = (data.topic_list? data.topic_list.more_topics_url: '')
           data = data.topic_list.topics;
 
           var elements = '';
 
-
+          more_topics_url = 'data-more_topics_url="'+ more_topics_url +'"'
           for (var i = 0; i < data.length; i++) {
             var mydate, newdate, newtime, slug, ide, logo;
             slug = data[i].slug;
@@ -455,12 +464,17 @@ function myFunc() {
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
           }
-
-
-          $('#holder5').html(elements);
+          // console.log(y);
+          if(y != null && y!=undefined && y.split("##").length != 1){
+            $("#load_more_topics").remove();
+            $('#holder5').append(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+          }
+          else{
+            $('#holder5').html(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+          }
         });
         }
 
@@ -533,7 +547,7 @@ function myFunc() {
 
         tid = y[1];
         var tslug = y[0];
-        console.log(tslug);
+        // console.log(tslug);
         $('#slug').attr('name', tslug);
         $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
         $('#tid').attr('name', tid);
@@ -1077,4 +1091,24 @@ $.ajax({
 .done(function (data) {
 
 });
+}
+
+function load_more_topics(){
+  // console.log($("div[id^='topic_']").last());
+  var topic_div = $("div[id^='topic_']").last();
+
+  topic_div = $(topic_div).attr("data-more_topics_url");
+
+  // console.log($(topic_div).attr("data-more_topics_url"));
+  // console.log(topic_div.dataset.more_topics_url.split("/")[2]);
+
+  var category_id = topic_div.split("/")[3].split("?")[0];
+  var category_name = topic_div.split("/")[2];
+  var page_number = topic_div.split("/")[3];
+
+  page_number = page_number.split("=")[1];
+  // console.log(page_number);
+  x = category_name+"/"+ category_id +"/load/"+page_number+"###"
+
+  load_topics(x);
 }
