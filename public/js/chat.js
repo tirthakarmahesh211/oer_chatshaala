@@ -1099,16 +1099,18 @@ function load_more_topics(){
 
   topic_div = $(topic_div).attr("data-more_topics_url");
 
-  // console.log($(topic_div).attr("data-more_topics_url"));
-  // console.log(topic_div.dataset.more_topics_url.split("/")[2]);
+  if (topic_div != undefined && topic_div != null && topic_div!= "undefined"){
+    var category_id = topic_div.split("/")[3].split("?")[0];
+    var category_name = topic_div.split("/")[2];
+    var page_number = topic_div.split("/")[3];
 
-  var category_id = topic_div.split("/")[3].split("?")[0];
-  var category_name = topic_div.split("/")[2];
-  var page_number = topic_div.split("/")[3];
+    page_number = page_number.split("=")[1];
+    // console.log(page_number);
+    x = category_name+"/"+ category_id +"/load/"+page_number+"###"
 
-  page_number = page_number.split("=")[1];
-  // console.log(page_number);
-  x = category_name+"/"+ category_id +"/load/"+page_number+"###"
-
-  load_topics(x);
+    load_topics(x);
+  }
+  else{
+    alert("No contents to load");
+  }
 }
