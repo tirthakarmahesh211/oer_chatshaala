@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/*', function (req, res, next) {
-    res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
+    res.setHeader("Cache-Control", "public, max-age=10,must-revalidate");
     next();
 });
 
@@ -518,9 +518,9 @@ app.post("/", function (req, res) {
 app.post('/chatpost', (req, res) => {
   let user = req.session.user;
   if (user) {
-    if (req.body.hasOwnProperty('compose')) {
+    // if (req.body.hasOwnProperty('compose')) {
       func.pvt_msg(req, res);
-    }
+    // }
   } else {
     res.redirect('/');
   }
@@ -981,7 +981,8 @@ app.post('/post_actions/:post_id/:post_action_type_id', function (req, res) {
   }
 });
 
-
-
+app.get('/advanced_search', (req, res) => {
+  func.advanced_search(req, res);
+});
 
 

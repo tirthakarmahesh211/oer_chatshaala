@@ -29,7 +29,8 @@ module.exports = {
   get_specific_posts: get_specific_posts,
   get_posts_using_post_ids: get_posts_using_post_ids,
   get_post_replies: get_post_replies,
-  like:like
+  like:like,
+  advanced_search: advanced_search
 };
 
 function resetCurrUser() {
@@ -458,25 +459,26 @@ function search(text, res) {
     });
     response.on('end', function() {
       body = JSON.parse(body);
+      res.send(body);
       //console.log(body.categories);
       //console.log(body);
-      if (body.grouped_search_result) {
-        res.render('search.ejs', {
-          users: body.users,
-          posts: body.posts,
-          groups: body.categories,
-          topics: body.topics,
-          url:secrets.url
-        });
-      } else {
-        res.render('search.ejs', {
-          users: [],
-          posts: [],
-          groups: [],
-          topics: [],
-          url:secrets.url
-        });
-      }
+      // if (body.grouped_search_result) {
+      //   res.render('search.ejs', {
+      //     users: body.users,
+      //     posts: body.posts,
+      //     groups: body.categories,
+      //     topics: body.topics,
+      //     url:secrets.url
+      //   });
+      // } else {
+      //   res.render('search.ejs', {
+      //     users: [],
+      //     posts: [],
+      //     groups: [],
+      //     topics: [],
+      //     url:secrets.url
+      //   });
+      // }
     });
   }).on('error', function() {
     console.log('error');
@@ -637,10 +639,20 @@ function create_topic(req, res) {
 
 
 function pvt_msg(req, res) {
+
+  if(req.body!=null && req.body != undefined){
   var title = req.body.title;
   // var category=req.body.category;
   var desc = req.body.desc;
   var user = req.body.user_search;
+  }
+  else if(req.query!=null && req.query != undefined){
+  var title = req.query.title;
+  // var category=req.body.category;
+  var desc = req.query.desc;
+  var user_search = req.query.user_search;
+  }
+  console.log(req.query)
   var url = secrets.url + '/posts.json';
   var options = {
     method: 'POST',
@@ -1276,4 +1288,29 @@ function like(req, res){
   });
   request.write(querystring.stringify(data1));
   request.end();
+}
+
+function advanced_search(req, res) {
+  var url = secrets.url + "/search/query.json?term="+req.query.search_text+"&include_blurbs=true&type_filter=user"
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function(response) {
+    var body = '';
+    //  console.log(response.statusCode);
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      body = JSON.parse(body);
+      res.send(body);
+    });
+  }).on('error', function() {
+    console.log('error');
+    res.redirect('/');
+  });
 }

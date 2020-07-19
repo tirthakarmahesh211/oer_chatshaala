@@ -135,22 +135,69 @@ function myFunc() {
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementById('myInput');
   filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
-  //alert(filter);
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].id;
-    txtValue = a;
-    // alert(txtValue);
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      // alert(li[i].id);
-      li[i].style.display = "";
-    } else {
-      // alert("hi");
-      li[i].style.display = "none";
-    }
+
+  var get_div = document.querySelectorAll('div[id^="holder"][style*="display: block"]');
+
+  if((get_div && get_div[0] && get_div[0].id == "holder8") || get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
+    get_div = document.querySelectorAll('div[id^="holder"][data-display]');
   }
+  else if(get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
+    get_div = document.querySelectorAll('div[id^="holder"][style*="display:block"]');
+  }
+
+  var holder8 = document.getElementById("holder8");
+  var div_id = get_div[0].id
+
+  if(filter!= "" && filter!=null && filter !=undefined && filter.length > 2){
+    $.ajax({
+    url: '/advanced_search',
+    data: { search_text: filter }
+      }).done(
+        (data) => {
+
+          if(get_div[0].id != "holder8"){
+            get_div[0].style.display = "none";
+            get_div[0].setAttribute("data-display", "");
+          }
+          holder8.style.display = "block";
+          elements = '';
+          for (i = 0; i < data.users.length; i++) {
+          elements = elements + '<div onClick="create_private_msg(\''+ data.users[i].username +'\')" data-username="'+data.users[i].username+'"><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.users[i].avatar_template.replace("{size}","50")+'"> \
+          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.users[i].name +'</b> </h3><h5>'+ data.users[i].username +'</h5></div><div class="contacts-add"></div></li></div>';
+          }
+          holder8.innerHTML = elements;
+        }
+      );
+  }
+  else if(filter.length < 2){
+
+    if(get_div[0].id != "holder8"){
+      var div = document.querySelectorAll('div[id^="holder"][data-display]');
+
+      if(div  && div[0]){
+        div[0].removeAttribute("data-display");
+        div[0].style.display="block";
+      }
+    }
+    holder8.style.display = "none";
+  }
+
+  // ul = document.getElementById("myUL");
+  // li = ul.getElementsByTagName('li');
+  // //alert(filter);
+  // // Loop through all list items, and hide those who don't match the search query
+  // for (i = 0; i < li.length; i++) {
+  //   a = li[i].id;
+  //   txtValue = a;
+  //   // alert(txtValue);
+  //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  //     // alert(li[i].id);
+  //     li[i].style.display = "";
+  //   } else {
+  //     // alert("hi");
+  //     li[i].style.display = "none";
+  //   }  
+  // }
 }
 
 
@@ -184,7 +231,7 @@ function myFunc() {
       document.getElementById("holder2").style.display = "Block";
 
       $.ajax({
-        url: "/receive/" + username
+        url: "/sent/" + username
       })
 
         .done(function (data) {
@@ -215,7 +262,7 @@ function myFunc() {
           $('#holder2').append(elements);
 
           $.ajax({
-            url: "/sent/" + username
+            url: "/receive/" + username
           })
 
             .done(function (data2) {
@@ -1113,4 +1160,24 @@ function load_more_topics(){
   else{
     alert("No contents to load");
   }
+}
+
+function create_private_msg(username){
+    $('li').removeClass('active');
+    $(this).addClass('active');
+    // console.log(username);
+    document.getElementById("inbox").style.display = "Block";
+    document.getElementById("inbox-message-1").style.display = "Block";
+    document.getElementById("load_previous_posts").style.display = "none";
+    
+
+    $('#slug').attr('name', null);
+    $('#slug').html('<h4 id="topic_head"></h4>');
+    $('#tid').attr('name', null);
+    $('#holder3').html("<b>Create a new Topic </b><br/>");
+    // $('#holder3').append('<form action="/chatpost" method="POST" id="pvt_msg_form">');
+    $('#holder3').append('<input id="topic_title" value="" type="text" placeholder="Type title, or paste a link here">');
+    $('#holder3').append('<input id="searched_user" value="'+username+'" type="hidden">');
+    // console.log(document.getElementById("topic_title").value );
+    // console.log(document.getElementById("searched_user").value );
 }

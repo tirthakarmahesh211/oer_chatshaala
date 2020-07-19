@@ -92,7 +92,7 @@
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
             <div class="im_diaglog_search">
             <file class="panel-search-form info form-group has-feedback no-margin-bottom">
-              <div class="input-icons"> 
+              <div id="search_box" class="input-icons"> 
                 <i class="fa fa-search icon"> 
                 </i> 
               <input type="text" id="myInput" onkeyup="myFunc()" class="form-control input-field" name="search"
@@ -136,7 +136,7 @@
                     <sup></sup></span><i class="fa fa-trash-o"></i><div><i class="fa fa-share-alt "></i> </div></div></li></div>
                   <%}%>
                 </div>
-                <div id="holder8" style="display: none;"></div>
+                <div id="holder8" style="display:none;"></div>
               </ul>
             </div>
 
@@ -175,9 +175,9 @@
           <div class="message-chat">
             <div id="chat_" class="chat-body">
               <%if(topic_data && topic_data.post_stream && (topic_data.post_stream.posts[0].post_number != post_number ) && post_number != "" ){%>
-                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
-              <% } else if(page_url!="topic"){ %>
-                <button id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+                <button style="display: block" id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <% } else if(page_url!="topic" || page_url=="topic"){ %>
+                <button style="display: block" id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
               <%}%>
               <div id="holder3">
                 <%if(topic_data){%>
@@ -383,6 +383,7 @@
         var body = document.querySelector('#replyMessage');
         // console.log("body");
         // console.log(body);
+        var topic_title = document.getElementById("topic_title")
         var reply_message = document.querySelector('div.display_replies');
 
         var topic_id = $('#tid').attr('name');
@@ -416,6 +417,30 @@
             },1000);
           },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+          });
+        }
+        else if(topic_title!=null && topic_title!= undefined && topic_title.value!=""){
+          console.log(body.value);
+          console.log(topic_title.value);
+          var searched_user = document.getElementById("searched_user");
+          let url = "/chatpost"
+          $.ajax(url,{
+            type:'POST',
+            data:{
+              title: topic_title.value,
+              desc: body.value,
+              user_search: searched_user.value
+            },
+            success:function (data,status,xhr) {   // success callback function
+              // console.log(data);
+              document.getElementById("replyMessage").value="";
+              document.getElementById("topic_title").value="";
+              setTimeout(function(){
+                document.getElementById("private_click").click();
+                document.getElementById("inbox-message-1").style.display = "None";
+              },1500);
+           },
+            error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
         }
         else if(body){
