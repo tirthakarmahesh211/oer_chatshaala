@@ -652,7 +652,7 @@ function pvt_msg(req, res) {
   var desc = req.query.desc;
   var user_search = req.query.user_search;
   }
-  console.log(req.query)
+  // console.log(req.query);
   var url = secrets.url + '/posts.json';
   var options = {
     method: 'POST',
@@ -661,6 +661,9 @@ function pvt_msg(req, res) {
       'Api-Username': req.session.user.username
     }
   };
+  // console.log(req.body);
+  // console.log(req.query.category);
+  // console.log(req.query);
   https.get(secrets.url + 'users/' + user + '.json', (response) => {
 
     if (response.statusCode === 200) {
@@ -671,13 +674,25 @@ function pvt_msg(req, res) {
       response.on('end', () => {
         det = JSON.parse(det);
 
-        var data1 = {
-          'title': title,
-          'raw': desc,
-          // “category”: Number(category),
-          'target_recipients': det.user.username,
-          'archetype': 'private_message'
-        };
+        if(req.body && req.body.category!=null && req.body.category!=undefined ){
+          var data1 = {
+            'title': title,
+            'raw': desc,
+            "category": Number(req.body.category),
+            // 'target_recipients': det.user.username,
+            'archetype': 'regular'
+          };
+        }
+        else{
+          var data1 = {
+            'title': title,
+            'raw': desc,
+            // “category”: Number(category),
+            'target_recipients': det.user.username,
+            'archetype': 'private_message'
+          };
+        }
+
       //  console.log(data1);
         var request = https.request(url, options, (response) => {
         //  console.log(response.statusCode);

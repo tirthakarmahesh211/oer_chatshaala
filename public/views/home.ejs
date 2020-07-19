@@ -423,13 +423,16 @@
           // console.log(body.value);
           // console.log(topic_title.value);
           var searched_user = document.getElementById("searched_user");
+          var category_id = document.getElementById("select_category_id").value;
+          console.log(category_id);
           let url = "/chatpost"
           $.ajax(url,{
             type:'POST',
             data:{
               title: topic_title.value,
               desc: body.value,
-              user_search: searched_user.value
+              user_search: searched_user.value,
+              category: category_id
             },
             success:function (data,status,xhr) {   // success callback function
               // console.log(data);
