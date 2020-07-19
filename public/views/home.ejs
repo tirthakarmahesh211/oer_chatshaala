@@ -423,7 +423,10 @@
           // console.log(body.value);
           // console.log(topic_title.value);
           var searched_user = document.getElementById("searched_user");
-          var category_id = document.getElementById("select_category_id").value;
+          var category_id = document.getElementById("select_category_id");
+          if ( category_id!=null && category_id != undefined ){
+            category_id = category_id.value
+          }
           console.log(category_id);
           let url = "/chatpost"
           $.ajax(url,{
@@ -439,7 +442,12 @@
               document.getElementById("replyMessage").value="";
               document.getElementById("topic_title").value="";
               setTimeout(function(){
-                document.getElementById("private_click").click();
+                if(searched_user && searched_user.value == $("#curr_user").attr("name")){
+                  document.getElementById("category_click").click();
+                }
+                else{
+                  document.getElementById("private_click").click();
+                }
                 document.getElementById("inbox-message-1").style.display = "None";
                 $("#topic_head").html("");
                 $("#holder3").html("");

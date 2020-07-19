@@ -30,7 +30,8 @@ module.exports = {
   get_posts_using_post_ids: get_posts_using_post_ids,
   get_post_replies: get_post_replies,
   like:like,
-  advanced_search: advanced_search
+  advanced_search: advanced_search,
+  search_topics_and_posts: search_topics_and_posts
 };
 
 function resetCurrUser() {
@@ -664,6 +665,8 @@ function pvt_msg(req, res) {
   // console.log(req.body);
   // console.log(req.query.category);
   // console.log(req.query);
+  // console.log(desc);
+  // console.log(title);
   https.get(secrets.url + 'users/' + user + '.json', (response) => {
 
     if (response.statusCode === 200) {
@@ -673,8 +676,8 @@ function pvt_msg(req, res) {
       });
       response.on('end', () => {
         det = JSON.parse(det);
-
-        if(req.body && req.body.category!=null && req.body.category!=undefined ){
+        console.log(det.user.username);
+        if(req.body && req.body.category!=null && req.body.category!=undefined && req.body.category !=''){
           var data1 = {
             'title': title,
             'raw': desc,
@@ -692,6 +695,7 @@ function pvt_msg(req, res) {
             'archetype': 'private_message'
           };
         }
+        console.log(data1);
 
       //  console.log(data1);
         var request = https.request(url, options, (response) => {
@@ -704,7 +708,8 @@ function pvt_msg(req, res) {
             response.on('end', () => {
               body = JSON.parse(body);
               //console.log(body);
-            res.redirect('/chat');
+              res.send(body);
+              //res.redirect('/chat');
             });
           } else {
             res.redirect('/chat');
@@ -1307,6 +1312,31 @@ function like(req, res){
 
 function advanced_search(req, res) {
   var url = secrets.url + "/search/query.json?term="+req.query.search_text+"&include_blurbs=true&type_filter=user"
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function(response) {
+    var body = '';
+    //  console.log(response.statusCode);
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      body = JSON.parse(body);
+      res.send(body);
+    });
+  }).on('error', function() {
+    console.log('error');
+    res.redirect('/');
+  });
+}
+
+function search_topics_and_posts(req, res) {
+  var url = secrets.url + "/search.json?q="+req.query.search_text
   var options = {
     method: 'GET',
     headers: {

@@ -985,4 +985,7 @@ app.get('/advanced_search', (req, res) => {
   func.advanced_search(req, res);
 });
 
+app.get('/search_topics_and_posts', (req, res) => {
+  func.search_topics_and_posts(req, res);
+});
 

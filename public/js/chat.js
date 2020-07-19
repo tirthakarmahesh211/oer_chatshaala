@@ -149,6 +149,7 @@ function myFunc() {
   var div_id = get_div[0].id
 
   if(filter!= "" && filter!=null && filter !=undefined && filter.length > 2){
+    
     $.ajax({
     url: '/advanced_search',
     data: { search_text: filter }
@@ -168,6 +169,28 @@ function myFunc() {
           holder8.innerHTML = elements;
         }
       );
+
+      $.ajax({
+        url: '/search_topics_and_posts',
+        data: { search_text: filter }
+      }).done(
+        (data) => {
+
+          if(get_div[0].id != "holder8"){
+            get_div[0].style.display = "none";
+            get_div[0].setAttribute("data-display", "");
+          }
+          holder8.style.display = "block";
+          elements = '';
+          if(data.topics!= undefined && data.topics !=null){
+          for (i = 0; i < data.topics.length; i++) {
+          elements = elements + '<div><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'"> \
+          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.topics[i].title +'</b> </h3><h5>'+ data.posts[i].blurb +'</h5></div><div class="contacts-add"></div></li></div>';
+          }
+          }
+          holder8.innerHTML = holder8.innerHTML + elements;
+        }
+      );
   }
   else if(filter.length < 2){
 
@@ -180,8 +203,8 @@ function myFunc() {
       }
     }
     holder8.style.display = "none";
+    document.getElementById("inbox-message-1").style.display = "None";
   }
-
   // ul = document.getElementById("myUL");
   // li = ul.getElementsByTagName('li');
   // //alert(filter);
@@ -1185,7 +1208,7 @@ function create_private_msg(username){
       for (var i = 0; i < contact_list_divs.length; i++) {
         elements = elements + '<option value="'+contact_list_divs[i].dataset.cid+'">'+contact_list_divs[i].dataset.cname+'</option>';
       }
-      console.log(contact_list_divs);
+      // console.log(contact_list_divs);
       $('#holder3').append(elements);
     }
     // $('#holder3').append('<form action="/chatpost" method="POST" id="pvt_msg_form">');
