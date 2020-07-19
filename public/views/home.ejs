@@ -420,8 +420,8 @@
           });
         }
         else if(topic_title!=null && topic_title!= undefined && topic_title.value!=""){
-          console.log(body.value);
-          console.log(topic_title.value);
+          // console.log(body.value);
+          // console.log(topic_title.value);
           var searched_user = document.getElementById("searched_user");
           let url = "/chatpost"
           $.ajax(url,{
@@ -438,6 +438,8 @@
               setTimeout(function(){
                 document.getElementById("private_click").click();
                 document.getElementById("inbox-message-1").style.display = "None";
+                $("#topic_head").html("");
+                $("#holder3").html("");
               },1500);
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
