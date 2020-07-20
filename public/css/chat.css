@@ -409,7 +409,7 @@ background: rgba(36, 117, 47, 0.4);
   direction: rtl;
   min-height: 405px; */
   overflow: hidden;
-  padding: 5px;
+  padding: 2px;
 }
 .im_dialogs_search {
   position: relative;
@@ -459,7 +459,7 @@ background: rgba(36, 117, 47, 0.4);
 */
 .contacts-outter {
   position: relative;
-  height: calc(100vh - 135px);
+  height: calc(105vh - 135px);
   /* width: 325px; */
   direction: ltr;
   overflow-y: scroll;
