@@ -162,11 +162,13 @@ function myFunc() {
           }
           holder8.style.display = "block";
           elements = '';
+          if(data.users!= undefined && data.users !=null){
           for (i = 0; i < data.users.length; i++) {
           elements = elements + '<div onClick="create_private_msg(\''+ data.users[i].username +'\')" data-username="'+data.users[i].username+'"><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.users[i].avatar_template.replace("{size}","50")+'"> \
           <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.users[i].name +'</b> </h3><h5>'+ data.users[i].username +'</h5></div><div class="contacts-add"></div></li></div>';
           }
           holder8.innerHTML = elements;
+          }
         }
       );
 
