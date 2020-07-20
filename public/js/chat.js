@@ -41,7 +41,7 @@ window.onload = function () {
       document.getElementById("holder7").style.display = "None";
     document.getElementById("category_click").click();
   }
-  console.log(document.getElementById("specific_posts_page").getAttribute("name"));
+  // console.log(document.getElementById("specific_posts_page").getAttribute("name"));
   if(document.getElementById("specific_posts_page").getAttribute("name") == "true"){
     if(document.getElementById("load_next_posts") != null && document.getElementById("load_next_posts")!=undefined){
       document.getElementById("load_next_posts").style.display = "block";
@@ -135,28 +135,101 @@ function myFunc() {
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementById('myInput');
   filter = input.value.toUpperCase();
-  ul = document.getElementById("myUL");
-  li = ul.getElementsByTagName('li');
-  //alert(filter);
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].id;
-    txtValue = a;
-    // alert(txtValue);
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      // alert(li[i].id);
-      li[i].style.display = "";
-    } else {
-      // alert("hi");
-      li[i].style.display = "none";
-    }
+
+  var get_div = document.querySelectorAll('div[id^="holder"][style*="display: block"]');
+
+  if((get_div && get_div[0] && get_div[0].id == "holder8") || get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
+    get_div = document.querySelectorAll('div[id^="holder"][data-display]');
   }
+  else if(get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
+    get_div = document.querySelectorAll('div[id^="holder"][style*="display:block"]');
+  }
+
+  var holder8 = document.getElementById("holder8");
+  var div_id = get_div[0].id
+
+  if(filter!= "" && filter!=null && filter !=undefined && filter.length > 2){
+    
+    $.ajax({
+    url: '/advanced_search',
+    data: { search_text: filter }
+      }).done(
+        (data) => {
+
+          if(get_div[0].id != "holder8"){
+            get_div[0].style.display = "none";
+            get_div[0].setAttribute("data-display", "");
+          }
+          holder8.style.display = "block";
+          elements = '';
+          if(data.users!= undefined && data.users !=null){
+          for (i = 0; i < data.users.length; i++) {
+          elements = elements + '<div onClick="create_private_msg(\''+ data.users[i].username +'\')" data-username="'+data.users[i].username+'"><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.users[i].avatar_template.replace("{size}","50")+'"> \
+          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.users[i].name +'</b> </h3><h5>'+ data.users[i].username +'</h5></div><div class="contacts-add"></div></li></div>';
+          }
+          holder8.innerHTML = elements;
+          }
+        }
+      );
+
+      $.ajax({
+        url: '/search_topics_and_posts',
+        data: { search_text: filter }
+      }).done(
+        (data) => {
+
+          if(get_div[0].id != "holder8"){
+            get_div[0].style.display = "none";
+            get_div[0].setAttribute("data-display", "");
+          }
+          holder8.style.display = "block";
+          elements = '';
+          if(data.topics!= undefined && data.topics !=null){
+          for (i = 0; i < data.topics.length; i++) {
+          elements = elements + '<div><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'"> \
+          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.topics[i].title +'</b> </h3><h5>'+ data.posts[i].blurb +'</h5></div><div class="contacts-add"></div></li></div>';
+          }
+          }
+          holder8.innerHTML = holder8.innerHTML + elements;
+        }
+      );
+  }
+  else if(filter.length < 2){
+
+    if(get_div[0].id != "holder8"){
+      var div = document.querySelectorAll('div[id^="holder"][data-display]');
+
+      if(div  && div[0]){
+        div[0].removeAttribute("data-display");
+        div[0].style.display="block";
+      }
+    }
+    holder8.style.display = "none";
+    document.getElementById("inbox-message-1").style.display = "None";
+  }
+  // ul = document.getElementById("myUL");
+  // li = ul.getElementsByTagName('li');
+  // //alert(filter);
+  // // Loop through all list items, and hide those who don't match the search query
+  // for (i = 0; i < li.length; i++) {
+  //   a = li[i].id;
+  //   txtValue = a;
+  //   // alert(txtValue);
+  //   if (txtValue.toUpperCase().indexOf(filter) > -1) {
+  //     // alert(li[i].id);
+  //     li[i].style.display = "";
+  //   } else {
+  //     // alert("hi");
+  //     li[i].style.display = "none";
+  //   }  
+  // }
 }
 
 
 
     //Loading messages on left pane
     function function_pvt() {
+      document.getElementById("inbox-message-1").style.display = "None";
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
@@ -184,7 +257,7 @@ function myFunc() {
       document.getElementById("holder2").style.display = "Block";
 
       $.ajax({
-        url: "/receive/" + username
+        url: "/sent/" + username
       })
 
         .done(function (data) {
@@ -215,7 +288,7 @@ function myFunc() {
           $('#holder2').append(elements);
 
           $.ajax({
-            url: "/sent/" + username
+            url: "/receive/" + username
           })
 
             .done(function (data2) {
@@ -260,6 +333,7 @@ function myFunc() {
 
     }
     function function_category() {
+      document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Groups');
       var e = document.getElementById("category_click");
       e.classList.remove("active-tab");
@@ -300,6 +374,7 @@ function myFunc() {
 
     }
     function function_category_common() {
+      document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Categories');
       var e = document.getElementById("category_click");
       e.classList.add("active-tab");
@@ -341,11 +416,15 @@ function myFunc() {
             // else
             // {
               if(data[i].description){
-              elements = elements + '<div class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' +  '<div class="message-count">' + data[i].topic_count + '</div>' + '</div>' + '</li>' + '</div>';
+              elements = elements + '<div data-cid="'+ data[i].id +'" data-cname="'+ data[i].name +'" class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' +  '<div class="message-count">' + data[i].topic_count + '</div>' + '</div>' + '</li>' + '</div>';
               }else{
-                elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
+                elements = elements + '<div data-cid="'+ data[i].id  +'" data-cname="'+ data[i].name  +'" class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
               }
             // }
+            if(data[i] && data[i].subcategory_ids){
+              data1 = {"dataset":{"cid": data[i].id, "sub_cids": (data[i].subcategory_ids ? data[i].subcategory_ids.toString(): "" )}}
+              load_subcategories(data1);
+            }
           }
 
           $('#holder6').html(elements);
@@ -364,8 +443,15 @@ function myFunc() {
     }
 
     function load_topics(x) {
-      // console.log("load topics");
-      $('#holder5').html("");
+      // console.log(x);
+      // console.log(x.split("##").length);
+      y = x;
+      if(x && x.split("##").length == 1){
+        $('#holder5').html("");
+      }
+      else{
+        x = x.split("##")[0];
+      }
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
@@ -413,7 +499,7 @@ function myFunc() {
                 newdate = "";
                 newtime = "";
               }
-              elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+              elements = elements + '<div id="topic_'+ide+'" onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
             }
 
@@ -428,13 +514,15 @@ function myFunc() {
         url: "/group/" + x
       })
         .done(function (data) {
-          // //console.log(data);
-
+          // console.log("data");
+          // console.log("/group/" + x);
+          // console.log(data.topic_list.more_topics_url);
+          var more_topics_url = (data.topic_list? data.topic_list.more_topics_url: '')
           data = data.topic_list.topics;
 
           var elements = '';
 
-
+          more_topics_url = 'data-more_topics_url="'+ more_topics_url +'"'
           for (var i = 0; i < data.length; i++) {
             var mydate, newdate, newtime, slug, ide, logo;
             slug = data[i].slug;
@@ -451,12 +539,17 @@ function myFunc() {
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '")' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by:" + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
           }
-
-
-          $('#holder5').html(elements);
+          // console.log(y);
+          if(y != null && y!=undefined && y.split("##").length != 1){
+            $("#load_more_topics").remove();
+            $('#holder5').append(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+          }
+          else{
+            $('#holder5').html(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+          }
         });
         }
 
@@ -464,25 +557,24 @@ function myFunc() {
 
     //Loading posts
     function my_Function(z) {
-
       if (z.matches) { // If media query matches
-        //alert("hi");
-        document.getElementById("inbox").style.display = "None";
-        document.getElementById("back_").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "Block";
+        // alert("hi");
+        document.getElementById("inbox").style.display = "none";
+        document.getElementById("back_").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "block";
       }
       else {
-        document.getElementById("inbox").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "Block";
-        document.getElementById("back_").style.display = "None";
+        document.getElementById("inbox").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "block";
+        document.getElementById("back_").style.display = "none";
       }
     }
     function my_Function2(z) {
 
       if (z.matches) { // If media query matches
         //alert("hi");
-        document.getElementById("inbox").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "None";
+        document.getElementById("inbox").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "none";
 
       }
     }
@@ -529,7 +621,7 @@ function myFunc() {
 
         tid = y[1];
         var tslug = y[0];
-        console.log(tslug);
+        // console.log(tslug);
         $('#slug').attr('name', tslug);
         $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
         $('#tid').attr('name', tid);
@@ -598,14 +690,28 @@ function myFunc() {
             }
             if(data[i].actions_summary && data[i].actions_summary.length > 0){
               like_button = "";
+              var if_block = false;
               for (let j = 0; j < data[i].actions_summary.length; j++) {
                 // console.log(data[i].actions_summary[j].id);
                 if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
                 {
-                  like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
-                  // like_count = '<button id="share_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'">'+data[i].actions_summary[i].count+</button>';
+                  // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
+                  like_url = '/post_actions/'+data[i].id+'/2';
+                  if(data[i].username != username){
+                    like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a>'
+                  }
+                  else{
+                    like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a>'
+                  }
+                  if_block = true;
                   break;
                 }
+              }
+              if(if_block == false && data[i].username != username ){
+                  like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a>'
+              }
+              else if(if_block == false && data[i].username == username) {
+                  like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a>'
               }
             }
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
@@ -874,16 +980,14 @@ function myFunc() {
         tid = id[2];
         post_number = id[3];
         var id = clicked_element_data.id;
-        // var copy_text = window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number
-        // console.log(copy_text);
-        // var txt_copy =  document.getElementsByClassName("HiddentText");
-        // console.log(txt_copy);
-        // txt_copy.textContent = copy_text;
-        // console.log(txt_copy);
-        // txt_copy.select();
-        // document.execCommand('copy');
 
-        alert(window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number);
+        var tempInput = document.createElement("input");
+        tempInput.value = window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+
       }
     }
 
@@ -891,13 +995,13 @@ function myFunc() {
       // console.log(clicked_element_data);
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
-      document.getElementById("holder8").style.display = "block";
+      document.getElementById("holder8").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder4").style.display = "None";
-      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder6").style.display = "block";
       document.getElementById("holder5").style.display = "None";
 
-      $('#holder8').html("");
+      // $('#holder8').html("");
       if(clicked_element_data){
         var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
         for (let i = 0; i < subcategory_ids.length; i++) {
@@ -919,10 +1023,10 @@ function myFunc() {
                     // console.log(url)
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.topic_list.topics[0].category_id+"/"+page_number
-                    elements = elements + '<div_id onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+                    elements = elements + '<div data-cid="'+ data.topic_list.topics[0].category_id + '" data-cname="'+ title + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
                     // console.log(elements);
                   }
-              $('#holder8').append(elements);
+              $('#holder6').append(elements);
             });
         }
       }
@@ -1042,5 +1146,81 @@ function load_next_posts(clicked_element_data){
         }
       }
   }
+
+}
+
+function like_function(clicked_element_data,url){
+// console.log(clicked_element_data.id);
+// console.log(url);
+
+var count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
+var count = Number(count) + 1;
+// console.log(count);
+$("#like_count_"+clicked_element_data.id.split("_")[2]).html(count);
+
+$.ajax({
+    url: "/post_actions/"+clicked_element_data.id.split("_")[2]+"/2",
+    type: 'POST'
+})
+.done(function (data) {
+
+});
+}
+
+function load_more_topics(){
+  // console.log($("div[id^='topic_']").last());
+  var topic_div = $("div[id^='topic_']").last();
+
+  topic_div = $(topic_div).attr("data-more_topics_url");
+
+  if (topic_div != undefined && topic_div != null && topic_div!= "undefined"){
+    var category_id = topic_div.split("/")[3].split("?")[0];
+    var category_name = topic_div.split("/")[2];
+    var page_number = topic_div.split("/")[3];
+
+    page_number = page_number.split("=")[1];
+    // console.log(page_number);
+    x = category_name+"/"+ category_id +"/load/"+page_number+"###"
+
+    load_topics(x);
+  }
+  else{
+    alert("No contents to load");
+  }
+}
+
+function create_private_msg(username){
+    $('li').removeClass('active');
+    $(this).addClass('active');
+
+      var z = window.matchMedia("(max-width: 767px)");
+      my_Function(z); // Call listener function at run time
+      z.addListener(my_Function);
+    if(z.matches == false){
+    document.getElementById("inbox").style.display = "Block";
+    document.getElementById("inbox-message-1").style.display = "Block";
+    document.getElementById("load_previous_posts").style.display = "none";    
+    }
+
+
+    $('#slug').attr('name', null);
+    $('#slug').html('<h4 id="topic_head"></h4>');
+    $('#tid').attr('name', null);
+    $('#holder3').html("<b>Create a new Topic </b><br/>");
+    $('#holder3').append('<input id="topic_title" value="" type="text" placeholder="Type title, or paste a link here"><br/>');
+    if( username == $("#curr_user").attr("name") ){
+      // $('#holder3').append('category');
+      elements = '<select id="select_category_id" placeholder="select a category...">'
+      var contact_list_divs = document.querySelectorAll('div[class^="contact_list"]');
+      for (var i = 0; i < contact_list_divs.length; i++) {
+        elements = elements + '<option value="'+contact_list_divs[i].dataset.cid+'">'+contact_list_divs[i].dataset.cname+'</option>';
+      }
+      // console.log(contact_list_divs);
+      $('#holder3').append(elements);
+    }
+    // $('#holder3').append('<form action="/chatpost" method="POST" id="pvt_msg_form">');
+    $('#holder3').append('<input id="searched_user" value="'+username+'" type="hidden">');
+    // console.log(document.getElementById("topic_title").value );
+    // console.log(document.getElementById("searched_user").value );
 
 }

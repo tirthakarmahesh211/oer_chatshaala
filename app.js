@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/*', function (req, res, next) {
-    res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
+    res.setHeader("Cache-Control", "public, max-age=8,must-revalidate");
     next();
 });
 
@@ -121,7 +121,7 @@ app.get('/chat', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  // res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
   if (curr_user) {
     let page_url = "/";
@@ -518,9 +518,9 @@ app.post("/", function (req, res) {
 app.post('/chatpost', (req, res) => {
   let user = req.session.user;
   if (user) {
-    if (req.body.hasOwnProperty('compose')) {
+    // if (req.body.hasOwnProperty('compose')) {
       func.pvt_msg(req, res);
-    }
+    // }
   } else {
     res.redirect('/');
   }
@@ -964,6 +964,7 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
 });
 
 app.get('/posts/:post_id/replies$', function (req, res) {
+  res.set('Cache-Control', 'public, max-age=60');
   let curr_user = req.session.user;
   if (curr_user) {
       func.get_post_replies(req,res);
@@ -972,7 +973,22 @@ app.get('/posts/:post_id/replies$', function (req, res) {
   }
 });
 
+app.post('/post_actions/:post_id/:post_action_type_id', function (req, res) {
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.like(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
 
+app.get('/advanced_search', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=60');
+  func.advanced_search(req, res);
+});
 
-
+app.get('/search_topics_and_posts', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=60'); 
+  func.search_topics_and_posts(req, res);
+});
 
