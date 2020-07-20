@@ -488,14 +488,14 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts {
   direction: ltr;
-  width: 305px;
+  /*width: 305px;*/
   margin-top: 0px;
 }
 
 .contacts li {
   width: 100%;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid rgba(205, 211, 237, 0.2);
+  /*border-top: 1px solid transparent;*/
+  /*border-bottom: 1px solid rgba(205, 211, 237, 0.2);*/
   border-left: 4px solid rgba(255, 255, 255, 0);
   /*padding: 8px 12px;*/
   /*padding: 0px 10px;*/
@@ -511,7 +511,7 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li:first-child.active {
-  border-top: 1px solid rgba(205, 211, 237, 0.75);
+  /*border-top: 1px solid rgba(205, 211, 237, 0.75);*/
 }
 
 .contacts li:hover {
@@ -520,10 +520,10 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts li.active,
 .contacts.info li.active {
-  border-right: 5px solid rgb(76, 175, 80);
-  border-top-color: rgba(205, 211, 237, 0.75);
+  /*border-right: 5px solid rgb(76, 175, 80);*/
+  /*border-top-color: rgba(205, 211, 237, 0.75);*/
   border-bottom-color: rgba(205, 211, 237, 0.75);
-  background-color: #F5F5F5;
+  background-color: #66666626;
 }
 
 .contacts.success li.active {
@@ -565,7 +565,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts li .message-time {
   text-align: right;
   display: block;
-  margin-left: 32px;
+  margin-left: 26px;
   width: 30px;
   height: 15px;
   color:grey;
