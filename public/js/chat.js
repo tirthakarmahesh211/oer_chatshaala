@@ -555,25 +555,24 @@ function myFunc() {
 
     //Loading posts
     function my_Function(z) {
-
       if (z.matches) { // If media query matches
-        //alert("hi");
-        document.getElementById("inbox").style.display = "None";
-        document.getElementById("back_").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "Block";
+        // alert("hi");
+        document.getElementById("inbox").style.display = "none";
+        document.getElementById("back_").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "block";
       }
       else {
-        document.getElementById("inbox").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "Block";
-        document.getElementById("back_").style.display = "None";
+        document.getElementById("inbox").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "block";
+        document.getElementById("back_").style.display = "none";
       }
     }
     function my_Function2(z) {
 
       if (z.matches) { // If media query matches
         //alert("hi");
-        document.getElementById("inbox").style.display = "Block";
-        document.getElementById("inbox-message-1").style.display = "None";
+        document.getElementById("inbox").style.display = "block";
+        document.getElementById("inbox-message-1").style.display = "none";
 
       }
     }
@@ -1192,9 +1191,15 @@ function create_private_msg(username){
     $('li').removeClass('active');
     $(this).addClass('active');
 
+      var z = window.matchMedia("(max-width: 767px)");
+      my_Function(z); // Call listener function at run time
+      z.addListener(my_Function);
+    if(z.matches == false){
     document.getElementById("inbox").style.display = "Block";
     document.getElementById("inbox-message-1").style.display = "Block";
-    document.getElementById("load_previous_posts").style.display = "none";
+    document.getElementById("load_previous_posts").style.display = "none";    
+    }
+
 
     $('#slug').attr('name', null);
     $('#slug').html('<h4 id="topic_head"></h4>');
