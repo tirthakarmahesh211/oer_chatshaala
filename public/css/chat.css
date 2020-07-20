@@ -152,7 +152,7 @@ body {
 }
 
 .info-combo>h3 {
-  margin: 3px 0;
+  /*margin: 3px 0;*/
 }
 
 .no-margin-bottom {
@@ -497,7 +497,9 @@ background: rgba(36, 117, 47, 0.4);
   border-bottom: 1px solid rgba(205, 211, 237, 0.2);
   border-left: 4px solid rgba(255, 255, 255, 0);
   /*padding: 8px 12px;*/
-  padding: 2px 10px;
+  /*padding: 0px 10px;*/
+  padding-right: 5px;
+  padding-left: 10px;
   position: relative;
   background-color: rgba(255, 255, 255, 0);
 }
@@ -520,6 +522,7 @@ background: rgba(36, 117, 47, 0.4);
   border-top-color: rgba(205, 211, 237, 0.75);
   border-bottom-color: rgba(205, 211, 237, 0.75);
   background-color: #F5F5F5;
+  width: 314px;
 }
 
 .contacts.success li.active {
@@ -544,8 +547,9 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li>.info-combo>h3 {
-  width: 167px;
-  height: 20px;
+  width: 210px;
+  /*width: calc(100vw - 70vw);*/
+  height: 16px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -618,7 +622,17 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li>.info-combo>h5 {
-  width: 180px;
+  width: 198px;
+  font-size: 14px;
+  height: 16px;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+.contacts #holder6 li>.info-combo>h5 {
+  width: 198px;
   font-size: 14px;
   height: 28px;
   font-weight: 500;
@@ -1500,7 +1514,7 @@ textarea[name="desc"] {
 .menu-btn {
   background-color: rgb(76, 175, 80);
   color: white;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   width: 100%;
   font-weight: bold;
   padding: 1em 2em;
