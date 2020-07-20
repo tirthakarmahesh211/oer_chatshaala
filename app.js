@@ -964,6 +964,7 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
 });
 
 app.get('/posts/:post_id/replies$', function (req, res) {
+  res.set('Cache-Control', 'public, max-age=60');
   let curr_user = req.session.user;
   if (curr_user) {
       func.get_post_replies(req,res);
@@ -982,10 +983,12 @@ app.post('/post_actions/:post_id/:post_action_type_id', function (req, res) {
 });
 
 app.get('/advanced_search', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=60');
   func.advanced_search(req, res);
 });
 
 app.get('/search_topics_and_posts', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=60'); 
   func.search_topics_and_posts(req, res);
 });
 
