@@ -546,10 +546,10 @@ function myFunc() {
           // console.log(y);
           if(y != null && y!=undefined && y.split("##").length != 1){
             $("#load_more_topics").remove();
-            $('#holder5').append(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+            $('#holder5').append(elements + "<button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
           }
           else{
-            $('#holder5').html(elements + "<br/><button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
+            $('#holder5').html(elements + "<button id='load_more_topics' onclick='load_more_topics()'> Load More </button>");
           }
         });
         }

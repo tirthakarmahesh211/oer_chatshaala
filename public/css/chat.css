@@ -157,6 +157,7 @@ body {
 
 .no-margin-bottom {
   margin-bottom: 0 !important;
+  margin-top:14px;
 }
 
 .info-combo>h5 {
@@ -179,8 +180,8 @@ body {
   margin-top: -62px;
     /* margin: -35px 2px; */
     margin-left: -15px;
-    margin-right: 10px;
-    margin-bottom: -7px;
+    /*margin-right: 10px;*/
+    margin-bottom: -20px;
 }
 
 .messages-panel {
@@ -502,6 +503,7 @@ background: rgba(36, 117, 47, 0.4);
   padding-left: 10px;
   position: relative;
   background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
 }
 
 .contacts li:first-child {
@@ -522,7 +524,6 @@ background: rgba(36, 117, 47, 0.4);
   border-top-color: rgba(205, 211, 237, 0.75);
   border-bottom-color: rgba(205, 211, 237, 0.75);
   background-color: #F5F5F5;
-  width: 314px;
 }
 
 .contacts.success li.active {
@@ -572,13 +573,14 @@ background: rgba(36, 117, 47, 0.4);
   font-size: 11px;
   font-weight: 200;
   padding-right: 5px;
+  margin-top: 6px;
 }
 
 .contacts li .contacts-add .fa-trash-o {
   position: absolute;
   font-size: 14px;
   right: 28px;
-  bottom: 20px;
+  bottom: 4px;
   color: #a6a6a6;
   cursor: pointer;
 }
@@ -587,7 +589,7 @@ background: rgba(36, 117, 47, 0.4);
   position: absolute;
   font-size: 14px;
   right: 45px;
-  bottom: 20px;
+  bottom: 4px;
   color: #a6a6a6;
   cursor: pointer;
 }
@@ -597,7 +599,7 @@ background: rgba(36, 117, 47, 0.4);
     position: absolute;
     font-size: 12px;
     right: 32px;
-    bottom: 27px;
+    bottom: 6px;
     color: #a6a6a6;
     cursor: pointer;
   }
@@ -606,7 +608,7 @@ background: rgba(36, 117, 47, 0.4);
     position: absolute;
     font-size: 12px;
     right: 48px;
-    bottom: 27px;
+    bottom: 6px;
     color: #a6a6a6;
     cursor: pointer;
   }
@@ -645,7 +647,7 @@ background: rgba(36, 117, 47, 0.4);
   position: absolute;
 /*  top: 8px;
   left: 5px;*/
-  top:40px;
+  top:38px;
   right:0px;
   width: 20px;
   height: 20px;
@@ -1570,4 +1572,21 @@ svg {
 }
 .fa-heart:hover {
    color: orange;
+}
+
+.im_diaglog_search{
+  margin-bottom: -7px;
+}
+
+#load_more_topics{
+  margin-left: 30%;
+}
+
+@media screen and (max-width: 761px) {
+
+.contacts li {
+  padding-right:20px;
+
+}
+
 }
