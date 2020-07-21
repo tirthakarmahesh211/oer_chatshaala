@@ -1657,6 +1657,7 @@ svg {
   font-weight: normal;
   float: right;
   padding-right: 10px;
+  color: #6f6d6d;
 }
 .like_div{
   display: inline-block;
@@ -1665,6 +1666,7 @@ svg {
   float: right;
   padding-right: 2px;
   letter-spacing: 2px;
+  color: #6f6d6d;
 }
 
 .delete_btn{
