@@ -700,20 +700,20 @@ function myFunc() {
                   // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
                   like_url = '/post_actions/'+data[i].id+'/2';
                   if(data[i].username != username){
-                    like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a>'
+                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
                   }
                   else{
-                    like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a>'
+                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
                   }
                   if_block = true;
                   break;
                 }
               }
               if(if_block == false && data[i].username != username ){
-                  like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a>'
+                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
               }
               else if(if_block == false && data[i].username == username) {
-                  like_button = '<span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a>'
+                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
               }
             }
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
