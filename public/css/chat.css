@@ -704,7 +704,8 @@ background: rgba(36, 117, 47, 0.4);
 
 .message-body .message-top {
   display: inline-block;
-  width: 100%;
+  /*width: 100%;*/
+  width:inherit;
   position:fixed;
   top: 0;
   /* overflow:hidden; */
