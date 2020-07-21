@@ -837,6 +837,17 @@ background: rgba(36, 117, 47, 0.4);
   /* margin-bottom: 50px; */
 }
 
+
+@media screen and (max-width: 767px) {
+  .message-chat {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 80px;
+    /* margin-bottom: 50px; */
+  }
+}
+
+
 .chat-body {
   width: calc(100% + 17px);
   /* min-height: 290px; */
