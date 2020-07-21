@@ -59,10 +59,12 @@ body {
 .openbtn {
   font-size: 16px;
   cursor: pointer;
-  background-color: #d6d4c7;
+  /*background-color: #d6d4c7;*/
+  background-color: rgb(76, 175, 80);
   color: #393e46;
   padding: 1em;
   border: none;
+  color: white;
 }
 
 .openbtn:hover {
@@ -192,6 +194,7 @@ body {
   display: inline-block;
   border-top-left-radius: 5px;
   /* margin-bottom: -5px; */
+  border: none;
 }
 
 .messages-panel img.img-circle {
@@ -1342,6 +1345,7 @@ background: rgba(36, 117, 47, 0.4);
 .header {
   position: fixed;
   width: 30%;
+  z-index: 1000;
 }
 
 ._right {
@@ -1527,8 +1531,8 @@ textarea[name="desc"] {
 }
 
 .dropdown-menu_ {
-  margin-left: 50px;
-  width: calc(100% - 50px);
+  /*margin-left: 50px;*/
+  width: calc(100%);
   position: relative;
   display: inline-block;
 }
