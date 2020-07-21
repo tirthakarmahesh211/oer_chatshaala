@@ -840,6 +840,12 @@ background: rgba(36, 117, 47, 0.4);
   width: 100%;
 }
 
+@media screen and (max-width: 767px) {
+  .message {
+   /* position: relative;*/
+    width: 100%;
+  }
+}
 .message br {
   clear: both;
 }
