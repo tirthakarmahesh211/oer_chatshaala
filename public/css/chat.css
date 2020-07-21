@@ -60,11 +60,15 @@ body {
   font-size: 22px;
   cursor: pointer;
   /*background-color: #d6d4c7;*/
-  background-color: rgb(76, 175, 80);
+  background-color: transparent;
   color: #393e46;
   padding: 11px 18px;
   border: none;
   color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 55px;
 }
 
 .openbtn:hover {
@@ -211,7 +215,8 @@ body {
   position: fixed;
   background-color: #fff;
   border-right: 1px solid #cfdbe2;
-  width: 325px;
+  /*width: 325px;*/
+  width: 25%;
   height: 100%;
   border-top-left-radius: 5px;
   float: left;
@@ -698,7 +703,8 @@ background: rgba(36, 117, 47, 0.4);
 .message-body {
   /* background-color: #fbfcff; */
   height: 100%;
-  width: calc(100% - 325px);
+  /*width: calc(100% - 325px);*/
+  width: 75%;
   float: right;
   
 }
@@ -1500,7 +1506,8 @@ textarea[name="desc"] {
 
 #back_ {
   display: none;
-  font-size: 0.9em;
+  /*font-size: 0.9em;*/
+  font-size: 3.5vw;
 }
 
 #on_but {
