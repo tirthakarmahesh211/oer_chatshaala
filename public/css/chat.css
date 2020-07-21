@@ -325,7 +325,8 @@ background: rgba(36, 117, 47, 0.4);
 .reply_function{
   cursor:pointer;
   color: #bdc2c5;
-  padding: 5px;
+  padding-right: 5px;
+  margin-top: 4px;
 }
 .reply_function:hover{
   color:grey;
@@ -1619,6 +1620,7 @@ svg {
 .share_btn{
   float: right;
   cursor: pointer;
+  padding-right: 5px;
 }
 
 .reply_function{
@@ -1639,4 +1641,10 @@ svg {
   float: right;
   padding-right: 2px;
   letter-spacing: 2px;
+}
+
+.delete_btn{
+  float: right;
+  cursor: pointer;
+  padding-right: 5px;
 }
