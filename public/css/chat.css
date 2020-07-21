@@ -628,7 +628,7 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts li>.info-combo>h5 {
   width: 198px;
-  font-size: 14px;
+  font-size: 13px;
   height: 16px;
   font-weight: 500;
   overflow: hidden;
@@ -638,7 +638,7 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts #holder6 li>.info-combo>h5 {
   width: 198px;
-  font-size: 14px;
+  font-size: 13px;
   height: 28px;
   font-weight: 500;
   overflow: hidden;
@@ -855,7 +855,7 @@ background: rgba(36, 117, 47, 0.4);
   color: rgb(46, 43, 43);
 }
 
-.message:after {
+/*.message:after {
   content: "";
   position: absolute;
   top: 11px;
@@ -879,7 +879,7 @@ background: rgba(36, 117, 47, 0.4);
   border-left: none;
   border-bottom: 11px solid transparent;
   border-right: 13px solid #dbe3e8;
-}
+}*/
 
 .message .medium-image {
   float: left;
@@ -1344,7 +1344,7 @@ background: rgba(36, 117, 47, 0.4);
 
 .header {
   position: fixed;
-  width: 30%;
+  /*width: 30%;*/
   z-index: 1000;
 }
 
