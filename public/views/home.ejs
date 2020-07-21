@@ -195,7 +195,7 @@
                   <% temp= true %>
                 <%}%>
                 <div <%= display %> id="msg_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.posts_count%>_<%= page_number%>" data-post_id="<%=topic_data.post_stream.posts[i].id%>" data-count="<%=topic_data.post_stream.stream.indexOf((Number(topic_data.post_stream.posts[i].id)))+1%>" data-page_number="<%=page_number %>" class="message <%= topic_data.post_stream.posts[i].username === curr_user.username ? 'my-message' : 'my-info' %>">
-                  <img alt="" class="img-circle medium-image" src="<%=url%>user_avatar/<%=url.substring(9)%>/<%=topic_data.post_stream.posts[i].username%>/120/671_2.png"><div class="message-body"><div class="message-body-inner"><div class="message-info"><b><%=topic_data.post_stream.posts[i].username%></b> <i id="reply_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>" type="button" class="fa fa-reply reply_function" title="<%=topic_data.post_stream.posts[i].cooked%>"></i>
+                  <!-- <img alt="" class="img-circle medium-image" src="<%=url%>user_avatar/<%=url.substring(9)%>/<%=topic_data.post_stream.posts[i].username%>/120/671_2.png"> --><div class="message-body"><div class="message-body-inner"><div class="message-info"><b><%=topic_data.post_stream.posts[i].username%></b> <i id="reply_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>" type="button" class="fa fa-reply reply_function" title="<%=topic_data.post_stream.posts[i].cooked%>"></i>
                     <button id="share_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%=topic_data.slug%>" title="share a link to this post" onclick="share_function(this)">Share</button>
                     <%if(topic_data.post_stream.posts[i].username === curr_user.username){%>
                     <button id="delete_btn_<%= topic_data.post_stream.posts[i].topic_id%>_<%= topic_data.post_stream.posts[i].post_number%>_<%= topic_data.post_stream.posts[i].id%>" type="button" data-tslug="<%= topic_data.slug%>" onclick="delete_function(this)">Delete</button>
@@ -262,6 +262,8 @@
             </div>
 
             </center> -->
+          </div>
+            <div class="chat_section"> 
             <div class="display_replies"></div>
             <div class="replyBar">
 <!--               <form class="" method="post" id='reply_form'> -->
@@ -283,6 +285,7 @@
 
           </div>
         </div>
+      </div>
 
 
 
