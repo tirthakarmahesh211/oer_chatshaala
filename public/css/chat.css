@@ -57,12 +57,14 @@ body {
 
 /* The button used to open the sidebar */
 .openbtn {
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
-  background-color: #d6d4c7;
+  /*background-color: #d6d4c7;*/
+  background-color: rgb(76, 175, 80);
   color: #393e46;
-  padding: 1em;
+  padding: 11px 18px;
   border: none;
+  color: white;
 }
 
 .openbtn:hover {
@@ -152,11 +154,12 @@ body {
 }
 
 .info-combo>h3 {
-  margin: 3px 0;
+  /*margin: 3px 0;*/
 }
 
 .no-margin-bottom {
   margin-bottom: 0 !important;
+  margin-top:14px;
 }
 
 .info-combo>h5 {
@@ -179,8 +182,8 @@ body {
   margin-top: -62px;
     /* margin: -35px 2px; */
     margin-left: -15px;
-    margin-right: 10px;
-    margin-bottom: -7px;
+    /*margin-right: 10px;*/
+    margin-bottom: -20px;
 }
 
 .messages-panel {
@@ -191,6 +194,7 @@ body {
   display: inline-block;
   border-top-left-radius: 5px;
   /* margin-bottom: -5px; */
+  border: none;
 }
 
 .messages-panel img.img-circle {
@@ -409,7 +413,7 @@ background: rgba(36, 117, 47, 0.4);
   direction: rtl;
   min-height: 405px; */
   overflow: hidden;
-  padding: 5px;
+  padding: 2px;
 }
 .im_dialogs_search {
   position: relative;
@@ -434,7 +438,7 @@ background: rgba(36, 117, 47, 0.4);
     padding-left: 40px; 
   } 
 
-.contacts-outter-wrapper:after,
+/*.contacts-outter-wrapper:after,
 .contacts-outter-wrapper:nth-child(1):after {
   content: "";
   position: absolute;
@@ -456,10 +460,10 @@ background: rgba(36, 117, 47, 0.4);
 .contacts-outter-wrapper:nth-child(4):after {
   background-color: #314557;
 }
-
+*/
 .contacts-outter {
   position: relative;
-  height: calc(100vh - 135px);
+  height: calc(105vh - 135px);
   /* width: 325px; */
   direction: ltr;
   overflow-y: scroll;
@@ -487,18 +491,22 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts {
   direction: ltr;
-  width: 305px;
+  /*width: 305px;*/
   margin-top: 0px;
 }
 
 .contacts li {
   width: 100%;
-  border-top: 1px solid transparent;
-  border-bottom: 1px solid rgba(205, 211, 237, 0.2);
+  /*border-top: 1px solid transparent;*/
+  /*border-bottom: 1px solid rgba(205, 211, 237, 0.2);*/
   border-left: 4px solid rgba(255, 255, 255, 0);
-  padding: 8px 12px;
+  /*padding: 8px 12px;*/
+  /*padding: 0px 10px;*/
+  padding-right: 5px;
+  padding-left: 10px;
   position: relative;
   background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
 }
 
 .contacts li:first-child {
@@ -506,7 +514,7 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li:first-child.active {
-  border-top: 1px solid rgba(205, 211, 237, 0.75);
+  /*border-top: 1px solid rgba(205, 211, 237, 0.75);*/
 }
 
 .contacts li:hover {
@@ -515,10 +523,10 @@ background: rgba(36, 117, 47, 0.4);
 
 .contacts li.active,
 .contacts.info li.active {
-  border-right: 5px solid rgb(76, 175, 80);
-  border-top-color: rgba(205, 211, 237, 0.75);
+  /*border-right: 5px solid rgb(76, 175, 80);*/
+  /*border-top-color: rgba(205, 211, 237, 0.75);*/
   border-bottom-color: rgba(205, 211, 237, 0.75);
-  background-color: #F5F5F5;
+  background-color: #66666626;
 }
 
 .contacts.success li.active {
@@ -543,8 +551,9 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li>.info-combo>h3 {
-  width: 167px;
-  height: 20px;
+  width: 210px;
+  /*width: calc(100vw - 70vw);*/
+  height: 16px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -559,7 +568,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts li .message-time {
   text-align: right;
   display: block;
-  margin-left: 32px;
+  margin-left: 26px;
   width: 30px;
   height: 15px;
   color:grey;
@@ -567,13 +576,14 @@ background: rgba(36, 117, 47, 0.4);
   font-size: 11px;
   font-weight: 200;
   padding-right: 5px;
+  margin-top: 6px;
 }
 
 .contacts li .contacts-add .fa-trash-o {
   position: absolute;
   font-size: 14px;
   right: 28px;
-  bottom: 20px;
+  bottom: 4px;
   color: #a6a6a6;
   cursor: pointer;
 }
@@ -582,7 +592,7 @@ background: rgba(36, 117, 47, 0.4);
   position: absolute;
   font-size: 14px;
   right: 45px;
-  bottom: 20px;
+  bottom: 4px;
   color: #a6a6a6;
   cursor: pointer;
 }
@@ -592,7 +602,7 @@ background: rgba(36, 117, 47, 0.4);
     position: absolute;
     font-size: 12px;
     right: 32px;
-    bottom: 27px;
+    bottom: 6px;
     color: #a6a6a6;
     cursor: pointer;
   }
@@ -601,7 +611,7 @@ background: rgba(36, 117, 47, 0.4);
     position: absolute;
     font-size: 12px;
     right: 48px;
-    bottom: 27px;
+    bottom: 6px;
     color: #a6a6a6;
     cursor: pointer;
   }
@@ -617,8 +627,18 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .contacts li>.info-combo>h5 {
-  width: 180px;
-  font-size: 14px;
+  width: 198px;
+  font-size: 13px;
+  height: 16px;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+}
+
+.contacts #holder6 li>.info-combo>h5 {
+  width: 198px;
+  font-size: 13px;
   height: 28px;
   font-weight: 500;
   overflow: hidden;
@@ -630,11 +650,11 @@ background: rgba(36, 117, 47, 0.4);
   position: absolute;
 /*  top: 8px;
   left: 5px;*/
-  top:40px;
+  top:38px;
   right:0px;
   width: 20px;
   height: 20px;
-  line-height: 20px;
+  line-height: 22px;
   text-align: center;
   background-color: #4CAF50;
   border-radius: 50%;
@@ -653,7 +673,7 @@ background: rgba(36, 117, 47, 0.4);
   right:1px;
   width: 23px;
   height: 23px;
-  line-height: 20px;
+  line-height: 22px;
   text-align: center;
   background-color: #4CAF50;
   border-radius: 50%;
@@ -835,7 +855,7 @@ background: rgba(36, 117, 47, 0.4);
   color: rgb(46, 43, 43);
 }
 
-.message:after {
+/*.message:after {
   content: "";
   position: absolute;
   top: 11px;
@@ -859,7 +879,7 @@ background: rgba(36, 117, 47, 0.4);
   border-left: none;
   border-bottom: 11px solid transparent;
   border-right: 13px solid #dbe3e8;
-}
+}*/
 
 .message .medium-image {
   float: left;
@@ -1324,7 +1344,8 @@ background: rgba(36, 117, 47, 0.4);
 
 .header {
   position: fixed;
-  width: 30%;
+  /*width: 30%;*/
+  z-index: 1000;
 }
 
 ._right {
@@ -1499,7 +1520,7 @@ textarea[name="desc"] {
 .menu-btn {
   background-color: rgb(76, 175, 80);
   color: white;
-  border-radius: 5px;
+  /*border-radius: 5px;*/
   width: 100%;
   font-weight: bold;
   padding: 1em 2em;
@@ -1510,8 +1531,8 @@ textarea[name="desc"] {
 }
 
 .dropdown-menu_ {
-  margin-left: 50px;
-  width: 84%;
+  /*margin-left: 50px;*/
+  width: calc(100%);
   position: relative;
   display: inline-block;
 }
@@ -1520,18 +1541,18 @@ textarea[name="desc"] {
   display: none;
   position: absolute;
   background-color: #017575;
-  min-width: 160px;
+  min-width: 100%;
   z-index: 1;
 }
 
 .links {
   color: rgb(255, 255, 255);
-  padding: 12px 16px;
+  padding: 6px 10px;
   text-decoration: none;
   display: block;
   font-size: 18px;
   font-weight: bold;
-  border-bottom: 1px solid black;
+  /*border-bottom: 1px solid black;*/
 }
 
 .links:hover {
@@ -1555,4 +1576,35 @@ svg {
 }
 .fa-heart:hover {
    color: orange;
+}
+
+.im_diaglog_search{
+  margin-bottom: -7px;
+  margin-left: 2px;
+}
+
+#load_more_topics{
+  margin-left: 30%;
+}
+
+@media screen and (max-width: 761px) {
+
+.contacts li {
+  padding-right:20px;
+  padding-left: 14px;
+}
+
+}
+
+.dropdown-content1{
+  margin-left: 14px;
+  margin-right: 14px;
+}
+.dropdown-content2{
+  margin-left: 10px;
+  margin-right: 8px;
+}
+.dropdown-content3{
+  margin-left: 12px;
+  margin-right: 14px;
 }
