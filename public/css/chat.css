@@ -57,12 +57,12 @@ body {
 
 /* The button used to open the sidebar */
 .openbtn {
-  font-size: 16px;
+  font-size: 22px;
   cursor: pointer;
   /*background-color: #d6d4c7;*/
   background-color: rgb(76, 175, 80);
   color: #393e46;
-  padding: 1em;
+  padding: 11px 18px;
   border: none;
   color: white;
 }
