@@ -710,7 +710,7 @@ background: rgba(36, 117, 47, 0.4);
   top: 0;
   /* overflow:hidden; */
   z-index: 1;
-  min-height: 53px;
+  min-height: 55px;
   height: auto;
 }
 
@@ -962,7 +962,7 @@ background: rgba(36, 117, 47, 0.4);
 .message.my-message .message-body {
   /*float: right;*/
   /*margin: 0 15px 20px 5px;*/
-  background: #2b2a270a;
+  background: #eeede8eb;
   margin-bottom: 6px;
 }
 
@@ -1673,4 +1673,8 @@ svg {
   float: right;
   cursor: pointer;
   padding-right: 5px;
+}
+
+.see_repliess{
+  /*margin-left: 30px;*/
 }
