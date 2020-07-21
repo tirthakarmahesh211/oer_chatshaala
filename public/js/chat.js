@@ -688,6 +688,7 @@ function myFunc() {
             else{
               message_datetime = message_datetime.split("/");
               message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2]
+              message_datetime = "<div class='msg_datetime'>" + message_datetime+ "</div>"
             }
             if(data[i].actions_summary && data[i].actions_summary.length > 0){
               like_button = "";
@@ -722,7 +723,7 @@ function myFunc() {
             let share_button='';
             // console.log(chk_pvt_or_regular_msg);
             if(chk_pvt_or_regular_msg == true){
-              share_button = '<button id="share_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" type="button" data-tslug="'+slug+'" title="share a link to this post" onclick="share_function(this)">Share</button>'
+              share_button = '<div class="share_btn" id="share_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="share a link to this post" onclick="share_function(this)"><i class="fa fa-share-alt "></i></div>'
             }
 
             if (data[i].username != username) {//for receive
@@ -891,7 +892,7 @@ function myFunc() {
                   for (let i = 0; i < data.length; i++) {
                   let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
                   // if(post_number == data[i].reply_to_post_number){
-                  elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message '+ class_toggle +'">' + '<img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                  elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
                   count = count + 1;
                   // }
                  }
