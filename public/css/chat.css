@@ -662,7 +662,7 @@ background: rgba(36, 117, 47, 0.4);
 
 @-moz-document url-prefix() {
   /* Mozilla specific CSS here*/
-  .img-circle {
+  #holder6 .img-circle {
   margin-top: -30px;
   /* margin: -35px 2px; */
   margin-left: -15px;
