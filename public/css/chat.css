@@ -1889,3 +1889,9 @@ svg {
     display: -webkit-box !important;
   }
 }
+
+div.reply_msg{
+  color:red;
+  margin-left: 6%;
+  width: calc(100% - 6%);
+}
