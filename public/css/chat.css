@@ -9,6 +9,7 @@ body {
 
 #topic_head {
   color: white;
+  margin-top: 16px;
 }
 
 @media screen and (max-width: 767px) {
@@ -1747,8 +1748,22 @@ svg {
   padding-right: 5px;
 }
 
-.see_repliess{
-  /*margin-left: 30px;*/
+.see_replies{
+  /*border: none;*/
+  border: 1px solid rgba(147, 155, 147, 0.64);
+  background-color: rgba(147, 155, 147, 0.64);
+  border-radius: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  color:white;
+}
+.see_replies:hover{
+  color: rgba(85, 85, 85, 0.73);
+  background-color: white;
+  border: 1px solid rgba(147, 155, 147, 0.64);
+  border-radius: 2px;
+  margin-bottom: 2px;
+  margin-left: 2px;
 }
 
 .mobile_backbtn {
