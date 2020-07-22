@@ -277,9 +277,22 @@ background: rgba(36, 117, 47, 0.4);
 } */
 
 * THE REPLY BAR CSS */
+.chat_section{
+  width:100%;
+  position: absolute;
+  margin:5px;
+}
+
+@media screen and (max-width: 767px){
+  .chat_section{
+    width:100%;
+    position: absolute;
+    margin:5px;
+  } 
+}
 
 .replyBar {
-	width: 75%;
+	width: 100%;
   height: 70px;
   /* bottom: 0; */
 	float: left;
@@ -287,12 +300,35 @@ background: rgba(36, 117, 47, 0.4);
   /* position:fixed; */
 }
 
+@media screen and (max-width: 767px){
+  .replyBar {
+    width: 100%;
+    height: 50px;
+    /* bottom: 0; */
+    float: left;
+    background: #fff;
+    /* position:fixed; */
+  }
+}
+
+
+
 .replyBar .replyBtn {
 	width: 70px;
 	height: 70px;
   color: #777;
 	background: #FFF;
 	float: left;
+}
+
+@media screen and (max-width: 767px){
+  .replyBar .replyBtn {
+    width: 50px;
+    height: 50px;
+    color: #777;
+    background: #FFF;
+    float: left;
+  }
 }
 
 .replyBar .replyBtn:hover {
@@ -313,10 +349,28 @@ background: rgba(36, 117, 47, 0.4);
 	font-size: 16px;
 }
 
+@media screen and (max-width: 767px){
+.replyBar .replyMessage {
+    width: 70%;
+    float: left;
+    height: 50px;
+    padding: 0px 4px;
+    font-size: 14px;
+  }
+}
+
 .replyBar .otherTools {
 	float: right;
 	width: 70px;
 	height: 70px;
+}
+
+@media screen and (max-width: 767px){
+  .replyBar .otherTools {
+    float: right;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .toolButtons{
@@ -326,6 +380,18 @@ background: rgba(36, 117, 47, 0.4);
 	background: #FFF;
 	color: #888;
 	border-radius: 100%;
+}
+
+@media screen and (max-width: 767px){
+  .toolButtons{
+    width: 55px;
+    height: 50px;
+    margin-top: 0px;
+    margin-left: -12px;
+    background: #FFF;
+    color: #888;
+    border-radius: 100%;
+  }
 }
 
 .toolButtons:hover {
