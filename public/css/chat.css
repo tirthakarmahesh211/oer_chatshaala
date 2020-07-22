@@ -18,7 +18,7 @@ body {
     font-size: 3.5vw;
     /*margin-top: 3.5vw;*/
     position: fixed;
-    margin-left: 25%;
+    margin-left: 33%;
     margin-top: 18px;
   }
 }
@@ -137,6 +137,7 @@ body {
 
 .contacts li>.info-combo>h3.name {
   font-size: 14px;
+  width: 18vw;
 }
 
 .contacts li .message-time {
@@ -590,7 +591,6 @@ background: rgba(36, 117, 47, 0.4);
   white-space: nowrap;
   text-overflow: ellipsis;
   position: relative !important;
-  margin-left: 34px !important;
 }
 
 .contacts li .contacts-add {
@@ -698,6 +698,15 @@ background: rgba(36, 117, 47, 0.4);
   margin-bottom: -20px;
   position: absolute;
   }
+
+  .contacts #holder6 li>.info-combo>h5 {
+    margin-left: 34px !important;
+  }
+
+  .contacts #holder6 li>.info-combo>h3 {
+    margin-left: 34px !important;
+  }
+
 }
 
 
@@ -714,8 +723,9 @@ background: rgba(36, 117, 47, 0.4);
   -webkit-box-orient: vertical;
   display: -webkit-box;
   position: relative;
-  margin-left: 34px !important;
 }
+
+
 
 .contacts li .message-count {
   position: absolute;
@@ -1783,4 +1793,17 @@ svg {
 
 .mobile_backbtn:hover {
   background-color: gray;
+}
+
+
+@media screen and (max-width: 767px) {
+  .contacts li > .info-combo > h3 {
+    width: 70vw !important;
+    overflow: hidden !important;
+    white-space: pre-wrap !important;
+    text-overflow: ellipsis !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    display: -webkit-box !important;
+  }
 }
