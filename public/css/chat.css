@@ -18,7 +18,7 @@ body {
     font-size: 3.5vw;
     /*margin-top: 3.5vw;*/
     position: fixed;
-    margin-left: 33%;
+    margin-left: 25%;
     margin-top: 18px;
   }
 }
@@ -1809,7 +1809,6 @@ svg {
 }
 
 div.reply_msg{
-  color:red;
   margin-left: 6%;
   width: calc(100% - 6%);
 }
