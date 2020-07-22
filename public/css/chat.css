@@ -184,10 +184,10 @@ body {
 .img-circle {
   border-radius: 50%;
   margin-top: -62px;
-    /* margin: -35px 2px; */
-    margin-left: -15px;
-    /*margin-right: 10px;*/
-    margin-bottom: -20px;
+  /* margin: -35px 2px; */
+  margin-left: -15px;
+  /*margin-right: 10px;*/
+  margin-bottom: -20px;
 }
 
 .messages-panel {
@@ -621,6 +621,23 @@ background: rgba(36, 117, 47, 0.4);
     color: #a6a6a6;
     cursor: pointer;
   }
+
+}
+
+@media only screen and (max-width: 800px){
+
+  .contacts #holder6 li>.info-combo>h5 {
+    width: 78vw !important;
+    font-size: 13px;
+    height: 28px;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+  }
 }
 
 .contacts li .contacts-add .fa-trash-o:hover {
@@ -642,14 +659,31 @@ background: rgba(36, 117, 47, 0.4);
   text-overflow: ellipsis;
 }
 
+
+@-moz-document url-prefix() {
+  /* Mozilla specific CSS here*/
+  .img-circle {
+  margin-top: -30px;
+  /* margin: -35px 2px; */
+  margin-left: -15px;
+  /*margin-right: 10px;*/
+  margin-bottom: -20px;
+  }
+}
+
+
 .contacts #holder6 li>.info-combo>h5 {
-  width: 198px;
+  width: 18vw;  
   font-size: 13px;
   height: 28px;
   font-weight: 500;
   overflow: hidden;
-  white-space: normal;
+  white-space: pre-wrap;
   text-overflow: ellipsis;
+  /*display: flex;*/
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
 
 .contacts li .message-count {
