@@ -166,6 +166,11 @@ body {
   margin-top:14px;
 }
 
+#holder6 .no-margin-bottom {
+  margin-bottom: 0 !important;
+  margin-top:2px !important;
+}
+
 .info-combo>h5 {
   margin: 2px 0 6px 0;
 }
@@ -565,6 +570,17 @@ background: rgba(36, 117, 47, 0.4);
   text-overflow: ellipsis;
 }
 
+.contacts #holder6 li>.info-combo>h3 {
+  width: 210px;
+  /*width: calc(100vw - 70vw);*/
+  height: 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  position: relative !important;
+  margin-left: 34px !important;
+}
+
 .contacts li .contacts-add {
   width: 50px;
   float: right;
@@ -663,11 +679,12 @@ background: rgba(36, 117, 47, 0.4);
 @-moz-document url-prefix() {
   /* Mozilla specific CSS here*/
   #holder6 .img-circle {
-  margin-top: -30px;
+  margin-top: 4px !important;
   /* margin: -35px 2px; */
   margin-left: -15px;
   /*margin-right: 10px;*/
   margin-bottom: -20px;
+  position: absolute;
   }
 }
 
@@ -684,6 +701,8 @@ background: rgba(36, 117, 47, 0.4);
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   display: -webkit-box;
+  position: relative;
+  margin-left: 34px !important;
 }
 
 .contacts li .message-count {
