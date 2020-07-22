@@ -290,15 +290,18 @@ background: rgba(36, 117, 47, 0.4);
 * THE REPLY BAR CSS */
 .chat_section{
   width:100%;
-  position: absolute;
-  margin:5px;
+  position: fixed !important;
+  bottom: 0 !important;
+/*  margin:5px;
+*/
 }
 
 @media screen and (max-width: 767px){
   .chat_section{
-    width:100%;
-    position: absolute;
-    margin:5px;
+    width:100% !important;
+    position: fixed;
+    bottom: 0;
+    /*margin:5px;*/
   } 
 }
 
@@ -417,6 +420,18 @@ background: rgba(36, 117, 47, 0.4);
 }
 .reply_function:hover{
   color:grey;
+}
+
+.display_replies{
+  margin: 0 5px%;
+  align-content: center;
+  background-color: #f7f7f7;
+
+}
+
+.cancel-reply{
+  margin-left: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .contacts-list .inbox-categories {
@@ -971,7 +986,7 @@ background: rgba(36, 117, 47, 0.4);
   width: 100%;
   overflow: hidden;
   margin-top: 50px;
-  /* margin-bottom: 50px; */
+   margin-bottom: -10px; 
 }
 
 

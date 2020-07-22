@@ -263,8 +263,8 @@
 
             </center> -->
           </div>
-            <div class="chat_section"> 
-            <div class="display_replies"></div>
+            <div class="chat_section" style="position:fixed; bottom: 0;width:75%;"> 
+            <div class="display_replies"><p class="selected_msg"></p></div>
             <div class="replyBar">
 <!--               <form class="" method="post" id='reply_form'> -->
               <button class="replyBtn">
@@ -387,7 +387,7 @@
         // console.log("body");
         // console.log(body);
         var topic_title = document.getElementById("topic_title")
-        var reply_message = document.querySelector('div.display_replies');
+        var reply_message = document.querySelector('div.display_replies.selected_msg');
 
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
