@@ -1228,7 +1228,7 @@ function create_private_msg(username){
     $('#holder3').append('<input id="topic_title" value="" type="text" placeholder="Type title, or paste a link here"><br/>');
     if( username == $("#curr_user").attr("name") ){
       // $('#holder3').append('category');
-      elements = '<select id="select_category_id" placeholder="select a category...">'
+      elements = 'Select a category: <select id="select_category_id" placeholder="select a category...">'
       var contact_list_divs = document.querySelectorAll('div[class^="contact_list"]');
       for (var i = 0; i < contact_list_divs.length; i++) {
         elements = elements + '<option value="'+contact_list_divs[i].dataset.cid+'">'+contact_list_divs[i].dataset.cname+'</option>';
