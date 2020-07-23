@@ -132,7 +132,12 @@ window.onclick = function (event) {
   var search_icon = document.getElementById("search_icon");
   // console.log(event.target);
   if (event.target == search_icon || event.target == myInput) {
-    myInput.style.display = "block";
+    if(event.target == search_icon && myInput != null && myInput!= undefined && myInput.style.display == "block"){
+      myInput.style.display = "none";
+    }
+    else{
+      myInput.style.display = "block";
+    }
   }
   else{
     myInput.style.display = "none";

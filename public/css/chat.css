@@ -1830,3 +1830,25 @@ div.reply_msg{
 .fa-search:hover{
   /*color: red;*/
 }
+
+#myInput {
+  float: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 14px;
+  margin-right: 42px;
+  width: calc(100% - 88px);
+  font-size: 16px;
+  border: 1px solid grey;
+  color: gray;
+  border-radius: 4px;
+}
+
+#search_icon{
+  float: right;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 18px 11px;
+}
