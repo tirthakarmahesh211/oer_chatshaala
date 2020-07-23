@@ -368,7 +368,7 @@ background: rgba(36, 117, 47, 0.4);
 
 .replyBar textarea{
     /*width: 200px;*/
-    height:15px;
+    height:auto;
     line-height:15px;
 /*    min-width: 200px;
     max-width: 300px;*/
