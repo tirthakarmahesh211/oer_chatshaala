@@ -134,6 +134,7 @@ window.onclick = function (event) {
   if (event.target == search_icon || event.target == myInput) {
     if(event.target == search_icon && myInput != null && myInput!= undefined && myInput.style.display == "block"){
       myInput.style.display = "none";
+      myInput.value="";
     }
     else{
       myInput.style.display = "block";
@@ -141,6 +142,7 @@ window.onclick = function (event) {
   }
   else{
     myInput.style.display = "none";
+    myInput.value="";
   }
 };
 
