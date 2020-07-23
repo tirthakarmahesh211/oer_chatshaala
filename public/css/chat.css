@@ -795,7 +795,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts #holder6 li>.info-combo>h5 {
   width: 18vw;  
   font-size: 13px;
-  height: 28px;
+  height: 30px;
   font-weight: 500;
   overflow: hidden;
   white-space: pre-wrap;
@@ -1874,7 +1874,7 @@ svg {
 }
 
 .mobile_backbtn:hover {
-  background-color: gray;
+  /*background-color: gray;*/
 }
 
 
@@ -1891,7 +1891,46 @@ svg {
 }
 
 div.reply_msg{
-  color:red;
   margin-left: 6%;
   width: calc(100% - 6%);
+}
+
+.top_header_search_box{
+  position: fixed;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  padding: 8px;
+  font-size: 20px;
+  color: white !important;
+}
+
+.fa-search{
+  color: white;
+}
+
+.fa-search:hover{
+  /*color: red;*/
+}
+
+#myInput {
+  float: right;
+  position: fixed;
+  top: 0;
+  right: 0;
+  margin-top: 14px;
+  margin-right: 42px;
+  width: calc(100% - 88px);
+  font-size: 16px;
+  border: 1px solid grey;
+  color: gray;
+  border-radius: 4px;
+}
+
+#search_icon{
+  float: right;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 18px 11px;
 }

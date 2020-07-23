@@ -23,6 +23,7 @@
   <div style="display: none;" id="page_url" name='<%=page_url%>'></div>
   <div style="display: none;" id="posts_count" name='<%=topic_data.posts_count%>'></div>
   <div style="display: none;" id="specific_posts_page" name='<%=specific_posts_page%>'></div>
+  <div style="display: none;" id="category_details" data-slug="" data-title=""></div>
 
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -58,6 +59,7 @@
         </div>
         <div class="dropdown-menu_">
           <button id="menu_active" class="menu-btn">Categories</button>
+          <div class="top_header_search_box"><input style="display: none" type="text" id="myInput" onkeyup="myFunc()" name="search" placeholder="Search"><i id="search_icon" class="fa fa-search icon"></i></div>
           <div class="menu-content">
             <div id="private_click" class="pointer links" onClick='function_pvt()'>
               <li id="private" class="" data-toggle="" data-target="">
@@ -90,17 +92,17 @@
 
 
           <div id="inbox" class="contacts-outter-wrapper tab-pane active">
-            <div class="im_diaglog_search">
-            <!--<file class="panel-search-form info form-group has-feedback no-margin-bottom">-->
+<!--             <div class="im_diaglog_search">
+            <file class="panel-search-form info form-group has-feedback no-margin-bottom">
               <div id="search_box" class="input-icons"> 
                 <i class="fa fa-search icon"> 
                 </i> 
               <input type="text" id="myInput" onkeyup="myFunc()" class="form-control input-field" name="search"
                 placeholder="Search">
-              <!-- <span class="fa fa-search form-control-feedback"></span> -->
+              <span class="fa fa-search form-control-feedback"></span>
               </div>
-            <!-- </form> -->
-            </div>
+            </form> 
+            </div> -->
 
             <div class="contacts-outter">
 
