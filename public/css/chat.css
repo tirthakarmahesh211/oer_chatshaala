@@ -1911,11 +1911,12 @@ div.reply_msg{
 }
 
 .top_header_search_box{
-  position: fixed;
+  position: relative;
   cursor: pointer;
   top: 0;
-  right: 0;
-  padding: 8px;
+  /*right: 0;*/
+  /*margin-left: 20%;*/
+  padding: 0px 8px;
   font-size: 20px;
   color: white !important;
 }
@@ -1928,26 +1929,54 @@ div.reply_msg{
   /*color: red;*/
 }
 
-#myInput {
-  float: right;
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin-top: 14px;
-  margin-right: 42px;
-  width: calc(100% - 88px);
-  font-size: 16px;
-  border: 1px solid grey;
-  color: gray;
-  border-radius: 4px;
+@media screen and (max-width: 767px) {
+  #myInput {
+    float: right !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    margin-top: 14px !important;
+    margin-right: 42px !important;
+    width: calc(100% - 88px) !important;
+    font-size: 16px !important;
+    border: 1px solid grey !important;
+    color: gray !important;
+    border-radius: 4px !important;
+  }
+
+  #search_icon{
+    float: right !important;
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+    padding: 18px 11px !important;
+    /*color:red;*/
+  }
 }
 
+  #myInput {
+    float: right;
+    position: fixed;
+    top: 0;
+    /*right: 0;*/
+    margin-top: 14px;
+    margin-right: 42px;
+    width: calc(25% - 96px);
+    font-size: 16px;
+    border: 1px solid grey;
+    color: gray;
+    border-radius: 4px;
+    margin-left:2.9%;
+  }
+
 #search_icon{
-  float: right;
-  position: fixed;
-  right: 0;
-  top: 0;
-  padding: 18px 11px;
+    float: right;
+    position: fixed;
+    /*right: 0;*/
+    top: 0;
+    padding: 18px 11px;
+    /*color:yellow;*/
+    margin-left: 20%;
 }
 
 .my-message .message-body {
