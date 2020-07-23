@@ -1832,7 +1832,7 @@ svg {
 
 .msg_datetime {
   display: inline-block;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: normal;
   float: right;
   padding-right: 10px;
@@ -1951,4 +1951,8 @@ div.reply_msg{
 
 .my-message .message-body {
   background: #eeede8eb !important;
+}
+
+.reply_msg .message-info {
+  padding-left: 0px;
 }
