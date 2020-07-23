@@ -1825,6 +1825,7 @@ svg {
   float: right;
   cursor: pointer;
   padding-right: 5px;
+  margin-right: 8px;
 }
 
 .reply_function{
@@ -1852,7 +1853,7 @@ svg {
 .delete_btn{
   float: right;
   cursor: pointer;
-  padding-right: 5px;
+  padding-right: 10px;
 }
 
 .see_replies{
