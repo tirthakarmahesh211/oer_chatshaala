@@ -290,9 +290,25 @@ background: rgba(36, 117, 47, 0.4);
 } */
 
 * THE REPLY BAR CSS */
+.chat_section{
+  width:100%;
+  position: fixed !important;
+  bottom: 0 !important;
+/*  margin:5px;
+*/
+}
+
+@media screen and (max-width: 767px){
+  .chat_section{
+    width:100% !important;
+    position: fixed;
+    bottom: 0;
+    /*margin:5px;*/
+  } 
+}
 
 .replyBar {
-	width: 75%;
+	width: 100%;
   height: 70px;
   /* bottom: 0; */
 	float: left;
@@ -300,12 +316,36 @@ background: rgba(36, 117, 47, 0.4);
   /* position:fixed; */
 }
 
+@media screen and (max-width: 767px){
+  .replyBar {
+    width: 100%;
+    height: 50px;
+    /* bottom: 0; */
+    float: left;
+    background: #fff;
+    /* position:fixed; */
+  }
+}
+
+
+
 .replyBar .replyBtn {
 	width: 70px;
 	height: 70px;
   color: #777;
 	background: #FFF;
 	float: left;
+  resize: both;
+}
+
+@media screen and (max-width: 767px){
+  .replyBar .replyBtn {
+    width: 50px;
+    height: 50px;
+    color: #777;
+    background: #FFF;
+    float: left;
+  }
 }
 
 .replyBar .replyBtn:hover {
@@ -326,10 +366,40 @@ background: rgba(36, 117, 47, 0.4);
 	font-size: 16px;
 }
 
+.replyBar textarea{
+    /*width: 200px;*/
+    height:auto;
+    line-height:15px;
+/*    min-width: 200px;
+    max-width: 300px;*/
+    transition: width 0.25s;
+    resize:none;
+    overflow:hidden;
+
+}
+
+@media screen and (max-width: 767px){
+.replyBar .replyMessage {
+    width: 70%;
+    float: left;
+    height: 50px;
+    padding: 0px 4px;
+    font-size: 14px;
+  }
+}
+
 .replyBar .otherTools {
 	float: right;
 	width: 70px;
 	height: 70px;
+}
+
+@media screen and (max-width: 767px){
+  .replyBar .otherTools {
+    float: right;
+    width: 50px;
+    height: 50px;
+  }
 }
 
 .toolButtons{
@@ -339,6 +409,18 @@ background: rgba(36, 117, 47, 0.4);
 	background: #FFF;
 	color: #888;
 	border-radius: 100%;
+}
+
+@media screen and (max-width: 767px){
+  .toolButtons{
+    width: 55px;
+    height: 50px;
+    margin-top: 0px;
+    margin-left: -12px;
+    background: #FFF;
+    color: #888;
+    border-radius: 100%;
+  }
 }
 
 .toolButtons:hover {
@@ -353,6 +435,19 @@ background: rgba(36, 117, 47, 0.4);
 }
 .reply_function:hover{
   color:grey;
+}
+
+.display_replies{
+  margin: 0 5px%;
+  align-content: center;
+  background-color: #f7f7f7;
+  margin-bottom: -10px;
+
+}
+
+.cancel-reply{
+  margin-left: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .contacts-list .inbox-categories {
@@ -917,7 +1012,7 @@ background: rgba(36, 117, 47, 0.4);
   width: 100%;
   overflow: hidden;
   margin-top: 50px;
-  /* margin-bottom: 50px; */
+   margin-bottom: 80px; 
 }
 
 
