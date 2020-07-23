@@ -265,7 +265,7 @@
 
             </center> -->
           </div>
-            <div class="chat_section" style="position:fixed; bottom: 0;width:75%;"> 
+            <div class="chat_section" style="position:fixed; bottom: 0;width:75%;resize: both;overflow: auto;"> 
             <div class="display_replies"><p class="selected_msg"></p></div>
             <div class="replyBar">
 <!--               <form class="" method="post" id='reply_form'> -->
@@ -275,7 +275,7 @@
                 </i>
               </button>
               <!-- </form> -->
-              <textarea id="replyMessage" type="text" class="replyMessage" placeholder="Type your message..."/></textarea>
+              <textarea id="replyMessage" type="text" class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea>
 
               <div class="otherTools">
                 <button type="button" name="post" id='saveDelta' class="toolButtons">
@@ -323,7 +323,18 @@
 
   </div>
 
-
+  <script type="text/javascript">
+        
+    $('textarea').on('keydown', function(e){
+        if(e.which == 13) {
+          e.preventDefault();
+        }
+      }).on('input', function(){
+        $(this).height(1);
+            var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
+        $(this).height(totalHeight);
+    });
+  </script>
 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">

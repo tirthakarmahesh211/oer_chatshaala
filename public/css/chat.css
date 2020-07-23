@@ -335,6 +335,7 @@ background: rgba(36, 117, 47, 0.4);
   color: #777;
 	background: #FFF;
 	float: left;
+  resize: both;
 }
 
 @media screen and (max-width: 767px){
@@ -363,6 +364,18 @@ background: rgba(36, 117, 47, 0.4);
 	height: 70px;
 	padding: 0px 8px;
 	font-size: 16px;
+}
+
+.replyBar textarea{
+    /*width: 200px;*/
+    height:15px;
+    line-height:15px;
+/*    min-width: 200px;
+    max-width: 300px;*/
+    transition: width 0.25s;
+    resize:none;
+    overflow:hidden;
+
 }
 
 @media screen and (max-width: 767px){
