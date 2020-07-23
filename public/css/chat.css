@@ -17,8 +17,8 @@ body {
     color: white;
     font-size: 3.5vw;
     /*margin-top: 3.5vw;*/
-    position: fixed;
-    margin-left: 33%;
+    /*position: fixed;*/
+    /*margin-left: 33%;*/
     margin-top: 18px;
   }
 }
@@ -569,7 +569,8 @@ background: rgba(36, 117, 47, 0.4);
 */
 .contacts-outter {
   position: relative;
-  height: calc(105vh - 135px);
+  /*height: calc(105vh - 135px);*/
+  height: 90vh;
   /* width: 325px; */
   direction: ltr;
   overflow-y: scroll;
@@ -1868,9 +1869,9 @@ svg {
   border: none;
   color: white;
   position: fixed;
-/*  top: 0;
+  top: 0;
   left: 0;
-  height: 48px;*/
+  /*height: 48px;*/
 }
 
 .mobile_backbtn:hover {
@@ -1933,4 +1934,8 @@ div.reply_msg{
   right: 0;
   top: 0;
   padding: 18px 11px;
+}
+
+.my-message .message-body {
+  background: #eeede8eb !important;
 }
