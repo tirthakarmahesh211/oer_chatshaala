@@ -294,6 +294,7 @@ background: rgba(36, 117, 47, 0.4);
   width:100%;
   position: fixed !important;
   bottom: 0 !important;
+  height: auto;
 /*  margin:5px;
 */
 }
