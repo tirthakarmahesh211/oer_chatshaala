@@ -932,10 +932,10 @@ function myFunc() {
                   let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
                   // if(post_number == data[i].reply_to_post_number){
                   if(data[i].username !=null && data[i].username!=undefined && data[i].username != username){
-                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message see_repliess reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message see_repliess reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '<div class="msg_datetime">04/12/19, 3:36 PM</div><div class="like_div"><span id="like_count_'+data[i].id+'" style="display:inline-block;">1</span><a id="like_icon_9156" onclick="like_function(this,like_url)"><i class="fa fa-heart"></i></a></div></div>' + '<br>' + '</div>';
                   }
                   else{
-                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message my-message see_repliess reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div id="reply_msg_'+ topic_id + '_' + post_number+ '_' +count+ '" class="message my-message see_repliess reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '<div class="msg_datetime">04/12/19, 3:36 PM</div><div class="like_div"><span id="like_count_9156" style="display:inline-block;">1</span><a id="like_icon_9156" onclick="like_function(this,like_url)"><i class="fa fa-heart"></i></a></div></div>' + '<br>' + '</div>';
                   }
                   count = count + 1;
                   // }

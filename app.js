@@ -53,7 +53,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/*', function (req, res, next) {
-    res.setHeader("Cache-Control", "public, max-age=8,must-revalidate");
+    res.setHeader("Cache-Control", "public, max-age=10,must-revalidate");
     next();
 });
 
