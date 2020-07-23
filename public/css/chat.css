@@ -1853,3 +1853,7 @@ div.reply_msg{
   top: 0;
   padding: 18px 11px;
 }
+
+.my-message .message-body {
+  background: #eeede8eb !important;
+}
