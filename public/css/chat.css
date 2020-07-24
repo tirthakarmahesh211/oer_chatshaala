@@ -442,7 +442,8 @@ background: rgba(36, 117, 47, 0.4);
   cursor:pointer;
   color: #bdc2c5;
   padding-right: 5px;
-  margin-top: 4px;
+  margin-top: 2px;
+  margin-right: 10px;
 }
 .reply_function:hover{
   color:grey;
@@ -720,6 +721,15 @@ input[type="text"]:focus {
   border-bottom-color: rgba(205, 211, 237, 0.75);
   background-color: #66666626;
 }
+
+@media screen and (max-width: 767px){
+  .contacts li.active,
+  .contacts.info li.active {
+    background: none;
+    border-bottom-color: rgba(205, 211, 237, 0.75);
+  }
+}
+
 
 .contacts.success li.active {
   border-left: 4px solid rgb(76, 175, 80);
@@ -1092,7 +1102,7 @@ input[type="text"]:focus {
   .message-chat {
     width: 100%;
     overflow: hidden;
-    margin-top: 80px;
+    /*margin-top: 80px;*/
     /* margin-bottom: 50px; */
   }
 }
@@ -1129,6 +1139,7 @@ input[type="text"]:focus {
   margin-left: 4px;
   margin-right: 4px
   color: rgb(46, 43, 43);
+  margin-bottom: 6px;
 }
 
 /*.message:after {
@@ -1856,6 +1867,7 @@ svg {
 
 .fa-heart {
    color: red;
+   font-size: 16px !important;
 }
 .fa-heart:hover {
    color: orange;
@@ -1896,10 +1908,12 @@ svg {
   float: right;
   cursor: pointer;
   padding-right: 5px;
+  margin-right: 8px;
 }
 
 .reply_function{
- float: right; 
+ float: right;
+ font-size: 18px !important;
 }
 
 .msg_datetime {
@@ -1912,18 +1926,20 @@ svg {
 }
 .like_div{
   display: inline-block;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   float: right;
   padding-right: 2px;
   letter-spacing: 2px;
   color: #6f6d6d;
+  margin-right: 6px;
 }
 
 .delete_btn{
   float: right;
   cursor: pointer;
-  padding-right: 5px;
+  padding-right: 10px;
+  font-size: 16px !important
 }
 
 .see_replies{
@@ -1977,16 +1993,17 @@ svg {
 }
 
 div.reply_msg{
-  margin-left: 6%;
-  width: calc(100% - 6%);
+/*  margin-left: 5%;
+  width: calc(100% - 5%);*/
 }
 
 .top_header_search_box{
-  position: fixed;
+  position: relative;
   cursor: pointer;
   top: 0;
-  right: 0;
-  padding: 8px;
+  /*right: 0;*/
+  /*margin-left: 20%;*/
+  padding: 0px 8px;
   font-size: 20px;
   color: white !important;
 }
@@ -1999,26 +2016,54 @@ div.reply_msg{
   /*color: red;*/
 }
 
-#myInput {
-  float: right;
-  position: fixed;
-  top: 0;
-  right: 0;
-  margin-top: 14px;
-  margin-right: 42px;
-  width: calc(100% - 88px);
-  font-size: 16px;
-  border: 1px solid grey;
-  color: gray;
-  border-radius: 4px;
+@media screen and (max-width: 767px) {
+  #myInput {
+    float: right !important;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    margin-top: 14px !important;
+    margin-right: 42px !important;
+    width: calc(100% - 88px) !important;
+    font-size: 16px !important;
+    border: 1px solid grey !important;
+    color: gray !important;
+    border-radius: 4px !important;
+  }
+
+  #search_icon{
+    float: right !important;
+    position: fixed !important;
+    right: 0 !important;
+    top: 0 !important;
+    padding: 18px 11px !important;
+    /*color:red;*/
+  }
 }
 
+  #myInput {
+    float: right;
+    position: fixed;
+    top: 0;
+    /*right: 0;*/
+    margin-top: 14px;
+    margin-right: 42px;
+    width: calc(25% - 96px);
+    font-size: 16px;
+    border: 1px solid grey;
+    color: gray;
+    border-radius: 4px;
+    margin-left:2.9%;
+  }
+
 #search_icon{
-  float: right;
-  position: fixed;
-  right: 0;
-  top: 0;
-  padding: 18px 11px;
+    float: right;
+    position: fixed;
+    /*right: 0;*/
+    top: 0;
+    padding: 18px 11px;
+    /*color:yellow;*/
+    margin-left: 20%;
 }
 
 .my-message .message-body {
@@ -2027,4 +2072,12 @@ div.reply_msg{
 
 .reply_msg .message-info {
   padding-left: 0px;
+}
+
+@media screen and (max-width: 767px) {
+
+.message .message-text {
+  font-size: 17.5px !important;
+}
+
 }
