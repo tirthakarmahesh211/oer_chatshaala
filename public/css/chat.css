@@ -359,13 +359,24 @@ background: rgba(36, 117, 47, 0.4);
 	font-size: 32px;
 }
 
-.replyBar .replyMessage {
+/*.replyBar .replyMessage {
 	width: calc(100% - 150px);
 	float: left;
 	height: 70px;
 	padding: 0px 8px;
 	font-size: 16px;
+}*/
+
+.replyMessage{
+  margin-left: 30px;
+  width:89%;
 }
+
+.replyBtn{
+  margin-left: -20px;
+
+}
+
 
 .replyBar textarea{
     /*width: 200px;*/
@@ -376,7 +387,6 @@ background: rgba(36, 117, 47, 0.4);
     transition: width 0.25s;
     resize:none;
     overflow:hidden;
-
 }
 
 @media screen and (max-width: 767px){
@@ -404,18 +414,18 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .toolButtons{
-  width: 60px;
-	height: 60px;
+/*  width: 60px;
+	height: 60px;*/
 	margin-top: 5px;
 	background: #FFF;
 	color: #888;
-	border-radius: 100%;
+/*	border-radius: 100%;*/
 }
 
 @media screen and (max-width: 767px){
   .toolButtons{
     width: 55px;
-    height: 50px;
+    /*height: 50px;*/
     margin-top: 0px;
     margin-left: -12px;
     background: #FFF;
@@ -445,6 +455,67 @@ background: rgba(36, 117, 47, 0.4);
   margin-bottom: -10px;
 
 }
+
+
+/*---New editor---*/
+/*Don't forget to add Font Awesome CSS : "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"*/
+input[type="text"] {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.inputWithIcon input[type="text"] {
+  padding-left: 40px;
+}
+
+.inputWithIcon {
+  position: relative;
+  background-color: #fff;
+}
+
+.inputWithIcon i {
+  position: absolute;
+  left: 0;
+/*  top: 8px;*/
+  top:0px;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: 0.3s;
+}
+
+.inputWithIcon input[type="text"]:focus + i {
+  color: dodgerBlue;
+}
+
+.inputWithIcon.inputIconBg i {
+  background-color: #aaa;
+  color: #fff;
+  /*padding: 9px 4px;*/
+  border-radius: 4px 0 0 4px;
+}
+
+.inputWithIcon.inputIconBg input[type="text"]:focus + i {
+  color: #fff;
+  background-color: dodgerBlue;
+}
+
+
+
+
+
+
+
 
 .cancel-reply{
   margin-left: 20px;
