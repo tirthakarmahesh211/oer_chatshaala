@@ -968,14 +968,53 @@ function myFunc() {
                   let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
                   var marginLeft = 4;
                   marginLeft = marginLeft + "%";
-                  // if(post_number == data[i].reply_to_post_number){
-                  // var reply_msg_id = topic_id+'_'+ post_number +'_'+ data[i].post_number;
-                  if(data[i].username !=null && data[i].username!=undefined && data[i].username != username){
-                    //style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') "
-                    elements = elements + '<div style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_' + old_post_number+'_'+data[i].post_number+ '" class="message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b><i id="reply_btn_2537_11" type="button" title="second reply" class="fa fa-reply reply_function"></i><div class="delete_btn" id="delete_btn_2537_11_10152" data-tslug="telegram-notification-demo" title="second reply" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button data-depth_id="'+ (Number(event.target.dataset.depth_id)+1) +'" id="btn_'+ data[i].topic_id + '_' + old_post_number + '_' +data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<div class="msg_datetime">04/12/19, 3:36 PM</div><div class="like_div"><span id="like_count_'+data[i].id+'" style="display:inline-block;">1</span><a id="like_icon_9156" onclick="like_function(this,like_url)"><i class="fa fa-heart"></i></a></div></div>' + '<br>' + '</div>';
+
+                  let message_datetime = "";
+                  message_datetime = new Date(data[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'});
+
+                  if (message_datetime == null || message_datetime == undefined){
+                    message_datetime = "";
                   }
                   else{
-                    elements = elements + '<div style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_' + old_post_number+'_'+data[i].post_number+ '" class="message my-message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b><i id="reply_btn_2537_11" type="button" title="second reply" class="fa fa-reply reply_function"></i><div class="delete_btn" id="delete_btn_2537_11_10152" data-tslug="telegram-notification-demo" title="second reply" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button data-depth_id="'+ (Number(event.target.dataset.depth_id)+1) +'" id="btn_'+ data[i].topic_id + '_' + old_post_number + '_' +data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<div class="msg_datetime">04/12/19, 3:36 PM</div><div class="like_div"><span id="like_count_'+data[i].id+'" style="display:inline-block;">1</span><a id="like_icon_9156" onclick="like_function(this,like_url)"><i class="fa fa-heart"></i></a></div></div>' + '<br>' + '</div>';
+                    message_datetime = message_datetime.split("/");
+                    message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2]
+                    message_datetime = "<div class='msg_datetime'>" + message_datetime+ "</div>"
+                  }
+                  // if(post_number == data[i].reply_to_post_number){
+                  // var reply_msg_id = topic_id+'_'+ post_number +'_'+ data[i].post_number;
+
+                  if(data[i].actions_summary && data[i].actions_summary.length > 0){
+                    like_button = "";
+                    var if_block = false;
+                    for (let j = 0; j < data[i].actions_summary.length; j++) {
+                      // console.log(data[i].actions_summary[j].id);
+                      if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
+                      {
+                        // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
+                        like_url = '/post_actions/'+data[i].id+'/2';
+                        if(data[i].username != username){
+                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                        }
+                        else{
+                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                        }
+                        if_block = true;
+                        break;
+                      }
+                    }
+                    if(if_block == false && data[i].username != username ){
+                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                    }
+                    else if(if_block == false && data[i].username == username) {
+                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                    }
+                  }
+                  if(data[i].username !=null && data[i].username!=undefined && data[i].username != username){
+                    //style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') "
+                    elements = elements + '<div style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_' + old_post_number+'_'+data[i].post_number+ '" class="message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+ '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button data-depth_id="'+ (Number(event.target.dataset.depth_id)+1) +'" id="btn_'+ data[i].topic_id + '_' + old_post_number + '_' +data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ message_datetime+ like_button+'</div>' + '<br>' + '</div>';
+                  }
+                  else{
+                    elements = elements + '<div style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_' + old_post_number+'_'+data[i].post_number+ '" class="message my-message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+'<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>' + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button data-depth_id="'+ (Number(event.target.dataset.depth_id)+1) +'" id="btn_'+ data[i].topic_id + '_' + old_post_number + '_' +data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ message_datetime+'</div>' + '<br>' + '</div>';
                   }
                   count = count + 1;
                   // }
