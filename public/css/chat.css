@@ -650,6 +650,15 @@ background: rgba(36, 117, 47, 0.4);
   background-color: #66666626;
 }
 
+@media screen and (max-width: 767px){
+  .contacts li.active,
+  .contacts.info li.active {
+    background: none;
+    border-bottom-color: rgba(205, 211, 237, 0.75);
+  }
+}
+
+
 .contacts.success li.active {
   border-left: 4px solid rgb(76, 175, 80);
 }
