@@ -820,7 +820,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts #holder6 li>.info-combo>h5 {
   width: 18vw;  
   font-size: 13px;
-  height: 30px;
+  height: auto;
   font-weight: 500;
   overflow: hidden;
   white-space: pre-wrap;
