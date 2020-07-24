@@ -432,7 +432,7 @@ background: rgba(36, 117, 47, 0.4);
   cursor:pointer;
   color: #bdc2c5;
   padding-right: 5px;
-  margin-top: 4px;
+  margin-top: 2px;
   margin-right: 10px;
 }
 .reply_function:hover{
@@ -1796,6 +1796,7 @@ svg {
 
 .fa-heart {
    color: red;
+   font-size: 16px !important;
 }
 .fa-heart:hover {
    color: orange;
@@ -1840,7 +1841,8 @@ svg {
 }
 
 .reply_function{
- float: right; 
+ float: right;
+ font-size: 18px !important;
 }
 
 .msg_datetime {
@@ -1853,7 +1855,7 @@ svg {
 }
 .like_div{
   display: inline-block;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   float: right;
   padding-right: 2px;
@@ -1866,6 +1868,7 @@ svg {
   float: right;
   cursor: pointer;
   padding-right: 10px;
+  font-size: 16px !important
 }
 
 .see_replies{
