@@ -1030,7 +1030,7 @@ background: rgba(36, 117, 47, 0.4);
   .message-chat {
     width: 100%;
     overflow: hidden;
-    margin-top: 80px;
+    /*margin-top: 80px;*/
     /* margin-bottom: 50px; */
   }
 }
