@@ -433,6 +433,7 @@ background: rgba(36, 117, 47, 0.4);
   color: #bdc2c5;
   padding-right: 5px;
   margin-top: 4px;
+  margin-right: 10px;
 }
 .reply_function:hover{
   color:grey;
