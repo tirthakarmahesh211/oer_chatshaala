@@ -1058,6 +1058,7 @@ background: rgba(36, 117, 47, 0.4);
   margin-left: 4px;
   margin-right: 4px
   color: rgb(46, 43, 43);
+  margin-bottom: 6px;
 }
 
 /*.message:after {
@@ -1986,4 +1987,12 @@ div.reply_msg{
 
 .reply_msg .message-info {
   padding-left: 0px;
+}
+
+@media screen and (max-width: 767px) {
+
+.message .message-text {
+  font-size: 17.5px !important;
+}
+
 }
