@@ -1133,6 +1133,7 @@ function myFunc() {
         document.body.removeChild(tempInput);
 
       }
+      alert("Share URL has been copied to clipboard.");
     }
 
     function load_subcategories(clicked_element_data){
