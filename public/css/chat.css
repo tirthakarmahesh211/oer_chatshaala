@@ -453,8 +453,10 @@ background: rgba(36, 117, 47, 0.4);
   margin: 0 5px%;
   align-content: center;
   background-color: #f7f7f7;
-  margin-bottom: -10px;
-
+  /*margin-bottom: -10px;*/
+  position: fixed;
+  bottom: 70px;
+  width: 75%;
 }
 
 
@@ -891,7 +893,7 @@ input[type="text"]:focus {
 .contacts #holder6 li>.info-combo>h5 {
   width: 18vw;  
   font-size: 13px;
-  height: 26px;
+  height: 30px;
   font-weight: 500;
   overflow: hidden;
   white-space: pre-wrap;
@@ -1096,6 +1098,7 @@ input[type="text"]:focus {
   margin-top: 50px;
    /*margin-bottom: 80px;*/
   padding-bottom:14%;
+  background-color:white;
 }
 
 
@@ -2222,6 +2225,14 @@ div.reply_msg{
     background-color: #e3e3e3;
     border-top: 1px solid #b1c7fb;
 }
+
+.display_replies{
+  width:100%;
+  }
+
+.selected_msg {
+  width: calc(100% - 120px);
+}
 }
 
 .fa.fa-paperclip{
@@ -2232,4 +2243,16 @@ div.reply_msg{
 .fa-paper-plane{
   padding:10px;
   color:white;
+}
+
+.rm_btn{
+  float: right;
+}
+
+.selected_msg {
+  float: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 160px);
 }

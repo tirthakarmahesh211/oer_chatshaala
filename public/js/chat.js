@@ -1057,10 +1057,12 @@ function myFunc() {
           var fields = message_id.split('_');
           var topic_id = fields[2];
           var post_number = fields[3];
-          $('.display_replies').empty();
-          $(".display_replies").css('margin-left', "7%");
-          $('.display_replies').attr("id","rmv_btn_"+topic_id+'_'+post_number);
-          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="cancel" class="btn btn-sm">cancel</button>');
+          $('.selected_msg').empty();
+          $('.rm_btn').remove();
+          $(".selected_msg").css('margin-left', "7%");
+          $('.selected_msg').attr("id","rmv_btn_"+topic_id+'_'+post_number);
+          $('.selected_msg').append(event.target.title);
+          $('.display_replies').append('<button onclick="removeReplyMessage(this)" type="button" name="cancel" class="btn btn-sm rm_btn">cancel</button>');
         }
         else{
           alert("sorry. something went wrong. please try again later")
@@ -1069,8 +1071,10 @@ function myFunc() {
 
     }, false);
 
-    function removeReplyMessage(){
-      $('.display_replies').empty();
+    function removeReplyMessage(selected_element){
+      $('.selected_msg').empty();
+      $('.rm_btn').remove();
+      $(selected_element).remove();
     }
 
     $(window).scroll(function(){
