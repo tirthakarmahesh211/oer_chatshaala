@@ -2016,6 +2016,10 @@ div.reply_msg{
   display: block;
   overflow: hidden;
   position: relative;
+  background-color: #376A97;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
 }
 
 .pull-left {
@@ -2031,8 +2035,8 @@ div.reply_msg{
   z-index: 100;
   margin: 0;
   padding: 0;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
 }
 .editor_widget{
     position: fixed;
@@ -2076,7 +2080,7 @@ div.reply_msg{
   padding: 6px;
   min-height: 38px;
   height: auto;
-  width: calc(100% - 98px);
+  width: calc(100% - 150px);
   max-height: 284px;
   overflow: auto;
   line-height: 17px;
@@ -2124,8 +2128,8 @@ div.reply_msg{
   z-index: 100;
   margin: 0;
   padding: 0;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   height: 30px;
 }
 
@@ -2137,4 +2141,14 @@ div.reply_msg{
 .editor_widget{
     width: 100% !important;
 }
+}
+
+.fa.fa-paperclip{
+  padding:10px;
+  color:white;
+}
+
+.fa-paper-plane{
+  padding:10px;
+  color:white;
 }
