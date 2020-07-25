@@ -2041,7 +2041,8 @@ div.reply_msg{
 .editor_widget{
     position: fixed;
     bottom:0;
-    width:75%;
+    width:74%;
+    left:calc(25.5%);
 }
 
 .fa-paperclip{
@@ -2139,7 +2140,8 @@ div.reply_msg{
 
 @media screen and (max-width: 767px) {
 .editor_widget{
-    width: 100% !important;
+    width: 98% !important;
+    left: 1%;
 }
 }
 
