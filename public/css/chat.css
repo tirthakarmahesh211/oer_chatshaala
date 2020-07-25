@@ -1,3 +1,8 @@
+
+:root {
+  --mainColor: #376A97;
+}
+
 /* The sidebar menu */
 html {
   height: 100%;
@@ -359,13 +364,24 @@ background: rgba(36, 117, 47, 0.4);
 	font-size: 32px;
 }
 
-.replyBar .replyMessage {
+/*.replyBar .replyMessage {
 	width: calc(100% - 150px);
 	float: left;
 	height: 70px;
 	padding: 0px 8px;
 	font-size: 16px;
+}*/
+
+.replyMessage{
+  margin-left: 30px;
+  width:89%;
 }
+
+.replyBtn{
+  margin-left: -20px;
+
+}
+
 
 .replyBar textarea{
     /*width: 200px;*/
@@ -376,7 +392,6 @@ background: rgba(36, 117, 47, 0.4);
     transition: width 0.25s;
     resize:none;
     overflow:hidden;
-
 }
 
 @media screen and (max-width: 767px){
@@ -404,18 +419,18 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .toolButtons{
-  width: 60px;
-	height: 60px;
+/*  width: 60px;
+	height: 60px;*/
 	margin-top: 5px;
 	background: #FFF;
 	color: #888;
-	border-radius: 100%;
+/*	border-radius: 100%;*/
 }
 
 @media screen and (max-width: 767px){
   .toolButtons{
     width: 55px;
-    height: 50px;
+    /*height: 50px;*/
     margin-top: 0px;
     margin-left: -12px;
     background: #FFF;
@@ -447,6 +462,67 @@ background: rgba(36, 117, 47, 0.4);
 
 }
 
+
+/*---New editor---*/
+/*Don't forget to add Font Awesome CSS : "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"*/
+input[type="text"] {
+  width: 100%;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px 0;
+  outline: none;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: dodgerBlue;
+  box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.inputWithIcon input[type="text"] {
+  padding-left: 40px;
+}
+
+.inputWithIcon {
+  position: relative;
+  background-color: #fff;
+}
+
+.inputWithIcon i {
+  position: absolute;
+  left: 0;
+/*  top: 8px;*/
+  top:0px;
+  padding: 9px 8px;
+  color: #aaa;
+  transition: 0.3s;
+}
+
+.inputWithIcon input[type="text"]:focus + i {
+  color: dodgerBlue;
+}
+
+.inputWithIcon.inputIconBg i {
+  background-color: #aaa;
+  color: #fff;
+  /*padding: 9px 4px;*/
+  border-radius: 4px 0 0 4px;
+}
+
+.inputWithIcon.inputIconBg input[type="text"]:focus + i {
+  color: #fff;
+  background-color: dodgerBlue;
+}
+
+
+
+
+
+
+
+
 .cancel-reply{
   margin-left: 20px;
   border-right: 1px solid rgba(0, 0, 0, 0.1);
@@ -473,26 +549,26 @@ background: rgba(36, 117, 47, 0.4);
 .contacts-list .inbox-categories>div:nth-child(1) {
   color: #2da9e9;
   border-right-color: rgba(45, 129, 233, 0.06);
-  border-bottom: 4px solid rgb(76, 175, 80);
+  border-bottom: 4px solid var(--mainColor);
   border-top-left-radius: 5px;
 }
 
 .contacts-list .inbox-categories>div:nth-child(1).active {
   float: right;
   color: #fff;
-  background-color: rgb(76, 175, 80);
+  background-color: var(--mainColor);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 
 .contacts-list .inbox-categories>div:nth-child(2) {
-  color: rgb(76, 175, 80);
+  color: var(--mainColor);
   border-right-color: rgba(14, 200, 162, 0.06);
-  border-bottom: 4px solid rgb(76, 175, 80);
+  border-bottom: 4px solid var(--mainColor);
 }
 
 .contacts-list .inbox-categories>div:nth-child(2).active {
   color: #fff;
-  background-color: rgb(76, 175, 80);
+  background-color: var(--mainColor);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 
@@ -661,7 +737,7 @@ background: rgba(36, 117, 47, 0.4);
 
 
 .contacts.success li.active {
-  border-left: 4px solid rgb(76, 175, 80);
+  border-left: 4px solid var(--mainColor);
 }
 
 .contacts.warning li.active {
@@ -844,7 +920,7 @@ background: rgba(36, 117, 47, 0.4);
   height: 20px;
   line-height: 22px;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: var(--mainColor);
   border-radius: 50%;
   color: #FFF;
   font-weight: 600;
@@ -863,7 +939,7 @@ background: rgba(36, 117, 47, 0.4);
   height: 23px;
   line-height: 22px;
   text-align: center;
-  background-color: #4CAF50;
+  background-color: var(--mainColor);
   border-radius: 50%;
   color: #FFF;
   font-weight: 600;
@@ -921,7 +997,7 @@ background: rgba(36, 117, 47, 0.4);
 }
 
 .message-top {
-  background-color: #4CAF50;
+  background-color: var(--mainColor);
 /*  border-bottom: 1px solid black;*/
 
 }
@@ -1064,7 +1140,7 @@ background: rgba(36, 117, 47, 0.4);
   float: left;
   background-color: #fff;
   border-radius: 4px;
-  border: 1px solid #4CAF50;
+  border: 1px solid var(--mainColor);
   /*margin: 0 5px 20px 15px;*/
   margin-left: 4px;
   margin-right: 4px
@@ -1129,7 +1205,7 @@ background: rgba(36, 117, 47, 0.4);
   font-size: 14px;
   font-weight: 600;
   margin: 7px 13px 0 10px;
-  color: rgb(76, 175, 80);
+  color: var(--mainColor);
   float: left;
 }
 
@@ -1202,7 +1278,7 @@ background: rgba(36, 117, 47, 0.4);
 
 .message.info .message-body {
   /* background-color: #F5F5F5; */
-  border: 1px solid rgb(76, 175, 80);
+  border: 1px solid var(--mainColor);
   font-weight: 400;
   color: rgb(46, 43, 43);
   font-family: 'Open Sans', 'Roboto', 'Ubuntu', sans-serif;
@@ -1213,18 +1289,18 @@ background: rgba(36, 117, 47, 0.4);
 
 .message.info:after,
 .message.info:before {
-  border-right: 13px solid rgb(76, 175, 80);
+  border-right: 13px solid var(--mainColor);
 }
 
 .message.success .message-body {
-  background-color: rgb(76, 175, 80);
-  border: 1px solid rgb(76, 175, 80);
+  background-color: var(--mainColor);
+  border: 1px solid var(--mainColor);
   color: #fff;
 }
 
 .message.success:after,
 .message.success:before {
-  border-right: 13px solid rgb(76, 175, 80);
+  border-right: 13px solid var(--mainColor);
 }
 
 .message.warning .message-body {
@@ -1684,7 +1760,7 @@ textarea[name="desc"] {
 }
 
 .active_ {
-  background-color: #4CAF50;
+  background-color: var(--mainColor);
   color: white;
 }
 
@@ -1730,7 +1806,7 @@ textarea[name="desc"] {
 
 .pointer {
   cursor: pointer;
-  background-color: rgb(92, 184, 92);
+  background-color: var(--mainColor);
   color: white;
 }
 
@@ -1739,10 +1815,10 @@ textarea[name="desc"] {
 }
 
 .active-tab {
-  background-color: dimgrey;
+  background-color: #376797;
 }
 .menu-btn {
-  background-color: rgb(76, 175, 80);
+  background-color: var(--mainColor);
   color: white;
   /*border-radius: 5px;*/
   width: 100%;
@@ -1780,11 +1856,11 @@ textarea[name="desc"] {
 }
 
 .links:hover {
-  background-color: rgb(8, 107, 46);
+  background-color: #294F71;
 }
 
 .dropdown-menu:hover .menu-btn {
-  background-color: #3e8e41;
+  background-color: #294F71;
 }
 
 svg {
@@ -2017,7 +2093,7 @@ div.reply_msg{
   display: block;
   overflow: hidden;
   position: relative;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-radius: 50%;
   height: 50px;
   width: 50px;

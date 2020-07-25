@@ -268,25 +268,25 @@
             <%if (false) {%>
             <div class="chat_section" style="position:fixed; bottom: 0;width:75%;resize: both;overflow: auto;"> 
             <div class="display_replies"><p class="selected_msg"></p></div>
-            <div class="replyBar">
-<!--               <form class="" method="post" id='reply_form'> -->
-              <button class="replyBtn">
+
+            <div class="inputWithIcon inputIconBg">
+              <textarea id="replyMessage" type="text"  class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea>
+                
+                <button class="replyBtn">
 
                 <input type="file" name="upload_files" id="upload_files" multiple  style="display:none"/>
-                <i class="fa fa-paperclip fa-2x" id="openFileUpload"  aria-hidden="true">
+                <i class="fa fa-paperclip fa-2x" id="openFileUpload"  aria-hidden="true" >
 
                 </i>
-              </button>
-              <!-- </form> -->
-              <textarea id="replyMessage" type="text" class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Start the conversation..."/></textarea>
+                </button>
 
-              <div class="otherTools">
-                <button type="button" name="post" id='saveDelta' class="toolButtons">
+                <button type="button" name="post" id='saveDelta' class="toolButtons" style="position:fixed; margin-top:-3px;">
                   <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
                 </button>
 
-              </div>
-            </div>  
+            </div>
+
+
 
           </div>
           <%}%>
@@ -344,14 +344,41 @@
   <script type="text/javascript">
         
     $('textarea').on('keydown', function(e){
-        if(e.which == 13) {
-          e.preventDefault();
-        }
-      }).on('input', function(){
-        $(this).height(1);
-          var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
-        $(this).height(totalHeight);
-    });
+         if(e.which == 13) {
+           e.preventDefault();
+         }
+       }).on('input', function(){
+         $(this).height(1);
+           var totalHeight = $(this).prop('scrollHeight') - parseInt($(this).css('padding-top')) - parseInt($(this).css('padding-bottom'));
+         $(this).height(totalHeight);
+     });
+
+    // $('textarea').each(function () {
+    //   this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    // }).on('input', function () {
+    //   this.style.height = 'auto';
+    //   this.style.height = (this.scrollHeight) + 'px';
+    // });
+
+    // te = document.querySelector('textarea');
+    // te.addEventListener('keyup', resizeTextarea);
+
+    // function resizeTextarea(ev) {
+    //     this.style.height = '24px';
+    //     this.style.height = this.scrollHeight + 12 + 'px';
+    // }
+
+      // expandtextarea(document.querySelector('.js-expand'));
+
+
+      // function expandtextarea(container) {
+      //   var tarea = container.querySelector('textarea');
+      //   var mirror = container.querySelector('span');
+      //   tarea.addEventListener('input', function(e) {
+      //     mirror.textContent = tarea.value;
+      //   });
+      // }
+
   </script>
 
   <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -422,7 +449,7 @@
         // console.log("body");
         // console.log(body);
         var topic_title = document.getElementById("topic_title")
-        var reply_message = document.querySelector('div.display_replies.selected_msg');
+        var reply_message = document.querySelector('div.display_replies');
 
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');

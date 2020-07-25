@@ -3,7 +3,7 @@
   "name": "STEMChat",
   "short_name": "STEMChat",
   "start_url": ".",
-  "theme_color": "#4caf50",
+  "theme_color": "#376A97",
   "background_color": "#f5f5dc",
   "display": "standalone",
   "orientation": "portrait",

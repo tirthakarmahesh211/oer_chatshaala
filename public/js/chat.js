@@ -285,7 +285,7 @@ function myFunc() {
 
           for (var i = 0; i < data.length; i++) {
             var mydate, user_id, newdate, newtime, slud, ide;
-            var img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+            var img = "/images/icons/post.png";
 
             mydate = data[i].last_posted_at;
             slug = data[i].slug;
@@ -328,7 +328,7 @@ function myFunc() {
                 newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
                 // alert('newtime: ' + newtime);
 
-                elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data2[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data2[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data2[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data2[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
+                elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data2[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<div class="message-count">' + data2[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/post.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data2[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data2[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
 
               }
 
@@ -568,7 +568,7 @@ function myFunc() {
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/hierarchy.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
           }
           // console.log(y);
           if(y != null && y!=undefined && y.split("##").length != 1){
@@ -1057,10 +1057,10 @@ function myFunc() {
           var fields = message_id.split('_');
           var topic_id = fields[2];
           var post_number = fields[3];
-          $('.selected_msg').empty();
-          $(".selected_msg").css('margin-left', "7%");
-          $('.selected_msg').attr("id","rmv_btn_"+topic_id+'_'+post_number);
-          $('.selected_msg').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="cancel" class="btn cancel-reply">X</button>');
+          $('.display_replies').empty();
+          $(".display_replies").css('margin-left', "7%");
+          $('.display_replies').attr("id","rmv_btn_"+topic_id+'_'+post_number);
+          $('.display_replies').append(event.target.title+'<button onclick="removeReplyMessage()" type="button" name="cancel" class="btn btn-sm">cancel</button>');
         }
         else{
           alert("sorry. something went wrong. please try again later")
@@ -1070,7 +1070,7 @@ function myFunc() {
     }, false);
 
     function removeReplyMessage(){
-      $('.selected_msg').empty();
+      $('.display_replies').empty();
     }
 
     $(window).scroll(function(){

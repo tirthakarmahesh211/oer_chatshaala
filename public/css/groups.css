@@ -36,7 +36,7 @@ input[name="search_text"]{
 }
 
 .button-tertiary:hover {
-  background-color: #4CAF50; /* Green */
+  background-color: var(--mainColor); /* Green */
   color: white;
 }
   #plus{
