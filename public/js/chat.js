@@ -1060,9 +1060,10 @@ function myFunc() {
           $('.selected_msg').empty();
           $('.rm_btn').remove();
           $(".selected_msg").css('margin-left', "7%");
+          $(".display_replies").css('opacity', "100");
           $('.selected_msg').attr("id","rmv_btn_"+topic_id+'_'+post_number);
           $('.selected_msg').append(event.target.title);
-          $('.display_replies').append('<button onclick="removeReplyMessage(this)" type="button" name="cancel" class="btn btn-sm rm_btn">cancel</button>');
+          $('.display_replies').append('<button onclick="removeReplyMessage(this)" type="button" name="cancel" class="btn btn-sm rm_btn">X</button>');
         }
         else{
           alert("sorry. something went wrong. please try again later")
@@ -1072,6 +1073,7 @@ function myFunc() {
     }, false);
 
     function removeReplyMessage(selected_element){
+      $(".display_replies").css('opacity', "0.01");
       $('.selected_msg').empty();
       $('.rm_btn').remove();
       $(selected_element).remove();
