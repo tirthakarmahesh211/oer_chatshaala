@@ -820,7 +820,7 @@ background: rgba(36, 117, 47, 0.4);
 .contacts #holder6 li>.info-combo>h5 {
   width: 18vw;  
   font-size: 13px;
-  height: auto;
+  height: 26px;
   font-weight: 500;
   overflow: hidden;
   white-space: pre-wrap;
@@ -1023,7 +1023,7 @@ background: rgba(36, 117, 47, 0.4);
   width: 100%;
   overflow: hidden;
   margin-top: 50px;
-   margin-bottom: 80px; 
+   /*margin-bottom: 80px;*/
 }
 
 
@@ -1596,7 +1596,7 @@ div.edit {
 }
 
 [contentEditable=true]:empty:not(:focus):before {
-  content: attr(data-placeholder)
+  /*content: attr(data-placeholder)*/
 }
 
 
@@ -2009,4 +2009,151 @@ div.reply_msg{
   font-size: 17.5px !important;
 }
 
+}
+
+.im_attach {
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.pull-left {
+  float: left !important;
+  margin-right: 8px;
+}
+
+.im_attach_input {
+  cursor: pointer;
+  /*font-size: 120px !important;*/
+  opacity: .01;
+  position: absolute;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  right: 0;
+}
+.editor_widget{
+    position: fixed;
+    bottom:0;
+    width:75%;
+}
+
+.icon-paperclip {
+  display: inline-block;
+  width: 18px;
+  height: 17px;
+  vertical-align: top;
+  opacity: 0.8;
+  margin: 0;
+  background-image: url(https://web.telegram.org/img/icons/General.png);
+  background-repeat: no-repeat;
+  background-position: -11px -455px;
+  cursor: pointer;
+}
+.fa-paperclip{
+  color: grey;
+}
+
+.composer_rich_textarea:empty::before {
+  content: attr(placeholder);
+  color: #9aa2ab;
+  display: block;
+  margin-top: -1px;
+  margin-left: 1px;
+  pointer-events: none;
+}
+
+.composer_rich_textarea, .composer_textarea {
+  overflow: none;
+  overflow-y: scroll;
+  border-radius: 0;
+  border: 0;
+  /* box-shadow: none; */
+  outline: none;
+  box-shadow: 0 1px 0 0 #e8e8e8;
+  padding: 1px 28px 1px 0;
+  position: relative;
+  margin: 0;
+  min-height: 52px;
+  line-height: 20px;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.composer_rich_textarea {
+  font-size: 12px;
+  margin-bottom: 10px;
+  padding: 6px;
+  min-height: 38px;
+  height: auto;
+  width: calc(100% - 98px);
+  max-height: 284px;
+  overflow: auto;
+  line-height: 17px;
+  border: 1px solid #d2dbe3;
+  border-radius: 2px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -ms-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  word-wrap: break-word;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  float: left; 
+}
+
+/*.composer_rich_textarea:focus, .composer_textarea:focus {
+  border: 0;
+   box-shadow: none; 
+  outline: none;
+  box-shadow: 0 2px 0 0 #77b7e4;
+}
+*/
+.im_send_field_wrap{
+  position: relative;
+}
+
+.hasselect {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.im_send_field_wrap {
+  margin-bottom: 13px;
+  padding-bottom: 2px;
+  overflow-x: hidden;
+}
+
+.save_btn{
+  /*float: right;*/
+  cursor: pointer;
+  opacity: .01;
+  position: absolute;
+  z-index: 100;
+  margin: 0;
+  padding: 0;
+  top: 0;
+  right: 0;
+  height: 30px;
+}
+
+.pull-right{
+  float: right !important;
+}
+
+@media screen and (max-width: 767px) {
+.editor_widget{
+    width: 100% !important;
+}
 }

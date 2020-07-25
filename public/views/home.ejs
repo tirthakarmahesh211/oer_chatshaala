@@ -265,6 +265,7 @@
 
             </center> -->
           </div>
+            <%if (false) {%>
             <div class="chat_section" style="position:fixed; bottom: 0;width:75%;resize: both;overflow: auto;"> 
             <div class="display_replies"><p class="selected_msg"></p></div>
             <div class="replyBar">
@@ -277,7 +278,7 @@
                 </i>
               </button>
               <!-- </form> -->
-              <textarea id="replyMessage" type="text" class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea>
+              <textarea id="replyMessage" type="text" class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Start the conversation..."/></textarea>
 
               <div class="otherTools">
                 <button type="button" name="post" id='saveDelta' class="toolButtons">
@@ -288,6 +289,21 @@
             </div>  
 
           </div>
+          <%}%>
+          <div class="editor_widget">
+            <div class="im_attach pull-left">
+              <input type="file" multiple="multiple" title="Send file" class="im_attach_input">
+              <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
+            </div>
+
+            <div class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></div>
+
+            <div class="im_attach pull-right">
+              <button class="save_btn" type="button" onclick="test_function()"></button>
+              <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -316,7 +332,7 @@
           <br>
 
           <p align="right">
-            <button class="button-secondary" type="submit" id='on_but' name="compose">Compose</button>
+            <button id="saveDelta" class="button-secondary" type="submit" id='on_but' name="compose">Compose</button>
           </p>
         </form>
       </center>
@@ -348,6 +364,9 @@
   <script>
   //Editor and posting
 
+      function test_function(){
+        alert("test_function");
+      }
       // document.getElementById('editor').style.display = "none";
       function showDiv() {
         // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
@@ -398,6 +417,7 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         // var body = document.querySelector('div.ql-editor');
+        alert("alert message");
         var body = document.querySelector('#replyMessage');
         // console.log("body");
         // console.log(body);
