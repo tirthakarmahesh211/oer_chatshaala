@@ -1,3 +1,8 @@
+
+:root {
+  --mainColor: #376A97;
+}
+
 /* The sidebar menu */
 html {
   height: 100%;
@@ -544,26 +549,26 @@ input[type="text"]:focus {
 .contacts-list .inbox-categories>div:nth-child(1) {
   color: #2da9e9;
   border-right-color: rgba(45, 129, 233, 0.06);
-  border-bottom: 4px solid #376A97;
+  border-bottom: 4px solid var(--mainColor);
   border-top-left-radius: 5px;
 }
 
 .contacts-list .inbox-categories>div:nth-child(1).active {
   float: right;
   color: #fff;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 
 .contacts-list .inbox-categories>div:nth-child(2) {
-  color: #376A97;
+  color: var(--mainColor);
   border-right-color: rgba(14, 200, 162, 0.06);
-  border-bottom: 4px solid #376A97;
+  border-bottom: 4px solid var(--mainColor);
 }
 
 .contacts-list .inbox-categories>div:nth-child(2).active {
   color: #fff;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-bottom: 4px solid rgba(0, 0, 0, 0.15);
 }
 
@@ -732,7 +737,7 @@ input[type="text"]:focus {
 
 
 .contacts.success li.active {
-  border-left: 4px solid #376A97;
+  border-left: 4px solid var(--mainColor);
 }
 
 .contacts.warning li.active {
@@ -915,7 +920,7 @@ input[type="text"]:focus {
   height: 20px;
   line-height: 22px;
   text-align: center;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-radius: 50%;
   color: #FFF;
   font-weight: 600;
@@ -934,7 +939,7 @@ input[type="text"]:focus {
   height: 23px;
   line-height: 22px;
   text-align: center;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-radius: 50%;
   color: #FFF;
   font-weight: 600;
@@ -992,7 +997,7 @@ input[type="text"]:focus {
 }
 
 .message-top {
-  background-color: #376A97;
+  background-color: var(--mainColor);
 /*  border-bottom: 1px solid black;*/
 
 }
@@ -1135,7 +1140,7 @@ input[type="text"]:focus {
   float: left;
   background-color: #fff;
   border-radius: 4px;
-  border: 1px solid #376A97;
+  border: 1px solid var(--mainColor);
   /*margin: 0 5px 20px 15px;*/
   margin-left: 4px;
   margin-right: 4px
@@ -1200,7 +1205,7 @@ input[type="text"]:focus {
   font-size: 14px;
   font-weight: 600;
   margin: 7px 13px 0 10px;
-  color: #376A97;
+  color: var(--mainColor);
   float: left;
 }
 
@@ -1273,7 +1278,7 @@ input[type="text"]:focus {
 
 .message.info .message-body {
   /* background-color: #F5F5F5; */
-  border: 1px solid #376A97;
+  border: 1px solid var(--mainColor);
   font-weight: 400;
   color: rgb(46, 43, 43);
   font-family: 'Open Sans', 'Roboto', 'Ubuntu', sans-serif;
@@ -1284,18 +1289,18 @@ input[type="text"]:focus {
 
 .message.info:after,
 .message.info:before {
-  border-right: 13px solid #376A97;
+  border-right: 13px solid var(--mainColor);
 }
 
 .message.success .message-body {
-  background-color: #376A97;
-  border: 1px solid #376A97;
+  background-color: var(--mainColor);
+  border: 1px solid var(--mainColor);
   color: #fff;
 }
 
 .message.success:after,
 .message.success:before {
-  border-right: 13px solid #376A97;
+  border-right: 13px solid var(--mainColor);
 }
 
 .message.warning .message-body {
@@ -1755,7 +1760,7 @@ textarea[name="desc"] {
 }
 
 .active_ {
-  background-color: #376A97;
+  background-color: var(--mainColor);
   color: white;
 }
 
@@ -1801,7 +1806,7 @@ textarea[name="desc"] {
 
 .pointer {
   cursor: pointer;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   color: white;
 }
 
@@ -1813,7 +1818,7 @@ textarea[name="desc"] {
   background-color: #376797;
 }
 .menu-btn {
-  background-color: #376A97;
+  background-color: var(--mainColor);
   color: white;
   /*border-radius: 5px;*/
   width: 100%;
@@ -2088,7 +2093,7 @@ div.reply_msg{
   display: block;
   overflow: hidden;
   position: relative;
-  background-color: #376A97;
+  background-color: var(--mainColor);
   border-radius: 50%;
   height: 50px;
   width: 50px;
