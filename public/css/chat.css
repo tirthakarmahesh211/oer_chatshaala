@@ -2044,7 +2044,7 @@ div.reply_msg{
     width:75%;
     left:calc(25%);
     padding: 1% 1% 0% 1%;
-    background-color: #e3e3e3;
+    background-color: #ececec;
     border-top: 1px solid #cec7c7;
 }
 
@@ -2088,7 +2088,7 @@ div.reply_msg{
   max-height: 284px;
   overflow: auto;
   line-height: 17px;
-  border: 1px solid #d2dbe3;
+  border-bottom: 2px solid #396c98;
   border-radius: 2px;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
@@ -2147,12 +2147,12 @@ div.reply_msg{
     left: 0;
     padding: 1.2% 1.1%;
     background-color: #e3e3e3;
-    border-top: 1px solid #cec7c7;
+    border-top: 1px solid #b1c7fb;
 }
 }
 
 .fa.fa-paperclip{
-  padding:10px;
+  padding:11px;
   color:white;
 }
 
