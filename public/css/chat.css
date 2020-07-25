@@ -2040,18 +2040,6 @@ div.reply_msg{
     width:75%;
 }
 
-.icon-paperclip {
-  display: inline-block;
-  width: 18px;
-  height: 17px;
-  vertical-align: top;
-  opacity: 0.8;
-  margin: 0;
-  background-image: url(https://web.telegram.org/img/icons/General.png);
-  background-repeat: no-repeat;
-  background-position: -11px -455px;
-  cursor: pointer;
-}
 .fa-paperclip{
   color: grey;
 }
@@ -2120,13 +2108,6 @@ div.reply_msg{
 */
 .im_send_field_wrap{
   position: relative;
-}
-
-.hasselect {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
-  user-select: text;
 }
 
 .im_send_field_wrap {
