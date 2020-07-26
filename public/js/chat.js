@@ -480,16 +480,14 @@ function myFunc() {
       }
 
       var left_panel_header_title = null;
-      console.log("param");
+      // console.log("param");
       if(param != null && param.firstChild!=null && param.firstChild!=undefined){
         console.log(param);
         left_panel_header_title = param.firstChild.getAttribute("id");
         $('#menu_active').text(left_panel_header_title);
       }
-      console.log(left_panel_header_title);
+      // console.log(left_panel_header_title);
       $("#category_details").attr("data-title", left_panel_header_title);
-      console.log($("#category_details").attr("data-title"));
-      console.log("ccccccccccccccccc");
       document.getElementById("holder5").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder6").style.display = "None";
@@ -527,7 +525,6 @@ function myFunc() {
 
               }
               else if(i==0 && data[0].created_at != null){
-                console.log("else if");
                 mydate = data[i].created_at;
 
                 newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];

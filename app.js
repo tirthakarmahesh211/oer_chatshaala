@@ -41,9 +41,13 @@ app.use(session({
 }));
 
 //Starting local server
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send('Something went wrong!!')
+})
 app.listen(3000, function (req, res) {
   console.log('Server Started on localhost:3000');
-});
+}).on('error', console.log);
 
 app.use(function (req, res, next) {
    res.locals = {
