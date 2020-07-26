@@ -293,7 +293,7 @@
           <div class="display_replies"><p class="selected_msg"></p></div>
           <div class="editor_widget">
             <div class="im_attach pull-left">
-              <input type="file" multiple="multiple" title="Send file" class="im_attach_input">
+              <input id="upload_files" type="file" multiple="multiple" title="Send file" class="im_attach_input">
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
@@ -571,7 +571,7 @@
               alert(data.error);
             }
             else{
-              $("#replyMessage").val($("#replyMessage").val() + data);  
+              $("#replyMessage").html($("#replyMessage").html() + data);
             }
          },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
