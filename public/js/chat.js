@@ -451,13 +451,22 @@ function myFunc() {
 
     //Loading each topic on left pane
     function copy_topic(event, x) {
-      alert("Copy: " + x);
-      console.log(event);
-        if (event.stopPropagation) {
-      event.stopPropagation();   // W3C model
-  } else {
-      event.cancelBubble = true; // IE model
-  }
+
+      var tempInput = document.createElement("input");
+      tempInput.value = window.location.origin +x.slice(5,x.length);
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+
+      alert("Share URL has been copied to clipboard.");
+      // alert("Copy: " + x);
+      // console.log(event);
+      if (event.stopPropagation) {
+        event.stopPropagation();   // W3C model
+      } else {
+          event.cancelBubble = true; // IE model
+      }
     }
 
     function load_topics(x, param=null) {
