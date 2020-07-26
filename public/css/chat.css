@@ -20,7 +20,7 @@ body {
 @media screen and (max-width: 767px) {
   #topic_head {
     color: white;
-    font-size: 3.5vw;
+    font-size: 18px;
     /*margin-top: 3.5vw;*/
     /*position: fixed;*/
     /*margin-left: 33%;*/
@@ -1771,7 +1771,7 @@ textarea[name="desc"] {
 #back_ {
   display: none;
   /*font-size: 0.9em;*/
-  font-size: 3.5vw;
+  font-size: 34px;
   margin-top: 2px;
 }
 
@@ -1976,7 +1976,7 @@ svg {
   /*background-color: #d6d4c7;*/
   background-color: transparent;
   color: #393e46;
-  padding: 14px 8px;
+  padding: 1px 4px;
   border: none;
   color: white;
   position: fixed;
