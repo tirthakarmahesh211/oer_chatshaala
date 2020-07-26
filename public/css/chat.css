@@ -1220,7 +1220,7 @@ input[type="text"]:focus {
 }
 
 .message .message-text {
-  text-align: left;
+  text-align: justify;
   padding: 0px 10px;
   font-size: 14px;
   word-break: break-word;
