@@ -451,12 +451,13 @@
         // console.log(reply_message[0]);
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
-        // console.log(reply_message);
-        // console.log(reply_message.innerHTML);
-        if (reply_message && reply_message[0].innerHTML && body!=undefined && body.innerHTML!=undefined){
+        // console.log(reply_message.length);
+        // console.log(reply_message[0].id);
+        if (reply_message !=null && reply_message !=undefined && reply_message.length > 0 && reply_message[0].id!=null && reply_message[0].id!=undefined && reply_message[0].id!="" && body!=undefined && body.innerHTML!=undefined){
           let fields = reply_message[0].id.split('_');
           topic_id = fields[2];
           let reply_to_post_number = fields[3];
+          // console.log(reply_to_post_number);
           // reply_message = reply_message.innerHTML.split("<button");
           let raw = body.innerHTML;
           category_id = 0;
@@ -474,7 +475,12 @@
               body.innerHTML='';
               // reply_message[0].innerHTML='';
               $('.display_replies').empty();
-              load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1));
+              // console.log(document.getElementById("topic_head"));
+              let topic_head = document.getElementById("topic_head")
+              if(topic_head!=null && topic_head!=undefined){
+                topic_head = topic_head.innerHTML;
+              }
+              load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1),topic_head);
               setTimeout(()=>{
                     // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
               },500);
@@ -535,7 +541,11 @@
               setTimeout(function(){
                 // $('#holder3').html('');
                 // $('.pointer.links.active-tab').click();
-                load_posts(topic_slug+'/'+topic_id+'/9999');
+                let topic_head = document.getElementById("topic_head")
+                if(topic_head!=null && topic_head!=undefined){
+                  topic_head = topic_head.innerHTML;
+                }
+                load_posts(topic_slug+'/'+topic_id+'/9999',topic_head);
                 // setTimeout(()=>{
                 //       $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
                 // },500);

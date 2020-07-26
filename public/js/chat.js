@@ -618,10 +618,13 @@ function myFunc() {
     function load_posts(x, param=null) {
       // console.log(param);
       var topic_head = null;
-      if(param != null && param.firstChild!=null && param.firstChild!=undefined){
+      if(typeof param === "string" ){
+       topic_head = param; 
+      }
+      else if(param != null && param.firstChild!=null && param.firstChild!=undefined){
 
         // console.log(param.firstChild.getAttribute("id"));
-        topic_head = param.firstChild.getAttribute("id")
+        topic_head = param.firstChild.getAttribute("id");
       }
       $("#load_next_posts").show();
       var page_number = null;
@@ -660,9 +663,10 @@ function myFunc() {
         if(topic_head!= null && topic_head != undefined){
           $('#slug').html('<h4 id="topic_head">' + topic_head  + '</h4>');
         }
-        else{
-          $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
-        }
+        // else{
+        //   // $('#slug').html('<h4 id="topic_head">' + tslug.split('_').join(' ').split('-').join(' ') + '</h4>');
+        //   $('#slug').html('<h4 id="topic_head">' + topic_head  + '</h4>');
+        // }
         $('#tid').attr('name', tid);
         //  alert('clicked');
         $('li').removeClass('active');
