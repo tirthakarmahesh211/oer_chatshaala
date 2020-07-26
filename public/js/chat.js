@@ -2,10 +2,10 @@
 let dropdownBtn = document.querySelector('.menu-btn');
 let menuContent = document.querySelector('.menu-content');
 dropdownBtn.addEventListener('click', () => {
-  if (menuContent.style.display == "") {
+  if (menuContent.style.display == "none") {
     menuContent.style.display = "block";
   } else {
-    menuContent.style.display = "";
+    menuContent.style.display = "none";
   }
 });
 //Loading categories on page Load
