@@ -297,10 +297,10 @@
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
-            <div class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></div>
+            <div id="replyMessage" class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></div>
 
             <div class="im_attach pull-right">
-              <button class="save_btn" type="button" title="Submit" onclick="test_function()"></button>
+              <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
               <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
             </div>
           </div>
@@ -444,24 +444,21 @@
       //   theme: 'snow'
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
-        // var body = document.querySelector('div.ql-editor');
-        alert("alert message");
-        var body = document.querySelector('#replyMessage');
-        // console.log("body");
-        // console.log(body);
-        var topic_title = document.getElementById("topic_title")
-        var reply_message = document.querySelector('div.display_replies');
-
+        var body = document.getElementById('replyMessage');
+        var topic_title = document.getElementById("topic_title");
+        // console.log(topic_title);
+        var reply_message = document.getElementsByClassName('selected_msg');
+        console.log(reply_message[0]);
         var topic_id = $('#tid').attr('name');
         var topic_slug = $('#slug').attr('name');
         // console.log(reply_message);
         // console.log(reply_message.innerHTML);
-        if (reply_message && reply_message.innerHTML && body && body.value){
-          let fields = reply_message.id.split('_');
+        if (reply_message && reply_message[0].innerHTML && body!=undefined && body.innerHTML!=undefined){
+          let fields = reply_message[0].id.split('_');
           topic_id = fields[2];
           let reply_to_post_number = fields[3];
           // reply_message = reply_message.innerHTML.split("<button");
-          let raw = body.value;
+          let raw = body.innerHTML;
           category_id = 0;
           let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
           // console.log(url);
@@ -474,8 +471,9 @@
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              body.value='';
-              reply_message.innerHTML='';
+              body.innerHTML='';
+              // reply_message[0].innerHTML='';
+              $('.display_replies').empty();
               load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1));
               setTimeout(()=>{
                     // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
@@ -485,7 +483,7 @@
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
         }
-        else if(topic_title!=null && topic_title!= undefined && topic_title.value!=""){
+        else if(topic_title!=null && topic_title!= undefined && topic_title.innerHTML !=null && topic_title.innerHTML !=undefined && topic_title.innerHTML!=""){
           // console.log(body.value);
           // console.log(topic_title.value);
           var searched_user = document.getElementById("searched_user");
@@ -523,24 +521,19 @@
           });
         }
         else if(body){
-          // console.log("else sss");
           var url = '/reply/' + topic_slug + '/' + topic_id;
-          // console.log(body.innerHTML);
-          var body = body.value
-          // $('#reply_data').val(body.value);
-          // quill.setContents('');
           $.ajax(url,{
             type:'POST',
             data:{
               slug:topic_slug,
               tid:topic_id,
-              body:body
+              body:body.innerHTML
             },
             success:function (data,status,xhr) {   // success callback function
               // console.log(data);
+              body.innerHTML="";
               setTimeout(function(){
                 // $('#holder3').html('');
-                $('#replyMessage').val('');
                 // $('.pointer.links.active-tab').click();
                 load_posts(topic_slug+'/'+topic_id+'/9999');
                 // setTimeout(()=>{
