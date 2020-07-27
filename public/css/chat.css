@@ -2217,9 +2217,9 @@ div.reply_msg{
   margin: 0;
   padding: 0;
   top: 0;
-  right: 0;
+  right: -14px;
   height: 50px;
-  width: 50px;
+  width: 80px;
 }
 
 .pull-right{
@@ -2245,7 +2245,7 @@ div.reply_msg{
 }
 
 .fa.fa-paperclip{
-  padding:11px;
+  padding:10px 13px;
   color:white;
 }
 
