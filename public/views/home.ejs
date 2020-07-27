@@ -297,7 +297,7 @@
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
-            <div id="replyMessage" class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></div>
+            <textarea id="replyMessage" class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></textarea>
 
             <div class="im_attach pull-right">
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
@@ -324,7 +324,7 @@
         <form action="/chatpost" method="POST" id='pvt_msg_form'>
 
           <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
-          <textarea name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
+          <textarea rows='1' name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
 
           <input type="text" name="user_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
           <datalist id='users1'>
@@ -385,6 +385,17 @@
     return false;
     });
 
+    var textarea = document.getElementById('replyMessage');
+    textarea.addEventListener('keydown', autosize);
+    function autosize(){
+      var el = this;
+      setTimeout(function(){
+        el.style.cssText = 'height:auto;padding:6px;padding-left:16px;padding-left:16px;';
+        // for box-sizing other than "content-box" use:
+        // el.style.cssText = '-moz-box-sizing:content-box';
+        el.style.cssText = 'height:' + el.scrollHeight + 'px';
+      },0);
+    }
     // $('textarea').on('keydown', function(e){
     //      if(e.which == 13) {
     //        e.preventDefault();

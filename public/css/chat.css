@@ -2185,7 +2185,10 @@ div.reply_msg{
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
-  float: left; 
+  float: left;
+  resize: none;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 /*.composer_rich_textarea:focus, .composer_textarea:focus {
