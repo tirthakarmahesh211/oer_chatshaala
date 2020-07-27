@@ -225,7 +225,7 @@ body {
 }
 
 .messages-panel img.img-circle {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--mainColor);
 }
 
 .messages-panel .tab-content {
