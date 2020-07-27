@@ -246,6 +246,7 @@ function myFunc() {
 
     //Loading messages on left pane
     function function_pvt() {
+      window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -350,6 +351,7 @@ function myFunc() {
 
     }
     function function_category() {
+      window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Groups');
       var e = document.getElementById("category_click");
@@ -391,6 +393,7 @@ function myFunc() {
 
     }
     function function_category_common() {
+      window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Categories');
       var e = document.getElementById("category_click");
