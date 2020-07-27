@@ -494,7 +494,7 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         var body = document.getElementById('replyMessage');
-        console.log(body);
+        console.log(body.selectionStart);
         var topic_title = document.getElementById("topic_title");
         // console.log(topic_title);
         var reply_message = document.getElementsByClassName('selected_msg');
@@ -609,6 +609,7 @@
 
 
     $('#upload_files').change(function(event){
+      var body = document.getElementById('replyMessage');
       var input = this;
       var url = $(this).val();
       var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -632,7 +633,20 @@
               alert(data.error);
             }
             else{
-              $("#replyMessage").html($("#replyMessage").html() + data);
+              // console.log("else .....");
+              // console.log(body.selectionStart);
+              let first_part_string = "";
+              let last_part_string = "";
+              if (body!=null && body!=undefined && body.selectionStart!=null && body.selectionStart!=undefined)
+              {
+                // console.log(body.value.substring(0,body.selectionStart));
+                // console.log(body.value.substring(body.selectionStart,body.value.length));
+                first_part_string = body.value.substring(0,body.selectionStart);
+                last_part_string = body.value.substring(body.selectionStart,body.value.length)
+              }
+              let whole_string = first_part_string +" "+ data +" "+ last_part_string;
+              // console.log(whole_string);
+              $("#replyMessage").val(whole_string);
             }
          },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
