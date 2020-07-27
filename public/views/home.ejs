@@ -270,7 +270,7 @@
             <div class="display_replies"><p class="selected_msg"></p></div>
 
             <div class="inputWithIcon inputIconBg">
-              <textarea id="replyMessage" type="text"  class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea>
+              <!-- <textarea id="replyMessage" type="text"  class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea> -->
                 
                 <button class="replyBtn">
 
@@ -297,7 +297,7 @@
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
-            <textarea id="replyMessage" class="composer_rich_textarea" dir="auto" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." contenteditable="true"></textarea>
+            <textarea id="replyMessage" class="composer_rich_textarea" name="replyMessage" dir="ltr" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." ></textarea>
 
             <div class="im_attach pull-right">
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
@@ -324,7 +324,7 @@
         <form action="/chatpost" method="POST" id='pvt_msg_form'>
 
           <input type="text" name="title" required='' autocomplete="off" placeholder="Title"> <br>
-          <textarea rows='1' name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
+          <textarea name="desc" required='' autocomplete="off" placeholder="Description"></textarea> <br>
 
           <input type="text" name="user_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
           <datalist id='users1'>
@@ -344,46 +344,46 @@
 
   <script type="text/javascript">
 
-    $('div[contenteditable=true]').keypress(function(e) {
-    // trap the return key being pressed
-    // console.log(e.keyCode);   
-    // if (e.keyCode == 13) {
-    //   // insert 2 br tags (if only one br tag is inserted the cursor won't go to the second line)
-    //   // document.execCommand('insertHTML', false, '<br><br>');
-    //   // prevent the default behaviour of return key pressed
-    //   // return false;
-    // }
+    // $('div[contenteditable=true]').keypress(function(e) {
+    // // trap the return key being pressed
+    // // console.log(e.keyCode);   
+    // // if (e.keyCode == 13) {
+    // //   // insert 2 br tags (if only one br tag is inserted the cursor won't go to the second line)
+    // //   // document.execCommand('insertHTML', false, '<br><br>');
+    // //   // prevent the default behaviour of return key pressed
+    // //   // return false;
+    // // }
 
-    if (event.which != 13)
-    return true;
+    // if (event.which != 13)
+    // return true;
 
-    var docFragment = document.createDocumentFragment();
+    // var docFragment = document.createDocumentFragment();
 
-    //add a new line
-    var newEle = document.createTextNode('\n');
-    docFragment.appendChild(newEle);
+    // //add a new line
+    // var newEle = document.createTextNode('\n');
+    // docFragment.appendChild(newEle);
 
-    //add the br, or p, or something else
-    newEle = document.createElement('br');
-    docFragment.appendChild(newEle);
+    // //add the br, or p, or something else
+    // newEle = document.createElement('br');
+    // docFragment.appendChild(newEle);
 
-    //make the br replace selection
-    var range = window.getSelection().getRangeAt(0);
-    range.deleteContents();
-    range.insertNode(docFragment);
+    // //make the br replace selection
+    // var range = window.getSelection().getRangeAt(0);
+    // range.deleteContents();
+    // range.insertNode(docFragment);
 
-    //create a new range
-    range = document.createRange();
-    range.setStartAfter(newEle);
-    range.collapse(true);
+    // //create a new range
+    // range = document.createRange();
+    // range.setStartAfter(newEle);
+    // range.collapse(true);
 
-    //make the cursor there
-    var sel = window.getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
+    // //make the cursor there
+    // var sel = window.getSelection();
+    // sel.removeAllRanges();
+    // sel.addRange(range);
 
-    return false;
-    });
+    // return false;
+    // });
 
     var textarea = document.getElementById('replyMessage');
     textarea.addEventListener('keydown', autosize);
@@ -444,9 +444,6 @@
   <script>
   //Editor and posting
 
-      function test_function(){
-        alert("test_function");
-      }
       // document.getElementById('editor').style.display = "none";
       function showDiv() {
         // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 1000);
@@ -497,6 +494,7 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         var body = document.getElementById('replyMessage');
+        console.log(body);
         var topic_title = document.getElementById("topic_title");
         // console.log(topic_title);
         var reply_message = document.getElementsByClassName('selected_msg');
@@ -578,18 +576,19 @@
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
         }
-        else if(body && body.innerHTML!=undefined && body.innerHTML!=null){
+        else if(body && body.value!=undefined && body.value!=null){
           var url = '/reply/' + topic_slug + '/' + topic_id;
           $.ajax(url,{
             type:'POST',
             data:{
               slug:topic_slug,
               tid:topic_id,
-              body:body.innerHTML
+              body:body.value
             },
             success:function (data,status,xhr) {   // success callback function
               // console.log(data);
-              body.innerHTML="";
+              body.value="";
+              body.style.height ="60px";
               setTimeout(function(){
                 // $('#holder3').html('');
                 // $('.pointer.links.active-tab').click();
