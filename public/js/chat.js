@@ -664,6 +664,7 @@ function myFunc() {
 
         tid = y[1];
         var tslug = y[0];
+        window.history.pushState("object or string", tid , '/t/'+tslug+'/'+tid);
         // console.log(tslug);
         $('#slug').attr('name', tslug);
         if(topic_head!= null && topic_head != undefined){
