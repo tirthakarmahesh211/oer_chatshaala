@@ -509,7 +509,7 @@
           let reply_to_post_number = fields[3];
           // console.log(reply_to_post_number);
           // reply_message = reply_message.innerHTML.split("<button");
-          let raw = body.innerHTML;
+          let raw = body.value;
           category_id = 0;
           let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
           // console.log(url);
@@ -522,7 +522,7 @@
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              body.innerHTML='';
+              body.value='';
               // reply_message[0].innerHTML='';
               $('.display_replies').empty();
               // console.log(document.getElementById("topic_head"));
