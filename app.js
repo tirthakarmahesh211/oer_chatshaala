@@ -569,8 +569,8 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
   var i = req.params.offset;
 
   var body3 = '';
-  var url2 = secrets.url + 'c/' + name + "/" + id + '.json' + '?page=' + i;
-  //console.log(url2);
+  var url2 = secrets.url + 'c/' + name + "/" + id + '.json' + '?page=' + i+'&order=activity';
+  // console.log(url2);
 
   var options = {
     method: 'GET',

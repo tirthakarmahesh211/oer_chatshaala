@@ -470,7 +470,7 @@ function myFunc() {
     }
 
     function load_topics(x, param=null) {
-      // console.log(x.split("##").length);
+      // console.log(x);
       y = x;
       if(x && x.split("##").length == 1){
         $('#holder5').html("");
@@ -1340,9 +1340,9 @@ function load_more_topics(){
   if (topic_div != undefined && topic_div != null && topic_div!= "undefined"){
     var category_id = topic_div.split("/")[3].split("?")[0];
     var category_name = topic_div.split("/")[2];
-    var page_number = topic_div.split("/")[3];
-
-    page_number = page_number.split("=")[1];
+    var page_number = topic_div.split("/")[3].split("page=")[1];
+    page_number = page_number.charAt(0);
+    // page_number = page_number.split("=")[1];
     // console.log(page_number);
     x = category_name+"/"+ category_id +"/load/"+page_number+"###"
 
