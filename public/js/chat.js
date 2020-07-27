@@ -1067,10 +1067,12 @@ function myFunc() {
           var fields = message_id.split('_');
           var topic_id = fields[2];
           var post_number = fields[3];
+          var textarea = document.getElementById('replyMessage');
           $('.selected_msg').empty();
           $('.rm_btn').remove();
           $(".selected_msg").css('margin-left', "7%");
           $(".display_replies").css('opacity', "100");
+          $(".display_replies").css('height', (Number(textarea.style.height.split("px")[0])+10)+"px");
           $('.selected_msg').attr("id","rmv_btn_"+topic_id+'_'+post_number);
           $('.selected_msg').append(event.target.title);
           $('.display_replies').append('<button onclick="removeReplyMessage(this)" type="button" name="cancel" class="btn btn-sm rm_btn">X</button>');

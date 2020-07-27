@@ -290,14 +290,14 @@
 
           </div>
           <%}%>
-          <div class="display_replies"><p class="selected_msg"></p></div>
+          <div class="display_replies" style="opacity: 0.01"><p class="selected_msg"></p></div>
           <div class="editor_widget">
             <div class="im_attach pull-left">
               <input id="upload_files" type="file" multiple="multiple" title="Send file" class="im_attach_input">
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
-            <textarea id="replyMessage" class="composer_rich_textarea" name="replyMessage" dir="ltr" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." ></textarea>
+            <textarea id="replyMessage" class="composer_rich_textarea" name="replyMessage" placeholder="Start the conversation..." ></textarea>
 
             <div class="im_attach pull-right">
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
@@ -386,14 +386,27 @@
     // });
 
     var textarea = document.getElementById('replyMessage');
+    var display_replies = document.getElementsByClassName('display_replies');
+    // console.log(display_replies[0]);
+
     textarea.addEventListener('keydown', autosize);
     function autosize(){
       var el = this;
       setTimeout(function(){
-        el.style.cssText = 'height:auto;padding:6px;padding-left:16px;padding-left:16px;';
+
+        el.style.cssText = 'height:auto;padding-left:16px;padding-left:16px;';
         // for box-sizing other than "content-box" use:
         // el.style.cssText = '-moz-box-sizing:content-box';
         el.style.cssText = 'height:' + el.scrollHeight + 'px';
+
+        if(display_replies !=null && display_replies!=undefined && display_replies[0].firstChild!=null && display_replies[0].firstChild!=undefined && display_replies[0].firstChild.id !=undefined && display_replies[0].firstChild.id != null && display_replies[0].firstChild.id!="" && display_replies[0].firstChild.innerHTML!="")
+        {
+          // console.log(el.style.height);
+          display_replies[0].style.cssText = 'height:' + (Number(el.style.height.split("px")[0])+10) + 'px'+';opacity: 100;';
+        }
+        else{
+          display_replies[0].style.cssText = 'opacity:0.01'
+        }
       },0);
     }
     // $('textarea').on('keydown', function(e){
