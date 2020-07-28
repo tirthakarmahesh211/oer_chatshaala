@@ -476,6 +476,7 @@ function myFunc() {
     }
 
     function load_topics(x, param=null) {
+      $("#right_panel_msg").css("display","none");
       // console.log(x);
       y = x;
       if(x && x.split("##").length == 1){
