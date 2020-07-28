@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STEMChat</title>
+    <title>ChatShaala</title>
     <link rel="shortcut icon" href="/favicon.ico">
       <link rel="stylesheet" href="/css/pure_css.css">
     <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css" />
@@ -24,7 +24,7 @@
         <div id="myLinks">
             <a href="/">Home</a>
             <a href='<%=about%>'>About</a>
-
+            <%if(false) {%>
             <%if(curr_user){%>
                 <a href='<%=home%>'>Chat</a>
                 <%}%>
@@ -32,6 +32,7 @@
             <a href='<%=blog%>'>Blogs</a>
             <a href='<%=project%>'>Projects</a>
             <a href='<%=feedback%>'>Feedback</a>
+            <%}%>
             <a href='/badges' class="active">Profile</a>
 
             <%if(!curr_user){%>

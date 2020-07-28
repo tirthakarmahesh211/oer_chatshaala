@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>STEMChat</title>
+  <title>ChatShaala</title>
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/js/jquery.min.js"></script>
@@ -25,7 +25,7 @@
   <div style="display: none;" id="specific_posts_page" name='<%=specific_posts_page%>'></div>
   <div style="display: none;" id="category_details" data-slug="" data-title=""></div>
 
-  <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+  <%# <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> %>
   <link href="/css/font-awesome.min.css" rel="stylesheet">
   <div class="container">
     <div id="mySidebar" class="sidebar">
@@ -34,15 +34,17 @@
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
       <a href='<%=about%>'>About</a>
+      
+      <%if (false) {%>
       <a href='<%=home%>'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
 
       <a href='<%=feedback%>'>Feedback</a>
+      <%}%>
       <a href='<%=profile%>'>Profile</a>
 
       <a href="<%=logout%>">Logout</a>
-
 
     </div>
 
@@ -148,6 +150,9 @@
       </div>
 
       <div class="tab-content">
+        <%if(page_url != "topic"){%>
+        <div id="right_panel_msg" class="centered_text">Please select a chat to start messaging</div>
+        <%}%>
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
             <center>
@@ -290,14 +295,14 @@
 
           </div>
           <%}%>
-          <div class="display_replies"><p class="selected_msg"></p></div>
+          <div class="display_replies" style="opacity: 0.01"><p class="selected_msg"></p></div>
           <div class="editor_widget">
             <div class="im_attach pull-left">
               <input id="upload_files" type="file" multiple="multiple" title="Send file" class="im_attach_input">
               <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
             </div>
 
-            <textarea id="replyMessage" class="composer_rich_textarea" name="replyMessage" dir="ltr" style="padding-left: 16px; padding-right: 16px;" placeholder="Start the conversation..." ></textarea>
+            <textarea id="replyMessage" class="composer_rich_textarea" name="replyMessage" placeholder="Start the conversation..." ></textarea>
 
             <div class="im_attach pull-right">
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
@@ -341,9 +346,76 @@
     </div>
 
   </div>
-
+  <div>
+  <button aria-label="New Topic" id="plus_btn" class="btn-default" type="button">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <!-- <span class="btn_text">Create a Topic/Send a Private Message</span> -->
+  </button>
+  <button style="display: none;" aria-label="New Topic" id="create-topic" class=" actions_btn" type="button">
+    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+    <span style="display: none;" class="btn_text">Create a Topic</span>
+  </button>
+  <button style="display: none;" aria-label="New Topic" id="create-group" class=" actions_btn" type="button">
+    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+    <span style="display: none;" class="btn_text">Create a Group</span>
+  </button>
+    <button style="display: none;" aria-label="New Topic" id="create-message" class=" actions_btn" type="button">
+    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+    <span style="display: none;" class="btn_text">Send a Private Message</span>
+  </button>
+  <button style="display: none;" aria-label="New Topic" id="create-category" class=" actions_btn" type="button">
+    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
+    <span style="display: none;" class="btn_text">Create a Category</span>
+  </button>
+  </div>
   <script type="text/javascript">
+    var element = document.getElementById('plus_btn');
+    element.addEventListener('click', visible_buttons);
 
+    function visible_buttons(){
+      var el = this;
+        // el.style.cssText = 'border-radius: 0%;';
+      console.log(el.style.borderRadius);
+      if(el.style.borderRadius == "0%"){
+        el.style.cssText = 'border-radius: 50%;';
+        var element = document.getElementById('create-topic');
+        console.log(element.firstElementChild.style.display);
+        element.firstElementChild.style.display = "none";
+        element.style.display = "none";
+
+        var element = document.getElementById('create-group');
+        element.firstElementChild.style.display = "none";
+        element.style.display = "none";
+
+        var element = document.getElementById('create-category');
+        element.firstElementChild.style.display = "none";
+        element.style.display = "none";
+
+        var element = document.getElementById('create-message');
+        element.firstElementChild.style.display = "none";
+        element.style.display = "none";
+
+      }
+      else{
+        el.style.cssText = 'border-radius: 0%;';
+        var element = document.getElementById('create-topic');
+        element.firstElementChild.style.display = "block";
+        element.style.display = "block";
+        
+        var element = document.getElementById('create-group');
+        element.firstElementChild.style.display = "block";
+        element.style.display = "block";
+
+        var element = document.getElementById('create-category');
+        element.firstElementChild.style.display = "block";
+        element.style.display = "block";
+
+        var element = document.getElementById('create-message');
+        element.firstElementChild.style.display = "block";
+        element.style.display = "block";
+
+      }
+    }
     // $('div[contenteditable=true]').keypress(function(e) {
     // // trap the return key being pressed
     // // console.log(e.keyCode);   
@@ -386,14 +458,27 @@
     // });
 
     var textarea = document.getElementById('replyMessage');
+    var display_replies = document.getElementsByClassName('display_replies');
+    // console.log(display_replies[0]);
+
     textarea.addEventListener('keydown', autosize);
     function autosize(){
       var el = this;
       setTimeout(function(){
-        el.style.cssText = 'height:auto;padding:6px;padding-left:16px;padding-left:16px;';
+
+        el.style.cssText = 'height:auto;padding-left:16px;padding-left:16px;';
         // for box-sizing other than "content-box" use:
         // el.style.cssText = '-moz-box-sizing:content-box';
         el.style.cssText = 'height:' + el.scrollHeight + 'px';
+
+        if(display_replies !=null && display_replies!=undefined && display_replies[0].firstChild!=null && display_replies[0].firstChild!=undefined && display_replies[0].firstChild.id !=undefined && display_replies[0].firstChild.id != null && display_replies[0].firstChild.id!="" && display_replies[0].firstChild.innerHTML!="")
+        {
+          // console.log(el.style.height);
+          display_replies[0].style.cssText = 'height:' + (Number(el.style.height.split("px")[0])+10) + 'px'+';opacity: 100;';
+        }
+        else{
+          display_replies[0].style.cssText = 'opacity:0.01'
+        }
       },0);
     }
     // $('textarea').on('keydown', function(e){
@@ -494,7 +579,7 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         var body = document.getElementById('replyMessage');
-        console.log(body);
+        console.log(body.selectionStart);
         var topic_title = document.getElementById("topic_title");
         // console.log(topic_title);
         var reply_message = document.getElementsByClassName('selected_msg');
@@ -509,7 +594,7 @@
           let reply_to_post_number = fields[3];
           // console.log(reply_to_post_number);
           // reply_message = reply_message.innerHTML.split("<button");
-          let raw = body.innerHTML;
+          let raw = body.value;
           category_id = 0;
           let url = '/reply/' + topic_id + '/' + category_id  + '/' + reply_to_post_number; 
           // console.log(url);
@@ -522,7 +607,7 @@
             setTimeout(function(){
               $('#holder3').html('');
               $('.pointer.links.active-tab').click();
-              body.innerHTML='';
+              body.value='';
               // reply_message[0].innerHTML='';
               $('.display_replies').empty();
               // console.log(document.getElementById("topic_head"));
@@ -609,6 +694,7 @@
 
 
     $('#upload_files').change(function(event){
+      var body = document.getElementById('replyMessage');
       var input = this;
       var url = $(this).val();
       var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
@@ -632,7 +718,20 @@
               alert(data.error);
             }
             else{
-              $("#replyMessage").html($("#replyMessage").html() + data);
+              // console.log("else .....");
+              // console.log(body.selectionStart);
+              let first_part_string = "";
+              let last_part_string = "";
+              if (body!=null && body!=undefined && body.selectionStart!=null && body.selectionStart!=undefined)
+              {
+                // console.log(body.value.substring(0,body.selectionStart));
+                // console.log(body.value.substring(body.selectionStart,body.value.length));
+                first_part_string = body.value.substring(0,body.selectionStart);
+                last_part_string = body.value.substring(body.selectionStart,body.value.length)
+              }
+              let whole_string = first_part_string +" "+ data +" "+ last_part_string;
+              // console.log(whole_string);
+              $("#replyMessage").val(whole_string);
             }
          },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}

@@ -463,6 +463,8 @@ background: rgba(36, 117, 47, 0.4);
   bottom: 70px;
   width: 75%;
   opacity: 0.01;
+  max-height: 290px;
+  min-height: 60px;
 }
 
 
@@ -2271,3 +2273,112 @@ div.reply_msg{
   width: calc(100% - 160px);
   padding-top:13px;
 }
+
+/*.bottom_editor{
+  position: fixed;
+}*/
+.centered_text{
+  margin-left: 25%;
+  text-align: center;
+  color: grey;
+  padding-top: 218px;
+  padding-bottom: 218px;
+  font-size :20px;
+}
+
+#plus_btn.btn-default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /*box-shadow: 0 0 4px rgba(0,0,0,0.14),0 4px 8px rgba(0,0,0,0.28);*/
+  transition: right 0.5s,left 0.5s, bottom 0.5s, border-radius 0.5s, text-indent 0.2s, visibility 1s, width 0.2s ease, height 0.5s ease 0.4s, color 0.5s, background-color 2s, transform 0.5s;
+  padding: 0;
+  margin: 0;
+  width: 63px;
+  height: 63px;
+  border-radius: 40px;
+  position: fixed;
+  bottom: 30px;
+  /*right: 50px;*/
+  z-index: 399;
+  background-color: var(--mainColor);
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  border:none;
+  left : 43%;
+  opacity: 0.8;
+}
+.fa-plus{
+  font-size: 20px !important;
+}
+
+#plus_btn.btn-default:hover{
+  /*background-color: grey;*/
+  /*width: 200px;*/
+  border-radius: 0%;
+}
+/*#create-topic.btn-default:hover .btn_text{
+  display: block;
+}
+#create-topic.btn-default:hover .fa-plus{
+  display: none;
+}*/
+
+#create-topic {
+  height: 60px;
+  width: 45%;
+  background-color: var(--mainColor);
+  overflow: hidden;
+  position: fixed;
+  border: none;
+  bottom: 100px;
+  opacity: 0.8;
+  color:white;
+  font-weight: bold;
+  left:10px;
+}
+
+#create-message{
+  height: 60px;
+  width: 45%;
+  background-color: var(--mainColor);
+  overflow: hidden;
+  position: fixed;
+  border: none;
+  bottom: 100px;
+  opacity: 0.8;
+  color:white;
+  font-weight: bold;
+  right:10px ;
+}
+
+#create-group{
+  height: 60px;
+  width: 45%;
+  background-color: var(--mainColor);
+  overflow: hidden;
+  position: fixed;
+  border: none;
+  bottom: 180px;
+  opacity: 0.8;
+  color:white;
+  font-weight: bold;
+  left:10px ;
+}
+
+
+#create-category{
+  height: 60px;
+  width: 45%;
+  background-color: var(--mainColor);
+  overflow: hidden;
+  position: fixed;
+  border: none;
+  bottom: 180px;
+  opacity: 0.8;
+  color:white;
+  font-weight: bold;
+  right:10px;
+}
+
