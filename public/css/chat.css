@@ -2327,7 +2327,7 @@ div.reply_msg{
 
 #create-topic {
   height: 60px;
-  width: 45%;
+  width: 50%;
   background-color: var(--mainColor);
   /*overflow: hidden;*/
   position: fixed;
@@ -2342,7 +2342,7 @@ div.reply_msg{
 
 #create-message{
   height: 60px;
-  width: 45%;
+  width: 50%;
   background-color: var(--mainColor);
   /*overflow: hidden;*/
   position: fixed;
@@ -2357,7 +2357,7 @@ div.reply_msg{
 
 #create-group{
   height: 60px;
-  width: 45%;
+  width: 50%;
   background-color: var(--mainColor);
   /*overflow: hidden;*/
   position: fixed;
