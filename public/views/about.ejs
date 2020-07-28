@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>STEMChat</title>
+  <title>ChatShaala</title>
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/pure_css.css">
   <link rel="stylesheet" href="css/feedback.css">
@@ -25,6 +25,7 @@
     <div id="myLinks">
       <a href='/'>Home</a>
       <a href='<%=about%>' class="active">About</a>
+      <%if(false) {%>
       <%if(curr_user){%>
       <a href='<%=home%>'>Chat</a>
       <%}%>
@@ -32,6 +33,7 @@
       <a href='<%=project%>'>Projects</a>
 
       <a href='<%=feedback%>'>Feedback</a>
+      <%}%>
       <%if(curr_user){%>
       <a href='<%=profile%>'>Profile</a>
       <%}%>

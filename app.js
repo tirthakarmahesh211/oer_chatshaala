@@ -399,14 +399,15 @@ app.get("/badges", function (req, res) {
 
 
 app.get('/logout', function (req, res) {
+  console.log("log out");
   let user = req.session.user;
   if (user) {
     req.session.cookie.maxAge = -1;
     req.session.destroy();
     req.session = null;
-    res.redirect('/');
+    res.redirect('/register');
   }else{
-      res.redirect('/');
+      res.redirect('/register');
   }
 });
 

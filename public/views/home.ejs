@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>STEMChat</title>
+  <title>ChatShaala</title>
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/js/jquery.min.js"></script>
@@ -25,7 +25,7 @@
   <div style="display: none;" id="specific_posts_page" name='<%=specific_posts_page%>'></div>
   <div style="display: none;" id="category_details" data-slug="" data-title=""></div>
 
-  <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">-->
+  <%# <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> %>
   <link href="/css/font-awesome.min.css" rel="stylesheet">
   <div class="container">
     <div id="mySidebar" class="sidebar">
@@ -34,15 +34,17 @@
       <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">✖</a>
 
       <a href='<%=about%>'>About</a>
+      
+      <%if (false) {%>
       <a href='<%=home%>'>Chat</a>
       <a href='<%=blog%>'>Blogs</a>
       <a href='<%=project%>'>Projects</a>
 
       <a href='<%=feedback%>'>Feedback</a>
+      <%}%>
       <a href='<%=profile%>'>Profile</a>
 
       <a href="<%=logout%>">Logout</a>
-
 
     </div>
 
