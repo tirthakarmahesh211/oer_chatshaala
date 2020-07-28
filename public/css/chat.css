@@ -2329,7 +2329,7 @@ div.reply_msg{
   height: 60px;
   width: 45%;
   background-color: var(--mainColor);
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: fixed;
   border: none;
   bottom: 100px;
@@ -2343,7 +2343,7 @@ div.reply_msg{
   height: 60px;
   width: 45%;
   background-color: var(--mainColor);
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: fixed;
   border: none;
   bottom: 100px;
@@ -2357,7 +2357,7 @@ div.reply_msg{
   height: 60px;
   width: 45%;
   background-color: var(--mainColor);
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: fixed;
   border: none;
   bottom: 180px;
@@ -2372,7 +2372,7 @@ div.reply_msg{
   height: 60px;
   width: 45%;
   background-color: var(--mainColor);
-  overflow: hidden;
+  /*overflow: hidden;*/
   position: fixed;
   border: none;
   bottom: 180px;
