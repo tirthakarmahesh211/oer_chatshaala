@@ -246,6 +246,7 @@ function myFunc() {
 
     //Loading messages on left pane
     function function_pvt() {
+      $("#right_panel_msg").css("display","block");
       window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       if (menuContent.style.display == "block") {
@@ -351,6 +352,7 @@ function myFunc() {
 
     }
     function function_category() {
+      $("#right_panel_msg").css("display","block");
       window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Groups');
@@ -393,6 +395,7 @@ function myFunc() {
 
     }
     function function_category_common() {
+      $("#right_panel_msg").css("display","block");
       window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Categories');
@@ -690,7 +693,7 @@ function myFunc() {
       }
       $("#upload_files").attr("data-topic_id",tid);
       $("#reply_form").attr("action","/upload/"+tid);
-
+      $("#right_panel_msg").css("display","none");
       // console.log(x);
       // console.log(page_numbr);
       if(x[6] == "next_post_ids"){

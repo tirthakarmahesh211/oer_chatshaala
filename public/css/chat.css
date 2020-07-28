@@ -2277,3 +2277,11 @@ div.reply_msg{
 /*.bottom_editor{
   position: fixed;
 }*/
+.centered_text{
+  margin-left: 25%;
+  text-align: center;
+  color: grey;
+  padding-top: 218px;
+  padding-bottom: 218px;
+  font-size :20px;
+}
