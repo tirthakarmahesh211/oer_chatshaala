@@ -351,22 +351,19 @@
     <i class="fa fa-plus" aria-hidden="true"></i>
     <!-- <span class="btn_text">Create a Topic/Send a Private Message</span> -->
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-topic" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Create a New Topic" id="create-topic" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Topic</span>
+    <span style="display: none;" class="btn_text">Create a New Topic</span>
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-group" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Send a Message to a Group" id="create-group" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Group</span>
+    <span style="display: none;" class="btn_text">Send a Message to a Group</span>
   </button>
-    <button style="display: none;" aria-label="New Topic" id="create-message" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Send a Private Message" id="create-message" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
     <span style="display: none;" class="btn_text">Send a Private Message</span>
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-category" class=" actions_btn" type="button">
-    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Category</span>
-  </button>
+
   </div>
   <script type="text/javascript">
     var element = document.getElementById('plus_btn');
@@ -387,9 +384,9 @@
         element.firstElementChild.style.display = "none";
         element.style.display = "none";
 
-        var element = document.getElementById('create-category');
-        element.firstElementChild.style.display = "none";
-        element.style.display = "none";
+        // var element = document.getElementById('create-category');
+        // element.firstElementChild.style.display = "none";
+        // element.style.display = "none";
 
         var element = document.getElementById('create-message');
         element.firstElementChild.style.display = "none";
@@ -406,9 +403,9 @@
         element.firstElementChild.style.display = "block";
         element.style.display = "block";
 
-        var element = document.getElementById('create-category');
-        element.firstElementChild.style.display = "block";
-        element.style.display = "block";
+        // var element = document.getElementById('create-category');
+        // element.firstElementChild.style.display = "block";
+        // element.style.display = "block";
 
         var element = document.getElementById('create-message');
         element.firstElementChild.style.display = "block";

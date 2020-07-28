@@ -2296,17 +2296,17 @@ div.reply_msg{
   margin: 0;
   width: 63px;
   height: 63px;
-  border-radius: 40px;
+  border-radius: calc(50%);
   position: fixed;
   bottom: 30px;
-  /*right: 50px;*/
+  right: 60px;
   z-index: 399;
   background-color: var(--mainColor);
   color: #fff;
   white-space: nowrap;
   overflow: hidden;
   border:none;
-  left : 43%;
+  /*left : calc(43vw - 5%);*/
   opacity: 0.8;
 }
 .fa-plus{
@@ -2332,11 +2332,12 @@ div.reply_msg{
   /*overflow: hidden;*/
   position: fixed;
   border: none;
-  bottom: 100px;
+  bottom: 260px;
   opacity: 0.8;
   color:white;
   font-weight: bold;
-  left:10px;
+  /*left:25%;*/
+  right:60px;
 }
 
 #create-message{
@@ -2346,11 +2347,12 @@ div.reply_msg{
   /*overflow: hidden;*/
   position: fixed;
   border: none;
-  bottom: 100px;
+  bottom: 180px;
   opacity: 0.8;
   color:white;
   font-weight: bold;
-  right:10px ;
+  /*left: 25% ;*/
+  right:60px;
 }
 
 #create-group{
@@ -2360,19 +2362,20 @@ div.reply_msg{
   /*overflow: hidden;*/
   position: fixed;
   border: none;
-  bottom: 180px;
+  bottom: 100px;
   opacity: 0.8;
   color:white;
   font-weight: bold;
-  left:10px ;
+  /*left:25% ;*/
+  right:60px;
 }
 
 
-#create-category{
+/*#create-category{
   height: 60px;
   width: 45%;
   background-color: var(--mainColor);
-  /*overflow: hidden;*/
+  overflow: hidden;
   position: fixed;
   border: none;
   bottom: 180px;
@@ -2380,5 +2383,5 @@ div.reply_msg{
   color:white;
   font-weight: bold;
   right:10px;
-}
+}*/
 
