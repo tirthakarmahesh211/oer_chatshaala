@@ -635,7 +635,6 @@ function myFunc() {
         document.getElementById("inbox-message-1").style.display = "block";
         document.getElementById('plus_btn').style.display = "none";
         document.getElementById('create-topic').style.display = "none";
-        document.getElementById('create-group').style.display = "none";
         document.getElementById('create-message').style.display = "none";
       }
       else {
@@ -645,12 +644,10 @@ function myFunc() {
         document.getElementById('plus_btn').style.display = "block";
         if(document.getElementById('plus_btn').style.borderRadius == "0%"){
           document.getElementById('create-topic').style.display = "block";
-          document.getElementById('create-group').style.display = "block";
           document.getElementById('create-message').style.display = "block";
         }
         else{
           document.getElementById('create-topic').style.display = "none";
-          document.getElementById('create-group').style.display = "none";
           document.getElementById('create-message').style.display = "none";         
         }
       }
@@ -664,12 +661,10 @@ function myFunc() {
         document.getElementById('plus_btn').style.display = "block";
         if(document.getElementById('plus_btn').style.borderRadius == "0%"){
           document.getElementById('create-topic').style.display = "block";
-          document.getElementById('create-group').style.display = "block";
           document.getElementById('create-message').style.display = "block";
         }
         else{
           document.getElementById('create-topic').style.display = "none";
-          document.getElementById('create-group').style.display = "none";
           document.getElementById('create-message').style.display = "none";
         }
       }
@@ -726,7 +721,7 @@ function myFunc() {
 
         tid = y[1];
         var tslug = y[0];
-        window.history.pushState("object or string", tid , '/t/'+tslug+'/'+tid);
+        // window.history.pushState("object or string", tid , '/t/'+tslug+'/'+tid);
         // console.log(tslug);
         $('#slug').attr('name', tslug);
         if(topic_head!= null && topic_head != undefined){
