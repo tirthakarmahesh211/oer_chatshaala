@@ -2472,3 +2472,41 @@ div.reply_msg{
     100% { right: 0; }
 }
 }
+
+#back_btn_for_dm {
+  font-size: 36px;
+  cursor: pointer;
+  /*background-color: #d6d4c7;*/
+  background-color: transparent;
+  color: #393e46;
+  padding: 0px 4px;
+  border: none;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#select_category_id {
+  position: fixed;
+  top: 110px;
+  width: calc(100% - 20px );
+  padding: 5px;
+  margin: 0px 10px;
+}
+
+#topic_title {
+  position: fixed;
+  top: 50px;
+  width: calc(100% - 20px );
+  padding: 5px;
+  margin: 0px 10px;
+}
+
+#select_usr_grp {
+  position: fixed;
+  top: 110px;
+  width: calc(100% - 20px );
+  padding: 5px;
+  margin: 0px 10px;
+}
