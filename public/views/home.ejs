@@ -369,9 +369,12 @@
   <div id="details-form" class="detail_form">
     <button id="back_btn_for_dm">⬅️ </button>
     <input id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here">
-    <input id="select_usr_grp" type="text" name="user_grp_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
-    <select id="select_category_id" placeholder="select a category...">Select a category</select>
+    <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''>
+    <select style="display: none" id="select_category_id" placeholder="select a category...">
+      <option value="">Select a category</option>
+    </select>
     <textarea id="text_editor" class="text_editor" name="text_editor" placeholder="Start the conversation..." ></textarea>
+    <button onclick="submit_data()">Submit</button>
   </div>
   <script type="text/javascript">
 
@@ -405,7 +408,7 @@
     select_category_id.addEventListener('click', append_option_tags);
 
     function append_option_tags(){
-      // console.log(select_category_id.firstChild.nodeName);
+      // console.log(select_category_id);
       if (select_category_id.firstChild!=null && select_category_id.firstChild!=undefined && select_category_id.firstChild.nodeName != "OPTION"){
         var contact_list_divs = document.querySelectorAll('div[class^="contact_list"]');
         let elements = "";
@@ -435,6 +438,20 @@
       // alert("hi");
       document.getElementById('container').style.display = "none";
       document.getElementById('details-form').style.display = "block";
+      document.getElementById('select_category_id').style.display = "block";
+      document.getElementById('select_usr_grp').style.display = "none";
+    }
+
+    var element = document.getElementById('create-message');
+    element.addEventListener('click', createMessage);
+
+    function createMessage(){
+      var el = this;
+      // alert("hi");
+      document.getElementById('container').style.display = "none";
+      document.getElementById('details-form').style.display = "block";
+      document.getElementById('select_category_id').style.display = "none";
+      document.getElementById('select_usr_grp').style.display = "block";
     }
 
     var element = document.getElementById('plus_btn');
@@ -811,6 +828,35 @@
       });
 
       $('#openFileUpload').click(function(){ $('#upload_files').trigger('click'); });
+
+
+      function submit_data(){
+        // alert("ssss")
+          var select_usr_grp = document.getElementById("select_usr_grp");
+          var category_id = document.getElementById("select_category_id");
+          var topic_title = document.getElementById("topic_title");
+          var text_editor = document.getElementById("text_editor");
+          console.log(category_id);
+          if ( category_id!=null && category_id != undefined ){
+            category_id = category_id.value
+          }
+          // console.log(category_id);
+          let url = "/chatpost"
+          $.ajax(url,{
+            type:'POST',
+            data:{
+              title: topic_title.value,
+              desc: text_editor.value,
+              user_search: select_usr_grp.value,
+              category: category_id
+            },
+            success:function (data,status,xhr) {   // success callback function
+              // console.log(data);
+
+           },
+            error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+          });
+      }
 
 
   </script>
