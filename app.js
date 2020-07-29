@@ -23,6 +23,7 @@ const logout = '/logout';
 const project = '/project';
 const profile = '/profile';
 const badges = '/badges';
+const latest = '/latest';
 
 app.use(parser.json({limit: '1024mb'}));
 app.use(parser.urlencoded({limit: '1024mb', extended: true}));
@@ -309,6 +310,35 @@ app.get("/project", function (req, res) {
 
   });
 });
+
+
+app.get("/latest", function(req, res){
+  var url = secrets.url+'/latest.json';
+  console.log("hiii")
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url,options, function(response){
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        body = JSON.parse(body);
+
+        console.log(body);
+        res.json(body.latest_topics);
+      });
+    }
+  })  
+})
+
+
 app.get("/project/more/:offset", function (req, res) {
   let curr_user = req.session.user;
   var body3 = '';
@@ -600,7 +630,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
 });
 
 app.get('/all/categories', (req, res) => {
-  var url = secrets.url + '/categories.json';
+  var url9 = secrets.url + '/categories.json';
   var options = {
     method: 'GET',
     headers: {
@@ -608,7 +638,7 @@ app.get('/all/categories', (req, res) => {
       'Api-Username': 'system'
     }
   };
-  https.get(url, options, (response) => {
+  https.get(url9, options, (response) => {
     var body = '';
     response.on('data', function (data) {
       body += data;

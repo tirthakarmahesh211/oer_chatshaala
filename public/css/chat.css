@@ -1851,10 +1851,10 @@ textarea[name="desc"] {
   z-index: 1;
 }
 
-.menu_move{
+/*.menu_move{
   font-size: 18px;
 }
-
+*/
 .links {
   color: rgb(255, 255, 255);
   padding: 6px 10px;
@@ -1914,8 +1914,10 @@ svg {
   width:30px;
 }
 .dropdown-content2{
-  margin-left: 10px;
-  margin-right: 8px;
+/*  margin-left: 10px;
+  margin-right: 8px;*/
+  margin-left: 5px;
+  width:30px;
 }
 .dropdown-content3{
 /*  margin-left: 12px;
