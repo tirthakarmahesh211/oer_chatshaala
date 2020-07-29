@@ -455,6 +455,36 @@ function myFunc() {
         });
     }
 
+    function function_latestposts(){
+      alert("latest");
+      $("#right_panel_msg").css("display","block");
+      window.history.replaceState("object or string", '' , '/');
+      document.getElementById("inbox-message-1").style.display = "None";
+      $('#menu_active').text('Latest');
+      var e = document.getElementById("latest_click");
+      e.classList.add("active-tab");
+      e = document.getElementById("category_click");
+      e.classList.remove("active-tab");
+      e = document.getElementById("private_click");
+      e.classList.remove("active-tab");
+      e = document.getElementById("group_click");
+      e.classList.remove("active-tab");
+
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder2").style.display = "None";
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
+
+      if (menuContent.style.display == "block") {
+        menuContent.style.display = "";
+      }
+
+      
+    }
+
     //Loading each topic on left pane
     function copy_topic(event, x) {
 
