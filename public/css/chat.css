@@ -2342,7 +2342,7 @@ div.reply_msg{
   /*overflow: hidden;*/
   position: fixed;
   border: none;
-  bottom: 260px;
+  bottom: 170px;
   opacity: 0.8;
   color:white;
   font-weight: bold;
@@ -2357,26 +2357,11 @@ div.reply_msg{
   /*overflow: hidden;*/
   position: fixed;
   border: none;
-  bottom: 180px;
-  opacity: 0.8;
-  color:white;
-  font-weight: bold;
-  /*left: 25% ;*/
-  right:60px;
-}
-
-#create-group{
-  height: 60px;
-  width: 50%;
-  background-color: var(--mainColor);
-  /*overflow: hidden;*/
-  position: fixed;
-  border: none;
   bottom: 100px;
   opacity: 0.8;
   color:white;
   font-weight: bold;
-  /*left:25% ;*/
+  /*left: 25% ;*/
   right:60px;
 }
 
