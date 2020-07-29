@@ -373,9 +373,24 @@
     <select style="display: none" id="select_category_id" placeholder="select a category...">
       <option value="">Select a category</option>
     </select>
-    <textarea id="text_editor" class="text_editor" name="text_editor" placeholder="Start the conversation..." ></textarea>
-    <button onclick="submit_data()">Submit</button>
+ <!--    <textarea id="text_editor" class="text_editor" name="text_editor" placeholder="Start the conversation..." ></textarea> -->
+    <!--<button onclick="submit_data()">Submit</button>-->
+
+    <div class="editor_widget">
+      <div class="im_attach pull-left">
+        <input id="upload_files1" type="file" multiple="multiple" title="Send file" class="im_attach_input">
+        <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
+      </div>
+
+      <textarea id="replyMessage1" class="composer_rich_textarea" name="replyMessage1" placeholder="Start the conversation..." ></textarea>
+
+      <div class="im_attach pull-right">
+        <button id="saveDelta1" class="save_btn" type="button" title="Submit"></button>
+        <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
+      </div>
+    </div>
   </div>
+
   <script type="text/javascript">
 
   $('input[name="user_grp_search"]').keyup(() => {
@@ -436,6 +451,8 @@
     function createTopic(){
       var el = this;
       // alert("hi");
+      document.getElementById('select_category_id').value="";
+      document.getElementById('select_usr_grp').value = "";
       document.getElementById('container').style.display = "none";
       document.getElementById('details-form').style.display = "block";
       document.getElementById('select_category_id').style.display = "block";
@@ -448,6 +465,8 @@
     function createMessage(){
       var el = this;
       // alert("hi");
+      document.getElementById('select_category_id').value=""
+      document.getElementById('select_usr_grp').value = ""
       document.getElementById('container').style.display = "none";
       document.getElementById('details-form').style.display = "block";
       document.getElementById('select_category_id').style.display = "none";
@@ -857,6 +876,98 @@
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
       }
+
+    $('#upload_files1').change(function(event){
+      var body = document.getElementById('replyMessage1');
+      var input = this;
+      var url = $(this).val();
+      var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+      topic_id = input.dataset.topic_id;
+      url = "/upload/"+topic_id;
+      var file = event.target.files[0];
+
+      reader = new FileReader();
+
+      reader.onloadend = function () {
+        var b64 = reader.result.replace(/^data:.+;base64,/, '');
+
+        $.ajax(url,{
+          type:'POST',
+          data: {file:b64,filename:file.name},
+
+          success:function (data,status,xhr) {   // success callback function
+            // console.log(data);
+            if(data && data.error!=null){
+              alert(data.error);
+            }
+            else{
+              // console.log("else .....");
+              // console.log(body.selectionStart);
+              let first_part_string = "";
+              let last_part_string = "";
+              if (body!=null && body!=undefined && body.selectionStart!=null && body.selectionStart!=undefined)
+              {
+                // console.log(body.value.substring(0,body.selectionStart));
+                // console.log(body.value.substring(body.selectionStart,body.value.length));
+                first_part_string = body.value.substring(0,body.selectionStart);
+                last_part_string = body.value.substring(body.selectionStart,body.value.length)
+              }
+              let whole_string = first_part_string +" "+ data +" "+ last_part_string;
+              // console.log(whole_string);
+              $("#replyMessage1").val(whole_string);
+            }
+         },
+          error:function(jqXhr, textStatus, errorMessage){alert('Failed to upload file '+ errorMessage);}
+        });
+      };
+
+      reader.readAsDataURL(file);
+
+      });
+
+      document.getElementById('saveDelta1').addEventListener('click', function () {
+        var body = document.getElementById('replyMessage1');
+        console.log(body.selectionStart);
+        var topic_title = document.getElementById("topic_title");
+        var select_usr_grp = document.getElementById("select_usr_grp");
+        var category_id = document.getElementById("select_category_id");
+        // console.log(topic_title);
+        var topic_id = $('#tid').attr('name');
+        var topic_slug = $('#slug').attr('name');
+        // console.log(body.innerHTML);
+        // console.log(topic_title.innerHTML);
+        // console.log(body.value);
+        // console.log(topic_title.value);
+        if(topic_title!=null && topic_title!= undefined && topic_title.value !=null && topic_title.value !=undefined && body && body.value!=null && body.value != undefined){
+          // console.log(body.value);
+          // console.log(topic_title.value);
+          var searched_user = document.getElementById("searched_user");
+          var category_id = document.getElementById("select_category_id");
+          if ( category_id!=null && category_id != undefined ){
+            category_id = category_id.value
+          }
+          // console.log(category_id);
+          let url = "/chatpost"
+          $.ajax(url,{
+            type:'POST',
+            data:{
+              title: topic_title.value,
+              desc: body.value,
+              user_search: select_usr_grp.value,
+              category: category_id
+            },
+            success:function (data,status,xhr) {   // success callback function
+              // console.log(data);
+              body.value = "";
+              topic_title.value = "";
+              select_usr_grp.value = "";
+           },
+            error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+          });
+        }
+
+      });
 
 
   </script>
