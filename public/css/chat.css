@@ -225,7 +225,7 @@ body {
 }
 
 .messages-panel img.img-circle {
-  border: 1px solid var(--mainColor);
+/*  border: 1px solid var(--mainColor);*/
 }
 
 .messages-panel .tab-content {
@@ -1851,6 +1851,10 @@ textarea[name="desc"] {
   z-index: 1;
 }
 
+.menu_move{
+  font-size: 18px;
+}
+
 .links {
   color: rgb(255, 255, 255);
   padding: 6px 10px;
@@ -1904,16 +1908,20 @@ svg {
 }
 
 .dropdown-content1{
-  margin-left: 14px;
-  margin-right: 14px;
+/*  margin-left: 14px;
+  margin-right: 14px;*/
+  margin-left: 5px;
+  width:30px;
 }
 .dropdown-content2{
   margin-left: 10px;
   margin-right: 8px;
 }
 .dropdown-content3{
-  margin-left: 12px;
-  margin-right: 14px;
+/*  margin-left: 12px;
+  margin-right: 14px;*/
+    margin-left: 5px;
+    width:30px
 }
 
 .share_btn{
