@@ -2370,21 +2370,6 @@ div.reply_msg{
   right:60px;
 }
 
-
-/*#create-category{
-  height: 60px;
-  width: 45%;
-  background-color: var(--mainColor);
-  overflow: hidden;
-  position: fixed;
-  border: none;
-  bottom: 180px;
-  opacity: 0.8;
-  color:white;
-  font-weight: bold;
-  right:10px;
-}*/
-
 @media screen and (min-width: 767px) {
 #plus_btn.btn-default {
   display: flex;
@@ -2453,5 +2438,29 @@ div.reply_msg{
   font-weight: bold;
   /*left:25% ;*/
   right: calc(77%);
+}
+}
+@media screen and (max-width: 767px) {
+#details-form {
+    z-index:400;
+    display: none;
+    position: fixed;
+    right: 0 !important;
+    width: 100%;
+    height: 100vh;
+    /*background-color: red;*/
+    background: #376a97;
+    -webkit-animation: details-form 1s backwards;
+    -webkit-animation-delay: 2s;
+    animation: details-form 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes details-form {
+    100% { right: 0; }
+}
+
+@keyframes details-form {
+    100% { right: 0; }
 }
 }

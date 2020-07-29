@@ -168,9 +168,11 @@ app.get('/search', (req, res) => {
 
 });
 app.get('/find', (req, res) => {
+  // console.log("find");
   if (req.session.user) {
     var text = req.query.text;
-    var url = secrets.url + "/search/query?term=" + text + "&include_blurbs=true";
+    var url = secrets.url + "/u/search/users?term=" + text + "&include_messageable_groups=true";
+    // console.log(url);
     var options = {
       method: 'GET',
       headers: {
@@ -194,8 +196,9 @@ app.get('/find', (req, res) => {
       });
       response.on('end', function () {
         body = JSON.parse(body);
-        if (body.grouped_search_result && body.grouped_search_result.user_ids) {
-          res.json(body.users);
+        // console.log(body);
+        if (body) {
+          res.json(body);
         } else {
           res.json([]);
         }
