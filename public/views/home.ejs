@@ -368,7 +368,7 @@
   </div>
   <div id="details-form" class="detail_form">
     <button id="back_btn_for_dm">⬅️ </button>
-    <input id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here">
+    <input id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here" required=''>
     <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''>
     <select style="display: none" id="select_category_id" placeholder="select a category...">
       <option value="">Select a category</option>
@@ -401,6 +401,7 @@
       data: { text: text }
     }).done(
       (data) => {
+        console.log(data);
         $('#users1 option').remove();
         if(data && data.users){
         for (var i = 0; i < data.users.length; i++) {
@@ -411,7 +412,7 @@
         if(data && data.groups){
         for (var i = 0; i < data.groups.length; i++) {
           var txt = data.groups[i].name;
-          $('#users1').append('<option value=\"' + data.groups[i].username + '\">' + txt + '</option>');
+          $('#users1').append('<option value=\"' + data.groups[i].name + '\">' + txt + '</option>');
         }
         }
       }
@@ -426,7 +427,7 @@
       // console.log(select_category_id);
       if (select_category_id.firstChild!=null && select_category_id.firstChild!=undefined && select_category_id.firstChild.nodeName != "OPTION"){
         var contact_list_divs = document.querySelectorAll('div[class^="contact_list"]');
-        let elements = "";
+        let elements = '';
         for (var i = 0; i < contact_list_divs.length; i++) {
         elements = elements + '<option value="'+contact_list_divs[i].dataset.cid+'">'+contact_list_divs[i].dataset.cname+'</option>';
         
@@ -585,6 +586,17 @@
         }
       },0);
     }
+
+    var textarea = document.getElementById('replyMessage1');
+    textarea.addEventListener('keydown', autosize);
+    function autosize(){
+      var el = this;
+      setTimeout(function(){
+        el.style.cssText = 'height:auto;padding-left:16px;padding-left:16px;';
+        el.style.cssText = 'height:' + el.scrollHeight + 'px';
+      });
+    }
+
     // $('textarea').on('keydown', function(e){
     //      if(e.which == 13) {
     //        e.preventDefault();
@@ -962,6 +974,7 @@
               body.value = "";
               topic_title.value = "";
               select_usr_grp.value = "";
+              // category_id.value= "Select a category";
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
