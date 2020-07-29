@@ -645,7 +645,7 @@ function pvt_msg(req, res) {
   var title = req.body.title;
   // var category=req.body.category;
   var desc = req.body.desc;
-  var user = req.body.user_search;
+  var user_search = req.body.user_search;
   }
   else if(req.query!=null && req.query != undefined){
   var title = req.query.title;
@@ -667,16 +667,16 @@ function pvt_msg(req, res) {
   // console.log(req.query);
   // console.log(desc);
   // console.log(title);
-  https.get(secrets.url + 'users/' + user + '.json', (response) => {
+  // https.get(secrets.url + 'users/' + user + '.json', (response) => {
 
-    if (response.statusCode === 200) {
-      var det = '';
-      response.on('data', (chunk) => {
-        det += chunk;
-      });
-      response.on('end', () => {
-        det = JSON.parse(det);
-        console.log(det.user.username);
+  //   if (response.statusCode === 200) {
+  //     var det = '';
+  //     response.on('data', (chunk) => {
+  //       det += chunk;
+  //     });
+  //     response.on('end', () => {
+  //       det = JSON.parse(det);
+  //       console.log(det.user.username);
         if(req.body && req.body.category!=null && req.body.category!=undefined && req.body.category !=''){
           var data1 = {
             'title': title,
@@ -691,7 +691,7 @@ function pvt_msg(req, res) {
             'title': title,
             'raw': desc,
             // “category”: Number(category),
-            'target_recipients': det.user.username,
+            'target_recipients': user_search,
             'archetype': 'private_message'
           };
         }
@@ -717,11 +717,11 @@ function pvt_msg(req, res) {
         });
         request.write(querystring.stringify(data1));
         request.end();
-      });
-    } else {
-      res.redirect('/chat');
-    }
-  });
+  //     });
+  //   } else {
+  //     res.redirect('/chat');
+  //   }
+  // });
 }
 
 
