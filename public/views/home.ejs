@@ -27,7 +27,7 @@
 
   <%# <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> %>
   <link href="/css/font-awesome.min.css" rel="stylesheet">
-  <div class="container">
+  <div id="container" class="container">
     <div id="mySidebar" class="sidebar">
 
       <a href="/">Home</a>
@@ -352,35 +352,102 @@
     <i class="fa fa-plus" aria-hidden="true"></i>
     <!-- <span class="btn_text">Create a Topic/Send a Private Message</span> -->
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-topic" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Create a New Topic" id="create-topic" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Topic</span>
+    <span style="display: none;" class="btn_text">Create a New Topic</span>
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-group" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Send a Message to a Group" id="create-group" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Group</span>
+    <span style="display: none;" class="btn_text">Send a Message to a Group</span>
   </button>
-    <button style="display: none;" aria-label="New Topic" id="create-message" class=" actions_btn" type="button">
+  <button style="display: none;" aria-label="Send a Private Message" id="create-message" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
     <span style="display: none;" class="btn_text">Send a Private Message</span>
   </button>
-  <button style="display: none;" aria-label="New Topic" id="create-category" class=" actions_btn" type="button">
-    <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">Create a Category</span>
-  </button>
+
+  </div>
+  <div id="details-form" class="detail_form">
+    <button id="back_btn_for_dm">⬅️ </button>
+    <input id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here">
+    <input id="select_usr_grp" type="text" name="user_grp_search" placeholder="Add User" list="users1" autocomplete="off" required=''>
+    <select id="select_category_id" placeholder="select a category...">Select a category</select>
+    <textarea id="text_editor" class="text_editor" name="text_editor" placeholder="Start the conversation..." ></textarea>
   </div>
   <script type="text/javascript">
+
+  $('input[name="user_grp_search"]').keyup(() => {
+    var text = $('input[name="user_grp_search"]').val();
+    // console.log(text);
+    $.ajax({
+      url: '/find',
+      data: { text: text }
+    }).done(
+      (data) => {
+        $('#users1 option').remove();
+        if(data && data.users){
+        for (var i = 0; i < data.users.length; i++) {
+          var txt = data.users[i].name + ' (@' + data.users[i].username + ')';
+          $('#users1').append('<option value=\"' + data.users[i].username + '\">' + txt + '</option>');
+        }          
+        }
+        if(data && data.groups){
+        for (var i = 0; i < data.groups.length; i++) {
+          var txt = data.groups[i].name;
+          $('#users1').append('<option value=\"' + data.groups[i].username + '\">' + txt + '</option>');
+        }
+        }
+      }
+    );
+  });
+
+    var select_category_id = document.getElementById('select_category_id');
+
+    select_category_id.addEventListener('click', append_option_tags);
+
+    function append_option_tags(){
+      // console.log(select_category_id.firstChild.nodeName);
+      if (select_category_id.firstChild!=null && select_category_id.firstChild!=undefined && select_category_id.firstChild.nodeName != "OPTION"){
+        var contact_list_divs = document.querySelectorAll('div[class^="contact_list"]');
+        let elements = "";
+        for (var i = 0; i < contact_list_divs.length; i++) {
+        elements = elements + '<option value="'+contact_list_divs[i].dataset.cid+'">'+contact_list_divs[i].dataset.cname+'</option>';
+        
+        }
+        select_category_id.innerHTML = elements;
+      }
+    }
+
+    var element = document.getElementById('back_btn_for_dm');
+    element.addEventListener('click', back_btn_for_dm);
+
+    function back_btn_for_dm(){
+      var el = this;
+      // alert("hi");
+      document.getElementById('container').style.display = "block";
+      document.getElementById('details-form').style.display = "none";
+    }
+
+    var element = document.getElementById('create-topic');
+    element.addEventListener('click', createTopic);
+
+    function createTopic(){
+      var el = this;
+      // alert("hi");
+      document.getElementById('container').style.display = "none";
+      document.getElementById('details-form').style.display = "block";
+    }
+
     var element = document.getElementById('plus_btn');
     element.addEventListener('click', visible_buttons);
 
     function visible_buttons(){
       var el = this;
         // el.style.cssText = 'border-radius: 0%;';
-      console.log(el.style.borderRadius);
+      // console.log(el.style.borderRadius);
       if(el.style.borderRadius == "0%"){
         el.style.cssText = 'border-radius: 50%;';
         var element = document.getElementById('create-topic');
-        console.log(element.firstElementChild.style.display);
+        // console.log(element.firstElementChild.style.display);
         element.firstElementChild.style.display = "none";
         element.style.display = "none";
 
@@ -388,9 +455,9 @@
         element.firstElementChild.style.display = "none";
         element.style.display = "none";
 
-        var element = document.getElementById('create-category');
-        element.firstElementChild.style.display = "none";
-        element.style.display = "none";
+        // var element = document.getElementById('create-category');
+        // element.firstElementChild.style.display = "none";
+        // element.style.display = "none";
 
         var element = document.getElementById('create-message');
         element.firstElementChild.style.display = "none";
@@ -407,9 +474,9 @@
         element.firstElementChild.style.display = "block";
         element.style.display = "block";
 
-        var element = document.getElementById('create-category');
-        element.firstElementChild.style.display = "block";
-        element.style.display = "block";
+        // var element = document.getElementById('create-category');
+        // element.firstElementChild.style.display = "block";
+        // element.style.display = "block";
 
         var element = document.getElementById('create-message');
         element.firstElementChild.style.display = "block";

@@ -603,11 +603,26 @@ function myFunc() {
         document.getElementById("inbox").style.display = "none";
         document.getElementById("back_").style.display = "block";
         document.getElementById("inbox-message-1").style.display = "block";
+        document.getElementById('plus_btn').style.display = "none";
+        document.getElementById('create-topic').style.display = "none";
+        document.getElementById('create-group').style.display = "none";
+        document.getElementById('create-message').style.display = "none";
       }
       else {
         document.getElementById("inbox").style.display = "block";
         document.getElementById("inbox-message-1").style.display = "block";
         document.getElementById("back_").style.display = "none";
+        document.getElementById('plus_btn').style.display = "block";
+        if(document.getElementById('plus_btn').style.borderRadius == "0%"){
+          document.getElementById('create-topic').style.display = "block";
+          document.getElementById('create-group').style.display = "block";
+          document.getElementById('create-message').style.display = "block";
+        }
+        else{
+          document.getElementById('create-topic').style.display = "none";
+          document.getElementById('create-group').style.display = "none";
+          document.getElementById('create-message').style.display = "none";         
+        }
       }
     }
     function my_Function2(z) {
@@ -616,7 +631,17 @@ function myFunc() {
         //alert("hi");
         document.getElementById("inbox").style.display = "block";
         document.getElementById("inbox-message-1").style.display = "none";
-
+        document.getElementById('plus_btn').style.display = "block";
+        if(document.getElementById('plus_btn').style.borderRadius == "0%"){
+          document.getElementById('create-topic').style.display = "block";
+          document.getElementById('create-group').style.display = "block";
+          document.getElementById('create-message').style.display = "block";
+        }
+        else{
+          document.getElementById('create-topic').style.display = "none";
+          document.getElementById('create-group').style.display = "none";
+          document.getElementById('create-message').style.display = "none";
+        }
       }
     }
     function my_func2() {
