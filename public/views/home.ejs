@@ -375,8 +375,8 @@
 
   </div>
   <div id="details-form" class="detail_form">
-    <button id="back_btn_for_dm">⬅️ </button>
-    <input id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here" required=''>
+    <button style="display: none;" id="back_btn_for_dm">⬅️ </button>
+    <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here" required=''>
     <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''>
     <select style="display: none" id="select_category_id" placeholder="select a category...">
       <option value="">Select a category</option>
@@ -384,7 +384,7 @@
  <!--    <textarea id="text_editor" class="text_editor" name="text_editor" placeholder="Start the conversation..." ></textarea> -->
     <!--<button onclick="submit_data()">Submit</button>-->
 
-    <div class="editor_widget">
+    <div id="text_editor" class="editor_widget" style="display: none">
       <div class="im_attach pull-left">
         <input id="upload_files1" type="file" multiple="multiple" title="Send file" class="im_attach_input">
         <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
@@ -458,15 +458,30 @@
     element.addEventListener('click', createTopic);
 
     function createTopic(){
+      console.log("matches");
+      console.log(z.matches);
       var el = this;
       // alert("hi");
-      document.getElementById('select_category_id').value="";
-      document.getElementById('select_usr_grp').value = "";
-      document.getElementById('container').style.display = "none";
-      document.getElementById('details-form').style.display = "block";
-      document.getElementById('select_category_id').style.display = "block";
-      document.getElementById('select_usr_grp').style.display = "none";
+        document.getElementById('select_category_id').value="";
+        document.getElementById('select_usr_grp').value = "";
+        document.getElementById('details-form').style.display = "block";
+        document.getElementById('select_category_id').style.display = "block";
+        document.getElementById('select_usr_grp').style.display = "none";
+        document.getElementById('topic_title').style.display = "block";
+        document.getElementById('text_editor').style.display = "block";
+        document.getElementById('back_btn_for_dm').style.display = "block";
+      if(z.matches != null && z.matches !=undefined && z.matches){
+        document.getElementById('container').style.display = "none";
+      }
+      else{
+        document.getElementById('container').style.display = "block";
+      }
     }
+
+          // alert("ki");
+    var z = window.matchMedia("(max-width: 767px)");
+    // createTopic(z); // Call listener function at run time
+    z.addListener(createTopic); //
 
     var element = document.getElementById('create-message');
     element.addEventListener('click', createMessage);
@@ -480,8 +495,17 @@
       document.getElementById('details-form').style.display = "block";
       document.getElementById('select_category_id').style.display = "none";
       document.getElementById('select_usr_grp').style.display = "block";
+      document.getElementById('topic_title').style.display = "block";
+      document.getElementById('text_editor').style.display = "block";
+      document.getElementById('back_btn_for_dm').style.display = "block";
+      if(z.matches != null && z.matches !=undefined && z.matches){
+        document.getElementById('container').style.display = "none";
+      }
+      else{
+        document.getElementById('container').style.display = "block";
+      }
     }
-
+    z.addListener(createMessage);
     var element = document.getElementById('plus_btn');
     element.addEventListener('click', visible_buttons);
 

@@ -11,7 +11,7 @@ dropdownBtn.addEventListener('click', () => {
 //Loading categories on page Load
 window.onload = function () {
   var page_url = document.getElementById("page_url");
-
+  document.getElementById('details-form').style.display = "none";
   document.getElementById("holder7").style.display = "None";
   if(page_url && page_url.getAttribute("name") == "categories"){
    document.getElementById("category_click").click();

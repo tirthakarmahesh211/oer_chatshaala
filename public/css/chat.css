@@ -2366,6 +2366,10 @@ div.reply_msg{
 }
 
 @media screen and (min-width: 767px) {
+
+#container{
+  display: block;
+}
 #plus_btn.btn-default {
   display: flex;
   align-items: center;
@@ -2434,6 +2438,68 @@ div.reply_msg{
   /*left:25% ;*/
   right: calc(77%);
 }
+#details-form {
+    z-index:400;
+    display: none;
+    position: fixed;
+    right: 0 !important;
+    width: 75%;
+    height: 100vh;
+    /*background-color: red;*/
+    background: #376a97;
+    -webkit-animation: details-form 1s backwards;
+    -webkit-animation-delay: 2s;
+    animation: details-form 0.5s forwards;
+    animation-delay: 2s;
+    top:0;
+}
+
+@-webkit-keyframes details-form {
+    100% { right: 0; }
+}
+
+@keyframes details-form {
+    100% { right: 0; }
+}
+
+#select_category_id {
+  position: fixed;
+  top: 110px;
+  width: calc(73%);
+  padding: 5px;
+  margin: 0px 10px;
+}
+
+#topic_title {
+  position: fixed;
+  top: 50px;
+  width: calc(73% );
+  padding: 5px;
+  margin: 0px 10px;
+}
+
+#select_usr_grp {
+  position: fixed;
+  top: 110px;
+  width: calc(73%);
+  padding: 5px;
+  margin: 0px 10px;
+}
+
+#back_btn_for_dm {
+  font-size: 36px;
+  cursor: pointer;
+  /* background-color: #d6d4c7; */
+  background-color: transparent;
+  color: #393e46;
+  padding: 0px 4px;
+  border: none;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 26% !important;
+}
+
 }
 @media screen and (max-width: 767px) {
 #details-form {
