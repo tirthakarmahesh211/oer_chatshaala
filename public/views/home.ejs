@@ -7,6 +7,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/js/jquery.min.js"></script>
+  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
   <link rel="stylesheet" href="/css/quill.css">
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/chat.css">
@@ -401,7 +402,7 @@
 
   <script type="text/javascript">
 
-  $('input[name="user_grp_search"]').keyup(() => {
+  $('input[name="user_grp_search"]').keypress(() => {
     var text = $('input[name="user_grp_search"]').val();
     // console.log(text);
     $.ajax({
@@ -409,7 +410,7 @@
       data: { text: text }
     }).done(
       (data) => {
-        console.log(data);
+        // console.log(data);
         $('#users1 option').remove();
         if(data && data.users){
         for (var i = 0; i < data.users.length; i++) {
@@ -458,23 +459,30 @@
     element.addEventListener('click', createTopic);
 
     function createTopic(){
-      console.log("matches");
-      console.log(z.matches);
+      // console.log("matches");
+      // console.log(z.matches);
       var el = this;
       // alert("hi");
-        document.getElementById('select_category_id').value="";
-        document.getElementById('select_usr_grp').value = "";
-        document.getElementById('details-form').style.display = "block";
-        document.getElementById('select_category_id').style.display = "block";
-        document.getElementById('select_usr_grp').style.display = "none";
-        document.getElementById('topic_title').style.display = "block";
-        document.getElementById('text_editor').style.display = "block";
-        document.getElementById('back_btn_for_dm').style.display = "block";
+      document.getElementById('select_category_id').value="";
+      document.getElementById('select_usr_grp').value = "";
+      // document.getElementById('details-form').style.display = "block";
+      document.getElementById('select_category_id').style.display = "block";
+      document.getElementById('select_usr_grp').style.display = "none";
+      document.getElementById('topic_title').style.display = "block";
+      document.getElementById('text_editor').style.display = "none";
+      document.getElementById('back_btn_for_dm').style.display = "none";
       if(z.matches != null && z.matches !=undefined && z.matches){
-        document.getElementById('container').style.display = "none";
+        $("#details-form").show("slide", { direction: "right", distance: 1000 }, 1000);
+        setTimeout(function(){ document.getElementById('back_btn_for_dm').style.display = "block"; }, 1000);
+        setTimeout(function(){ document.getElementById('container').style.display = "none"; }, 1000);
+        setTimeout(function(){ document.getElementById('text_editor').style.display = "block"; }, 1000);
+        
       }
       else{
         document.getElementById('container').style.display = "block";
+        document.getElementById('details-form').style.display = "block";
+        document.getElementById('text_editor').style.display = "block";
+        document.getElementById('back_btn_for_dm').style.display = "block";
       }
     }
 
@@ -659,13 +667,13 @@
 
   </script>
 
-  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script type="text/javascript">
     var myUrl=$('#url').attr('name');
     myUrl=myUrl.substring(0,myUrl.length-1);
   </script>
   <script src="/js/chat.js" charset="utf-8"></script>
-  <script src="/js/quill.js"></script>
+  <!-- <script src="/js/quill.js"></script> -->
   <script>
   //Editor and posting
 
