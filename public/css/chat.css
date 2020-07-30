@@ -194,9 +194,9 @@ body {
 }
 
 /* Messages */
-.messages-panel img.img-circle {
+/*.messages-panel img.img-circle {
   border: 1px solid rgba(0, 0, 0, 0.1);
-}
+}*/
 
 .medium-image {
   width: 45px;
@@ -224,10 +224,10 @@ body {
   border: none;
 }
 
-.messages-panel img.img-circle {
-/*  border: 1px solid var(--mainColor);*/
+/*.messages-panel img.img-circle {
+  border: 1px solid var(--mainColor);
 }
-
+*/
 .messages-panel .tab-content {
   border: none;
   background-color: transparent;
