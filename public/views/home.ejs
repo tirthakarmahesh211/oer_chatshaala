@@ -7,7 +7,7 @@
   <link rel="shortcut icon" href="/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="/js/jquery.min.js"></script>
-  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+  <script src='/js/jquery-ui.min.js'></script>
   <link rel="stylesheet" href="/css/quill.css">
   <link href="/css/bootstrap.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/chat.css">
@@ -472,11 +472,11 @@
       document.getElementById('text_editor').style.display = "none";
       document.getElementById('back_btn_for_dm').style.display = "none";
       if(z.matches != null && z.matches !=undefined && z.matches){
-        $("#details-form").show("slide", { direction: "right", distance: 1000 }, 1000);
+        
         setTimeout(function(){ document.getElementById('back_btn_for_dm').style.display = "block"; }, 1000);
         setTimeout(function(){ document.getElementById('container').style.display = "none"; }, 1000);
         setTimeout(function(){ document.getElementById('text_editor').style.display = "block"; }, 1000);
-        
+        $("#details-form").show("slide", { direction: "right", distance: 1000 }, 1000);
       }
       else{
         document.getElementById('container').style.display = "block";
