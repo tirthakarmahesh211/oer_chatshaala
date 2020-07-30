@@ -314,7 +314,7 @@ app.get("/project", function (req, res) {
 
 app.get("/latest", function(req, res){
   var url = secrets.url+'/latest.json';
-  console.log("hiii")
+  // console.log("hiii")
   var options = {
     method: 'GET',
     headers: {
@@ -331,8 +331,9 @@ app.get("/latest", function(req, res){
       response.on('end', () => {
         body = JSON.parse(body);
 
-        console.log(body);
-        res.json(body.latest_topics);
+        // console.log(body);
+        res.json(body.topic_list.topics);
+        console.log(res);
       });
     }
   })  

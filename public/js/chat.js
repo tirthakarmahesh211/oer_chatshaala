@@ -23,13 +23,15 @@ window.onload = function () {
     document.getElementById("holder5").style.display = "None";
     document.getElementById("holder7").style.display = "Block";
 
-    $('#menu_active').text('Categories');
+    $('#menu_active').text('Latest');
     var e = document.getElementById("category_click");
-    e.classList.add("active-tab");
+    e.classList.remove("active-tab");
     e = document.getElementById("private_click");
     e.classList.remove("active-tab");
     e = document.getElementById("group_click");
     e.classList.remove("active-tab");
+    e = document.getElementById("latest_click");
+    e.classList.add("active-tab");
 
     document.getElementById("inbox-message-1").style.display = "Block";
   }
@@ -39,7 +41,7 @@ window.onload = function () {
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder7").style.display = "None";
-    document.getElementById("category_click").click();
+    document.getElementById("latest_click").click();
   }
   // console.log(document.getElementById("specific_posts_page").getAttribute("name"));
   if(document.getElementById("specific_posts_page").getAttribute("name") == "true"){
@@ -456,34 +458,73 @@ function myFunc() {
     }
 
     function function_latestposts(){
-      alert("latest");
+      // alert("latest");
+      
       $("#right_panel_msg").css("display","block");
       window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
+      if (menuContent.style.display == "block") {
+        menuContent.style.display = "";
+      }
+
+      document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder2").style.display = "Block";
+      document.getElementById("holder6").style.display = "None";
+      document.getElementById("holder4").style.display = "None";
+      document.getElementById("holder7").style.display = "None";
+      document.getElementById("holder8").style.display = "None";
+
+
       $('#menu_active').text('Latest');
-      var e = document.getElementById("latest_click");
-      e.classList.add("active-tab");
-      e = document.getElementById("category_click");
+      var e = document.getElementById("category_click");
       e.classList.remove("active-tab");
       e = document.getElementById("private_click");
       e.classList.remove("active-tab");
       e = document.getElementById("group_click");
       e.classList.remove("active-tab");
+      e = document.getElementById("latest_click");
+      e.classList.add("active-tab");
 
-      document.getElementById("holder6").style.display = "None";
-      document.getElementById("holder4").style.display = "None";
-      document.getElementById("holder2").style.display = "None";
-      document.getElementById("holder5").style.display = "None";
-      document.getElementById("holder7").style.display = "None";
-      document.getElementById("holder8").style.display = "None";
-      document.getElementById("holder9").style.display = "None";
+      var my_div = $("#holder2");
 
-      if (menuContent.style.display == "block") {
-        menuContent.style.display = "";
-      }
+      // console.log(my_div)
+      // var username = $('#curr_user').attr('name');
+      // alert("hi");
+      document.getElementById("holder2").style.display = "Block";
 
-      
+      $.ajax({
+        url: "/latest/" 
+      })
+        .done(function (data) {
+          // console.log("tyutut")
+          console.log(data);
+          $('#holder2').html("");
+          var elements = '';
+
+          for (var i = 0; i < data.length; i++) {
+            var mydate, user_id, newdate, newtime, slud, ide;
+            var img = "/images/icons/noun_timeline_2021907.png";
+
+            mydate = data[i].last_posted_at;
+            slug = data[i].slug;
+            ide = data[i].id;
+
+
+            newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+            //alert('newdate: ' + newdate);
+
+            newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+            // alert('newtime: ' + newtime);
+
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
+
+          }
+
+          $('#holder2').append(elements);
+
+        })
     }
+
 
     //Loading each topic on left pane
     function copy_topic(event, x) {
@@ -611,7 +652,7 @@ function myFunc() {
               newdate = "";
               newtime = "";
             }
-            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/noun_hierarchy_199707.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/noun_timeline_2021907.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
           }
           // console.log(y);
           if(y != null && y!=undefined && y.split("##").length != 1){
