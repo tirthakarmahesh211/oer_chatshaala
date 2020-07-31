@@ -775,7 +775,9 @@ function myFunc() {
         $('#tid').attr('name', tid);
         //  alert('clicked');
         $('li').removeClass('active');
-        $(this).addClass('active');
+        // console.log(param.firstElementChild);
+        param.firstElementChild.classList.add("active")
+        // $(this).addClass('active');
 
 
         var my_div = $("#holder3");
