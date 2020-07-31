@@ -289,7 +289,6 @@
             <div class="display_replies"><p class="selected_msg"></p></div>
 
             <div class="inputWithIcon inputIconBg">
-              <!-- <textarea id="replyMessage" type="text"  class="replyMessage" data-autosize-input='{ "space": 40 }' placeholder="Type your message..."/></textarea> -->
                 
                 <button class="replyBtn">
 
@@ -633,9 +632,9 @@
       },0);
     }
 
-    var textarea = document.getElementById('replyMessage1');
-    textarea.addEventListener('keydown', autosize);
-    function autosize(){
+    var replyMessage1 = document.getElementById('replyMessage1');
+    replyMessage1.addEventListener('keydown', autosize1);
+    function autosize1(){
       var el = this;
       setTimeout(function(){
         el.style.cssText = 'height:auto;padding-left:16px;padding-left:16px;';
