@@ -776,7 +776,7 @@ function myFunc() {
         //  alert('clicked');
         $('li').removeClass('active');
         // console.log(param.firstElementChild);
-        param.firstElementChild.classList.add("active")
+        param.firstElementChild.classList.add("active");
         // $(this).addClass('active');
 
 
@@ -889,7 +889,7 @@ function myFunc() {
 
                 if(data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
                   let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
-                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+'_' + data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To </a>'
+                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To </a>';
                   if (indexOfPost > 0){
                     let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
                     elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+ '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+  '  '+ like_button+'</div>' + '<br>' + '</div>';
@@ -922,7 +922,7 @@ function myFunc() {
                   let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
 
                   if (indexOfPost > 0){
-                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+'_' + data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To </a>'
+                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To </a>'
                   let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
                   elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button+'</div>' + '<br>' + '</div>';
                   reply_message = "";
@@ -1497,13 +1497,99 @@ function hide_or_show(){
 function get_specific_post_replies(selected_element){
   console.log(selected_element.id);
   // alert("get_specific_post_replies");
-  let post_id = selected_element.id.split("_")[3];
+  // let post_id = selected_element.id.split("_")[3];
+  var msg_id = "msg"+selected_element.id.split("InReplyTo")[1];
+  // console.log(document.getElementById(msg_id));
+  console.log(msg_id);
+  var class_toggle = "info";
 
+  if (selected_element.classList.length > 0){
+    temp = selected_element.classList.toggle("show");
+    class_toggle = selected_element.classList[0].includes("my-message");
+    if (class_toggle){
+      class_toggle = "my-message";
+    }
+  }
   $.ajax({
-      url: "/posts/"+post_id+"/reply-history",
+      url: "/posts/"+selected_element.dataset.post_id+"/reply-history",
       type: 'GET'
     })
     .done(function (data) {
       console.log(data);
+      console.log(msg_id);
+      // $("#"+msg_id).prepend();
+      var username = $('#curr_user').attr('name');
+      var elements = '';
+      var topic_id = msg_id.split("_")[1];
+      let count = 1;
+      if (data ){
+        // data = data.post_stream.posts
+        for (let i = 0; i < data.length; i++) {
+        let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
+        var marginLeft = 4;
+        marginLeft = marginLeft + "%";
+
+        let message_datetime = "";
+        message_datetime = new Date(data[i].updated_at).toLocaleString([], { hour: '2-digit', minute: '2-digit' , day: '2-digit', month: '2-digit', year: '2-digit'});
+
+        if (message_datetime == null || message_datetime == undefined){
+          message_datetime = "";
+        }
+        else{
+          message_datetime = message_datetime.split("/");
+          message_datetime = message_datetime[1]+"/"+message_datetime[0]+"/"+message_datetime[2]
+          message_datetime = "<div class='msg_datetime'>" + message_datetime+ "</div>"
+        }
+        // if(post_number == data[i].reply_to_post_number){
+        // var reply_msg_id = topic_id+'_'+ post_number +'_'+ data[i].post_number;
+
+        if(data[i].actions_summary && data[i].actions_summary.length > 0){
+          like_button = "";
+          var if_block = false;
+          for (let j = 0; j < data[i].actions_summary.length; j++) {
+            // console.log(data[i].actions_summary[j].id);
+            if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
+            {
+              // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
+              like_url = '/post_actions/'+data[i].id+'/2';
+              if(data[i].username != username){
+                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+              }
+              else{
+                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+              }
+              if_block = true;
+              break;
+            }
+          }
+          if(if_block == false && data[i].username != username ){
+              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+          }
+          else if(if_block == false && data[i].username == username) {
+              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+          }
+        }
+
+        var type_of_msg = data.archetype;
+        let chk_pvt_or_regular_msg = (type_of_msg == "regular") ? true : false;
+        let share_button='';
+
+        if(chk_pvt_or_regular_msg == true){
+          share_button = '<div class="share_btn" id="share_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="share a link to this post" onclick="share_function(this)"><i class="fa fa-share-alt "></i></div>'
+        }
+        if(data[i].username !=null && data[i].username!=undefined && data[i].username != username){
+          //style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') "
+          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_'+data[i].post_number+ '" class="message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime+'<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id +'_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+ '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
+        }
+        else{
+          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_'+data[i].post_number+ '" class="message my-message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id + '_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+'<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
+        }
+        count = count + 1;
+        // }
+       }
+      }
+      $("#"+msg_id).prepend(elements);
+
+
     });
 }

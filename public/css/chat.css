@@ -2535,7 +2535,8 @@ div.reply_msg{
   padding: 5px;
   margin: 0px 10px;
 }
+}
 
-a {
+.message-info a {
   cursor: pointer !important;
 }
