@@ -2535,3 +2535,7 @@ div.reply_msg{
   padding: 5px;
   margin: 0px 10px;
 }
+
+a {
+  cursor: pointer !important;
+}

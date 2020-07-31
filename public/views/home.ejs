@@ -379,6 +379,8 @@
     <button style="display: none;" id="back_btn_for_dm"><img src="/images/icons/noun_back_2784520.png" style="height:35px;width:35px;"/></button>
     <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type topic title, or paste a link here" required=''>
     <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''>
+    <datalist id='users1'>
+    </datalist>
     <select style="display: none" id="select_category_id" placeholder="select a category...">
       <option value="">Select a category</option>
     </select>
@@ -427,6 +429,18 @@
       }
     );
   });
+
+  // $("#select_usr_grp").on('input', function () {
+  //   var val = this.value;
+  //   if($('#users1  option').filter(function(){
+  //       return this.value.toUpperCase() === val.toUpperCase();        
+  //   }).length) {
+  //       //send ajax request
+  //       alert(this.value);
+  //      $("#select_usr_grp").val(val+",");
+  //      el.selectionStart = el.selectionEnd = el.value.length;
+  //   }
+  // });
 
     var select_category_id = document.getElementById('select_category_id');
 

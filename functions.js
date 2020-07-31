@@ -31,7 +31,8 @@ module.exports = {
   get_post_replies: get_post_replies,
   like:like,
   advanced_search: advanced_search,
-  search_topics_and_posts: search_topics_and_posts
+  search_topics_and_posts: search_topics_and_posts,
+  get_specific_post_replies: get_specific_post_replies
 };
 
 function resetCurrUser() {
@@ -1359,3 +1360,36 @@ function search_topics_and_posts(req, res) {
     res.redirect('/');
   });
 }
+
+function get_specific_post_replies(req, res) {
+  var url = secrets.url + "/posts/"+req.params.post_id+"/reply-history.json?max_replies=1"
+  // var url = secrets.url + "/posts/"+  +"/reply-history.json?max_replies=1"
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  // console.log(url);
+  https.get(url, options, function(response) {
+    var body = '';
+    //  console.log(response.statusCode);
+    response.on('data', function(data) {
+      body += data;
+    });
+    response.on('end', function() {
+      // console.log(body)
+      try {
+        body = JSON.parse(body);
+      } catch (ex) {
+      console.log(body);
+      }
+
+      res.send(body);
+    });
+  }).on('error', function() {
+    console.log('error');
+    res.redirect('/');
+  });
+} 

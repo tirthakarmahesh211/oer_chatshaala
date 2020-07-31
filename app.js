@@ -333,7 +333,7 @@ app.get("/latest", function(req, res){
 
         // console.log(body);
         res.json(body.topic_list.topics);
-        console.log(res);
+        // console.log(res);
       });
     }
   })  
@@ -1031,3 +1031,9 @@ app.get('/search_topics_and_posts', (req, res) => {
   func.search_topics_and_posts(req, res);
 });
 
+app.get('/posts/:post_id/reply-history', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=60'); 
+  // console.log("sssssssssssss");
+  func.get_specific_post_replies(req, res);
+
+});
