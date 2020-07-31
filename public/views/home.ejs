@@ -771,7 +771,7 @@
               $('.pointer.links.active-tab').click();
               body.value='';
               // reply_message[0].innerHTML='';
-              $('.display_replies').empty();
+              $('.selected_msg').empty();
               $(".display_replies").css('opacity', "0.01");
               $(".display_replies").css('height', "10px");
               // console.log(document.getElementById("topic_head"));
@@ -780,9 +780,9 @@
                 topic_head = topic_head.innerHTML;
               }
               load_posts(topic_slug+'/'+topic_id+'/'+(Number(reply_to_post_number)+1),topic_head);
-              setTimeout(()=>{
-                    // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
-              },500);
+              // setTimeout(()=>{
+              //       // $(".chat-body").animate({ scrollTop: $('.chat-body').prop("scrollHeight") }, 500);
+              // },500);
             },1000);
           },
           error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
