@@ -774,11 +774,10 @@ function myFunc() {
         // }
         $('#tid').attr('name', tid);
         //  alert('clicked');
-        $('li').removeClass('active');
-        // console.log(param.firstElementChild);
-        param.firstElementChild.classList.add("active");
-        // $(this).addClass('active');
-
+        if(param && param.firstElementChild){
+          $('li').removeClass('active');
+          param.firstElementChild.classList.add("active");
+        }
 
         var my_div = $("#holder3");
 
@@ -1502,14 +1501,16 @@ function get_specific_post_replies(selected_element){
   // console.log(document.getElementById(msg_id));
   console.log(msg_id);
   var class_toggle = "info";
+  var temp = false;
+  var topic_id = msg_id.split("_")[1];
 
-  if (selected_element.classList.length > 0){
-    temp = selected_element.classList.toggle("show");
-    class_toggle = selected_element.classList[0].includes("my-message");
-    if (class_toggle){
-      class_toggle = "my-message";
-    }
+  var div_element = document.getElementById(msg_id);
+  if (div_element.classList.length > 0){
+    temp = div_element.classList.toggle("show");
+    console.log("if block");
   }
+  console.log(temp);
+  if(temp){
   $.ajax({
       url: "/posts/"+selected_element.dataset.post_id+"/reply-history",
       type: 'GET'
@@ -1520,7 +1521,7 @@ function get_specific_post_replies(selected_element){
       // $("#"+msg_id).prepend();
       var username = $('#curr_user').attr('name');
       var elements = '';
-      var topic_id = msg_id.split("_")[1];
+
       let count = 1;
       if (data ){
         // data = data.post_stream.posts
@@ -1579,17 +1580,22 @@ function get_specific_post_replies(selected_element){
         }
         if(data[i].username !=null && data[i].username!=undefined && data[i].username != username){
           //style="margin-left: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') "
-          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_'+data[i].post_number+ '" class="message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime+'<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id +'_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+ '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
+          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="InReplyToReplyMsg_'+ topic_id + '_'+data[i].post_number+ '" class="message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime+'<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id +'_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+ '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
         }
         else{
-          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="reply_msg_'+ topic_id + '_'+data[i].post_number+ '" class="message my-message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id + '_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+'<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
+          elements = elements + '<div style="margin-right: '+ marginLeft +'; width: calc(100% - '+ marginLeft +') " id="InReplyToReplyMsg_'+ topic_id + '_'+data[i].post_number+ '" class="message my-message reply_msg '+ class_toggle +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>'+message_datetime + '<h5>' + '</h5>' + '</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + (data[i].reply_count > 0 ? '<button id="btn_'+ data[i].topic_id + '_' +data[i].post_number + '_' + posts_count+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+ data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies') +' </button>': '')+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>'+'<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+like_button+share_button+'</div>' + '<br>' + '</div>';
         }
         count = count + 1;
         // }
        }
       }
       $("#"+msg_id).prepend(elements);
-
-
     });
+    }
+  else
+  {
+    // console.log($("#"+msg_id).first());
+    // $("#"+msg_id).first().remove();
+     document.getElementById(msg_id).firstElementChild.innerHTML = ""; 
+  }
 }

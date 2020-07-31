@@ -772,6 +772,8 @@
               body.value='';
               // reply_message[0].innerHTML='';
               $('.display_replies').empty();
+              $(".display_replies").css('opacity', "0.01");
+              $(".display_replies").css('height', "10px");
               // console.log(document.getElementById("topic_head"));
               let topic_head = document.getElementById("topic_head")
               if(topic_head!=null && topic_head!=undefined){
