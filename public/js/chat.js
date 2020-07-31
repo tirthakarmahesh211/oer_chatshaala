@@ -888,7 +888,10 @@ function myFunc() {
 
                 if(data[i].reply_to_post_number!= null && data[i].post_number != data[i].reply_to_post_number && difference!=1){
                   let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
-                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To '+ data[i].reply_to_user.username +'</a>';
+                  let in_reply_to = "";
+                  if(data[i].reply_to_user && data[i].reply_to_user.username){
+                   in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To '+ data[i].reply_to_user.username +'</a>';
+                  }
                   if (indexOfPost > 0){
                     let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
                     elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+ '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+  '  '+ like_button+'</div>' + '<br>' + '</div>';
@@ -921,7 +924,10 @@ function myFunc() {
                   let indexOfPost = array_to_store_post_number.indexOf(data[i].reply_to_post_number);
 
                   if (indexOfPost > 0){
-                  let in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To '+ data[i].reply_to_user.username +'</a>'
+                  let in_reply_to = "";
+                  if(data[i].reply_to_user && data[i].reply_to_user.username){
+                    in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To '+ data[i].reply_to_user.username +'</a>'
+                  }
                   let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
                   elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button+'</div>' + '<br>' + '</div>';
                   reply_message = "";
