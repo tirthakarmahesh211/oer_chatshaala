@@ -2540,3 +2540,7 @@ div.reply_msg{
 .message-info a {
   cursor: pointer !important;
 }
+
+blockquote{
+  font-size: 14px;
+}
