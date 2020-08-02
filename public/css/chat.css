@@ -2020,14 +2020,15 @@ div.reply_msg{
 }
 
 .top_header_search_box{
-  position: relative;
+  position: fixed;
   cursor: pointer;
   top: 0;
-  /*right: 0;*/
+  left: 0;
   /*margin-left: 20%;*/
   padding: 0px 8px;
   font-size: 20px;
   color: white !important;
+  width: 25%;
 }
 
 .fa-search{
@@ -2070,22 +2071,22 @@ div.reply_msg{
     /*right: 0;*/
     margin-top: 14px;
     margin-right: 42px;
-    width: calc(25% - 96px);
+    width: calc(25% - 80px);
     font-size: 16px;
     border: 1px solid grey;
     color: gray;
     border-radius: 4px;
-    margin-left:2.9%;
+    margin-left:34px;
   }
 
 #search_icon{
     float: right;
-    position: fixed;
-    /*right: 0;*/
+    position: absolute;
+    right: 0;
     top: 0;
     padding: 18px 11px;
     /*color:yellow;*/
-    margin-left: 20%;
+    /*margin-left: 20%;*/
 }
 
 .my-message .message-body {
