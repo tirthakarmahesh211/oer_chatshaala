@@ -196,7 +196,7 @@ function myFunc() {
         data: { search_text: filter }
       }).done(
         (data) => {
-
+          console.log(data);
           if(get_div[0].id != "holder8"){
             get_div[0].style.display = "none";
             get_div[0].setAttribute("data-display", "");
@@ -205,8 +205,24 @@ function myFunc() {
           elements = '';
           if(data.topics!= undefined && data.topics !=null){
           for (i = 0; i < data.topics.length; i++) {
-          elements = elements + '<div><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'"> \
-          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.topics[i].title +'</b> </h3><h5>'+ data.posts[i].blurb +'</h5></div><div class="contacts-add"></div></li></div>';
+            var mydate, user_id, newdate, newtime, slud, topic_id;
+            var img = "/images/icons/noun_Email_3449902.png";
+
+            mydate = data.posts[i].created_at;
+            slug = data.topics[i].slug;
+            topic_id = data.posts[i].topic_id;
+
+
+            newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
+            //alert('newdate: ' + newdate);
+
+            newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
+            // alert('newtime: ' + newtime);
+
+          elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + topic_id + "/1" + '",this)' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + 
+          '<div class="message-count">' + data.topics[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'">' + 
+          '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.posts[i].blurb + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data.posts[i].username + '</h5>' + '</div>' + 
+          '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
           }
           }
           holder8.innerHTML = holder8.innerHTML + elements;
