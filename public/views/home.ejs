@@ -199,6 +199,8 @@
                 <button style="display: block" id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
               <% } else if(page_url!="topic" || page_url=="topic"){ %>
                 <button style="display: block" id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
+              <%} else  {%>
+                <button style="display: none" id="load_previous_posts" onclick="load_more(this)">Load Previous Posts</button>
               <%}%>
               <div id="holder3">
                 <%if(topic_data){%>

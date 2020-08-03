@@ -971,12 +971,12 @@ function myFunc() {
           else{
             $('#holder3').prepend(elements);
           }
-          var get_topic_id = document.querySelector('div[id^="msg_"]');
+          var get_topic_id = document.querySelector('div[id^="msg_"]:not([style*="display:none"])');
           var last_div = $("div.message").last();
           var last_div_id = $(last_div).attr("id");
           // last_div_id = last_div_id.split("_");
-
-          if(get_topic_id && (get_topic_id.dataset.count == "0" || get_topic_id.dataset.count == "1")){
+          console.log(get_topic_id);
+          if(get_topic_id && (get_topic_id.dataset.count == "0")){
             $("#load_previous_posts").hide();
           }
           else{
