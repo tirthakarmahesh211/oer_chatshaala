@@ -169,27 +169,27 @@ function myFunc() {
 
   if(filter!= "" && filter!=null && filter !=undefined && filter.length > 2){
     
-    $.ajax({
-    url: '/advanced_search',
-    data: { search_text: filter }
-      }).done(
-        (data) => {
+    // $.ajax({
+    // url: '/advanced_search',
+    // data: { search_text: filter }
+    //   }).done(
+    //     (data) => {
 
-          if(get_div[0].id != "holder8"){
-            get_div[0].style.display = "none";
-            get_div[0].setAttribute("data-display", "");
-          }
-          holder8.style.display = "block";
-          elements = '';
-          if(data.users!= undefined && data.users !=null){
-          for (i = 0; i < data.users.length; i++) {
-          elements = elements + '<div onClick="create_private_msg(\''+ data.users[i].username +'\')" data-username="'+data.users[i].username+'"><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.users[i].avatar_template.replace("{size}","50")+'"> \
-          <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.users[i].name +'</b> </h3><h5>'+ data.users[i].username +'</h5></div><div class="contacts-add"></div></li></div>';
-          }
-          holder8.innerHTML = elements;
-          }
-        }
-      );
+    //       if(get_div[0].id != "holder8"){
+    //         get_div[0].style.display = "none";
+    //         get_div[0].setAttribute("data-display", "");
+    //       }
+    //       holder8.style.display = "block";
+    //       elements = '';
+    //       if(data.users!= undefined && data.users !=null){
+    //       for (i = 0; i < data.users.length; i++) {
+    //       elements = elements + '<div onClick="create_private_msg(\''+ data.users[i].username +'\')" data-username="'+data.users[i].username+'"><li data-toggle="tab" data-target="#inbox-message-0"><img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.users[i].avatar_template.replace("{size}","50")+'"> \
+    //       <div class="vcentered info-combo"><h3 class="no-margin-bottom name"><b>'+ data.users[i].name +'</b> </h3><h5>'+ data.users[i].username +'</h5></div><div class="contacts-add"></div></li></div>';
+    //       }
+    //       holder8.innerHTML = elements;
+    //       }
+    //     }
+    //   );
 
       $.ajax({
         url: '/search_topics_and_posts',
@@ -219,13 +219,13 @@ function myFunc() {
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-          elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + topic_id + "/1" + '",this)' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + 
+          elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + 
           '<div class="message-count">' + data.topics[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'">' + 
           '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.posts[i].blurb + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data.posts[i].username + '</h5>' + '</div>' + 
           '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
           }
           }
-          holder8.innerHTML = holder8.innerHTML + elements;
+          holder8.innerHTML = elements;
         }
       );
   }
@@ -735,8 +735,9 @@ function myFunc() {
 
     }
 
-    function load_posts(x, param=null) {
+    function load_posts(x, param=null, page_number=null, index_of_post_number=null) {
       // console.log(param);
+      console.log(index_of_post_number);
       var topic_head = null;
       if(typeof param === "string" ){
        topic_head = param; 
@@ -747,7 +748,7 @@ function myFunc() {
         topic_head = param.firstChild.getAttribute("id");
       }
       $("#load_next_posts").show();
-      var page_number = null;
+      // var page_number = null;
       var html_or_prepend = false;
       var html_or_append = false;
       var username = $('#curr_user').attr('name');
@@ -810,12 +811,14 @@ function myFunc() {
         x=x[0]+".json";
         url = "/post/more/t/" + x
       }
-
+      console.log(url);
+      console.log(page_number);
       $.ajax({
         url: url,
         data: {page_number:page_number, "post_ids[]": array_of_post_ids},
       })
         .done(function (data) {
+          console.log("aaaaaaaaaaaaaaaaa");
           var posts_count = data.posts_count;
           var slug = data.slug;
           var type_of_msg = data.archetype;
@@ -826,9 +829,9 @@ function myFunc() {
             page_number = page_number
           }
           else{
-            page_number = Number(posts_count) / 20;
-            page_number = Math.floor(page_number);
-            page_number = page_number + 1;
+              page_number = Number(posts_count) / 20;
+              page_number = Math.floor(page_number);
+              page_number = page_number + 1;
           }
           var elements = '';
           var reply_message = '';
@@ -894,7 +897,7 @@ function myFunc() {
               if (data[i] && data[i].reply_count > 0 && data[i].cooked && data[i+1] && (data[i].post_number != data[i+1].reply_to_post_number || data[i].reply_count > 1)){
 
                 // elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <img alt="" class="img-circle medium-image" src="'+myUrl+'/user_avatar/'+myUrl.substring(8,myUrl.length)+'/' + data[i].username + '/120/671_2.png">'+ '<div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>' + share_button+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number + '_' + posts_count+ '_' + page_number+'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies')+' </button>'+like_button+'  ' + message_datetime +'</div>' + '<br>' + '</div>';
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' +  message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number + '_' + posts_count+ '_' + page_number+'" data-depth_id="'+ 0 +'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies')+' </button>'+'  ' +'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>' + share_button+like_button+'</div>' + '<br>' + '</div>';
+                elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') + 'id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' +  message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number + '_' + posts_count+ '_' + page_number+'" data-depth_id="'+ 0 +'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+ (data[i].reply_count == 1? ' Reply': ' Replies')+' </button>'+'  ' +'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function" aria-hidden="true"></i>' + share_button+like_button+'</div>' + '<br>' + '</div>';
               }
               else{
 
@@ -910,16 +913,16 @@ function myFunc() {
                   }
                   if (indexOfPost > 0){
                     let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+ '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+  '  '+ like_button+'</div>' + '<br>' + '</div>';
+                    elements = elements + '<div ' + ((Number(index_of_post_number) > i)?'style="display:none;"':'') + ' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+ '</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+  '  '+ like_button+'</div>' + '<br>' + '</div>';
                     reply_message = "";
                   }
                   else{
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' +'  '+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button + '  '+like_button+'</div>' + '<br>' + '</div>';
+                    elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>'  +reply_message+ '<div class="message-text">' + data[i].cooked + '</div>' +'  '+ '<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button + '  '+like_button+'</div>' + '<br>' + '</div>';
                   }
                 }
                 else{
 
-                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+ '  '+ like_button+'</div>' + '<br>' + '</div>';                }  
+                  elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message info" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>'  + '<div class="message-text">' + data[i].cooked + '</div>'+'  '+'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + share_button+ '  '+ like_button+'</div>' + '<br>' + '</div>';                }  
               }
             }
             else {
@@ -928,7 +931,7 @@ function myFunc() {
                 if (data[i] && data[i].reply_count > 0 && data[i].cooked && data[i+1] && (data[i].post_number != data[i+1].reply_to_post_number || data[i].reply_count > 1)){
 
 
-                elements = elements +'<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + posts_count+ '_' + page_number+'" data-depth_id="'+ 0 +'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+''+(data[i].reply_count == 1? ' Reply': ' Replies')+' </button>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button +'  '+ like_button +'</div>' + '<br>' + '</div>'
+                elements = elements +'<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-info">' + '<b>' +User_Name+ '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div><button id="btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + posts_count+ '_' + page_number+'" data-depth_id="'+ 0 +'" type="button" data-post_id="'+ data[i].id +'" class="see_replies">'+data[i].reply_count+''+(data[i].reply_count == 1? ' Reply': ' Replies')+' </button>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button +'  '+ like_button +'</div>' + '<br>' + '</div>'
               }
               else{
 
@@ -945,16 +948,16 @@ function myFunc() {
                     in_reply_to = '<a id="InReplyTo_' + data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" data-post_id="'+ data[i].id +'" onclick="get_specific_post_replies(this)"> In Reply To '+ data[i].reply_to_user.username +'</a>'
                   }
                   let reply_message = '<div>'+data[indexOfPost].cooked+'</div>';
-                  elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button+'</div>' + '<br>' + '</div>';
+                  elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+ '_' + posts_count+ '_' + page_number+'" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + in_reply_to+' </h3>' + message_datetime+'</div>' + '<hr>' + reply_message + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button+'</div>' + '<br>' + '</div>';
                   reply_message = "";
                   }
                   else{
-                    elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ '  ' +like_button+ '</div>' + '<br>' + '</div>';
+                    elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ '  ' +like_button+ '</div>' + '<br>' + '</div>';
                     reply_message = "";
                   }
                 }
                 else{
-                elements = elements + '<div id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button +'</div>' + '<br>' + '</div>';
+                elements = elements + '<div '+ ((Number(index_of_post_number) > i)?'style="display:none;"':'') +' id="msg_'+ data[i].topic_id + '_' + data[i].post_number+'_' + posts_count+ '_' + page_number+ '" ' + post_id + 'class="message my-message" data-count="'+ (stream != undefined? stream.indexOf((Number(data[i].id))): null) +'"> <div class="message-body">' + '<div class="message-body-inner">' + '<div class="message-info">' + '<b>' + User_Name + '</b>' + ' </h3>' + message_datetime+'</div>' + '<hr>' + '<div class="message-text">' + data[i].cooked + '</div>' + '</div>' +'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>' + '<div class="delete_btn" id="delete_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" onclick="delete_function(this)"><i class="fa fa-trash-o"></i></div>'+ share_button+ ' ' +like_button +'</div>' + '<br>' + '</div>';
                 }
               }
             }
@@ -1620,4 +1623,33 @@ function get_specific_post_replies(selected_element){
     // $("#"+msg_id).first().remove();
      document.getElementById(msg_id).firstElementChild.innerHTML = ""; 
   }
+}
+
+function load_posts_using_page_number(x,param=null,activity_name=null)
+{
+    if(activity_name && param!=null && param!=undefined && param.dataset.post_id){
+      console.log(activity_name);
+      console.log(param.dataset.post_id);
+      console.log(param.dataset.posts_count);
+      console.log(x);
+
+      url = "/post/more/t/" + x
+      console.log(url);
+      page_number  = null;
+      $.ajax({
+        url: url,
+        data: {page_number:page_number},
+      })
+      .done(function (data) {
+        console.log("data");
+        console.log(data);
+        console.log(data.post_stream.stream);
+        console.log(data.post_stream.stream.indexOf(Number(param.dataset.post_id)));
+        index_of_post_number = (data.post_stream.stream.indexOf(Number(param.dataset.post_id)) % 20);
+        page_number = Math.ceil((data.post_stream.stream.indexOf(Number(param.dataset.post_id)) / 20));
+        console.log(x);
+        console.log(page_number);
+        load_posts(x,data.title,page_number,index_of_post_number);
+      });
+    }
 }

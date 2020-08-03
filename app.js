@@ -478,7 +478,10 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-
+  console.log(req.params.url1);
+  console.log(req.params.url2);
+  console.log(req.params.url3);
+  console.log(req.params.url4);
   let curr_user = req.session.user;
 
   if (req.params && req.params.url4 == "1"){
@@ -488,13 +491,16 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
   if (req.params && req.query && req.query.page_number == null && req.query.page_number == undefined && (req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined)){
   var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
   }
+  else if(req.params && req.params.url2 && req.params.url3 && req.query.page_number){
+  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 +".json" +"?page="+req.query.page_number; 
+  }
   else if(req.params && req.params.url2 && req.query && req.query.page_number){
   var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "?page="+req.query.page_number;
   }
   else{
    var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
   }
-
+  console.log(url);
   var body = '';
 
   var options = {
@@ -511,14 +517,15 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
     });
     response.on('end', function () {
       body = JSON.parse(body);
-      if (body && body.post_stream && body.post_stream.posts) {
-        // for (var i = 0; i < body.post_stream.posts.length; i++) {
-        //   //console.log(body.post_stream.posts[i].post_number);
-        // }
-        res.json(body);
-      } else {
-        res.json([]);
-      }
+      res.json(body);
+      // if (body && body.post_stream && body.post_stream.posts) {
+      //   // for (var i = 0; i < body.post_stream.posts.length; i++) {
+      //   //   //console.log(body.post_stream.posts[i].post_number);
+      //   // }
+      //   res.json(body);
+      // } else {
+      //   res.json([]);
+      // }
 
 
       // console.log(groups);
