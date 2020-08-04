@@ -1440,12 +1440,30 @@ function load_next_posts(clicked_element_data){
 }
 
 function like_function(clicked_element_data,url){
-console.log(clicked_element_data.firstChild);
-console.log(url);
+// console.log(clicked_element_data);
+// console.log(url);
 let ajax_call = true;
+let count= null;
 if(clicked_element_data.firstChild.classList.contains("fa-heart"))
 {
   ajax_call = false;
+    $.ajax({
+        url: "/delete_post_actions/"+clicked_element_data.id.split("_")[2]+"/2",
+        type: 'DELETE'
+    })
+    .done(function (data) {
+      count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
+      count = Number(count) - 1;
+        clicked_element_data.firstChild.style.color="grey";
+        clicked_element_data.firstChild.classList.remove("fa-heart");
+        clicked_element_data.firstChild.classList.add("fa-heart-o");
+        if(count != 0){
+          $("#like_count_"+clicked_element_data.id.split("_")[2]).html(count);
+        }
+        else{
+          $("#like_count_"+clicked_element_data.id.split("_")[2]).html("");
+        }
+    });
 }
 if( clicked_element_data && clicked_element_data.firstChild ){
   clicked_element_data.firstChild.style.color="red";
@@ -1454,9 +1472,9 @@ if( clicked_element_data && clicked_element_data.firstChild ){
 }
 console.log(clicked_element_data.firstChild);
 if(ajax_call == true){
-
-  var count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
-  var count = Number(count) + 1;
+  count = null;
+  count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
+  count = Number(count) + 1;
   // console.log(count);
   $("#like_count_"+clicked_element_data.id.split("_")[2]).html(count);
 

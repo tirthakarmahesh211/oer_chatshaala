@@ -32,7 +32,8 @@ module.exports = {
   like:like,
   advanced_search: advanced_search,
   search_topics_and_posts: search_topics_and_posts,
-  get_specific_post_replies: get_specific_post_replies
+  get_specific_post_replies: get_specific_post_replies,
+  unlike: unlike,
 };
 
 function resetCurrUser() {
@@ -1392,4 +1393,57 @@ function get_specific_post_replies(req, res) {
     console.log('error');
     res.redirect('/');
   });
-} 
+}
+
+function unlike(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'DELETE',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username,
+      // 'Content-Type': 'multipart/form-data',
+    }
+  };
+
+  var data1 = {
+    // "id": req.params.post_id,
+    "post_action_type_id": 2,
+    // "flag_topic" :false
+  };
+  // console.log(req.params.post_id);
+  // console.log(data1);
+  // console.log(options);
+  var url = secrets.url + '/post_actions/'+ req.params.post_id
+  // console.log(url);
+  // var request = https.request(url, options, (response) => {
+  //    console.log(response.statusCode);
+  //   if (response.statusCode === 200) {
+  //     var body = '';
+  //     response.on('data', (data) => {
+  //       body += data;
+  //     });
+  //     response.on('end', () => {
+  //       res.send("success");
+  //     });
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
+  // request.write(querystring.stringify(data1));
+  // request.end();
+    const formData = new FormData();
+    formData.append('post_action_type_id', 2);
+    fetch(url, {
+      method: 'DELETE',
+      body: formData,
+      headers: {
+        'Api-Key': secrets.key,
+        'Api-Username': req.session.user.username,
+      },
+    })
+    .then(response => response.json())
+    .then(data => {
+      res.send("success");
+    });
+}

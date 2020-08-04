@@ -1044,3 +1044,12 @@ app.get('/posts/:post_id/reply-history', (req, res) => {
   func.get_specific_post_replies(req, res);
 
 });
+
+app.delete('/delete_post_actions/:post_id/:post_action_type_id', function (req, res) {
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.unlike(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
