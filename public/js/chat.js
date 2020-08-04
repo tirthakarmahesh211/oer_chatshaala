@@ -867,20 +867,20 @@ function myFunc() {
                   // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
                   like_url = '/post_actions/'+data[i].id+'/2';
                   if(data[i].username != username){
-                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:red" class="fa fa-heart"></i></a></div>'
                   }
                   else{
-                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart"></i></a></div>'
                   }
                   if_block = true;
                   break;
                 }
               }
               if(if_block == false && data[i].username != username ){
-                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
               }
               else if(if_block == false && data[i].username == username) {
-                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                  like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
               }
             }
             let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
@@ -1129,20 +1129,20 @@ function myFunc() {
                         // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
                         like_url = '/post_actions/'+data[i].id+'/2';
                         if(data[i].username != username){
-                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:red" class="fa fa-heart"></i></a></div>' 
                         }
                         else{
-                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                          like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart"></i></a></div>'
                         }
                         if_block = true;
                         break;
                       }
                     }
                     if(if_block == false && data[i].username != username ){
-                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
                     }
                     else if(if_block == false && data[i].username == username) {
-                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                        like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
                     }
                   }
 
@@ -1439,7 +1439,7 @@ function load_next_posts(clicked_element_data){
 }
 
 function like_function(clicked_element_data,url){
-// console.log(clicked_element_data.id);
+console.log(clicked_element_data.id);
 // console.log(url);
 
 var count = $("#like_count_"+clicked_element_data.id.split("_")[2]).html();
@@ -1579,20 +1579,20 @@ function get_specific_post_replies(selected_element){
               // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
               like_url = '/post_actions/'+data[i].id+'/2';
               if(data[i].username != username){
-                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:red" class="fa fa-heart"></i></a></div>'
               }
               else{
-                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+                like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart"></i></a></div>'
               }
               if_block = true;
               break;
             }
           }
           if(if_block == false && data[i].username != username ){
-              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i class="fa fa-heart"></i></a></div>'
+              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
           }
           else if(if_block == false && data[i].username == username) {
-              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:red" class="fa fa-heart"></i></a></div>'
+              like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
           }
         }
 

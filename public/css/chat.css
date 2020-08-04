@@ -1881,12 +1881,20 @@ svg {
   height: 0px;
 }
 
+.fa-heart-o {
+   color: grey;
+   font-size: 16px !important;
+}
+.fa-heart-o:hover {
+   color: red !important;
+}
+
 .fa-heart {
-   color: red;
+   color: grey;
    font-size: 16px !important;
 }
 .fa-heart:hover {
-   color: orange;
+   color: grey !important;
 }
 
 .im_diaglog_search{
