@@ -37,7 +37,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 10*24*60 * 60 * 1000
+    maxAge: 14*24*60 * 60 * 1000
   }
 }));
 
@@ -478,10 +478,10 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-  console.log(req.params.url1);
-  console.log(req.params.url2);
-  console.log(req.params.url3);
-  console.log(req.params.url4);
+  // console.log(req.params.url1);
+  // console.log(req.params.url2);
+  // console.log(req.params.url3);
+  // console.log(req.params.url4);
   let curr_user = req.session.user;
 
   if (req.params && req.params.url4 == "1"){
@@ -500,7 +500,7 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
   else{
    var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
   }
-  console.log(url);
+  // console.log(url);
   var body = '';
 
   var options = {
