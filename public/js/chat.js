@@ -866,11 +866,11 @@ function myFunc() {
                 if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
                 {
                   // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
-                  if(data[i].username != username){
+                  if(data[i].actions_summary[j].acted == true){
                     like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:red" class="fa fa-heart"></i></a></div>'
                   }
                   else{
-                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" ><i style="color:grey" class="fa fa-heart"></i></a></div>'
+                    like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
                   }
                   if_block = true;
                   break;

@@ -507,7 +507,7 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
     method: 'GET',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': 'system'
+      'Api-Username': req.session.user.username
     }
   };
   https.get(url, options, function (response) {
