@@ -1691,6 +1691,13 @@ function edit_function(selected_element){
   // alert("hiiiiiiiiiiii");
   console.log(selected_element);
   console.log(selected_element.dataset.post_id);
+  console.log(document.querySelectorAll('div[id^="edit_btn_"]'));
+  var edit_btns_div = document.querySelectorAll('div[id^="edit_btn_"]')
+  for (var i = 0; i < edit_btns_div.length; i++) {
+    edit_btns_div[i].removeAttribute("data-edit_btn");
+  }
+  selected_element.setAttribute("data-edit_btn", "");
+  console.log(document.querySelectorAll('div[id^="edit_btn_"][data-edit_btn]'));
   url = "/posts/" + selected_element.dataset.post_id
   console.log(url);
   page_number  = null;
@@ -1698,7 +1705,9 @@ function edit_function(selected_element){
     url: url
   })
   .done(function (data) {
-    console.log(data.raw);
+    console.log(data);
+    console.log(document.getElementById("replyMessage").value);
+    document.getElementById("replyMessage").value = data.raw;
   });
 
 }
