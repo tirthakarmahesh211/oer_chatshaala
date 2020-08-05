@@ -34,6 +34,7 @@ module.exports = {
   search_topics_and_posts: search_topics_and_posts,
   get_specific_post_replies: get_specific_post_replies,
   unlike: unlike,
+  get_specific_post_by_id: get_specific_post_by_id
 };
 
 function resetCurrUser() {
@@ -1446,4 +1447,43 @@ function unlike(req, res){
     .then(data => {
       res.send("success");
     });
+}
+
+
+function get_specific_post_by_id(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username,
+    }
+  };
+
+  var data1 = {
+  };
+
+  var url = secrets.url + '/posts/'+ req.params.post_id+".json"
+  console.log(url);
+  var request = https.request(url, options, (response) => {
+     console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        try {
+          body = JSON.parse(body);
+        } catch (ex) {
+        console.log(body);
+        }
+        res.send(body);
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();
 }

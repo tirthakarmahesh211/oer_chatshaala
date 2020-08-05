@@ -2594,4 +2594,5 @@ blockquote{
   float: right;
   margin-top:1px;
   margin-right: 7px;
+  cursor: pointer;
 }
