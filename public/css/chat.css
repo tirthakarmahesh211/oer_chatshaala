@@ -2553,3 +2553,14 @@ div.reply_msg{
 blockquote{
   font-size: 14px;
 }
+
+.fa.fa-pencil {
+  /* float: right; */
+  font-size: 16px;
+  margin-right: 8px;
+}
+
+.edit_btn{
+  float: right;
+  margin-top:1px;
+}
