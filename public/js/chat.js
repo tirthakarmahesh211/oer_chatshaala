@@ -1686,3 +1686,19 @@ function load_posts_using_page_number(x,param=null,activity_name=null)
       });
     }
 }
+
+function edit_function(selected_element){
+  // alert("hiiiiiiiiiiii");
+  console.log(selected_element);
+  console.log(selected_element.dataset.post_id);
+  url = "/posts/" + selected_element.dataset.post_id
+  console.log(url);
+  page_number  = null;
+  $.ajax({
+    url: url
+  })
+  .done(function (data) {
+    console.log(data.raw);
+  });
+
+}

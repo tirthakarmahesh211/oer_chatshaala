@@ -1053,3 +1053,12 @@ app.delete('/delete_post_actions/:post_id/:post_action_type_id', function (req, 
     res.redirect('/register');
   }
 });
+
+app.get('/posts/:post_id', function (req, res) {
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.get_specific_post_by_id(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});

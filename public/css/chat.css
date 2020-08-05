@@ -2563,4 +2563,5 @@ blockquote{
 .edit_btn{
   float: right;
   margin-top:1px;
+  cursor: pointer;
 }
