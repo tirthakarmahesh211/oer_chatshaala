@@ -15,6 +15,7 @@ body {
 #topic_head {
   color: white;
   margin-top: 16px;
+  margin-left: 12px;
 }
 
 @media screen and (max-width: 767px) {
@@ -25,6 +26,7 @@ body {
     /*position: fixed;*/
     /*margin-left: 33%;*/
     margin-top: 18px;
+    margin-left: 40px;
   }
 }
 
@@ -729,7 +731,8 @@ input[type="text"]:focus {
   /*border-right: 5px solid rgb(76, 175, 80);*/
   /*border-top-color: rgba(205, 211, 237, 0.75);*/
   border-bottom-color: rgba(205, 211, 237, 0.75);
-  background-color: #66666626;
+  /*background-color: #66666626;*/
+  background-color: #abd4e6;
 }
 
 @media screen and (max-width: 767px){
@@ -934,6 +937,28 @@ input[type="text"]:focus {
   align-content: center;
   text-align: center;
   margin-left: 40px;
+}
+
+
+.total-message-count{
+/*    position: absolute;*/
+/*  top: 8px;
+  left: 5px;*/
+  top:38px;
+  right:0px;
+  width: 20px;
+  height: 14px;
+  line-height: 0px;
+  text-align: center;
+  background-color: var(--mainColor);
+  border-radius: 30%;
+  color: #fff;
+  font-weight: 400;
+  font-size: 11px;
+/*  align-items: center;
+  align-content: center;
+  text-align: center;*/
+  margin-left: 5px;
 }
 
 @media screen and (max-width: 767px){
@@ -2563,5 +2588,11 @@ blockquote{
 .edit_btn{
   float: right;
   margin-top:1px;
+}
+
+.setting_btn{
+  float: right;
+  margin-top:1px;
+  margin-right: 7px;
   cursor: pointer;
 }
