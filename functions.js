@@ -34,7 +34,8 @@ module.exports = {
   search_topics_and_posts: search_topics_and_posts,
   get_specific_post_replies: get_specific_post_replies,
   unlike: unlike,
-  get_specific_post_by_id: get_specific_post_by_id
+  get_specific_post_by_id: get_specific_post_by_id,
+  update_posts_raw_by_id: update_posts_raw_by_id
 };
 
 function resetCurrUser() {
@@ -1486,4 +1487,65 @@ function get_specific_post_by_id(req, res){
   });
   request.write(querystring.stringify(data1));
   request.end();
+}
+
+function update_posts_raw_by_id(req, res){
+  var curr_user=req.session.user;
+  var options = {
+    method: 'PUT',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username,
+    }
+  };
+
+  // var data1 = {
+  //   post[topic_id]: req.query.topic_id,
+  //   post[raw]: req.query.raw,
+  //   post[raw_old]: req.query.raw_old,
+  // };
+
+  var url = secrets.url + '/posts/'+ req.params.post_id+".json"
+  console.log(url);
+  // var request = https.request(url, options, (response) => {
+  //    console.log(response.statusCode);
+  //   if (response.statusCode === 200) {
+  //     var body = '';
+  //     response.on('data', (data) => {
+  //       body += data;
+  //     });
+  //     response.on('end', () => {
+  //       try {
+  //         body = JSON.parse(body);
+  //       } catch (ex) {
+  //       console.log(body);
+  //       }
+  //       res.send(body);
+  //     });
+  //   } else {
+  //     res.redirect('/');
+  //   }
+  // });
+  // request.write(querystring.stringify(data1));
+  // request.end();
+  // console.log(req.body.topic_id);
+  // console.log(req.body.raw);
+  // console.log(req.body.raw_old);
+  const formData = new FormData();
+  formData.append('post[topic_id]', req.body.topic_id);
+  formData.append('post[raw]', req.body.raw);
+  formData.append('post[raw_old]', req.body.raw_old);
+  // console.log(formData);
+  fetch(url, {
+    method: 'PUT',
+    body: formData,
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': req.session.user.username,
+    },
+  })
+  .then(response => response.json())
+  .then(data => {
+    res.send("success");
+  });
 }

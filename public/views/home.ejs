@@ -741,7 +741,7 @@
       // });
       document.getElementById('saveDelta').addEventListener('click', function () {
         var body = document.getElementById('replyMessage');
-        console.log(body.selectionStart);
+        // console.log(body.selectionStart);
         var topic_title = document.getElementById("topic_title");
         // console.log(topic_title);
         var reply_message = document.getElementsByClassName('selected_msg');
@@ -750,6 +750,7 @@
         var topic_slug = $('#slug').attr('name');
         // console.log(reply_message.length);
         // console.log(reply_message[0].id);
+        // console.log(document.querySelectorAll('div[id^="edit_btn_"][data-edit_btn]')[0].dataset.post_id);
         if (reply_message !=null && reply_message !=undefined && reply_message.length > 0 && reply_message[0].id!=null && reply_message[0].id!=undefined && reply_message[0].id!="" && body!=undefined && body.innerHTML!=undefined){
           let fields = reply_message[0].id.split('_');
           topic_id = fields[2];
@@ -824,6 +825,35 @@
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
+        }
+        else if(document.querySelectorAll('div[id^="edit_btn_"][data-edit_btn]')[0]){
+          let edit_btn_div = document.querySelectorAll('div[id^="edit_btn_"][data-edit_btn]')[0];
+          let post_id = edit_btn_div.dataset.post_id
+          // console.log(post_id);
+          let raw_old = document.getElementById("replyMessage1").value;
+          let topic_id = edit_btn_div.id.split("_")[2];
+          // console.log(topic_id);
+          // console.log(raw_old);
+          // console.log(body.value);
+          var url = '/posts/'+ post_id;
+          // console.log(url);
+          if(post_id){
+            $.ajax(url,{
+              type:'PUT',
+              data:{
+                topic_id: topic_id,
+                raw: body.value,
+                raw_old: raw_old
+              },
+              success:function (data,status,xhr) {   // success callback function
+                // console.log(data);
+                body.value="";
+                body.style.height ="60px";
+
+             },
+              error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
+            });
+          }
         }
         else if(body && body.value!=undefined && body.value!=null){
           var url = '/reply/' + topic_slug + '/' + topic_id;
