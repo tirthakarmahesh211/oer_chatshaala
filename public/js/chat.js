@@ -519,7 +519,7 @@ function myFunc() {
 
           for (var i = 0; i < data.topic_list.topics.length; i++) {
             var mydate, user_id, newdate, newtime, slud, ide, fancy_title;
-            // var img = "/images/icons/noun_timeline_2021907.png";
+            var img = "/images/icons/noun_timeline_2021907.png";
             // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
 
             mydate = data.topic_list.topics[i].last_posted_at;
@@ -534,13 +534,13 @@ function myFunc() {
               new_posts = '0'; 
             }
 
-            for(var j=0; j<data.users.length; j++){
-              var avatar_template;
-              avatar_template = data.users[j].avatar_template.replace("{size}","50");
-              // console.log(avatar_template)
-
+            if(data.users[i]){
+            var avatar_template = data.users[i].avatar_template.replace("{size}","50"); 
             var img = "https://t2.metastudio.org/"+ avatar_template;
-            // console.log(img)
+            }
+            else{
+            var avatar_template = img;
+            }
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
@@ -550,7 +550,7 @@ function myFunc() {
 
             elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + new_posts+ '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username +'   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
 
-          }
+          // }
         }
 
           $('#holder2').append(elements);
