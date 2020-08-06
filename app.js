@@ -330,9 +330,10 @@ app.get("/latest", function(req, res){
       });
       response.on('end', () => {
         body = JSON.parse(body);
-
-        // console.log(body);
-        res.json(body.topic_list.topics);
+         // console.log(body);
+        res.json(body);
+       
+        // res.json(body.topic_list.topics);
         // console.log(res);
       });
     }
