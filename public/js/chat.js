@@ -1701,18 +1701,17 @@ function setting_function(clicked_element_data){
 
       if(clicked_element_data){
        
-
-        var id = clicked_element_data.id;
-
+        // console.log(clicked_element_data);
+        var id = clicked_element_data.id.split("_")[2];
+        var post_number = clicked_element_data.id.split("_")[3];
         // var tempInput = document.createElement("input");
         // tempInput.value = window.location.origin +"/t/"+clicked_element_data.dataset.tslug+"/"+tid+"/"+post_number;
         // document.body.appendChild(tempInput);
         // tempInput.select();
         // document.execCommand("copy");
         // document.body.removeChild(tempInput);
-
-        window.open('https://t2.metastudio.org+"/t/"+clicked_element_data.dataset.tslug+"/"+id+"/"+post_number',' ', 'width=500, height=300'); 
-
+        // console.log(document.getElementById("url"));
+        window.open(document.getElementById("url").getAttribute("name")+'t/'+clicked_element_data.dataset.tslug+'/'+id+'/'+post_number,' ',width=500, height=300);
       } 
            // alert("Share URL has been copied to clipboard.");
 }
