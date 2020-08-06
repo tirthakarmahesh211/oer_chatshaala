@@ -1063,3 +1063,13 @@ app.get('/posts/:post_id', function (req, res) {
     res.redirect('/register');
   }
 });
+
+app.put('/posts/:post_id', function (req, res) {
+  console.log("put posts");
+  let curr_user = req.session.user;
+  if (curr_user) {
+      func.update_posts_raw_by_id(req,res);
+  } else {
+    res.redirect('/register');
+  }
+});
