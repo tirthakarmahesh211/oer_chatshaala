@@ -1546,6 +1546,6 @@ function update_posts_raw_by_id(req, res){
   })
   .then(response => response.json())
   .then(data => {
-    res.send("success");
+    res.send(data);
   });
 }

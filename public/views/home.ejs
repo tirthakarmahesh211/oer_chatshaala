@@ -846,10 +846,12 @@
                 raw_old: raw_old
               },
               success:function (data,status,xhr) {   // success callback function
-                // console.log(data);
+                console.log(data);
                 body.value="";
                 body.style.height ="60px";
-
+                document.getElementById("replyMessage1").value = "";
+                console.log(document.querySelectorAll('div[data-POSTID="'+ post_id +'"]'));;
+                document.querySelectorAll('div[data-POSTID="'+ post_id +'"]')[0].innerHTML= data.post.cooked;
              },
               error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
             });
