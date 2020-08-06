@@ -517,20 +517,30 @@ function myFunc() {
           $('#holder2').html("");
           var elements = '';
 
-          for (var i = 0; i < data.length; i++) {
-            var mydate, user_id, newdate, newtime, slud, ide;
-            var img = "/images/icons/noun_timeline_2021907.png";
+          for (var i = 0; i < data.topic_list.topics.length; i++) {
+            var mydate, user_id, newdate, newtime, slud, ide, fancy_title;
+            // var img = "/images/icons/noun_timeline_2021907.png";
+            // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
 
-            mydate = data[i].last_posted_at;
-            slug = data[i].slug;
-            ide = data[i].id;
+            mydate = data.topic_list.topics[i].last_posted_at;
+            slug = data.topic_list.topics[i].slug;
+            ide = data.topic_list.topics[i].id;
+            fancy_title = data.topic_list.topics[i].fancy_title;
 
-            var new_posts = data[i].new_posts;
+            // console.log(ide);
+            var new_posts = data.topic_list.topics.new_posts;
 
             if (typeof new_posts === 'undefined'){
               new_posts = '0'; 
             }
 
+            for(var j=0; j<data.users.length; j++){
+              var avatar_template;
+              avatar_template = data.users[j].avatar_template.replace("{size}","50");
+              // console.log(avatar_template)
+
+            var img = "https://t2.metastudio.org/"+ avatar_template;
+            // console.log(img)
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
@@ -538,9 +548,10 @@ function myFunc() {
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
             // alert('newtime: ' + newtime);
 
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + new_posts+ '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data[i].last_poster_username +'   '+ '<strong class="total-message-count">'+data[i].posts_count +'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + new_posts+ '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username +'   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '</div>' + '</li>' + '</div>';
 
           }
+        }
 
           $('#holder2').append(elements);
 
@@ -1696,7 +1707,6 @@ function load_posts_using_page_number(x,param=null,activity_name=null)
     }
 }
 
-
 function setting_function(clicked_element_data){
 
       if(clicked_element_data){
@@ -1715,27 +1725,4 @@ function setting_function(clicked_element_data){
 
       } 
            // alert("Share URL has been copied to clipboard.");
-}
-function edit_function(selected_element){
-  // alert("hiiiiiiiiiiii");
-  console.log(selected_element);
-  console.log(selected_element.dataset.post_id);
-  console.log(document.querySelectorAll('div[id^="edit_btn_"]'));
-  var edit_btns_div = document.querySelectorAll('div[id^="edit_btn_"]')
-  for (var i = 0; i < edit_btns_div.length; i++) {
-    edit_btns_div[i].removeAttribute("data-edit_btn");
-  }
-  selected_element.setAttribute("data-edit_btn", "");
-  console.log(document.querySelectorAll('div[id^="edit_btn_"][data-edit_btn]'));
-  url = "/posts/" + selected_element.dataset.post_id
-  console.log(url);
-  page_number  = null;
-  $.ajax({
-    url: url
-  })
-  .done(function (data) {
-    console.log(data);
-    console.log(document.getElementById("replyMessage").value);
-    document.getElementById("replyMessage").value = data.raw;
-  });
 }
