@@ -132,20 +132,30 @@ window.onclick = function (event) {
 
   var myInput = document.getElementById("myInput");
   var search_icon = document.getElementById("search_icon");
+  // var search_clear_btn = document.getElementById("search_clear_btn");
   // console.log(event.target);
+  if(myInput && (myInput.value == "" || myInput.value == null || myInput.value == undefined )){
+    // search_clear_btn.style.display="none";
+    myInput.style.display = "none";
+    myInput.value="";
+  }
   if (event.target == search_icon || event.target == myInput) {
     if(event.target == search_icon && myInput != null && myInput!= undefined && myInput.style.display == "block"){
       myInput.style.display = "none";
       myInput.value="";
+      // search_clear_btn.style.display="none";
     }
     else{
       myInput.style.display = "block";
+      // search_clear_btn.style.display="block";
     }
   }
-  else{
-    myInput.style.display = "none";
-    myInput.value="";
-  }
+  // else{
+  //   myInput.style.display = "none";
+  //   myInput.value="";
+  //   search_clear_btn.style.display="none";
+  // }
+
 };
 
 function myFunc() {
