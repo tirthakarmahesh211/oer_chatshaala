@@ -423,14 +423,14 @@
         for (var i = 0; i < data.users.length; i++) {
           var txt = data.users[i].name + ' (@' + data.users[i].username + ')';
           // $('#users1').append('<option value=\"' + data.users[i].username + '\">' + txt + '</option>');
-          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
         }          
         }
         if(data && data.groups){
         for (var i = 0; i < data.groups.length; i++) {
           var txt = data.groups[i].name;
           // $('#users1').append('<option value=\"' + data.groups[i].name + '\">' + txt + '</option>');
-          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
         }
         }
       }

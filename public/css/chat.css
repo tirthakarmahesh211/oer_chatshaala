@@ -2614,14 +2614,14 @@ blockquote{
   width: 100%;
 }
 
-.info {
+.user_grp_info {
   cursor: pointer;
   padding-left: 4px;
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-.info:hover {
+.user_grp_info:hover {
   background: #cbcbdbcf;
   cursor: pointer;
 }
