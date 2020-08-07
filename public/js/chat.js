@@ -412,7 +412,10 @@ function myFunc() {
 
 
     }
-    function function_category_common() {
+    function function_category_common(value=null) {
+      console.log(value);
+      var username = $('#curr_user').attr('name');
+      if(value !=true){
       $("#right_panel_msg").css("display","block");
       // window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
@@ -423,7 +426,7 @@ function myFunc() {
       e.classList.remove("active-tab");
       e = document.getElementById("group_click");
       e.classList.remove("active-tab");
-      var username = $('#curr_user').attr('name');
+      
       document.getElementById("holder6").style.display = "Block";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder2").style.display = "None";
@@ -433,6 +436,7 @@ function myFunc() {
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
+      }
       }
       $.ajax({
         url: "/user/common/" + username
@@ -465,7 +469,7 @@ function myFunc() {
             // }
             if(data[i] && data[i].subcategory_ids){
               data1 = {"dataset":{"cid": data[i].id, "sub_cids": (data[i].subcategory_ids ? data[i].subcategory_ids.toString(): "" )}}
-              load_subcategories(data1);
+              load_subcategories(data1,value);
             }
           }
 
@@ -475,7 +479,6 @@ function myFunc() {
 
     function function_latestposts(){
       // alert("latest");
-      
       $("#right_panel_msg").css("display","block");
       window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
@@ -556,6 +559,7 @@ function myFunc() {
           $('#holder2').append(elements);
 
         })
+        function_category_common(true);
     }
 
 
@@ -1303,16 +1307,17 @@ function myFunc() {
       alert("Share URL has been copied to clipboard.");
     }
 
-    function load_subcategories(clicked_element_data){
+    function load_subcategories(clicked_element_data,value=null){
       // console.log(clicked_element_data);
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
+      if(value!=true){
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder6").style.display = "block";
       document.getElementById("holder5").style.display = "None";
-
+      }
       // $('#holder8').html("");
       if(clicked_element_data){
         var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
