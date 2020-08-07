@@ -404,7 +404,7 @@ function myFunc() {
             slug = data[i].slug;
             ide = data[i].id;
 
-            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '",this)' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topics_all_time + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/noun_group_737653.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-share-alt " >' + '</i>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '",this)' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="/images/icons/noun_group_737653.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<i class="fa fa-share-alt " >' + '</i>' + '</div>' + '</li>' + '</div>';
           }
 
           $('#holder4').html(elements);
@@ -513,7 +513,7 @@ function myFunc() {
       })
         .done(function (data) {
           // console.log("tyutut")
-          console.log(data);
+          // console.log(data);
           $('#holder2').html("");
           var elements = '';
 
@@ -593,7 +593,7 @@ function myFunc() {
       var left_panel_header_title = null;
       // console.log("param");
       if(param != null && param.firstChild!=null && param.firstChild!=undefined){
-        console.log(param);
+        // console.log(param);
         left_panel_header_title = param.firstChild.getAttribute("id");
         $('#menu_active').text(left_panel_header_title);
       }
@@ -754,7 +754,7 @@ function myFunc() {
 
     function load_posts(x, param=null, page_number=null, index_of_post_number=null) {
       // console.log(param);
-      console.log(index_of_post_number);
+      // console.log(index_of_post_number);
       var topic_head = null;
       if(typeof param === "string" ){
        topic_head = param; 
@@ -828,14 +828,14 @@ function myFunc() {
         x=x[0]+".json";
         url = "/post/more/t/" + x
       }
-      console.log(url);
-      console.log(page_number);
+      // console.log(url);
+      // console.log(page_number);
       $.ajax({
         url: url,
         data: {page_number:page_number, "post_ids[]": array_of_post_ids},
       })
         .done(function (data) {
-          console.log("aaaaaaaaaaaaaaaaa");
+          // console.log("aaaaaaaaaaaaaaaaa");
           var posts_count = data.posts_count;
           var slug = data.slug;
           var type_of_msg = data.archetype;
