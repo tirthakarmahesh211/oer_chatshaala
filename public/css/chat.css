@@ -2625,3 +2625,15 @@ blockquote{
   background: #cbcbdbcf;
   cursor: pointer;
 }
+
+@media screen and (max-width: 767px) {
+#select_usr_grp_div #searched_user {
+  position: absolute !important;
+  top: 144px !important;
+  /* left: 0px; */
+  background: #f4f3f3 !important;
+  margin-left: 10px !important;
+  /*padding-left: 4px;*/
+  padding: 0px !important;
+  width: calc(100% - 20px) !important
+}
