@@ -2500,7 +2500,7 @@ div.reply_msg{
 }
 
 #select_usr_grp {
-  position: fixed;
+  position: absolute;
   top: 110px;
   width: calc(50%) !important;
   padding: 5px;
@@ -2595,5 +2595,33 @@ blockquote{
   float: right;
   margin-top:1px;
   margin-right: 7px;
+  cursor: pointer;
+}
+
+#searched_user {
+  position: absolute;
+  top: 144px;
+  /* left: 0px; */
+  background: #f4f3f3;
+  margin-left: 10px;
+  /*padding-left: 4px;*/
+  padding: 0px !important;
+  width:50%;
+}
+
+#select_usr_grp_div {
+  position: fixed;
+  width: 100%;
+}
+
+.info {
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.info:hover {
+  background: #cbcbdbcf;
   cursor: pointer;
 }

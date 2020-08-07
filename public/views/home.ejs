@@ -378,9 +378,13 @@
   <div id="details-form" class="detail_form">
     <button style="display: none;" id="back_btn_for_dm"><img src="/images/icons/noun_back_2784520.png" style="height:35px;width:35px;"/></button>
     <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type topic title" required=''>
-    <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''>
-    <datalist id='users1'>
-    </datalist>
+    <div id="select_usr_grp_div">
+    <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" autocomplete="off" required=''>
+    <ul id="searched_user"></ul>
+    </div>
+    <!-- <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''> -->
+    <!-- <datalist id='users1'> -->
+    <!-- </datalist> -->
     <select style="display: none" id="select_category_id" placeholder="select a category...">
       <option value="">Select a category</option>
     </select>
@@ -404,7 +408,7 @@
 
   <script type="text/javascript">
 
-  $('input[name="user_grp_search"]').keypress(() => {
+  $('input[name="user_grp_search"]').keyup(() => {
     var text = $('input[name="user_grp_search"]').val();
     // console.log(text);
     $.ajax({
@@ -413,17 +417,20 @@
     }).done(
       (data) => {
         // console.log(data);
-        $('#users1 option').remove();
+        // $('#users1 option').remove();
+        $('#searched_user').empty();
         if(data && data.users){
         for (var i = 0; i < data.users.length; i++) {
           var txt = data.users[i].name + ' (@' + data.users[i].username + ')';
-          $('#users1').append('<option value=\"' + data.users[i].username + '\">' + txt + '</option>');
+          // $('#users1').append('<option value=\"' + data.users[i].username + '\">' + txt + '</option>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
         }          
         }
         if(data && data.groups){
         for (var i = 0; i < data.groups.length; i++) {
           var txt = data.groups[i].name;
-          $('#users1').append('<option value=\"' + data.groups[i].name + '\">' + txt + '</option>');
+          // $('#users1').append('<option value=\"' + data.groups[i].name + '\">' + txt + '</option>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
         }
         }
       }
@@ -441,6 +448,11 @@
   //      el.selectionStart = el.selectionEnd = el.value.length;
   //   }
   // });
+  function select_user_or_grp(selected_element){
+    // alert(selected_element);
+    // console.log(selected_element.getAttribute("value"));
+    $("#select_usr_grp").val(selected_element.getAttribute("value"));
+  }
 
     var select_category_id = document.getElementById('select_category_id');
 
