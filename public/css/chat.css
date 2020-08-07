@@ -2486,7 +2486,7 @@ div.reply_msg{
 #select_category_id {
   position: fixed;
   top: 110px;
-  width: calc(73%) !important;
+  width: calc(50%) !important;
   padding: 5px;
   margin: 0px 10px;
 }
@@ -2494,15 +2494,15 @@ div.reply_msg{
 #topic_title {
   position: fixed;
   top: 50px;
-  width: calc(73% ) !important;
+  width: calc(50% ) !important;
   padding: 5px;
-  margin: 0px 10px;
+  margin: 10px 10px;
 }
 
 #select_usr_grp {
   position: fixed;
   top: 110px;
-  width: calc(73%) !important;
+  width: calc(50%) !important;
   padding: 5px;
   margin: 0px 10px;
 }
