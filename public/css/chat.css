@@ -869,7 +869,7 @@ input[type="text"]:focus {
 }
 
 .contacts li>.info-combo>h5 {
-  width: 198px;
+  width: 212px;
   font-size: 13px;
   height: 16px;
   font-weight: 500;
@@ -950,9 +950,9 @@ input[type="text"]:focus {
   height: 14px;
   line-height: 0px;
   text-align: center;
-  background-color: var(--mainColor);
-  border-radius: 30%;
-  color: #fff;
+/*  background-color: var(--mainColor);
+  border-radius: 30%;*/
+  color: #78797b;
   font-weight: 400;
   font-size: 11px;
 /*  align-items: center;
