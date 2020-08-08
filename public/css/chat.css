@@ -2625,3 +2625,10 @@ blockquote{
   background: #cbcbdbcf;
   cursor: pointer;
 }
+
+.cmath {
+  display: block;
+  margin: 20px 0px 20px 30px;
+  padding-left: 50px; padding-top: 8px; padding-bottom: 8px;
+  white-space : pre;
+}
