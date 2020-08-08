@@ -765,7 +765,7 @@ app.get('/groups.json', (req, res) => {
       response.on('end', () => {
         body = JSON.parse(body);
 
-        res.json(body.groups);
+        res.json(body);
       });
     }
   });
