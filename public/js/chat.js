@@ -132,20 +132,30 @@ window.onclick = function (event) {
 
   var myInput = document.getElementById("myInput");
   var search_icon = document.getElementById("search_icon");
+  // var search_clear_btn = document.getElementById("search_clear_btn");
   // console.log(event.target);
+  if(myInput && (myInput.value == "" || myInput.value == null || myInput.value == undefined )){
+    // search_clear_btn.style.display="none";
+    myInput.style.display = "none";
+    myInput.value="";
+  }
   if (event.target == search_icon || event.target == myInput) {
     if(event.target == search_icon && myInput != null && myInput!= undefined && myInput.style.display == "block"){
       myInput.style.display = "none";
       myInput.value="";
+      // search_clear_btn.style.display="none";
     }
     else{
       myInput.style.display = "block";
+      // search_clear_btn.style.display="block";
     }
   }
-  else{
-    myInput.style.display = "none";
-    myInput.value="";
-  }
+  // else{
+  //   myInput.style.display = "none";
+  //   myInput.value="";
+  //   search_clear_btn.style.display="none";
+  // }
+
 };
 
 function myFunc() {
@@ -1697,28 +1707,23 @@ function get_specific_post_replies(selected_element){
 
 function load_posts_using_page_number(x,param=null,activity_name=null)
 {
+    // console.log("==================================");
+    $('li').removeClass('active');
+    $(this).addClass('active');
+    if(param && param.firstElementChild){
+      $('li').removeClass('active');
+      param.firstElementChild.classList.add("active");
+    }
     if(activity_name && param!=null && param!=undefined && param.dataset.post_id){
-      console.log(activity_name);
-      console.log(param.dataset.post_id);
-      console.log(param.dataset.posts_count);
-      console.log(x);
-
       url = "/post/more/t/" + x
-      console.log(url);
       page_number  = null;
       $.ajax({
         url: url,
         data: {page_number:page_number},
       })
       .done(function (data) {
-        console.log("data");
-        console.log(data);
-        console.log(data.post_stream.stream);
-        console.log(data.post_stream.stream.indexOf(Number(param.dataset.post_id)));
         index_of_post_number = (data.post_stream.stream.indexOf(Number(param.dataset.post_id)) % 20);
         page_number = Math.ceil((data.post_stream.stream.indexOf(Number(param.dataset.post_id)) / 20));
-        console.log(x);
-        console.log(page_number);
         load_posts(x,data.title,page_number,index_of_post_number);
       });
     }

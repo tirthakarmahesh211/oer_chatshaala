@@ -732,7 +732,7 @@ input[type="text"]:focus {
   /*border-top-color: rgba(205, 211, 237, 0.75);*/
   border-bottom-color: rgba(205, 211, 237, 0.75);
   /*background-color: #66666626;*/
-  background-color: #abd4e6;
+  background-color: #dbdedfc4;
 }
 
 @media screen and (max-width: 767px){
@@ -2594,7 +2594,7 @@ blockquote{
 .setting_btn{
   float: right;
   margin-top:1px;
-  margin-right: 7px;
+  margin-right: 10px;
   cursor: pointer;
 }
 
@@ -2631,4 +2631,34 @@ blockquote{
   margin: 20px 0px 20px 30px;
   padding-left: 50px; padding-top: 8px; padding-bottom: 8px;
   white-space : pre;
+}
+@media screen and (max-width: 767px) {
+#select_usr_grp_div #searched_user {
+  position: absolute !important;
+  top: 144px !important;
+  /* left: 0px; */
+  background: #f4f3f3 !important;
+  margin-left: 10px !important;
+  /*padding-left: 4px;*/
+  padding: 0px !important;
+  width: calc(100% - 20px) !important
+}
+
+
+#search_clear_btn {
+  border: none;
+  background: transparent;
+  padding: 0px;
+  position: fixed;
+  right: 38px;
+  top: 0;
+  padding: 18px 11px !important;
+  font-size: 16px;
+  /*font-weight: bold;*/
+  font-family: arial;
+  color: #d0cfcf;
+}
+
+#search_clear_btn:hover {
+  text-decoration: underline;
 }
