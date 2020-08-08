@@ -472,6 +472,7 @@
       $("#select_usr_grp").val("");
       $("#select_usr_grp").val(selected_element.getAttribute("value"));
     }
+    $('#searched_user').empty();
   }
 
     var select_category_id = document.getElementById('select_category_id');
@@ -1087,6 +1088,7 @@
               topic_title.value = "";
               select_usr_grp.value = "";
               // category_id.value= "Select a category";
+              $('#searched_user').empty();
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
