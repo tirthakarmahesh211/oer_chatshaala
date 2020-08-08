@@ -816,7 +816,7 @@ input[type="text"]:focus {
 .contacts li .contacts-add .fa-share-alt {
   position: absolute;
   font-size: 14px;
-  right: 45px;
+  right: 15px;
   bottom: 4px;
   color: #a6a6a6;
   cursor: pointer;
@@ -835,7 +835,7 @@ input[type="text"]:focus {
   .contacts li .contacts-add .fa-share-alt {
     position: absolute;
     font-size: 12px;
-    right: 48px;
+    right: 18px;
     bottom: 6px;
     color: #a6a6a6;
     cursor: pointer;
