@@ -382,7 +382,7 @@
     <button style="display: none;" id="back_btn_for_dm"><img src="/images/icons/noun_back_2784520.png" style="height:35px;width:35px;"/></button>
     <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type topic title" required=''>
     <div id="select_usr_grp_div">
-    <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" autocomplete="off" required=''>
+    <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select user/s and/or group/s" autocomplete="off" required=''>
     <ul id="searched_user"></ul>
     </div>
     <!-- <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select users and groups" list="users1" autocomplete="off" required=''> -->
@@ -413,7 +413,12 @@
 
   $('input[name="user_grp_search"]').keyup(() => {
     var text = $('input[name="user_grp_search"]').val();
-    // console.log(text);
+    var splited_text = text.split(",");
+    var array_length = splited_text.length;
+
+    if (text && array_length > 1 ){
+      text = splited_text[array_length - 1];
+    }
     $.ajax({
       url: '/find',
       data: { text: text }
@@ -426,14 +431,14 @@
         for (var i = 0; i < data.users.length; i++) {
           var txt = data.users[i].name + ' (@' + data.users[i].username + ')';
           // $('#users1').append('<option value=\"' + data.users[i].username + '\">' + txt + '</option>');
-          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username +","+ '\">' + txt + '</li>');
         }          
         }
         if(data && data.groups){
         for (var i = 0; i < data.groups.length; i++) {
           var txt = data.groups[i].name;
           // $('#users1').append('<option value=\"' + data.groups[i].name + '\">' + txt + '</option>');
-          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username + '\">' + txt + '</li>');
+          $('#searched_user').append('<li onclick="select_user_or_grp(this)" class="user_grp_info" value=\"' + data.users[i].username +","+ '\">' + txt + '</li>');
         }
         }
       }
@@ -454,7 +459,19 @@
   function select_user_or_grp(selected_element){
     // alert(selected_element);
     // console.log(selected_element.getAttribute("value"));
-    $("#select_usr_grp").val(selected_element.getAttribute("value"));
+    var select_usr_grp = $("#select_usr_grp").val();
+    if( select_usr_grp.indexOf(",") != -1 ){
+
+      select_usr_grp = select_usr_grp.split(",").slice(0,select_usr_grp.split(",").length - 1);
+      // console.log(select_usr_grp);
+      select_usr_grp = select_usr_grp.toString();
+      // console.log(select_usr_grp);
+      $("#select_usr_grp").val(select_usr_grp +","+ selected_element.getAttribute("value"));
+    }
+    else{
+      $("#select_usr_grp").val("");
+      $("#select_usr_grp").val(selected_element.getAttribute("value"));
+    }
   }
 
     var select_category_id = document.getElementById('select_category_id');
