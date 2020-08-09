@@ -882,11 +882,11 @@
                 raw_old: raw_old
               },
               success:function (data,status,xhr) {   // success callback function
-                console.log(data);
+                // console.log(data);
                 body.value="";
                 body.style.height ="60px";
                 document.getElementById("replyMessage1").value = "";
-                console.log(document.querySelectorAll('div[data-POSTID="'+ post_id +'"]'));;
+                // console.log(document.querySelectorAll('div[data-POSTID="'+ post_id +'"]'));;
                 document.querySelectorAll('div[data-POSTID="'+ post_id +'"]')[0].innerHTML= data.post.cooked;
              },
               error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
@@ -983,7 +983,7 @@
           var category_id = document.getElementById("select_category_id");
           var topic_title = document.getElementById("topic_title");
           var text_editor = document.getElementById("text_editor");
-          console.log(category_id);
+          // console.log(category_id);
           if ( category_id!=null && category_id != undefined ){
             category_id = category_id.value
           }
@@ -1056,7 +1056,7 @@
 
       document.getElementById('saveDelta1').addEventListener('click', function () {
         var body = document.getElementById('replyMessage1');
-        console.log(body.selectionStart);
+        // console.log(body.selectionStart);
         var topic_title = document.getElementById("topic_title");
         var select_usr_grp = document.getElementById("select_usr_grp");
         var category_id = document.getElementById("select_category_id");
@@ -1087,11 +1087,21 @@
             },
             success:function (data,status,xhr) {   // success callback function
               // console.log(data);
+              document.getElementById('container').style.display = "block";
+              document.getElementById('details-form').style.display = "none";
+              if(category_id!="" && category_id!=null && category_id!=undefined){
+                document.getElementById("category_click").click();
+              }
+              else
+              {
+                document.getElementById("private_click").click();
+              }
               body.value = "";
               topic_title.value = "";
               select_usr_grp.value = "";
               // category_id.value= "Select a category";
               $('#searched_user').empty();
+              document.getElementById("plus_btn").click();
            },
             error:function(jqXhr, textStatus, errorMessage){alert('Failed to send message '+ errorMessage);}
           });
