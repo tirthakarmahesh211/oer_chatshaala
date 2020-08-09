@@ -1077,6 +1077,6 @@ app.get('/uploads/short-url/:file_name', function (req, res) {
   res.redirect(secrets.url+"uploads/short-url/"+req.params.file_name);
 });
 
-app.get('/uploads/default/:remaining_part_of_url', function (req, res) {
-  res.redirect(secrets.url+"uploads/default/"+req.params.remaining_part_of_url);
+app.get('/uploads/default/*', function (req, res) {
+  res.redirect(secrets.url+"uploads/default/"+req.params[0]);
 });
