@@ -1065,11 +1065,18 @@ app.get('/posts/:post_id', function (req, res) {
 });
 
 app.put('/posts/:post_id', function (req, res) {
-  console.log("put posts");
   let curr_user = req.session.user;
   if (curr_user) {
       func.update_posts_raw_by_id(req,res);
   } else {
     res.redirect('/register');
   }
+});
+
+app.get('/uploads/short-url/:file_name', function (req, res) {
+  res.redirect(secrets.url+"uploads/short-url/"+req.params.file_name);
+});
+
+app.get('/uploads/default/*', function (req, res) {
+  res.redirect(secrets.url+"uploads/default/"+req.params[0]);
 });

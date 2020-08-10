@@ -213,6 +213,8 @@ body {
   margin-left: -15px;
   /*margin-right: 10px;*/
   margin-bottom: -20px;
+  position: absolute;
+  top: 62px;
 }
 
 .messages-panel {
@@ -296,7 +298,7 @@ background: rgba(36, 117, 47, 0.4);
   border-radius: 100%;
 } */
 
-* THE REPLY BAR CSS */
+/* THE REPLY BAR CSS */
 .chat_section{
   width:100%;
   position: fixed !important;
@@ -712,6 +714,7 @@ input[type="text"]:focus {
   position: relative;
   background-color: rgba(255, 255, 255, 0);
   cursor: pointer;
+  height: 50px;
 }
 
 .contacts li:first-child {
@@ -763,6 +766,7 @@ input[type="text"]:focus {
 .contacts li>.info-combo {
   width: 172px;
   cursor: pointer;
+  margin-left: 34px;
 }
 
 .contacts li>.info-combo>h3 {
@@ -848,7 +852,7 @@ input[type="text"]:focus {
   .contacts #holder6 li>.info-combo>h5 {
     width: 78vw !important;
     font-size: 13px;
-    height: 28px;
+    height: auto;
     font-weight: 500;
     overflow: hidden;
     white-space: pre-wrap;
@@ -881,22 +885,7 @@ input[type="text"]:focus {
 
 @-moz-document url-prefix() {
   /* Mozilla specific CSS here*/
-  #holder6 .img-circle {
-  margin-top: 4px !important;
-  /* margin: -35px 2px; */
-  margin-left: -15px;
-  /*margin-right: 10px;*/
-  margin-bottom: -20px;
-  position: absolute;
-  }
 
-  .contacts #holder6 li>.info-combo>h5 {
-    margin-left: 34px !important;
-  }
-
-  .contacts #holder6 li>.info-combo>h3 {
-    margin-left: 34px !important;
-  }
 
 }
 
@@ -904,7 +893,7 @@ input[type="text"]:focus {
 .contacts #holder6 li>.info-combo>h5 {
   width: 18vw;  
   font-size: 13px;
-  height: 30px;
+  height: auto;
   font-weight: 500;
   overflow: hidden;
   white-space: pre-wrap;
@@ -922,7 +911,7 @@ input[type="text"]:focus {
   position: absolute;
 /*  top: 8px;
   left: 5px;*/
-  top:38px;
+  top:28px;
   right:0px;
   width: 20px;
   height: 20px;
@@ -963,7 +952,7 @@ input[type="text"]:focus {
 
 @media screen and (max-width: 767px){
  .contacts li .message-count {
-  top:33px;
+  top:27px;
   right:1px;
   width: 23px;
   height: 23px;
@@ -1936,6 +1925,7 @@ svg {
 .contacts li {
   padding-right:20px;
   padding-left: 14px;
+  height: 50px;
 }
 
 }
