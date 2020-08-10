@@ -1080,3 +1080,9 @@ app.get('/uploads/short-url/:file_name', function (req, res) {
 app.get('/uploads/default/*', function (req, res) {
   res.redirect(secrets.url+"uploads/default/"+req.params[0]);
 });
+
+///user_avatar/metastudio.org/g_n/40/671_2.png
+
+app.get('/user_avatar/*', function (req, res) {
+  res.redirect(secrets.url+"user_avatar/"+req.params[0]);
+});
