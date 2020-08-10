@@ -2652,3 +2652,9 @@ blockquote{
 #search_clear_btn:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 767px) {
+  #holder7 {
+    display: none !important;
+  }
+}
