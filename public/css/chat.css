@@ -2634,7 +2634,7 @@ blockquote{
   padding: 0px !important;
   width: calc(100% - 20px) !important
 }
-
+}
 
 #search_clear_btn {
   border: none;
@@ -2658,4 +2658,8 @@ blockquote{
   #holder7 {
     display: none !important;
   }
+}
+
+.usr_profile{
+  color: #666464;
 }

@@ -935,7 +935,7 @@ function myFunc() {
                   like_button = '';
               }
             }
-            let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
+            let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'
             // console.log(type_of_msg);
 
             let chk_pvt_or_regular_msg = (type_of_msg == "regular") ? true : false;
@@ -1157,7 +1157,7 @@ function myFunc() {
                 if (data ){
                   // data = data.post_stream.posts
                   for (let i = 0; i < data.length; i++) {
-                  let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
+                  let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'
                   var marginLeft = 4;
                   marginLeft = marginLeft + "%";
 
@@ -1640,7 +1640,7 @@ function get_specific_post_replies(selected_element){
       if (data ){
         // data = data.post_stream.posts
         for (let i = 0; i < data.length; i++) {
-        let User_Name = (data[i].username == null) ? data[i].name : data[i].username;
+        let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'
         var marginLeft = 4;
         marginLeft = marginLeft + "%";
 
