@@ -2663,3 +2663,7 @@ blockquote{
 .usr_profile{
   color: #666464;
 }
+
+.span.bbcode-u{
+  text-decoration: underline;
+}
