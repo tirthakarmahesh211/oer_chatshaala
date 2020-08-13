@@ -1786,3 +1786,9 @@ function edit_function(selected_element){
   });
 
 }
+
+function open_page(){
+  document.getElementById("About").click();
+  document.getElementById("mySidebar").style.width = "0";
+}
+
