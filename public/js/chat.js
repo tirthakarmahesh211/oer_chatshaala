@@ -499,7 +499,7 @@ function myFunc() {
     function function_latestposts(){
       // alert("latest");
       $("#right_panel_msg").css("display","block");
-      window.history.replaceState("object or string", '' , '/');
+      // window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -550,19 +550,27 @@ function myFunc() {
             fancy_title = data.topic_list.topics[i].fancy_title;
 
             // console.log(ide);
-            // var new_posts = data.topic_list.topics[i].new_posts;
+            // var new_posts = data.t{opic_list.topics[i].new_posts;
 
             // if (typeof new_posts === 'undefined'){
             //   new_posts = '0'; 
             // }
-
-            if(data.users[i]){
-            var avatar_template = data.users[i].avatar_template.replace("{size}","50"); 
-            var img = "https://t2.metastudio.org/"+ avatar_template;
+            var user_id = null;
+            var avatar_template = null;
+            for (let j = 0; j < data.topic_list.topics[i].posters.length; j++) {
+              if(data.topic_list.topics[i].posters[j].description.indexOf("Original Poster") != -1 ){
+                user_id = data.topic_list.topics[i].posters[j].user_id;
+              }
             }
-            else{
-            var avatar_template = img;
+            if(user_id!=null){
+              for (let k = 0; k < data.users.length; k++) {
+                if(user_id == data.users[k].id){
+                  var avatar_template = data.users[k].avatar_template.replace("{size}","50"); 
+                  var img = document.getElementById("url").getAttribute("name")+ avatar_template;
+                }
+              }
             }
+            avatar_template = img;
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
