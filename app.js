@@ -319,7 +319,7 @@ app.get("/latest", function(req, res){
     method: 'GET',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': 'system'
+      'Api-Username': req.session.user.username
     }
   };
   https.get(url,options, function(response){
