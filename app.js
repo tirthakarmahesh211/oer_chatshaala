@@ -904,6 +904,7 @@ app.get("/user/common/:uname", function (req, res) {
           body2 += data;
         });
         response.on('end', function () {
+          try{
           body2 = JSON.parse(body2);
           body1 = body1.category_list.categories;
           body2 = body2.user.groups;
@@ -923,6 +924,10 @@ app.get("/user/common/:uname", function (req, res) {
 
 
             }
+          }
+          }
+          catch (ex) {
+            console.log(ex);
           }
 
           //console.log(body3);
