@@ -1111,6 +1111,7 @@ function get_sub_category(req, res){
 
   // console.log(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json');
   https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json',options,(response)=>{
+   // console.log(response);
    // console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';
@@ -1118,15 +1119,35 @@ function get_sub_category(req, res){
         data+=chunk;
       });
       response.on('end',()=>{
-        // console.log("data");
-        // console.log(data);
-        // let page_url = "sub_categories";
          res.send(JSON.parse(data));
         
       });
       response.on('error', function() {
         console.log('error');
       });
+    }
+    else if(response.statusCode===301)
+    {
+      // console.log("response");
+      // console.log(response.headers.location);
+      https.get(response.headers.location,options,(response)=>{
+      // console.log(response);
+      // console.log(response.statusCode);
+      if(response.statusCode===200){
+        var data='';
+        response.on('data',(chunk)=>{
+          data+=chunk;
+        });
+        response.on('end',()=>{
+           res.send(JSON.parse(data));
+        });
+        response.on('error', function() {
+          console.log('error');
+        });
+      }
+      });
+
+
     }
   });
 
