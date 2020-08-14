@@ -164,8 +164,12 @@ app.post('/search_site', function (req, res) {
 });
 
 app.get('/search', (req, res) => {
-
-  func.search(req.query.text, res);
+  try{
+    func.search(req.query.text, res);
+  }
+  catch (ex) {
+    console.log(ex);
+  }
 
 });
 app.get('/find', (req, res) => {
@@ -451,7 +455,12 @@ app.get("/site_info", function (req, res) {
   let curr_user = req.session.user;
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
-  func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile, curr_user);
+  try{
+    func.fetchGroups(req, res, home, about, blog, project, feedback, logout, profile, curr_user);
+  }
+  catch (ex) {
+    console.log(ex);
+  }
 });
 
 
@@ -460,7 +469,12 @@ app.get("/group/:topic/:id", function (req, res) {
   let curr_user = req.session.user;
   var topic = req.params.topic;
   var id = req.params.id;
-  func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, topic, id, curr_user);
+  try{
+    func.fetch_Group(req, res, home, about, blog, project, feedback, logout, profile, topic, id, curr_user);
+  }
+  catch (ex) {
+    console.log(ex);
+  }
   // res.render("group",{Head:post.title,Para:post.content});
 });
 
@@ -473,7 +487,12 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
   // res.render("groups.ejs",{
   //   home: home, about: about, blog: blog , project: project, feedback: feedback , logout: logout , profile:profile});
-  func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile, url, curr_user);
+  try{
+    func.fetchPosts(req, res, home, about, blog, project, feedback, logout, profile, url, curr_user);
+  }
+  catch (ex) {
+    console.log(ex);
+  }
 });
 
 
@@ -683,7 +702,12 @@ app.get("/user/:uname", function (req, res) {
       var user_det = body.user;
       var obj = { user_det: user_det, curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
       // res.send("hi");
-      func.request_summary(res, obj, 'other_profile');
+      try{
+        func.request_summary(res, obj, 'other_profile');
+      }
+      catch (ex) {
+        console.log(ex);
+      }
       // console.log("jk");
     });
     // console.log(body3);
@@ -965,7 +989,12 @@ app.get('/t/:topic_id/posts$/', function (req, res) {
   // console.log(req.query);
   let curr_user = req.session.user;
   if (curr_user) {
-      func.get_posts_using_post_ids(req,res);
+      try{
+        func.get_posts_using_post_ids(req,res);
+      }
+      catch (ex) {
+        console.log(ex);
+      }
   }
   else {
     res.redirect('/register');
@@ -990,7 +1019,12 @@ app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, r
 app.get('/categories', function (req, res) {
   let curr_user = req.session.user;
   if (curr_user) {
+    try {
     func.get_categories(req,res);
+    }
+    catch (ex) {
+      console.log(ex);
+    }
   } else {
     res.redirect('/register');
   }
@@ -1000,10 +1034,20 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
   let curr_user = req.session.user;
   if (curr_user) {
     if (req.params && req.params.page_number!=null && req.params.page_number!=undefined){
-      func.get_topics(req,res);
+      try{
+        func.get_topics(req,res);
+      }
+      catch (ex) {
+        console.log(ex);
+      }
     }
     else{
-      func.get_sub_category(req,res);
+      try{
+        func.get_sub_category(req,res);
+      }
+      catch (ex) {
+        console.log(ex);
+      }      
     }
   } else {
     res.redirect('/register');
