@@ -58,7 +58,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/*', function (req, res, next) {
-    res.setHeader("Cache-Control", "public, max-age=3600,must-revalidate");
+    res.setHeader("Cache-Control", "public, max-age=10,must-revalidate");
     next();
 });
 
@@ -466,6 +466,7 @@ app.get("/site_info", function (req, res) {
 
 
 app.get("/group/:topic/:id", function (req, res) {
+  console.log("grrrrrrr");
   let curr_user = req.session.user;
   var topic = req.params.topic;
   var id = req.params.id;
@@ -594,6 +595,7 @@ app.post('/chatpost', (req, res) => {
 
 
 app.get("/group/:topic/:id/:offset", function (req, res) {
+  console.log("offffffffffffffgggggggggg")
   let curr_user = req.session.user;
   var id = req.params.topic;
   var i = req.params.offset;
@@ -624,7 +626,7 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
 
 
 app.get("/group/:name/:id/load/:offset", function (req, res) {
-
+  console.log("gruppppppp")
   let curr_user = req.session.user;
   var name = req.params.name;
   var id = req.params.id;
@@ -638,7 +640,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
     method: 'GET',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': 'system'
+      'Api-Username': curr_user.username
     }
   };
   https.get(url2, options, function (response) {
@@ -796,7 +798,7 @@ app.get('/groups.json', (req, res) => {
 });
 
 app.post('/group/:topic/:id/', (req, res) => {
-  //console.log(req.body);
+  console.log(req.body);
 
   res.redirect('/group/' + req.params.topic + '/' + req.params.id);
 });

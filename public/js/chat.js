@@ -473,11 +473,11 @@ function myFunc() {
               logo = data[i].uploaded_logo.url;
               logo=myUrl+logo;
             }
-            // if(data[i] && data[i].subcategory_ids && data[i].subcategory_ids && data[i].subcategory_ids.length > 0){
-            //   elements = elements + '<div data-cid="'+data[i].id+'" data-cslug="'+data[i].slug+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description.substring(0,60)+'...' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
-            // }
-            // else
-            // {
+            if(data[i]!=null && data[i]!=undefined && data[i].subcategory_ids && data[i].subcategory_ids.length > 0){
+              elements = elements + '<div data-cid="'+data[i].id+'" data-cslug="'+data[i].slug+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + ((data[i].description)? data[i].description: '') + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';  
+            }
+            else
+            {
             let about_page = (data[i].name == 'About')?'style="display:none;':'';
               if(data[i].description){
               elements = elements + '<div '+about_page +' data-cid="'+ data[i].id +'" data-cname="'+ data[i].name +'" class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '",this)' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' +  '<div class="message-count" title="Topics">' + data[i].topics_all_time + '</div>' + '</div>' + '</li>' + '</div>';
@@ -485,11 +485,11 @@ function myFunc() {
                 //elements = elements + '<div data-cid="'+ data[i].id  +'" data-cname="'+ data[i].name  +'" class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '")' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<div class="message-count">' + data[i].topic_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' +'</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<i class="fa fa-trash-o">' + '</i>' + '<div onClick=' + 'copy_topic(event,"' + "/group/" + slug + "/" + ide + '")' + '>' + '<i class="fa fa-share-alt">' + '</i>' + '</div>' + '</div>' + '</li>' + '</div>';
                 elements = elements + '<div '+about_page +' data-cid="'+ data[i].id +'" data-cname="'+ data[i].name +'" class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '",this)' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' +  '<div class="message-count" title="Topics">' + data[i].topics_all_time + '</div>' + '</div>' + '</li>' + '</div>';
               }
-            // }
-            if(data[i] && data[i].subcategory_ids){
-              data1 = {"dataset":{"cid": data[i].id, "sub_cids": (data[i].subcategory_ids ? data[i].subcategory_ids.toString(): "" )}}
-              load_subcategories(data1,value);
             }
+            // if(data[i] && data[i].subcategory_ids){
+            //   data1 = {"dataset":{"cid": data[i].id, "sub_cids": (data[i].subcategory_ids ? data[i].subcategory_ids.toString(): "" )}}
+            //   load_subcategories(data1,value);
+            // }
           }
 
           $('#holder6').html(elements);
@@ -641,7 +641,7 @@ function myFunc() {
       var l = 1;
 
       if(x && x.startsWith("c/") && x.split("/").length > 0){
-        // console.log("if block");
+        console.log("if block");
         // console.log(x);
         $.ajax({
 
@@ -692,7 +692,7 @@ function myFunc() {
         url: "/group/" + x
       })
         .done(function (data) {
-          // console.log("data");
+          console.log(data);
           // console.log("/group/" + x);
           // console.log(data.topic_list.more_topics_url);
           var more_topics_url = (data.topic_list? data.topic_list.more_topics_url: '')
@@ -722,7 +722,7 @@ function myFunc() {
 
             if(data.users[i]){
               var avatar_template = data.users[i].avatar_template.replace("{size}","50"); 
-              var img = "https://t2.metastudio.org/"+ avatar_template;
+              var img = document.getElementById("url").getAttribute("name")+ avatar_template;
             }
             else{
               var avatar_template = img;
@@ -1347,17 +1347,18 @@ function myFunc() {
     }
 
     function load_subcategories(clicked_element_data,value=null){
-      // console.log(clicked_element_data);
+      console.log("load_subcategories");
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
-      if(value!=true){
-      document.getElementById("holder8").style.display = "None";
+      // if(value!=true){
+      document.getElementById("holder8").style.display = "Block";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder4").style.display = "None";
-      document.getElementById("holder6").style.display = "block";
+      document.getElementById("holder6").style.display = "None";
       document.getElementById("holder5").style.display = "None";
-      }
-      // $('#holder8').html("");
+      // }
+      $('#holder8').html("");
+      var elements = '';
       if(clicked_element_data){
         var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
         for (let i = 0; i < subcategory_ids.length; i++) {
@@ -1368,7 +1369,7 @@ function myFunc() {
               })
               .done(function (data) {
                 // console.log("load_subcategories")
-                var elements = '';
+                
                   var logo;
                   logo="/images/icons/noun_Subcategory_929019.png";
                   // console.log(data.topic_list);
@@ -1376,13 +1377,13 @@ function myFunc() {
                     title = data.topic_list.topics[0].title.substring(10,data.topic_list.topics[0].title.length-9);
                     // title = ""
                     // url = "c/14/21/0";
-                    // console.log(url)
+                    console.log(url)
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.topic_list.topics[0].category_id+"/"+page_number
-                    elements = elements + '<div data-cid="'+ data.topic_list.topics[0].category_id + '" data-cname="'+ title + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';  
+                    elements = '<div data-cid="'+ data.topic_list.topics[0].category_id + '" data-cname="'+ title + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt.substring(0,60)+'...': "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';  
                     // console.log(elements);
                   }
-              $('#holder6').append(elements);
+                 $('#holder8').append(elements);
             });
         }
       }

@@ -1178,6 +1178,25 @@ function get_topics(req, res){
         console.log('error');
       });
     }
+    else if(response.statusCode===301)
+    {
+      https.get(response.headers.location,options,(response)=>{
+      if(response.statusCode===200){
+        var data='';
+        response.on('data',(chunk)=>{
+          data+=chunk;
+        });
+        response.on('end',()=>{
+           res.send(JSON.parse(data));
+        });
+        response.on('error', function() {
+          console.log('error');
+        });
+      }
+      });
+
+
+    }
   });
 }
 
