@@ -1072,8 +1072,15 @@ function get_categories(req, res, home, about, blog, project, feedback, logout, 
       'Api-Username': curr_user.username
     }
   };
-
-  https.get(secrets.url+'categories.json',options,(response)=>{
+  var check_var = false;
+  if(req.query.parent_category_id!=null && req.query.parent_category_id!=undefined && req.query.parent_category_id!="" ){
+    url = secrets.url+'categories.json?parent_category_id='+ req.query.parent_category_id
+    check_var = true
+  }
+  else{
+    url = secrets.url+'categories.json'
+  }
+  https.get(url,options,(response)=>{
    console.log(response.statusCode);
     if(response.statusCode===200 || response.statusCode===404){
       var data='';
@@ -1083,10 +1090,15 @@ function get_categories(req, res, home, about, blog, project, feedback, logout, 
       response.on('end',()=>{
         console.log("data");
         // console.log(data);
+        if(check_var == true){
+          res.send(JSON.parse(data));
+        }
+        else{
         let page_url = "categories";
         res.render('home.ejs', {
           home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
         });
+        }
       });
       response.on('error', function() {
         console.log('error');

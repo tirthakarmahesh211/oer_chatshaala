@@ -1361,11 +1361,13 @@ function myFunc() {
       var elements = '';
       if(clicked_element_data){
         var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
-        for (let i = 0; i < subcategory_ids.length; i++) {
+        // for (let i = 0; i < subcategory_ids.length; i++) {
           // console.log("/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i]);
           $.ajax({
-                url: "/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i],
-                type: 'GET'
+                // url: "/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i],
+                url: "/categories",
+                type: 'GET',
+                data: {parent_category_id: clicked_element_data.dataset.cid }
               })
               .done(function (data) {
                 // console.log("load_subcategories")
@@ -1373,19 +1375,21 @@ function myFunc() {
                   var logo;
                   logo="/images/icons/noun_Subcategory_929019.png";
                   // console.log(data.topic_list);
-                  if(data && data.topic_list.topics && data.topic_list.topics.length > 0){
-                    title = data.topic_list.topics[0].title.substring(10,data.topic_list.topics[0].title.length-9);
+                  if(data && data.category_list && data.category_list.categories.length > 0){
+                    // title = data.topic_list.topics[0].title.substring(10,data.topic_list.topics[0].title.length-9);
                     // title = ""
                     // url = "c/14/21/0";
-                    console.log(url)
+                    // console.log(url)
+                    for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
-                    url = "c/"+clicked_element_data.dataset.cid+"/"+data.topic_list.topics[0].category_id+"/"+page_number
-                    elements = '<div data-cid="'+ data.topic_list.topics[0].category_id + '" data-cname="'+ title + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + title + '</b>' + ' </h3>' + '<h5>' + (data.topic_list.topics.excerpt? data.topic_list.topics.excerpt: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';  
+                    url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
+                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
                     // console.log(elements);
+                    }
                   }
-                 $('#holder8').append(elements);
+                 $('#holder8').html(elements);
             });
-        }
+        // }
       }
     }
 
