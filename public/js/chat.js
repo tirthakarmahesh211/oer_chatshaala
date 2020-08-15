@@ -653,7 +653,7 @@ function myFunc() {
             data = data.topic_list.topics;
 
             var elements = '';
-
+            var img = "/images/icons/noun_timeline_2021907.png"
 
             for (var i = 0; i < data.length; i++) {
               var mydate, newdate, newtime, slug, ide, logo;
@@ -677,7 +677,7 @@ function myFunc() {
                 newdate = "";
                 newtime = "";
               }
-              elements = elements + '<div id="topic_'+ide+'" onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="https://bootdey.com/img/Content/avatar/avatar1.png">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+              elements = elements + '<div id="topic_'+ide+'" onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="img-circle medium-image" src="'+img+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
 
             }
 
@@ -1357,6 +1357,11 @@ function myFunc() {
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       // }
+      if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
+        // console.log(param);
+        left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
+        $('#menu_active').text(left_panel_header_title);
+      }
       $('#holder8').html("");
       var elements = '';
       if(clicked_element_data){
@@ -1383,7 +1388,7 @@ function myFunc() {
                     for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
-                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick=load_topics("'+url+'")' + '>' + '<li class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
+                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick=load_topics("'+url+'",this)' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
                     // console.log(elements);
                     }
                   }
