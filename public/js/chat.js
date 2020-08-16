@@ -439,11 +439,17 @@ function myFunc() {
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Categories');
       var e = document.getElementById("category_click");
-      e.classList.add("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.add("active-tab")
+      }
       e = document.getElementById("private_click");
-      e.classList.remove("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       e = document.getElementById("group_click");
-      e.classList.remove("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       
       document.getElementById("holder6").style.display = "Block";
       document.getElementById("holder4").style.display = "None";
@@ -515,13 +521,21 @@ function myFunc() {
 
       $('#menu_active').text('Latest');
       var e = document.getElementById("category_click");
-      e.classList.remove("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       e = document.getElementById("private_click");
-      e.classList.remove("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       e = document.getElementById("group_click");
-      e.classList.remove("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       e = document.getElementById("latest_click");
-      e.classList.add("active-tab");
+      if(e!=null && e!=undefined){
+        e.classList.add("active-tab");
+      }
 
       var my_div = $("#holder2");
 
