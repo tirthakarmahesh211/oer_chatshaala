@@ -292,6 +292,7 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
 
       $('#menu_active').text('Messages');
       var e = document.getElementById("category_click");
@@ -403,6 +404,7 @@ function myFunc() {
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -457,6 +459,7 @@ function myFunc() {
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -517,7 +520,7 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
-
+      document.getElementById("holder9").style.display = "None";
 
       $('#menu_active').text('Latest');
       var e = document.getElementById("category_click");
@@ -1370,6 +1373,7 @@ function myFunc() {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder5").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
       // }
       if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
         // console.log(param);
@@ -1824,3 +1828,53 @@ function open_page(){
   document.getElementById("mySidebar").style.width = "0";
 }
 
+function function_partners(value=null) {
+  // console.log(value);
+  $('#holder9').html("");
+  var username = $('#curr_user').attr('name');
+  if(value !=true){
+  $("#right_panel_msg").css("display","block");
+  // window.history.replaceState("object or string", '' , '/');
+  document.getElementById("inbox-message-1").style.display = "None";
+  $('#menu_active').text('Partners');
+  var e = document.getElementById("category_click");
+  if(e!=null && e!=undefined){
+    e.classList.remove("active-tab")
+  }
+  e = document.getElementById("private_click");
+  if(e!=null && e!=undefined){
+    e.classList.remove("active-tab");
+  }
+  e = document.getElementById("group_click");
+  if(e!=null && e!=undefined){
+    e.classList.remove("active-tab");
+  }
+  e = document.getElementById("partner_click");
+  if(e!=null && e!=undefined){
+    e.classList.add("active-tab");
+  }
+    
+  document.getElementById("holder6").style.display = "None";
+  document.getElementById("holder4").style.display = "None";
+  document.getElementById("holder2").style.display = "None";
+  document.getElementById("holder5").style.display = "None";
+  document.getElementById("holder7").style.display = "None";
+  document.getElementById("holder8").style.display = "None";
+  document.getElementById("holder9").style.display = "Block";
+
+  if (menuContent.style.display == "block") {
+    menuContent.style.display = "";
+  }
+  }
+
+  elements = "";
+  // elements = elements + '<div class="contact_list" onClick=' + 'load_topics("' + slug + "/" + ide + "/load/0" + '",this)' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' +data[i].description + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
+
+  // console.log(document.getElementById("Institutional Partners"))
+  // console.log(document.getElementById("Institutional Partners").parentElement.outerHTML);
+  elements = elements + document.getElementById("Institutional Partners").parentElement.outerHTML;
+  elements = elements + document.getElementById("State Partners").parentElement.outerHTML;
+  elements = elements + document.getElementById("Interest Groups").parentElement.outerHTML;
+  elements = elements + document.getElementById("Individual Partners").parentElement.outerHTML;
+  $('#holder9').html(elements);
+}
