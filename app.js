@@ -875,21 +875,38 @@ app.get("/user/subscribed/:uname", function (req, res) {
 
 
 app.get("/user/common/:uname", function (req, res) {
+  console.log(req.query.courses);
+  console.log(req.body);
   var id = req.params.uname;
-  var url1 = secrets.url + '/categories.json';
-  var url2 = secrets.url + "users/" + id + ".json";
   let curr_user = req.session.user;
 
-  var body1 = '';
-  var body2 = '';
-  var body3 = [];
+  if(req.query.courses == "true"){
+  var url1 = secrets.course_site_url+'/categories.json';
+  var url2 = secrets.course_site_url+ "users/" + id + ".json";
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.course_site_api_key,
+      'Api-Username': curr_user.username
+    }
+  };
+  }
+  else{
+  var url1 = secrets.url + '/categories.json';
+  var url2 = secrets.url + "users/" + id + ".json";
   var options = {
     method: 'GET',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': 'system'
+      'Api-Username': curr_user.username
     }
   };
+  }
+
+  var body1 = '';
+  var body2 = '';
+  var body3 = [];
+
   https.get(url1, options, (response) => {
 
     response.on('data', function (data) {
