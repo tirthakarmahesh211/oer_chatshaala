@@ -206,15 +206,27 @@ body {
   margin-right: 5px;
 }
 
-.img-circle {
-  border-radius: 50%;
+.user-logo-rect {
+  border-radius: 10%;
   margin-top: -62px;
   /* margin: -35px 2px; */
   margin-left: -15px;
   /*margin-right: 10px;*/
-  margin-bottom: -20px;
+  margin-bottom: 0px;
   position: absolute;
   top: 62px;
+  background-color: var(--mainColor) !important;
+}
+
+.img-circle {
+  /*border-radius: 50%;
+  margin-top: -62px;*/
+  /* margin: -35px 2px; */
+  /*margin-left: -15px;*/
+  /*margin-right: 10px;*/
+  /*margin-bottom: -20px;
+  position: absolute;
+  top: 62px;*/
 }
 
 .messages-panel {
