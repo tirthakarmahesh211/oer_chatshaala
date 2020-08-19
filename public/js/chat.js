@@ -158,10 +158,15 @@ window.onclick = function (event) {
 
 };
 
-function myFunc(filter=null) {
+function myFunc(clicked_element_data,filter=null) {
   //alert("hi");
   // Declare variables
   console.log(filter);
+  if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
+    // console.log(param);
+    left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
+    $('#menu_active').text(left_panel_header_title);
+  }
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementById('myInput');
   if(filter == null){
@@ -1400,7 +1405,7 @@ function myFunc(filter=null) {
                     for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
-                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
+                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(this,\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
                     // console.log(elements);
                     }
                   }
