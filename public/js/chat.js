@@ -158,24 +158,26 @@ window.onclick = function (event) {
 
 };
 
-function myFunc() {
+function myFunc(filter=null) {
   //alert("hi");
   // Declare variables
+  console.log(filter);
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementById('myInput');
-  filter = input.value.toUpperCase();
-
-  var get_div = document.querySelectorAll('div[id^="holder"][style*="display: block"]');
-
-  if((get_div && get_div[0] && get_div[0].id == "holder8") || get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
-    get_div = document.querySelectorAll('div[id^="holder"][data-display]');
+  if(filter == null){
+    filter = input.value.toUpperCase();
   }
-  else if(get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
-    get_div = document.querySelectorAll('div[id^="holder"][style*="display:block"]');
-  }
+    var get_div = document.querySelectorAll('div[id^="holder"][style*="display: block"]');
 
+    if((get_div && get_div[0] && get_div[0].id == "holder8") || get_div == undefined || get_div== null || get_div[0] == undefined || get_div[0] == null ){
+      get_div = document.querySelectorAll('div[id^="holder"][data-display]');
+    }
+    else if(get_div == undefined || get_div == null || get_div[0] == undefined || get_div[0] == null ){
+      get_div = document.querySelectorAll('div[id^="holder"][style*="display:block"]');
+    }
+    console.log(get_div);
+    var div_id = (get_div!=null && get_div!=undefined && get_div.length > 0)? get_div[0].id:null;
   var holder8 = document.getElementById("holder8");
-  var div_id = get_div[0].id
 
   if(filter!= "" && filter!=null && filter !=undefined && filter.length > 2){
     
@@ -207,7 +209,7 @@ function myFunc() {
       }).done(
         (data) => {
           console.log(data);
-          if(get_div[0].id != "holder8"){
+          if(get_div && get_div.length > 0 && get_div[0].id != "holder8"){
             get_div[0].style.display = "none";
             get_div[0].setAttribute("data-display", "");
           }
@@ -224,19 +226,11 @@ function myFunc() {
 
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
-            //alert('newdate: ' + newdate);
 
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
-            // alert('newtime: ' + newtime);
-
-          // elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + 
-          // '<div class="message-count">' + data.topics[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'">' + 
-          // '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.posts[i].blurb + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data.posts[i].username + '</h5>' + '</div>' + 
-          // '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
-          //
 
              elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<img alt="" class="img-circle medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'">' + 
-              '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.posts[i].blurb + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.posts[i].username +'   '+ '<strong class="total-message-count">'+data.topics[i].posts_count +' posts'+'</strong>' + '</h5>' + '</div>' + 
+              '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topics[i].title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.posts[i].username +'   '+ '<strong class="total-message-count">'+data.topics[i].posts_count +' posts'+'</strong>' + '</h5>' + '</div>' + 
               '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
            }
           }
@@ -246,7 +240,7 @@ function myFunc() {
   }
   else if(filter.length < 2){
 
-    if(get_div[0].id != "holder8"){
+    if(get_div && get_div.length > 0 && get_div[0].id != "holder8"){
       var div = document.querySelectorAll('div[id^="holder"][data-display]');
 
       if(div  && div[0]){
@@ -1364,7 +1358,7 @@ function myFunc() {
     }
 
     function load_subcategories(clicked_element_data,value=null){
-      console.log("load_subcategories");
+      // console.log("load_subcategories");
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
       // if(value!=true){
@@ -1406,7 +1400,7 @@ function myFunc() {
                     for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
-                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick=load_topics("'+url+'",this)' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
+                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="img-circle medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
                     // console.log(elements);
                     }
                   }
