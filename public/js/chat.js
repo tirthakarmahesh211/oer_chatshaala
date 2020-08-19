@@ -1956,7 +1956,7 @@ function function_courses(){
             ide = data[i].id;
             if (data[i].uploaded_logo) {
               logo = data[i].uploaded_logo.url;
-              logo=myUrl+logo;
+              logo='https://lms.metastudio.org/'+logo;
             }
             let partners_div = (data[i].name == 'Institutional Partners' || data[i].name == 'State Partners' || data[i].name == 'Interest Groups' || data[i].name == 'Individual Partners')?'style="display:none;"':'';
 
