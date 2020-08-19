@@ -458,7 +458,11 @@ function myFunc(clicked_element_data,filter=null) {
       e = document.getElementById("partner_click");
       if(e!=null && e!=undefined){
         e.classList.remove("active-tab");
-      }      
+      }
+      e = document.getElementById("course_click");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }   
       document.getElementById("holder6").style.display = "Block";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder2").style.display = "None";
@@ -548,6 +552,10 @@ function myFunc(clicked_element_data,filter=null) {
       e = document.getElementById("latest_click");
       if(e!=null && e!=undefined){
         e.classList.add("active-tab");
+      }
+      e = document.getElementById("course_click");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
       }
 
       var my_div = $("#holder2");
@@ -1867,6 +1875,10 @@ function function_partners(value=null) {
   if(e!=null && e!=undefined){
     e.classList.remove("active-tab");
   }
+  e = document.getElementById("course_click");
+  if(e!=null && e!=undefined){
+    e.classList.remove("active-tab");
+  }
   document.getElementById("holder6").style.display = "None";
   document.getElementById("holder4").style.display = "None";
   document.getElementById("holder2").style.display = "None";
@@ -1874,6 +1886,7 @@ function function_partners(value=null) {
   document.getElementById("holder7").style.display = "None";
   document.getElementById("holder8").style.display = "None";
   document.getElementById("holder9").style.display = "Block";
+  document.getElementById("holder10").style.display = "None";
 
   if (menuContent.style.display == "block") {
     menuContent.style.display = "";
@@ -1905,11 +1918,11 @@ function function_courses(){
       // window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
       $('#menu_active').text('Courses');
-      e = document.getElementById("partner_click");
+      var e = document.getElementById("partner_click");
       if(e!=null && e!=undefined){
         e.classList.remove("active-tab");
       }  
-      var e = document.getElementById("category_click");
+      e = document.getElementById("category_click");
       if(e!=null && e!=undefined){
         e.classList.remove("active-tab")
       }
@@ -1941,7 +1954,7 @@ function function_courses(){
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
-
+      $('#holder10').html("");
       $.ajax({
         url: "/user/common/" + username,
         data: { courses: true }
