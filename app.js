@@ -626,20 +626,22 @@ app.get("/group/:topic/:id/:offset", function (req, res) {
 
 
 app.get("/group/:name/:id/load/:offset", function (req, res) {
-  console.log("gruppppppp")
+  // console.log("gruppppppp");
+  // console.log(req.query);
+  // // console.log();
   let curr_user = req.session.user;
   var name = req.params.name;
   var id = req.params.id;
   var i = req.params.offset;
 
   var body3 = '';
-  var url2 = secrets.url + 'c/' + name + "/" + id + '.json' + '?page=' + i+'&order=activity';
+  var url2 = ((req.query && req.query.class == "true")?secrets.course_site_url:secrets.url) + 'c/' + name + "/" + id + '.json' + '?page=' + i+'&order=activity';
   // console.log(url2);
 
   var options = {
     method: 'GET',
     headers: {
-      'Api-Key': secrets.key,
+      'Api-Key': ((req.query && req.query.class == "true")? secrets.course_site_api_key :secrets.key),
       'Api-Username': curr_user.username
     }
   };
