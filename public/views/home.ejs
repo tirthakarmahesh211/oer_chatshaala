@@ -189,7 +189,7 @@
 
       <div class="tab-content">
         <%if(page_url != "topic"){%>
-        <div id="right_panel_msg" class="centered_text">Please select a chat to start messaging</div>
+        <div id="right_panel_msg" class="centered_text">Search or Navigate through categories to access open educational resources</div>
         <%}%>
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
@@ -391,13 +391,13 @@
 
   </div>
   <div>
-  <button aria-label="New Topic" id="plus_btn" class="btn-default" type="button">
+  <button aria-label="New Resource" id="plus_btn" class="btn-default" type="button">
     <i class="fa fa-plus" aria-hidden="true"></i>
     <!-- <span class="btn_text">Create a Topic/Send a Private Message</span> -->
   </button>
   <button style="display: none;" aria-label="Create a New Topic" id="create-topic" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
-    <span style="display: none;" class="btn_text">New Topic</span>
+    <span style="display: none;" class="btn_text">New Resource</span>
   </button>
   <button style="display: none;" aria-label="Send a Private Message" id="create-message" class=" actions_btn" type="button">
     <!-- <i class="fa fa-plus" aria-hidden="true"></i> -->
@@ -407,7 +407,7 @@
   </div>
   <div id="details-form" class="detail_form">
     <button style="display: none;" id="back_btn_for_dm"><img src="/images/icons/noun_back_2784520.png" style="height:35px;width:35px;"/></button>
-    <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type topic title" required=''>
+    <input style="display: none;" id="topic_title" type="text" name="topic_title" placeholder="Type Resource title" required=''>
     <div id="select_usr_grp_div">
     <input style="display: none" id="select_usr_grp" type="text" name="user_grp_search" placeholder="Select user/s and/or group/s" autocomplete="off" required=''>
     <ul id="searched_user"></ul>
@@ -427,7 +427,7 @@
         <i class="fa fa-paperclip fa-2x" aria-hidden="true"></i>
       </div>
 
-      <textarea id="replyMessage1" class="composer_rich_textarea" name="replyMessage1" placeholder="Join the conversation..." ></textarea>
+      <textarea id="replyMessage1" class="composer_rich_textarea" name="replyMessage1" placeholder="Your feedback or ask any question or discuss the topic......" ></textarea>
 
       <div class="im_attach pull-right">
         <button id="saveDelta1" class="save_btn" type="button" title="Submit"></button>
