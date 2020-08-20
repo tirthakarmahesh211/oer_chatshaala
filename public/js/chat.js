@@ -1013,6 +1013,21 @@ function myFunc(clicked_element_data,filter=null) {
             let edit_button = '<div class="edit_btn" id="edit_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" data-post_id="'+ data[i].id +'" title="edit this post" onclick="edit_function(this)"><i class="fa fa-pencil" aria-hidden="true"></i></div>'
             let setting_button = '<div class="setting_btn" id="setting_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" data-post_id="'+ data[i].id +'" title="" onclick="setting_function(this)"><i class="fa fa-external-link"></i></div>'
             let cooked = (data[i].cooked!=null && data[i].cooked!=undefined)? data[i].cooked.replace(/<h3[^>]*>(\s*none\s*(\s*<br\s*>)*\s*)<\/h3>/ig,''):'';
+
+            if(cooked!=""){
+              let match_data = cooked.match(/<a.*?href="(.*?)"[^\>]+>(.*)<\/a>/i);
+              // console.log(match_data);
+              // console.log(cooked.split(match_data[0]));
+              // console.log(cooked.split(match_data[0]).length);
+              if(match_data && match_data.length > 0 && match_data[match_data.length - 1] && match_data[match_data.length - 1].startsWith("http") && (match_data[match_data.length - 1].endsWith(".epub") || match_data[match_data.length - 1].split("/")[match_data[match_data.length - 1].split("/").length - 1].indexOf(".")==-1 ) ){
+                // match_data = match_data[match_data.length - 1];
+                // console.log("if asasasas");
+                // console.log(match_data[0]);
+                match_data1 = match_data[0].replace(">"+match_data[match_data.length - 1],">Download Ebook");
+                // console.log(match_data1);
+                cooked = cooked.split(match_data[0])[0] +match_data1  + cooked.split(match_data[0])[1];
+              }
+            }
             if (data[i].username != username) {//for receive
               if (data[i] && data[i].reply_count > 0 && data[i].cooked && data[i+1] && (data[i].post_number != data[i+1].reply_to_post_number || data[i].reply_count > 1)){
 
