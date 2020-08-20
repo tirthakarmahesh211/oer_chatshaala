@@ -461,7 +461,7 @@ background: rgba(36, 117, 47, 0.4);
 }
 .reply_function{
   cursor:pointer;
-  color: #bdc2c5;
+  color: #4c4c4d !important;
   padding-right: 5px;
   margin-top: 2px;
   margin-right: 10px;
@@ -2678,4 +2678,22 @@ blockquote{
 
 span.bbcode-u{
   text-decoration: underline;
+}
+
+span.filename {
+  display: none;
+}
+span.informations {
+  display: none;
+}
+
+.download_div {
+  float: right;
+  padding-right: 10px;
+  font-size: 16px;
+}
+
+.fa-download{
+  color: #333232e3;
+  cursor: pointer;
 }
