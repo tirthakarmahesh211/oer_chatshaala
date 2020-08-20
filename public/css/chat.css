@@ -201,21 +201,27 @@ body {
 }*/
 
 .medium-image {
-  width: 45px;
-  height: 45px;
+  width: 57px;
+  height: 46px;
   margin-right: 5px;
 }
 
 .user-logo-rect {
-  border-radius: 10%;
+  border-radius: 2%;
   margin-top: -62px;
   /* margin: -35px 2px; */
   margin-left: -15px;
-  /*margin-right: 10px;*/
+  margin-right: 10px;
   margin-bottom: 0px;
   position: absolute;
   top: 62px;
   background-color: var(--mainColor) !important;
+}
+
+.user-logo-rect:hover {
+  transform: scale(3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  z-index: 1000;
+  margin-left: 43px;
 }
 
 .img-circle {
@@ -778,7 +784,7 @@ input[type="text"]:focus {
 .contacts li>.info-combo {
   width: 172px;
   cursor: pointer;
-  margin-left: 34px;
+  margin-left: 47px;
 }
 
 .contacts li>.info-combo>h3 {
