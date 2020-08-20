@@ -219,8 +219,9 @@ body {
 }
 
 .user-logo-rect:hover {
-  transform: scale(4.3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(3); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   z-index: 1000;
+  margin-left: 43px;
 }
 
 .img-circle {
