@@ -959,7 +959,7 @@ function myFunc(clicked_element_data,filter=null) {
           }
           // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
-            download_btn = '<div class="download_div"><span id="download_' + data[i].id + '" style="display:inline-block;"></span><a target="_blank" id="download_' + data[i].id + '" href="'+ ((data[i].link_counts && data[i].link_counts.length > 0 && data[i].link_counts[0].url)?data[i].link_counts[0].url:"#") +'"><i title="Download the resource" class="fa fa-download" aria-hidden="true"></i></a></div>'
+            download_btn = '<div class="download_div"><span id="download_' + data[i].id + '" style="display:inline-block;"></span><a target="_blank" id="download_' + data[i].id + '" href="'+ ((data[i].link_counts && data[i].link_counts.length > 0 && data[i].link_counts[0].url)?data[i].link_counts[0].url:"#") +'" download><i title="Download the resource" class="fa fa-download" aria-hidden="true"></i></a></div>'
             var post_id = data[i].id;
             var post_id = 'data-post_id="'+post_id+'"';
             // console.log(post_id);

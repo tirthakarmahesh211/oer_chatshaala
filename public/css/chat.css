@@ -2697,3 +2697,11 @@ span.informations {
   color: #333232e3;
   cursor: pointer;
 }
+
+.message-text > h1{
+  display: none;
+}
+
+.message-text > h3{
+  font-size: 14px;
+}
