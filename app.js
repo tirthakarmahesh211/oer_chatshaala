@@ -499,7 +499,6 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-  // console.log(req.params.url1);
   // console.log(req.params.url2);
   // console.log(req.params.url3);
   // console.log(req.params.url4);
@@ -510,16 +509,16 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
   }
 
   if (req.params && req.query && req.query.page_number == null && req.query.page_number == undefined && (req.params.url3 == null || req.params.url3 == undefined || req.params.url4 == null || req.params.url4 == undefined)){
-  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + ".json";
+  var url = ((req.query && req.query.course_post_div == "true")? secrets.course_site_url :secrets.url) + req.params.url1 + "/" + req.params.url2 + ".json";
   }
   else if(req.params && req.params.url2 && req.params.url3 && req.query.page_number){
-  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 +".json" +"?page="+req.query.page_number; 
+  var url = ((req.query && req.query.course_post_div == "true")? secrets.course_site_url :secrets.url) + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 +".json" +"?page="+req.query.page_number; 
   }
   else if(req.params && req.params.url2 && req.query && req.query.page_number){
-  var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "?page="+req.query.page_number;
+  var url = ((req.query && req.query.course_post_div == "true")? secrets.course_site_url :secrets.url) + req.params.url1 + "/" + req.params.url2 + "?page="+req.query.page_number;
   }
   else{
-   var url = secrets.url + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
+   var url = ((req.query && req.query.course_post_div == "true")? secrets.course_site_url :secrets.url) + req.params.url1 + "/" + req.params.url2 + "/" + req.params.url3 + "/" + req.params.url4 + ".json";
   }
   // console.log(url);
   var body = '';
@@ -527,7 +526,7 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
   var options = {
     method: 'GET',
     headers: {
-      'Api-Key': secrets.key,
+      'Api-Key': ((req.query && req.query.course_post_div == "true")? secrets.course_site_api_key:secrets.key),
       'Api-Username': req.session.user.username
     }
   };

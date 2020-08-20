@@ -470,7 +470,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
-
+      document.getElementById("holder10").style.display = "None";
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
@@ -535,6 +535,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
+      document.getElementById("holder10").style.display = "None";
 
       $('#menu_active').text('Latest');
       var e = document.getElementById("category_click");
@@ -557,7 +558,10 @@ function myFunc(clicked_element_data,filter=null) {
       if(e!=null && e!=undefined){
         e.classList.remove("active-tab");
       }
-
+      e = document.getElementById("partner_click");
+      if(e!=null && e!=undefined){
+        e.classList.remove("active-tab");
+      }
       var my_div = $("#holder2");
 
       // console.log(my_div)
@@ -647,6 +651,7 @@ function myFunc(clicked_element_data,filter=null) {
     }
 
     function load_topics(x, param=null) {
+      console.log(param);
       $("#right_panel_msg").css("display","none");
       // console.log(x);
       y = x;
@@ -677,6 +682,8 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
+      document.getElementById("holder9").style.display = "None";
+      document.getElementById("holder10").style.display = "None";
       var my_div = $("#holder5");
       var l = 1;
 
@@ -771,7 +778,7 @@ function myFunc(clicked_element_data,filter=null) {
               var avatar_template = img;
             }
             // elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data.topic_list.topics[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data.topic_list.topics[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="'+img+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topic_list.topics[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
-            elements = elements + '<div id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data.topic_list.topics[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="'+img+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topic_list.topics[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username + '   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +' posts'+'</strong>' +'</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
+            elements = elements + '<div data-class="" id="topic_'+ide+'" '+ more_topics_url +'  onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data.topic_list.topics[i].title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="'+img+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topic_list.topics[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username + '   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +' posts'+'</strong>' +'</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '<div onClick=' + 'copy_topic(event,"' + "/post/t/" + slug + "/" + ide + "/1" + '")' + '>' + '<i class="fa fa-share-alt ">' + '</i>' + ' </div>' + '</div>' + '</li>' + '</div>';
           }
           // console.log(y);
           if(y != null && y!=undefined && y.split("##").length != 1){
@@ -839,7 +846,7 @@ function myFunc(clicked_element_data,filter=null) {
     }
 
     function load_posts(x, param=null, page_number=null, index_of_post_number=null) {
-      // console.log(param);
+      console.log(param);
       // console.log(index_of_post_number);
       var topic_head = null;
       if(typeof param === "string" ){
@@ -851,6 +858,12 @@ function myFunc(clicked_element_data,filter=null) {
         topic_head = param.firstChild.getAttribute("id");
       }
       $("#load_next_posts").show();
+
+      var course_post_div = false;
+      if(param && param.dataset && param.dataset.class==""){
+        course_post_div = true;
+      }
+
       // var page_number = null;
       var html_or_prepend = false;
       var html_or_append = false;
@@ -918,7 +931,7 @@ function myFunc(clicked_element_data,filter=null) {
       // console.log(page_number);
       $.ajax({
         url: url,
-        data: {page_number:page_number, "post_ids[]": array_of_post_ids},
+        data: {page_number:page_number, "post_ids[]": array_of_post_ids,course_post_div:course_post_div},
       })
         .done(function (data) {
           // console.log("aaaaaaaaaaaaaaaaa");
@@ -1400,6 +1413,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder9").style.display = "None";
+      document.getElementById("holder10").style.display = "None";
       // }
       if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
         // console.log(param);
@@ -1432,7 +1446,7 @@ function myFunc(clicked_element_data,filter=null) {
                     for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
-                    elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(this,\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
+                    elements = elements + '<div data-class="" data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(this,\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
                     // console.log(elements);
                     }
                   }
