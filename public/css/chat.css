@@ -1179,6 +1179,7 @@ input[type="text"]:focus {
   margin-right: 4px
   color: rgb(46, 43, 43);
   margin-bottom: 6px;
+  overflow: hidden;
 }
 
 /*.message:after {
