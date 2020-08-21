@@ -169,7 +169,9 @@ function myFunc(clicked_element_data,filter=null) {
   }
   var input, filter, ul, li, a, i, txtValue;
   input = document.getElementById('myInput');
+  var chk_filter_null_or_not = true;
   if(filter == null){
+    chk_filter_null_or_not = false;
     filter = input.value.toUpperCase();
   }
     var get_div = document.querySelectorAll('div[id^="holder"][style*="display: block"]');
@@ -213,7 +215,8 @@ function myFunc(clicked_element_data,filter=null) {
         data: { search_text: filter }
       }).done(
         (data) => {
-          console.log(data);
+          // console.log(data);
+          console.log(get_div);
           if(get_div && get_div.length > 0 && get_div[0].id != "holder8"){
             get_div[0].style.display = "none";
             get_div[0].setAttribute("data-display", "");
@@ -239,7 +242,14 @@ function myFunc(clicked_element_data,filter=null) {
               '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
            }
           }
-          holder8.innerHTML = elements;
+          if(chk_filter_null_or_not == true){
+            holder8.style.display = "none";
+            holder11.style.display = "block";
+            holder11.innerHTML = elements;
+          }
+          else{
+            holder8.innerHTML = elements;
+          }
         }
       );
   }
@@ -292,6 +302,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
+      document.getElementById("holder11").style.display = "None";
 
       $('#menu_active').text('Messages');
       var e = document.getElementById("category_click");
@@ -404,6 +415,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder7").style.display = "None";
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
+      document.getElementById("holder11").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
@@ -471,6 +483,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "None";
+      document.getElementById("holder11").style.display = "None";
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
       }
@@ -536,6 +549,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "None";
+      document.getElementById("holder11").style.display = "None";
 
       $('#menu_active').text('Latest');
       var e = document.getElementById("category_click");
@@ -684,6 +698,7 @@ function myFunc(clicked_element_data,filter=null) {
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "None";
+      document.getElementById("holder11").style.display = "None";
       var my_div = $("#holder5");
       var l = 1;
 
@@ -1429,20 +1444,21 @@ function myFunc(clicked_element_data,filter=null) {
       // console.log(clicked_element_data.dataset.cid);
       // console.log(clicked_element_data.dataset.sub_cids);
       // if(value!=true){
-      document.getElementById("holder8").style.display = "Block";
+      document.getElementById("holder8").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder4").style.display = "None";
       document.getElementById("holder6").style.display = "None";
       document.getElementById("holder5").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "None";
+      document.getElementById("holder11").style.display = "Block";
       // }
       if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
         // console.log(param);
         left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
         $('#menu_active').text(left_panel_header_title);
       }
-      $('#holder8').html("");
+      $('#holder11').html("");
       var elements = '';
       if(clicked_element_data){
         var subcategory_ids = clicked_element_data.dataset.sub_cids.split(",");
@@ -1472,7 +1488,7 @@ function myFunc(clicked_element_data,filter=null) {
                     // console.log(elements);
                     }
                   }
-                 $('#holder8').html(elements);
+                 $('#holder11').html(elements);
             });
         // }
       }
@@ -1931,6 +1947,7 @@ function function_partners(value=null) {
   document.getElementById("holder8").style.display = "None";
   document.getElementById("holder9").style.display = "Block";
   document.getElementById("holder10").style.display = "None";
+  document.getElementById("holder11").style.display = "None";
 
   if (menuContent.style.display == "block") {
     menuContent.style.display = "";
