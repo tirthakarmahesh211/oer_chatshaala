@@ -261,7 +261,7 @@ body {
   background-color: #fff;
   border-right: 1px solid #cfdbe2;
   /*width: 325px;*/
-  width: 25%;
+  width: 30%;
   height: 100%;
   border-top-left-radius: 5px;
   float: left;
@@ -1000,7 +1000,7 @@ input[type="text"]:focus {
   /* background-color: #fbfcff; */
   height: 100%;
   /*width: calc(100% - 325px);*/
-  width: 75%;
+  width: 70%;
   float: right;
   
 }
@@ -2072,7 +2072,7 @@ div.reply_msg{
   padding: 0px 8px;
   font-size: 20px;
   color: white !important;
-  width: 25%;
+  width: 30%;
 }
 
 .fa-search{
@@ -2115,7 +2115,7 @@ div.reply_msg{
     /*right: 0;*/
     margin-top: 14px;
     margin-right: 42px;
-    width: calc(25% - 80px);
+    width: calc(30% - 80px);
     font-size: 16px;
     border: 1px solid grey;
     color: gray;
@@ -2179,8 +2179,8 @@ div.reply_msg{
 .editor_widget{
     position: fixed;
     bottom:0;
-    width:75%;
-    left:calc(25%);
+    width:70%;
+    left:calc(30%);
     padding: 1% 1% 0% 1%;
     background-color: #ececec;
     border-top: 1px solid #cec7c7;
@@ -2428,7 +2428,7 @@ div.reply_msg{
   border-radius: calc(50%);
   position: fixed;
   bottom: 30px;
-  right: calc(77%);
+  right: calc(73%);
   z-index: 399;
   background-color: var(--mainColor);
   color: #fff;
@@ -2451,7 +2451,7 @@ div.reply_msg{
   color:white;
   font-weight: bold;
   /*left:25%;*/
-  right: calc(77%);
+  right: calc(73%);
 }
 
 #create-message{
@@ -2466,7 +2466,7 @@ div.reply_msg{
   color:white;
   font-weight: bold;
   /*left: 25% ;*/
-  right: calc(77%);
+  right: calc(73%);
 }
 
 #create-group{
@@ -2488,7 +2488,7 @@ div.reply_msg{
     display: none;
     position: fixed;
     right: 0 !important;
-    width: 75%;
+    width: 70%;
     height: 100vh;
     background: var(--mainColor);
     top:0;
@@ -2529,7 +2529,7 @@ div.reply_msg{
   color: white;
   position: fixed;
   top: 0;
-  left: 26% !important;
+  left: 30.5% !important;
 }
 
 }
@@ -2715,7 +2715,7 @@ span.informations {
 }
 
 .contacts #holder9 li > .info-combo > h5 {
-  width: 18vw;
+  width: 24vw;
   font-size: 13px;
   height: auto;
   font-weight: 500;
@@ -2747,7 +2747,7 @@ span.informations {
 }
 
 .contacts #holder10 li > .info-combo > h5 {
-  width: 18vw;
+  width: 23vw;
   font-size: 12px;
   height: auto;
   font-weight: 500;
