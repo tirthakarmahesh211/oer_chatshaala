@@ -2784,3 +2784,7 @@ span.informations {
   margin-top: 2px;
 }
 }
+
+iframe{
+  width:100%;
+}
