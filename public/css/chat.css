@@ -2789,3 +2789,15 @@ span.informations {
 iframe{
   width:100%;
 }
+
+.filesize{
+  display: none;
+}
+
+.source {
+  display: none;
+}
+
+.onebox-body h3{
+  font-size: 16px !important;
+}

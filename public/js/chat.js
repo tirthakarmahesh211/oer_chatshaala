@@ -2011,6 +2011,7 @@ function function_courses(){
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "Block";
+      document.getElementById("holder11").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";
