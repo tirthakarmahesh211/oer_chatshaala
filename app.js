@@ -63,7 +63,7 @@ app.get('/*', function (req, res, next) {
 });
 
 //Routing
-app.get('/register', function (req, res) {
+app.get('/login', function (req, res) {
   let user = req.session.user;
   if (user) {
     res.redirect('/');
@@ -74,7 +74,7 @@ app.get('/register', function (req, res) {
   }
 });
 
-app.post('/register', function (req, res) {
+app.post('/login', function (req, res) {
   let user = req.session.user;
   if (user) {
     res.redirect(home1);
@@ -121,7 +121,7 @@ app.get('/chat', function (req, res) {
       home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
     });
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -134,7 +134,7 @@ app.get('/', function (req, res) {
       home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url,page_url:page_url
     });
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -421,7 +421,7 @@ app.get("/profile", function (req, res) {
     var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
     func.request_summary(res, obj, 'curr_profile');
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -432,21 +432,21 @@ app.get("/badges", function (req, res) {
     var obj = { curr_user: curr_user, home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout,url:secrets.url };
     func.showBadges(res, obj);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
 
 app.get('/logout', function (req, res) {
-  console.log("log out");
+  // console.log("log out");
   let user = req.session.user;
   if (user) {
     req.session.cookie.maxAge = -1;
     req.session.destroy();
     req.session = null;
-    res.redirect('/register');
+    res.redirect('/login');
   }else{
-      res.redirect('/register');
+      res.redirect('/login');
   }
 });
 
@@ -985,7 +985,7 @@ app.post('/reply/:topic_id?/:category_id?/:post_number?', (req, res) => {
   if (curr_user) {
     func.reply_to_specific_pvt_msg(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 
 });
@@ -995,7 +995,7 @@ app.delete('/delete/:type/:id', (req, res) => {
   if (curr_user) {
     func.delete_posts(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 
 });
@@ -1005,7 +1005,7 @@ app.post('/upload/:topic_id', (req, res) => {
   if (curr_user) {
     func.upload_file(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 
 });
@@ -1024,7 +1024,7 @@ app.get('/t/:topic_id/posts$/', function (req, res) {
       }
   }
   else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1039,7 +1039,7 @@ app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, r
       func.get_topic(req,res);
     }
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1053,7 +1053,7 @@ app.get('/categories', function (req, res) {
       console.log(ex);
     }
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1077,7 +1077,7 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
       }      
     }
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1087,7 +1087,7 @@ app.get('/posts/:post_id/replies$', function (req, res) {
   if (curr_user) {
       func.get_post_replies(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1096,7 +1096,7 @@ app.post('/post_actions/:post_id/:post_action_type_id', function (req, res) {
   if (curr_user) {
       func.like(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1122,7 +1122,7 @@ app.delete('/delete_post_actions/:post_id/:post_action_type_id', function (req, 
   if (curr_user) {
       func.unlike(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1131,7 +1131,7 @@ app.get('/posts/:post_id', function (req, res) {
   if (curr_user) {
       func.get_specific_post_by_id(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 
@@ -1140,7 +1140,7 @@ app.put('/posts/:post_id', function (req, res) {
   if (curr_user) {
       func.update_posts_raw_by_id(req,res);
   } else {
-    res.redirect('/register');
+    res.redirect('/login');
   }
 });
 

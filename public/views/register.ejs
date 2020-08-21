@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="ChatShaala">
-  <title>ChatShaala</title>
+  <meta name="description" content="NROER 2.0">
+  <title>NROER 2.0</title>
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/register.css" />
   <link rel="stylesheet" href="/css/pure_css.css">
@@ -22,11 +22,11 @@
     </a>
   -->
     <!-- <a href="/" class="_active">StemGames <img src='stemlogo.png' alt='stem logo' id='mylogo' /></a> -->
-    <a href="/" class="_active">Chatshala </a>
+    <a href="/" class="_active">NROER 2.0 </a>
 
     <!-- Navigation links (hidden by default) -->
     <div id="myLinks">
-      <a href="/register">Login</a>
+      <a href="/login">Login</a>
 
     </div>
     <!-- "Hamburger menu" / "Bar icon" to toggle the navigation links -->
@@ -38,14 +38,15 @@
       <center>
         <div class="header">
           <!-- <h1>WELCOME TO <img src="./stemgames.png" alt="COOOL STEM Games" id="site-logo" class="logo"> <img src='stemlogo.png' alt='stem logo' id='mylogo' /></h1> -->
-          <h1> Welcome to Chatshala</h1>
+          <h1> Welcome to NROER 2.0</h1>
 <!--           <h2>Welcome to metaStudio platform! Here we collaboratively do STEM projects and converse about the projects. We
             do investigations as well as innovation projects.</h2> -->
         </div>
       </center>
+      <h3> Users who already registered at nroer.gov.in may reset their password without registration </h3>
       <div class="content" id='content'>
         <h1 id='message'><%=status%></h1>
-        <form class="pure-form pure-form-stacked" id="SignUp" action="/register" method="post">
+        <form class="pure-form pure-form-stacked" id="SignUp" action="/login" method="post">
           <fieldset>
             <legend>Register</legend>
             <div class="pure-g">
@@ -102,7 +103,7 @@
         </form>
 
 
-        <form class="hidden pure-form pure-form-stacked" id="Login" action="/register" method='post'>
+        <form class="hidden pure-form pure-form-stacked" id="Login" action="/login" method='post'>
           <fieldset>
             <legend>Login</legend>
             <div class="pure-g">
@@ -115,7 +116,7 @@
                 <input type="password" value="" placeholder="Password" class="pure-u-23-24 " name="pass2" required=''>
               </div>
               <div class="pure-u-1 pure-u-md-1-3">
-                <a href="https://metastudio.org/">Forgot Password</a>
+                <a href="https://nroer.metastudio.org/">Forgot Password</a>
               </div>
             </div>
             <button type="submit" class="pure-button pure-button-primary" name='login'>Login</button>
