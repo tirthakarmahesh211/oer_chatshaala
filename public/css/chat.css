@@ -1161,6 +1161,7 @@ input[type="text"]:focus {
   margin-bottom: 10px;
   padding: 10px 5px 5px 5px;
   /* overflow-y: scroll; */
+  margin-top:10px;
 }
 
 .message {
