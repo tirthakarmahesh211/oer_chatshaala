@@ -2712,3 +2712,75 @@ span.informations {
 .message-text > h3{
   font-size: 14px;
 }
+
+.contacts #holder9 li > .info-combo > h5 {
+  width: 18vw;
+  font-size: 13px;
+  height: auto;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  /* display: flex; */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  position: relative;
+  margin-top: -2px;
+}
+
+@media screen and (max-width: 767px) {
+.contacts #holder9 li > .info-combo > h5 {
+  width: 78vw !important;
+  font-size: 13px;
+  height: auto;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  margin-top: -2px;
+}
+}
+
+.contacts #holder10 li > .info-combo > h5 {
+  width: 18vw;
+  font-size: 12px;
+  height: auto;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  /* display: flex; */
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  position: relative;
+  margin-top: 2px;
+}
+
+.contacts #holder10 li {
+  padding-right: 20px;
+  padding-left: 16px;
+  height: 50px !important;
+  margin-top: 5px;
+}
+
+
+@media screen and (max-width: 767px) {
+.contacts #holder10 li > .info-combo > h5 {
+  width: 78vw !important;
+  font-size: 12px;
+  height: auto;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  margin-top: 2px;
+}
+}
