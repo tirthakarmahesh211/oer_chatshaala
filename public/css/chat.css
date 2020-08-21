@@ -1030,7 +1030,7 @@ input[type="text"]:focus {
 }
 
 .message-body {
-  background-color: #abd4e6;
+  background-color: #c5ecd0;
   border-bottom: 1px solid rgba(205, 211, 237, 0.5);
 }
 
@@ -1139,7 +1139,7 @@ input[type="text"]:focus {
   margin-top: 50px;
    /*margin-bottom: 80px;*/
   padding-bottom:14%;
-  background-color:#abd4e6;
+  background-color:#c5ecd0;
 }
 
 
@@ -1157,7 +1157,7 @@ input[type="text"]:focus {
   width: calc(75%);
   /* min-height: 290px; */
   /* height: 83vh; */
-  background-color: #abd4e6;
+  background-color: #c5ecd0;
   margin-bottom: 10px;
   padding: 10px 5px 5px 5px;
   /* overflow-y: scroll; */
