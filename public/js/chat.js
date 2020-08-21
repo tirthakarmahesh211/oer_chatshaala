@@ -223,21 +223,41 @@ function myFunc(clicked_element_data,filter=null) {
           }
           holder8.style.display = "block";
           elements = '';
+          console.log(data);
           if(data.topics!= undefined && data.topics !=null){
           for (i = 0; i < data.topics.length; i++) {
             var mydate, user_id, newdate, newtime, slud, topic_id;
-            var img = "/images/icons/noun_Email_3449902.png";
+            //var img = "/images/icons/noun_Email_3449902.png";
 
             mydate = data.posts[i].created_at;
             slug = data.topics[i].slug;
             topic_id = data.posts[i].topic_id;
+
+              var img = data.topics[i].tags;
+              console.log(img);
+              // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
+              // var ebooks = img.includes("ebooks");
+              // console.log(ebooks);
+              if(img.includes("ebooks")){
+                img = "/images/icons/noun_ebook_3492764.png";
+              }else if(img.includes("videos")){
+                img = "/images/icons/noun_Video_2567853.png";
+              }else if(img.includes("pdf")){
+                img = "/images/icons/noun_PDF_377198.png";
+              }else if(img.includes("audios")){
+                img = "/images/icons/noun_Audio_3408350.png";
+              }else if(img.includes("interactives")){
+                img = "/images/icons/noun_interactivity_1857788.png";
+              }else{
+                img = "/images/icons/noun_miscellaneous_3067705.png";
+              }
 
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
 
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
 
-             elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<img alt="" class="user-logo-rect medium-image" src="'+ document.getElementById("url").getAttribute("name")+data.posts[i].avatar_template.replace("{size}","50")+'">' + 
+             elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<img alt="" class="user-logo-rect medium-image" src="'+img +'">' + 
               '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topics[i].title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.posts[i].username +'   '+ '<strong class="total-message-count">'+((data.topics[i].posts_count > 1)? data.topics[i].posts_count +' posts':data.topics[i].posts_count +' post')+'</strong>' + '</h5>' + '</div>' + 
               '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
            }
@@ -588,14 +608,32 @@ function myFunc(clicked_element_data,filter=null) {
       })
         .done(function (data) {
           // console.log("tyutut")
-          // console.log(data);
+          //console.log(data.topic_list.topics);
+
           $('#holder2').html("");
           var elements = '';
 
           for (var i = 0; i < data.topic_list.topics.length; i++) {
             var mydate, user_id, newdate, newtime, slud, ide, fancy_title;
-            var img = "/images/icons/noun_timeline_2021907.png";
-            // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
+            //var img = "/images/icons/noun_timeline_2021907.png";
+             var img = data.topic_list.topics[i].tags;
+              console.log(img);
+              // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
+              // var ebooks = img.includes("ebooks");
+              // console.log(ebooks);
+              if(img.includes("ebooks")){
+                img = "/images/icons/noun_ebook_3492764.png";
+              }else if(img.includes("videos")){
+                img = "/images/icons/noun_Video_2567853.png";
+              }else if(img.includes("pdf")){
+                img = "/images/icons/noun_PDF_377198.png";
+              }else if(img.includes("audios")){
+                img = "/images/icons/noun_Audio_3408350.png";
+              }else if(img.includes("interactives")){
+                img = "/images/icons/noun_interactivity_1857788.png";
+              }else{
+                img = "/images/icons/noun_miscellaneous_3067705.png";
+              }
 
             mydate = data.topic_list.topics[i].last_posted_at;
             slug = data.topic_list.topics[i].slug;
@@ -608,22 +646,22 @@ function myFunc(clicked_element_data,filter=null) {
             // if (typeof new_posts === 'undefined'){
             //   new_posts = '0'; 
             // }
-            var user_id = null;
-            var avatar_template = null;
-            for (let j = 0; j < data.topic_list.topics[i].posters.length; j++) {
-              if(data.topic_list.topics[i].posters[j].description.indexOf("Original Poster") != -1 ){
-                user_id = data.topic_list.topics[i].posters[j].user_id;
-              }
-            }
-            if(user_id!=null){
-              for (let k = 0; k < data.users.length; k++) {
-                if(user_id == data.users[k].id){
-                  var avatar_template = data.users[k].avatar_template.replace("{size}","50"); 
-                  var img = document.getElementById("url").getAttribute("name")+ avatar_template;
-                }
-              }
-            }
-            avatar_template = img;
+            // var user_id = null;
+            // var avatar_template = null;
+            // for (let j = 0; j < data.topic_list.topics[i].posters.length; j++) {
+            //   if(data.topic_list.topics[i].posters[j].description.indexOf("Original Poster") != -1 ){
+            //     user_id = data.topic_list.topics[i].posters[j].user_id;
+            //   }
+            // }
+            // if(user_id!=null){
+            //   for (let k = 0; k < data.users.length; k++) {
+            //     if(user_id == data.users[k].id){
+            //       var avatar_template = data.users[k].avatar_template.replace("{size}","50"); 
+            //       var img = document.getElementById("url").getAttribute("name")+ avatar_template;
+            //     }
+            //   }
+            // }
+            // avatar_template = img;
 
             newdate = mydate[8] + mydate[9] + "/" + mydate[5] + mydate[6];
             //alert('newdate: ' + newdate);
