@@ -1479,9 +1479,13 @@ function myFunc(clicked_element_data,filter=null) {
 
     function load_subcategories(clicked_element_data,value=null){
       // console.log("load_subcategories");
-      // console.log(clicked_element_data.dataset.cid);
+      console.log(clicked_element_data);
       // console.log(clicked_element_data.dataset.sub_cids);
-      // if(value!=true){
+      var course_div = false;
+      if(clicked_element_data && clicked_element_data.dataset.course == ""){
+        course_div = true;
+      }
+
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder2").style.display = "None";
       document.getElementById("holder4").style.display = "None";
@@ -1506,7 +1510,7 @@ function myFunc(clicked_element_data,filter=null) {
                 // url: "/c/"+clicked_element_data.dataset.cid+"/"+subcategory_ids[i],
                 url: "/categories",
                 type: 'GET',
-                data: {parent_category_id: clicked_element_data.dataset.cid }
+                data: {parent_category_id: clicked_element_data.dataset.cid, course: course_div}
               })
               .done(function (data) {
                 // console.log("load_subcategories")
@@ -2076,7 +2080,7 @@ function function_courses(){
             let partners_div = (data[i].name == 'Institutional Partners' || data[i].name == 'State Partners' || data[i].name == 'Interest Groups' || data[i].name == 'Individual Partners')?'style="display:none;"':'';
 
             if(data[i]!=null && data[i]!=undefined && data[i].subcategory_ids && data[i].subcategory_ids.length > 0){
-              elements = elements + '<div data-class="" '+ partners_div +' data-cid="'+data[i].id+'" data-cslug="'+data[i].slug+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + ((data[i].description)? data[i].description: '') + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';  
+              elements = elements + '<div data-course="" '+ partners_div +' data-cid="'+data[i].id+'" data-cslug="'+data[i].slug+'" data-sub_cids="'+data[i].subcategory_ids.toString()+'" onClick="load_subcategories(this)"' + '>' + '<li id="' + data[i].name + '" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].name + '</b>' + ' </h3>' + '<h5>' + ((data[i].description)? data[i].description: '') + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';  
             }
             else
             {

@@ -1068,17 +1068,17 @@ function get_categories(req, res, home, about, blog, project, feedback, logout, 
   var options = {
     method: 'GET',
     headers: {
-      'Api-Key': secrets.key,
+      'Api-Key': (req.query && req.query.course == "true")? secrets.course_site_api_key:secrets.key,
       'Api-Username': curr_user.username
     }
   };
   var check_var = false;
   if(req.query.parent_category_id!=null && req.query.parent_category_id!=undefined && req.query.parent_category_id!="" ){
-    url = secrets.url+'categories.json?parent_category_id='+ req.query.parent_category_id
+    url = ((req.query && req.query.course == "true")?secrets.course_site_url:secrets.url)+'categories.json?parent_category_id='+ req.query.parent_category_id
     check_var = true
   }
   else{
-    url = secrets.url+'categories.json'
+    url = ((req.query && req.query.course == "true")?secrets.course_site_url:secrets.url)+'categories.json'
   }
   https.get(url,options,(response)=>{
    console.log(response.statusCode);
