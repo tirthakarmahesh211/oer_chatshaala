@@ -258,7 +258,7 @@ function myFunc(clicked_element_data,filter=null) {
             newtime = mydate[11] + mydate[12] + mydate[13] + mydate[14] + mydate[15];
 
              elements = elements + '<div data-posts_count="'+data.topics[i].posts_count+'" data-post_id="'+data.posts[i].id+'" onClick=' + 'load_posts_using_page_number("' + slug + "/" + topic_id +"/1"+ '",this,\"searched_data\")' + '>' + '<li id="' + data.topics[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + 1 + '">' + '<img alt="" class="user-logo-rect medium-image" src="'+img +'">' + 
-              '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topics[i].title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.posts[i].username +'   '+ '<strong class="total-message-count">'+data.topics[i].posts_count +' posts'+'</strong>' + '</h5>' + '</div>' + 
+              '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.topics[i].title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.posts[i].username +'   '+ '<strong class="total-message-count">'+((data.topics[i].posts_count > 1)? data.topics[i].posts_count +' posts':data.topics[i].posts_count +' post')+'</strong>' + '</h5>' + '</div>' + 
               '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
            }
           }
@@ -365,7 +365,7 @@ function myFunc(clicked_element_data,filter=null) {
             // alert('newtime: ' + newtime);
 
             // elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + data[i].posts_count + '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest post by: " + data[i].last_poster_username + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>'  + '</div>' + '</li>' + '</div>';
-            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data[i].last_poster_username + '   '+ '<strong class="total-message-count">'+data[i].posts_count +' msgs'+'</strong>' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>'  + '</div>' + '</li>' + '</div>';   
+            elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + data[i].fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data[i].fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data[i].last_poster_username + '   '+ '<strong class="total-message-count">'+((data[i].posts_count > 1)? data[i].posts_count +' msgs':data[i].posts_count +' msg')+'</strong>' + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>'  + '</div>' + '</li>' + '</div>';   
 
           }
 
@@ -670,7 +670,7 @@ function myFunc(clicked_element_data,filter=null) {
             // alert('newtime: ' + newtime);
 
             // elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<div class="message-count">' + new_posts+ '</div>' + '<img alt="" class="img-circle medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username +'   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +' posts'+'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
-             elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username +'   '+ '<strong class="total-message-count">'+data.topic_list.topics[i].posts_count +' posts'+'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
+             elements = elements + '<div onClick=' + 'load_posts("' + slug + "/" + ide + "/1" + '",this)' + '>' + '<li id="' + fancy_title + '" class="" data-toggle="tab" data-target="#inbox-message-' + i + '">' + '<img alt="" class="user-logo-rect medium-image" src="' + img + '">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + fancy_title + '</b>' + ' </h3>' + '<h5>' + "Latest by: " + data.topic_list.topics[i].last_poster_username +'   '+ '<strong class="total-message-count">'+((data.topic_list.topics[i].posts_count > 1)? data.topic_list.topics[i].posts_count +' posts':data.topic_list.topics[i].posts_count +' post')+'</strong>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + newdate + '<br>' + newtime + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
 
           // }
         }
@@ -2049,6 +2049,7 @@ function function_courses(){
       document.getElementById("holder8").style.display = "None";
       document.getElementById("holder9").style.display = "None";
       document.getElementById("holder10").style.display = "Block";
+      document.getElementById("holder11").style.display = "None";
 
       if (menuContent.style.display == "block") {
         menuContent.style.display = "";

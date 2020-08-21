@@ -636,7 +636,9 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
   var body3 = '';
   var url2 = ((req.query && req.query.class == "true")?secrets.course_site_url:secrets.url) + 'c/' + name + "/" + id + '.json' + '?page=' + i+'&order=activity';
   // console.log(url2);
-
+  if( req.query.class == "true"){
+    var url2 = ((req.query && req.query.class == "true")?secrets.course_site_url:secrets.url) + 'c/' + name + "/" + id + '.json' + '?page=' + i;
+  }
   var options = {
     method: 'GET',
     headers: {

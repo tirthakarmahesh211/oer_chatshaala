@@ -1161,6 +1161,7 @@ input[type="text"]:focus {
   margin-bottom: 10px;
   padding: 10px 5px 5px 5px;
   /* overflow-y: scroll; */
+  margin-top:10px;
 }
 
 .message {
@@ -2787,4 +2788,16 @@ span.informations {
 
 iframe{
   width:100%;
+}
+
+.filesize{
+  display: none;
+}
+
+.source {
+  display: none;
+}
+
+.onebox-body h3{
+  font-size: 16px !important;
 }
