@@ -242,12 +242,12 @@ function myFunc(clicked_element_data,filter=null) {
                 img = "/images/icons/noun_ebook_3492764.png";
               }else if(img.includes("videos")){
                 img = "/images/icons/noun_Video_2567853.png";
-              }else if(img.includes("pdf")){
+              }else if(img.includes("documents")){
                 img = "/images/icons/noun_PDF_377198.png";
               }else if(img.includes("audios")){
                 img = "/images/icons/noun_Audio_3408350.png";
               }else if(img.includes("interactives")){
-                img = "/images/icons/noun_interactivity_1857788.png";
+                img = "/images/icons/noun_interactivity_1855299.png";
               }else{
                 img = "/images/icons/noun_miscellaneous_3067705.png";
               }
@@ -518,7 +518,7 @@ function myFunc(clicked_element_data,filter=null) {
           var elements = '';
           for (var i = 0; i < data.length; i++) {
             var slug, ide, logo;
-            logo="/images/icons/noun_Category_2705919.png";
+            logo="/images/icons/noun_Category_2706222.png";
             slug = data[i].slug;
             ide = data[i].id;
             if (data[i].uploaded_logo) {
@@ -630,7 +630,7 @@ function myFunc(clicked_element_data,filter=null) {
               }else if(img.includes("audios")){
                 img = "/images/icons/noun_Audio_3408350.png";
               }else if(img.includes("interactives")){
-                img = "/images/icons/noun_interactivity_1857788.png";
+                img = "/images/icons/noun_interactivity_1855299.png";
               }else{
                 img = "/images/icons/noun_miscellaneous_3067705.png";
               }
@@ -783,7 +783,7 @@ function myFunc(clicked_element_data,filter=null) {
             }
 
 
-            $('#holder5').html(elements);
+
           });
 
       }
@@ -809,7 +809,24 @@ function myFunc(clicked_element_data,filter=null) {
             slug = data.topic_list.topics[i].slug;
             ide = data.topic_list.topics[i].id;
             var last_poster_username = data.topic_list.topics[i].last_poster_username;
-            var img = "/images/icons/noun_timeline_2021907.png"
+            // var img = "/images/icons/noun_timeline_2021907.png"
+
+              var img = data.topic_list.topics[i].tags;
+              console.log(img);
+
+              if(img.includes("ebooks")){
+                img = "/images/icons/noun_ebook_3492764.png";
+              }else if(img.includes("videos")){
+                img = "/images/icons/noun_Video_2567853.png";
+              }else if(img.includes("pdf")){
+                img = "/images/icons/noun_PDF_377198.png";
+              }else if(img.includes("audios")){
+                img = "/images/icons/noun_Audio_3408350.png";
+              }else if(img.includes("interactives")){
+                img = "/images/icons/noun_interactivity_1855299.png";
+              }else{
+                img = "/images/icons/noun_miscellaneous_3067705.png";
+              }
 
             if (data.topic_list.topics[i].last_posted_at != null) {
               mydate = data.topic_list.topics[i].last_posted_at;
@@ -2070,7 +2087,7 @@ function function_courses(){
           var elements = '';
           for (var i = 0; i < data.length; i++) {
             var slug, ide, logo;
-            logo="/images/icons/noun_Category_2705919.png";
+            logo="/images/icons/noun_online_course_3306259.png";
             slug = data[i].slug;
             ide = data[i].id;
             if (data[i].uploaded_logo) {
