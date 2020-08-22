@@ -153,3 +153,15 @@ The content `<div>` is where all your content goes.
       height: auto;
     }
 }
+
+
+.login_img{
+  height: auto;
+  width: 35%;
+}
+@media screen and (max-width: 767px) {
+.login_img{
+  height: auto;
+  width: 80% !important;
+}
+}
