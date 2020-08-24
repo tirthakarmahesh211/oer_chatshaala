@@ -234,7 +234,7 @@ function myFunc(clicked_element_data,filter=null) {
             topic_id = data.posts[i].topic_id;
 
               var img = data.topics[i].tags;
-              console.log(img);
+              // console.log(img);
               // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
               // var ebooks = img.includes("ebooks");
               // console.log(ebooks);
@@ -617,7 +617,7 @@ function myFunc(clicked_element_data,filter=null) {
             var mydate, user_id, newdate, newtime, slud, ide, fancy_title;
             //var img = "/images/icons/noun_timeline_2021907.png";
              var img = data.topic_list.topics[i].tags;
-              console.log(img);
+              // console.log(img);
               // var img = "https://t2.metastudio.org/"+ data.users[i].avatar_template;
               // var ebooks = img.includes("ebooks");
               // console.log(ebooks);
@@ -812,7 +812,7 @@ function myFunc(clicked_element_data,filter=null) {
             // var img = "/images/icons/noun_timeline_2021907.png"
 
               var img = data.topic_list.topics[i].tags;
-              console.log(img);
+              // console.log(img);
 
               if(img.includes("ebooks")){
                 img = "/images/icons/noun_ebook_3492764.png";
@@ -1496,7 +1496,7 @@ function myFunc(clicked_element_data,filter=null) {
 
     function load_subcategories(clicked_element_data,value=null){
       // console.log("load_subcategories");
-      console.log(clicked_element_data);
+      console.log(clicked_element_data.dataset);
       // console.log(clicked_element_data.dataset.sub_cids);
       var course_div = false;
       if(clicked_element_data && clicked_element_data.dataset.course == ""){
@@ -1531,7 +1531,7 @@ function myFunc(clicked_element_data,filter=null) {
               })
               .done(function (data) {
                 // console.log("load_subcategories")
-                
+                  console.log(data);
                   var logo;
                   logo="/images/icons/noun_Subcategory_929019.png";
                   // console.log(data.topic_list);
@@ -1543,8 +1543,14 @@ function myFunc(clicked_element_data,filter=null) {
                     for (let i = 0; i < data.category_list.categories.length; i++) {
                     page_number = 0
                     url = "c/"+clicked_element_data.dataset.cid+"/"+data.category_list.categories[i].id+"/"+page_number
-                    elements = elements + '<div data-class="" data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(this,\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
-                    // console.log(elements);
+
+                    if(clicked_element_data && clicked_element_data.dataset && clicked_element_data.dataset.course==""){
+                      console.log("if block")
+                      elements = elements + '<div data-class="" ' +' data-cid="'+ data.category_list.categories[i].id +'" data-cname="'+ data.category_list.categories[i].name +'" class="contact_list" onClick=' + 'load_topics("' + data.category_list.categories[i].slug + "/" + data.category_list.categories[i].id + "/load/0" + '",this)' + '>' + '<li id="' + data.category_list.categories[i].name + '" class="" data-toggle="" data-target="">'  + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>'+ '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '</div>' + '</li>' + '</div>';
+                    }else{
+                      console.log("else")
+                      elements = elements + '<div data-cid="'+ data.category_list.categories[i].id + '" data-cname="'+ data.category_list.categories[i].name + '" class="contact_list" onclick="myFunc(this,\'source: '+data.category_list.categories[i].name+'\')"' + '>' + '<li id="'+ data.category_list.categories[i].name +'" class="" data-toggle="" data-target="">' + '<img alt="" class="user-logo-rect medium-image" src="'+logo+'">' + '<div class="vcentered info-combo">' + '<h3 class="no-margin-bottom name">' + '<b>' + data.category_list.categories[i].name + '</b>' + ' </h3>' + '<h5>' + (data.category_list.categories[i].description? data.category_list.categories[i].description: "") + '</h5>' + '</div>' + '<div class="contacts-add">' + '<span class="message-time">' + '<br>' + '<sup>' + '</sup>' + '</span>' + '<div>' + '</div>' + '</div>' + '</li>' + '</div>';
+                    }
                     }
                   }
                  $('#holder11').html(elements);
