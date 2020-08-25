@@ -63,16 +63,16 @@ app.get('/*', function (req, res, next) {
 });
 
 //Routing
-// app.get('/login', function (req, res) {
-//   let user = req.session.user;
-//   if (user) {
-//     res.redirect('/');
-//   } else {
-//     res.render('register.ejs', {
-//       status: ''
-//     });
-//   }
-// });
+app.get('/login', function (req, res) {
+  let user = req.session.user;
+  if (user) {
+    res.redirect('/');
+  } else {
+    res.render('register.ejs', {
+      status: ''
+    });
+  }
+});
 
 app.post('/login', function (req, res) {
   let user = req.session.user;
