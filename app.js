@@ -63,16 +63,16 @@ app.get('/*', function (req, res, next) {
 });
 
 //Routing
-app.get('/login', function (req, res) {
-  let user = req.session.user;
-  if (user) {
-    res.redirect('/');
-  } else {
-    res.render('register.ejs', {
-      status: ''
-    });
-  }
-});
+// app.get('/login', function (req, res) {
+//   let user = req.session.user;
+//   if (user) {
+//     res.redirect('/');
+//   } else {
+//     res.render('register.ejs', {
+//       status: ''
+//     });
+//   }
+// });
 
 app.post('/login', function (req, res) {
   let user = req.session.user;
@@ -114,28 +114,30 @@ app.get('/home', (req, res) => {
 });
 app.get('/chat', function (req, res) {
   res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
-  let curr_user = req.session.user;
-  if (curr_user) {
+  // let curr_user = req.session.user;
+  // if (curr_user) {
     let page_url = "/chat";
     res.render('home.ejs', {
       home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url, page_url:page_url
     });
-  } else {
-    res.redirect('/login');
-  }
+  // } else {
+  //   res.redirect('/login');
+  // }
 });
 
 app.get('/', function (req, res) {
   // res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let curr_user = req.session.user;
-  if (curr_user) {
+  if (curr_user == null || curr_user==undefined) {
+    curr_user = {username:'system'};
+  }
     let page_url = "/";
     res.render('home.ejs', {
       home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url,page_url:page_url
     });
-  } else {
-    res.redirect('/login');
-  }
+  // } else {
+    // res.redirect('/login');
+  // }
 });
 
 app.post('/', function (req, res) {
@@ -323,7 +325,7 @@ app.get("/latest", function(req, res){
     method: 'GET',
     headers: {
       'Api-Key': secrets.key,
-      'Api-Username': req.session.user.username
+      'Api-Username': 'system'
     }
   };
   https.get(url,options, function(response){

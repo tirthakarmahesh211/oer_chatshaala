@@ -1183,7 +1183,7 @@ function get_topics(req, res){
   };
 
   https.get(secrets.url+'c/'+req.params.category_slug_or_id+'/'+req.params.sub_category_slug_or_id+'.json?page='+req.params.page_number,options,(response)=>{
-   console.log(response.statusCode);
+   // console.log(response.statusCode);
     if(response.statusCode===200){
       var data='';
       response.on('data',(chunk)=>{
