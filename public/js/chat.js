@@ -161,7 +161,6 @@ window.onclick = function (event) {
 function myFunc(clicked_element_data,filter=null) {
   //alert("hi");
   // Declare variables
-  console.log(filter);
   if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
     // console.log(param);
     left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
@@ -216,14 +215,14 @@ function myFunc(clicked_element_data,filter=null) {
       }).done(
         (data) => {
           // console.log(data);
-          console.log(get_div);
+          // console.log(get_div);
           if(get_div && get_div.length > 0 && get_div[0].id != "holder8"){
             get_div[0].style.display = "none";
             get_div[0].setAttribute("data-display", "");
           }
           holder8.style.display = "block";
           elements = '';
-          console.log(data);
+          // console.log(data);
           if(data.topics!= undefined && data.topics !=null){
           for (i = 0; i < data.topics.length; i++) {
             var mydate, user_id, newdate, newtime, slud, topic_id;
@@ -916,7 +915,7 @@ function myFunc(clicked_element_data,filter=null) {
     }
 
     function load_posts(x, param=null, page_number=null, index_of_post_number=null) {
-      console.log(param);
+      // console.log(param);
       // console.log(index_of_post_number);
       var topic_head = null;
       if(typeof param === "string" ){

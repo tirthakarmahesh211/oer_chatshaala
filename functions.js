@@ -1071,7 +1071,6 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
 function get_categories(req, res, curr_user){
 
   // var curr_user=req.session.user;
-  console.log("aaaaaaaaaaaaaaaaaa");
   console.log(curr_user.username);
   var options = {
     method: 'GET',
@@ -1089,7 +1088,7 @@ function get_categories(req, res, curr_user){
     url = ((req.query && req.query.course == "true")?secrets.course_site_url:secrets.url)+'categories.json'
   }
   https.get(url,options,(response)=>{
-   console.log(response.statusCode);
+   // console.log(response.statusCode);
     if(response.statusCode===200 || response.statusCode===404){
       var data='';
       response.on('data',(chunk)=>{
