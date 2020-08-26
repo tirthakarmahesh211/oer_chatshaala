@@ -549,6 +549,7 @@ function myFunc(clicked_element_data,filter=null) {
 
           $('#holder6').html(elements);
         });
+      closeNav();
     }
 
     function function_latestposts(){
@@ -2033,10 +2034,11 @@ function function_partners(value=null) {
   elements = elements + document.getElementById("Interest Groups").parentElement.outerHTML;
   elements = elements + document.getElementById("Individual Partners").parentElement.outerHTML;
   $('#holder9').html(elements);
+  closeNav();
 }
 
 function function_courses(){
-  console.log("function_courses");
+  // console.log("function_courses");
       // console.log(value);
       var username = $('#curr_user').attr('name');
       $("#right_panel_msg").css("display","block");
@@ -2122,4 +2124,5 @@ function function_courses(){
 
           $('#holder10').html(elements);
         });
+      closeNav();
 }
