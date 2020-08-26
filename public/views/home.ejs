@@ -353,6 +353,9 @@
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
               <i class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
             </div>
+            <div class="back_button_widget" style="width:100px;">
+              <input type="button" value="Back" onclick="goBack()">
+            </div>
           </div>
 
         </div>
@@ -437,7 +440,7 @@
     </div>
   </div>
 
-  <script type="text/javascript">
+  <script type="text/javascript"> 
 
   $('input[name="user_grp_search"]').keyup(() => {
     var text = $('input[name="user_grp_search"]').val();
@@ -1135,6 +1138,31 @@
       });
 
 
+  </script>
+    <script>
+  var state = $state.current.name;
+  var location = $location.absUrl();
+
+  var stateChangingExternally = false;
+  var stateChangingInternally = false;
+
+  var offLocationChangeStartEvt = $scope.$on('$locationChangeStart', function(evt, to, from) {
+    if (from === location) {
+      stateChangingExternally = !stateChangingInternally;
+      offLocationChangeStartEvt();
+    }
+  });
+
+  var offStateChangeStartEvt = $scope.$on('$stateChangeStart', function(evt, to, toParams, from) {
+    if (from.name === state) {
+      stateChangingInternally = !stateChangingExternally;
+      if (stateChangingExternally) {
+        evt.preventDefault();
+        // do whatever here
+      }
+      offStateChangeStartEvt();
+    }
+  });
   </script>
 </body>
 
