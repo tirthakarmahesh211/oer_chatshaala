@@ -880,10 +880,11 @@ app.get("/user/subscribed/:uname", function (req, res) {
 
 
 app.get("/user/common/:uname", function (req, res) {
-  console.log(req.query.courses);
-  console.log(req.body);
+  // console.log(req.query.courses);
+  // console.log(req.body);
+  console.log("username");
   var id = req.params.uname;
-  let curr_user = req.session.user;
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
 
   if(req.query.courses == "true"){
   var url1 = secrets.course_site_url+'/categories.json';
@@ -1046,10 +1047,11 @@ app.get('/t/:topic_slug/:topic_id/:post_number?/:page_number?', function (req, r
 });
 
 app.get('/categories', function (req, res) {
-  let curr_user = req.session.user;
+  var curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   if (curr_user) {
     try {
-    func.get_categories(req,res);
+    console.log(curr_user);
+    func.get_categories(req,res,curr_user);
     }
     catch (ex) {
       console.log(ex);
@@ -1060,11 +1062,11 @@ app.get('/categories', function (req, res) {
 });
 
 app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', function (req, res) {
-  let curr_user = req.session.user;
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   if (curr_user) {
     if (req.params && req.params.page_number!=null && req.params.page_number!=undefined){
       try{
-        func.get_topics(req,res);
+        func.get_topics(req,res,curr_user);
       }
       catch (ex) {
         console.log(ex);
@@ -1072,7 +1074,7 @@ app.get('/c/:category_slug_or_id/:sub_category_slug_or_id/:page_number?', functi
     }
     else{
       try{
-        func.get_sub_category(req,res);
+        func.get_sub_category(req,res,curr_user);
       }
       catch (ex) {
         console.log(ex);

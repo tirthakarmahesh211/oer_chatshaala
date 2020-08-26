@@ -1068,9 +1068,11 @@ function get_topic(req, res, home, about, blog, project, feedback, logout, profi
   });
 }
 
-function get_categories(req, res, home, about, blog, project, feedback, logout, profile, curr_user){
+function get_categories(req, res, curr_user){
 
-  var curr_user=req.session.user;
+  // var curr_user=req.session.user;
+  console.log("aaaaaaaaaaaaaaaaaa");
+  console.log(curr_user.username);
   var options = {
     method: 'GET',
     headers: {
@@ -1114,9 +1116,9 @@ function get_categories(req, res, home, about, blog, project, feedback, logout, 
 
 }
 
-function get_sub_category(req, res){
+function get_sub_category(req, res,curr_user){
 
-  var curr_user=req.session.user;
+  // let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   var options = {
     method: 'GET',
     headers: {
@@ -1171,9 +1173,9 @@ function get_sub_category(req, res){
 
 }
 
-function get_topics(req, res){
+function get_topics(req, res, curr_user){
 
-  var curr_user=req.session.user;
+  // var curr_user=req.session.user;
   var options = {
     method: 'GET',
     headers: {

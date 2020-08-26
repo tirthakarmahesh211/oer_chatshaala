@@ -1531,7 +1531,7 @@ function myFunc(clicked_element_data,filter=null) {
               })
               .done(function (data) {
                 // console.log("load_subcategories")
-                  console.log(data);
+                  // console.log(data);
                   var logo;
                   logo="/images/icons/noun_Subcategory_929019.png";
                   // console.log(data.topic_list);
