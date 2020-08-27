@@ -19,11 +19,15 @@ function preloadFunc(){
     document.getElementById("plus_btn").style.display = "block";
     document.getElementById("logout_link").style.display = "block";
     document.getElementById("login_link").style.display = "none";
+    document.getElementById("saveDelta").style.display = "block";
+    document.getElementById("upload_files").style.display = "block";
   }
   else{
     document.getElementById("plus_btn").style.display = "none";
     document.getElementById("logout_link").style.display = "none";
     document.getElementById("login_link").style.display = "block";
+    document.getElementById("saveDelta").style.display = "none";
+    document.getElementById("upload_files").style.display = "none";
     document.getElementById("replyMessage").placeholder = "Please Login to give your feedback or ask any question or discuss the topic"
   } 
 }
