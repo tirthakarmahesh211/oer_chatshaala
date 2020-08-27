@@ -24,13 +24,15 @@ window.onload = function () {
 
   let username = document.getElementById("curr_user").getAttribute("name");
   let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
-  console.log(curr_user_id);
-  console.log(username);
+  // console.log(curr_user_id);
+  // console.log(username);
   if( (username == "system" || username != "") && curr_user_id != ""){
     document.getElementById("plus_btn").style.display = "block";
+    document.getElementById("a_logout").style.display = "block";
   }
   else{
-    document.getElementById("plus_btn").style.display = "none"; 
+    document.getElementById("plus_btn").style.display = "none";
+    document.getElementById("a_logout").style.display = "none";
   }
 
   var page_url = document.getElementById("page_url");

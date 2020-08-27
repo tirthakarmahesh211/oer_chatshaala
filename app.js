@@ -440,7 +440,7 @@ app.get("/badges", function (req, res) {
 
 
 app.get('/logout', function (req, res) {
-  // console.log("log out");
+  console.log("log out");
   let user = req.session.user;
   if (user) {
     req.session.cookie.maxAge = -1;
@@ -448,7 +448,7 @@ app.get('/logout', function (req, res) {
     req.session = null;
     res.redirect('/login');
   }else{
-      res.redirect('/login');
+    res.redirect('/login');
   }
 });
 
