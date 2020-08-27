@@ -1106,17 +1106,17 @@ function myFunc(clicked_element_data,filter=null) {
                 if(data[i].actions_summary[j] && data[i].actions_summary[j].id && data[i].actions_summary[j].count && data[i].actions_summary[j].id == "2")
                 {
                   // like_button = data[i].actions_summary[j].count+' <i class="fa fa-heart" style="color:red"></i>'
-                  if(data[i].actions_summary[j].acted == true){
+                  if(username!="system" && username!="" && data[i].actions_summary[j].acted == true){
                     like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:red" class="fa fa-heart"></i></a></div>'
                   }
-                  else{
+                  else if(username!="system" && username!=""){
                     like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;">' + data[i].actions_summary[j].count + '</span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
                   }
                   if_block = true;
                   break;
                 }
               }
-              if(if_block == false && data[i].username != username ){
+              if(if_block == false && username!="system" && username!="" && data[i].username != username ){
                   like_button = '<div class="like_div"><span id="like_count_' + data[i].id + '" style="display:inline-block;"></span><a id="like_icon_' + data[i].id + '" onclick="like_function(this,like_url)" ><i style="color:grey" class="fa fa-heart-o"></i></a></div>'
               }
               else if(if_block == false && data[i].username == username) {
