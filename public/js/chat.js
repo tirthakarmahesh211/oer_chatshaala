@@ -8,8 +8,31 @@ dropdownBtn.addEventListener('click', () => {
     menuContent.style.display = "none";
   }
 });
+
+window.onpaint = preloadFunc();
+
+function preloadFunc(){
+  document.getElementById("plus_btn").style.display = "none"; 
+}
+
 //Loading categories on page Load
 window.onload = function () {
+  history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+    history.go(1);
+  };
+
+  let username = document.getElementById("curr_user").getAttribute("name");
+  let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
+  console.log(curr_user_id);
+  console.log(username);
+  if( (username == "system" || username != "") && curr_user_id != ""){
+    document.getElementById("plus_btn").style.display = "block";
+  }
+  else{
+    document.getElementById("plus_btn").style.display = "none"; 
+  }
+
   var page_url = document.getElementById("page_url");
   document.getElementById('details-form').style.display = "none";
   document.getElementById("holder7").style.display = "None";
@@ -878,7 +901,11 @@ function myFunc(clicked_element_data,filter=null) {
         document.getElementById("inbox").style.display = "block";
         document.getElementById("inbox-message-1").style.display = "block";
         document.getElementById("back_").style.display = "none";
-        document.getElementById('plus_btn').style.display = "block";
+        let username = document.getElementById("curr_user").getAttribute("name");
+        let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
+        if( (username == "system" || username != "") && curr_user_id != ""){
+          document.getElementById('plus_btn').style.display = "block";
+        }
         if(document.getElementById('plus_btn').style.borderRadius == "0%"){
           document.getElementById('create-topic').style.display = "block";
           document.getElementById('create-message').style.display = "block";
@@ -895,7 +922,11 @@ function myFunc(clicked_element_data,filter=null) {
         //alert("hi");
         document.getElementById("inbox").style.display = "block";
         document.getElementById("inbox-message-1").style.display = "none";
-        document.getElementById('plus_btn').style.display = "block";
+        let username = document.getElementById("curr_user").getAttribute("name");
+        let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
+        if( (username == "system" || username != "") && curr_user_id != ""){
+          document.getElementById('plus_btn').style.display = "block";
+        }
         if(document.getElementById('plus_btn').style.borderRadius == "0%"){
           document.getElementById('create-topic').style.display = "block";
           document.getElementById('create-message').style.display = "block";
