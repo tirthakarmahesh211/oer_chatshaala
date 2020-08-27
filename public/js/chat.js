@@ -12,7 +12,20 @@ dropdownBtn.addEventListener('click', () => {
 window.onpaint = preloadFunc();
 
 function preloadFunc(){
-  document.getElementById("plus_btn").style.display = "none"; 
+  let username = document.getElementById("curr_user").getAttribute("name");
+  let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
+  document.getElementById("plus_btn").style.display = "none";
+  if( (username == "system" || username != "") && curr_user_id != ""){
+    document.getElementById("plus_btn").style.display = "block";
+    document.getElementById("logout_link").style.display = "block";
+    document.getElementById("login_link").style.display = "none";
+  }
+  else{
+    document.getElementById("plus_btn").style.display = "none";
+    document.getElementById("logout_link").style.display = "none";
+    document.getElementById("login_link").style.display = "block";
+    document.getElementById("replyMessage").placeholder = "Please Login to give your feedback or ask any question or discuss the topic"
+  } 
 }
 
 //Loading categories on page Load
@@ -28,11 +41,14 @@ window.onload = function () {
   // console.log(username);
   if( (username == "system" || username != "") && curr_user_id != ""){
     document.getElementById("plus_btn").style.display = "block";
-    document.getElementById("a_logout").style.display = "block";
+    document.getElementById("logout_link").style.display = "block";
+    document.getElementById("login_link").style.display = "none";
   }
   else{
     document.getElementById("plus_btn").style.display = "none";
-    document.getElementById("a_logout").style.display = "none";
+    document.getElementById("logout_link").style.display = "none";
+    document.getElementById("login_link").style.display = "block";
+    document.getElementById("replyMessage").placeholder = "Please Login to give your feedback or ask any question or discuss the topic"
   }
 
   var page_url = document.getElementById("page_url");

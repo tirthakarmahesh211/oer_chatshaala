@@ -64,6 +64,7 @@ app.get('/*', function (req, res, next) {
 
 //Routing
 app.get('/login', function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let user = req.session.user;
   if (user) {
     res.redirect('/');
@@ -75,6 +76,7 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/login', function (req, res) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let user = req.session.user;
   if (user) {
     res.redirect(home1);
@@ -127,6 +129,7 @@ app.get('/chat', function (req, res) {
 
 app.get('/', function (req, res) {
   // res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
   let curr_user = req.session.user;
   if (curr_user == null || curr_user==undefined) {
     curr_user = {username:'system'};
@@ -440,7 +443,7 @@ app.get("/badges", function (req, res) {
 
 
 app.get('/logout', function (req, res) {
-  console.log("log out");
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   let user = req.session.user;
   if (user) {
     req.session.cookie.maxAge = -1;
