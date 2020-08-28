@@ -52,7 +52,13 @@ window.onload = function () {
     document.getElementById("plus_btn").style.display = "none";
     document.getElementById("logout_link").style.display = "none";
     document.getElementById("login_link").style.display = "block";
-    document.getElementById("replyMessage").placeholder = "Please Login to give your feedback or ask any question or discuss the topic"
+    document.getElementById("replyMessage").placeholder = "Please Login to give your feedback or ask any question or discuss the topic";
+    document.getElementById("upload_paperclip_icon").addEventListener("click", function(){
+      alert("Please Login to upload files");
+    });
+    document.getElementById("paper_plane_icon").addEventListener("click", function(){
+      alert("Please Login to give your feedback or ask any question or discuss the topic");
+    });
   }
 
   var page_url = document.getElementById("page_url");
