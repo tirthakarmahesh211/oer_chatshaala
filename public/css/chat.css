@@ -131,6 +131,7 @@ body {
   /*border: 2px solid #393e46; */
 }
 .mobile_backbtn2{
+  display:none;
   font-size: 20px;
   cursor: pointer;
   background-color: #d6d4c7;

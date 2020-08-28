@@ -517,6 +517,7 @@ function myFunc(clicked_element_data,filter=null) {
       // console.log(value);
       var username = $('#curr_user').attr('name');
       if(value !=true){
+      // $(".mobile_backbtn2").css("display","block");        
       $("#right_panel_msg").css("display","block");
       // window.history.replaceState("object or string", '' , '/');
       document.getElementById("inbox-message-1").style.display = "None";
@@ -1576,6 +1577,7 @@ function myFunc(clicked_element_data,filter=null) {
         left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
         $('#menu_active').text(left_panel_header_title);
       }
+      $(".mobile_backbtn2").css("display","block");     
       $('#holder11').html("");
       var elements = '';
       if(clicked_element_data){

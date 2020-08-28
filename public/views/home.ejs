@@ -66,7 +66,7 @@
 
         </div>
         <div class="dropdown-menu_">
-          <button id="#back2" class="mobile_backbtn2" onclick="my_func2()"><img src="/images/icons/noun_back_2784520.png" style="height:33px;width:33px;"/></button>
+          <button id="#back2" class="mobile_backbtn2"><img src="/images/icons/noun_back_2784520.png" style="height:33px;width:33px;" onClick='window.history.go(-1);'/></button>
           <button id="menu_active" class="menu-btn">Latest</button>
           <div class="top_header_search_box"><input style="display: none" type="text" id="myInput" onkeyup="myFunc()" name="search" placeholder="Search"><i id="search_icon" class="fa fa-search icon"></i>
           <!-- <button style="display: none" id="search_clear_btn">Clear</button> -->
@@ -1157,30 +1157,12 @@
   }
   </script>
     <script>
-  var state = $state.current.name;
-  var location = $location.absUrl();
-
-  var stateChangingExternally = false;
-  var stateChangingInternally = false;
-
-  var offLocationChangeStartEvt = $scope.$on('$locationChangeStart', function(evt, to, from) {
-    if (from === location) {
-      stateChangingExternally = !stateChangingInternally;
-      offLocationChangeStartEvt();
-    }
-  });
-
-  var offStateChangeStartEvt = $scope.$on('$stateChangeStart', function(evt, to, toParams, from) {
-    if (from.name === state) {
-      stateChangingInternally = !stateChangingExternally;
-      if (stateChangingExternally) {
-        evt.preventDefault();
-        // do whatever here
+      function goBack(){
+        var x = history.length;
+        document.getElementById("demo").innerHTML = x;
+        console.log(x);
       }
-      offStateChangeStartEvt();
-    }
-  });
-  </script>
+    </script>
 </body>
 
 </html>
