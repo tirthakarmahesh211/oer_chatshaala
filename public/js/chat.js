@@ -291,7 +291,7 @@ function myFunc(clicked_element_data,filter=null) {
               if(img.includes("ebooks")){
                 img = "/images/icons/noun_ebook_3492764.png";
               }else if(img.includes("videos")){
-                img = "/images/icons/noun_Video_2567853.png";
+                img = "/images/icons/noun_Video_2354550.png";
               }else if(img.includes("documents")){
                 img = "/images/icons/noun_PDF_377198.png";
               }else if(img.includes("audios")){
@@ -675,7 +675,7 @@ function myFunc(clicked_element_data,filter=null) {
               if(img.includes("ebooks")){
                 img = "/images/icons/noun_ebook_3492764.png";
               }else if(img.includes("videos")){
-                img = "/images/icons/noun_Video_2567853.png";
+                img = "/images/icons/noun_Video_2354550.png";
               }else if(img.includes("pdf")){
                 img = "/images/icons/noun_PDF_377198.png";
               }else if(img.includes("audios")){
@@ -868,7 +868,7 @@ function myFunc(clicked_element_data,filter=null) {
               if(img.includes("ebooks")){
                 img = "/images/icons/noun_ebook_3492764.png";
               }else if(img.includes("videos")){
-                img = "/images/icons/noun_Video_2567853.png";
+                img = "/images/icons/noun_Video_2354550.png";
               }else if(img.includes("pdf")){
                 img = "/images/icons/noun_PDF_377198.png";
               }else if(img.includes("audios")){
