@@ -66,6 +66,7 @@
 
         </div>
         <div class="dropdown-menu_">
+          <span id="#back2" class="mobile_backbtn2" onClick="window.history.go(-1)"><img src="/images/icons/noun_back_2784520.png" style="height:28px;width:28px;"/></span>
           <button id="menu_active" class="menu-btn">Latest</button>
           <div class="top_header_search_box"><input style="display: none" type="text" id="myInput" onkeyup="myFunc()" name="search" placeholder="Search"><i id="search_icon" class="fa fa-search icon"></i>
           <!-- <button style="display: none" id="search_clear_btn">Clear</button> -->
@@ -356,6 +357,9 @@
               <button id="saveDelta" class="save_btn" type="button" title="Submit"></button>
               <i id="paper_plane_icon" class="fa fa-paper-plane fa-2x" aria-hidden="true"></i>
             </div>
+<!--             <div class="back_button_widget" style="width:100px;">
+              <input type="button" value="Back" onclick="window.history.go(-1)">
+            </div> -->
           </div>
 
         </div>
@@ -440,7 +444,7 @@
     </div>
   </div>
 
-  <script type="text/javascript">
+  <script type="text/javascript"> 
 
   $('input[name="user_grp_search"]').keyup(() => {
     var text = $('input[name="user_grp_search"]').val();
@@ -1152,6 +1156,13 @@
 
   }
   </script>
+    <script>
+      function goBack(){
+        var x = history.length;
+        document.getElementById("demo").innerHTML = x;
+        console.log(x);
+      }
+    </script>
 </body>
 
 </html>
