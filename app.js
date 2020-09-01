@@ -71,7 +71,7 @@ app.use(function (req, res, next) {
    next();
 });
 
-app.get('/*', function (req, res, next) {
+app.get('/*',keycloak.protect(), function (req, res, next) {
     res.setHeader("Cache-Control", "public, max-age=60,must-revalidate");
     next();
 });
