@@ -10,6 +10,8 @@ const session = require('express-session');
 const https = require("https");
 const passPhrase = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sapien urna, placerat ut erat eget, vehicula vestibulum quam. Quisque vitae ante quis purus eleifend dapibus. Suspendisse potenti. Donec ut ex quis purus pellentesque varius. Aenean eu velit nam.';
 const CryptoJS = require('crypto-js');
+const Keycloak = require('keycloak-connect');
+const expressHbs = require('express-handlebars');
 
 const home = '/chat';
 const home1 = '/'
@@ -31,6 +33,9 @@ app.use(parser.urlencoded({limit: '1024mb', extended: true}));
 app.set('views', './public/views');
 app.set('view engine', 'ejs');
 
+var memoryStore = new session.MemoryStore();
+var keycloak = new Keycloak({ store: memoryStore });
+
 app.use(express.static("public"));
 app.use(session({
   secret: secrets.string,
@@ -40,6 +45,15 @@ app.use(session({
     maxAge: 14*24*60 * 60 * 1000
   }
 }));
+app.use(keycloak.middleware());
+
+app.get('/test', keycloak.protect(), function(req, res){
+  // console.log(req);
+  console.log(res);
+  res.render('test', {title:'Test of the test'});
+});
+
+app.use( keycloak.middleware( { logout: '/'} ));
 
 //Starting local server
 app.use(function (err, req, res, next) {
