@@ -53,7 +53,7 @@ app.get('/test', keycloak.protect(), function(req, res){
   res.render('test', {title:'Test of the test'});
 });
 
-app.use( keycloak.middleware( { logout: '/'} ));
+// app.use( keycloak.middleware( { logout: '/'} ));
 
 //Starting local server
 app.use(function (err, req, res, next) {
@@ -141,7 +141,7 @@ app.get('/chat', function (req, res) {
   // }
 });
 
-app.get('/', function (req, res) {
+app.get('/', keycloak.protect(),function (req, res) {
   // res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
   let curr_user = req.session.user;
