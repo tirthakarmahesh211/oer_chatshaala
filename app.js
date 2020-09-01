@@ -40,10 +40,11 @@ app.use(express.static("public"));
 app.use(session({
   secret: secrets.string,
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
     maxAge: 14*24*60 * 60 * 1000
-  }
+  },
+  store: memoryStore
 }));
 app.use(keycloak.middleware());
 
