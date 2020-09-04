@@ -1,8 +1,0 @@
-{
-  "realm": "metastudio",
-  "auth-server-url": "https://member.metastudio.org/auth/",
-  "ssl-required": "external",
-  "resource": "test-client",
-  "public-client": true,
-  "confidential-port": 0
-}
