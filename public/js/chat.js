@@ -1146,7 +1146,7 @@ function myFunc(clicked_element_data,filter=null) {
             let ReplyBtn = (username!="system" && username!="" && username!=null && username!=undefined)?'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>':'';
             if(cooked!=""){
               let match_data = cooked.match(/<a.*?href="(.*?)"[^\>]+>(.*)<\/a>/i);
-              // console.log(match_data);
+              console.log(match_data);
               // console.log(cooked.split(match_data[0]));
               // console.log(cooked.split(match_data[0]).length);
               if(match_data && match_data.length > 0 && match_data[match_data.length - 1] && match_data[match_data.length - 1].startsWith("http") && (match_data[match_data.length - 1].endsWith(".epub") || match_data[match_data.length - 1].split("/")[match_data[match_data.length - 1].split("/").length - 1].indexOf(".")==-1 ) ){
@@ -1161,6 +1161,10 @@ function myFunc(clicked_element_data,filter=null) {
                 let replace_data = '<video controls="" width="100%" height="100%"><source src="VIDEO_URL"><a href="VIDEO_URL" rel="nofollow ugc noopener">VIDEO_URL</a></video>'.split('VIDEO_URL').join(match_data[match_data.length - 1 ]);
 
                 // console.log(replace_data);
+                cooked = cooked.replace(match_data[0],replace_data);
+              }
+              if(match_data && match_data.length > 0 && match_data[match_data.length - 1] && match_data[match_data.length - 1].startsWith("http") && (match_data[match_data.length - 1].endsWith(".jpe") || match_data[match_data.length - 1].split("/")[match_data[match_data.length - 1].split("/").length - 1].indexOf(".")==-1 ) ){
+                let replace_data = '<div class="lightbox-wrapper"><a class="lightbox" href="IMAGE_URL" ><img src="IMAGE_URL" width="100%"></a></div>'.split('IMAGE_URL').join(match_data[match_data.length - 1 ]);
                 cooked = cooked.replace(match_data[0],replace_data);
               }
             }

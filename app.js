@@ -46,13 +46,13 @@ app.use(session({
   },
   store: memoryStore
 }));
-app.use(keycloak.middleware());
+// app.use(keycloak.middleware());
 
-app.get('/test', keycloak.protect(), function(req, res){
-  // console.log(req);
-  console.log(res);
-  res.render('test', {title:'Test of the test'});
-});
+// app.get('/test', keycloak.protect(), function(req, res){
+//   // console.log(req);
+//   console.log(res);
+//   res.render('test', {title:'Test of the test'});
+// });
 
 // app.use( keycloak.middleware( { logout: '/'} ));
 
@@ -72,7 +72,7 @@ app.use(function (req, res, next) {
    next();
 });
 
-app.get('/*',keycloak.protect(), function (req, res, next) {
+app.get('/*', function (req, res, next) {
     res.setHeader("Cache-Control", "public, max-age=60,must-revalidate");
     next();
 });
@@ -142,7 +142,7 @@ app.get('/chat', function (req, res) {
   // }
 });
 
-app.get('/', keycloak.protect(),function (req, res) {
+app.get('/',function (req, res) {
   // res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   res.setHeader("Cache-Control", "public, max-age=5,must-revalidate");
   let curr_user = req.session.user;
