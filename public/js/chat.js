@@ -2199,7 +2199,23 @@ function get_tag_groups(cooked,tags){
     url: "/tags"
   })
   .done(function (data) {
-    console.log(tags);
-    document.getElementsByClassName("message-text")[0].innerHTML= cooked + tags
+    // console.log(tags);
+    // console.log(data.extras.tag_groups);
+    let tags_with_grp_name = ""
+    for(var j = 0; j < tags.length; j++) {
+      for (var i = 0; i < data.extras.tag_groups.length; i++) {
+        for (var k = 0; k < data.extras.tag_groups[i].tags.length; k++) {
+        // console.log(tags[j]);
+        // console.log(data.extras.tag_groups[i].tags[k].text);
+        // console.log(data.extras.tag_groups[i].tags[k].text == tags[j])
+        if(data.extras.tag_groups[i].tags[k].text == tags[j]){
+          // console.log(data.extras.tag_groups[i].name);
+          // console.log(tags[j]);
+          tags_with_grp_name = tags_with_grp_name + data.extras.tag_groups[i].name+" : "+tags[j]+"<br/>"
+        }
+      }
+      }
+    }
+    document.getElementsByClassName("message-text")[0].innerHTML = cooked + tags_with_grp_name;
   });
 }
