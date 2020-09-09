@@ -35,7 +35,8 @@ module.exports = {
   get_specific_post_replies: get_specific_post_replies,
   unlike: unlike,
   get_specific_post_by_id: get_specific_post_by_id,
-  update_posts_raw_by_id: update_posts_raw_by_id
+  update_posts_raw_by_id: update_posts_raw_by_id,
+  get_tag_groups:get_tag_groups
 };
 
 function resetCurrUser() {
@@ -1607,4 +1608,42 @@ function update_posts_raw_by_id(req, res){
   .then(data => {
     res.send(data);
   });
+}
+
+function get_tag_groups(req,res){
+  // var curr_user=req.session.user;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system',
+    }
+  };
+
+  var data1 = {
+  };
+
+  var url = secrets.url + '/tags.json'
+  // console.log(url);
+  var request = https.request(url, options, (response) => {
+     console.log(response.statusCode);
+    if (response.statusCode === 200) {
+      var body = '';
+      response.on('data', (data) => {
+        body += data;
+      });
+      response.on('end', () => {
+        try {
+          body = JSON.parse(body);
+        } catch (ex) {
+        // console.log(body);
+        }
+        res.send(body);
+      });
+    } else {
+      res.redirect('/');
+    }
+  });
+  request.write(querystring.stringify(data1));
+  request.end();  
 }

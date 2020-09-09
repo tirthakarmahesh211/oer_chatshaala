@@ -978,6 +978,7 @@ function myFunc(clicked_element_data,filter=null) {
     function load_posts(x, param=null, page_number=null, index_of_post_number=null) {
       // console.log(param);
       // console.log(index_of_post_number);
+
       var topic_head = null;
       if(typeof param === "string" ){
        topic_head = param; 
@@ -1068,9 +1069,9 @@ function myFunc(clicked_element_data,filter=null) {
           var posts_count = data.posts_count;
           var slug = data.slug;
           var type_of_msg = data.archetype;
-          var stream = data.post_stream.stream
+          var stream = data.post_stream.stream;
+          var tags = data.tags;
           data = data.post_stream.posts
-
           if (page_number && page_number != null){
             page_number = page_number
           }
@@ -1142,7 +1143,7 @@ function myFunc(clicked_element_data,filter=null) {
             }
             let edit_button = '<div class="edit_btn" id="edit_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" data-post_id="'+ data[i].id +'" title="edit this post" onclick="edit_function(this)"><i class="fa fa-pencil" aria-hidden="true"></i></div>'
             let setting_button = (username!="system" && username!="" && username!=null && username!=undefined)?'<div class="setting_btn" id="setting_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" data-post_id="'+ data[i].id +'" title="" onclick="setting_function(this)"><i class="fa fa-external-link"></i></div>':'';
-            let cooked = (data[i].cooked!=null && data[i].cooked!=undefined)? data[i].cooked.replace(/<h3[^>]*>(\s*none\s*(\s*<br\s*>)*\s*)<\/h3>/ig,''):'';
+            var cooked = (data[i].cooked!=null && data[i].cooked!=undefined)? data[i].cooked.replace(/<h3[^>]*>(\s*none\s*(\s*<br\s*>)*\s*)<\/h3>/ig,''):'';
             let ReplyBtn = (username!="system" && username!="" && username!=null && username!=undefined)?'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>':'';
             if(cooked!=""){
               let match_data = cooked.match(/<a.*?href="(.*?)"[^\>]+>(.*)<\/a>/i);
@@ -1248,11 +1249,12 @@ function myFunc(clicked_element_data,filter=null) {
           else{
             $('#holder3').prepend(elements);
           }
+          get_tag_groups(cooked,tags);
           var get_topic_id = document.querySelector('div[id^="msg_"]:not([style*="display:none"])');
           var last_div = $("div.message").last();
           var last_div_id = $(last_div).attr("id");
           // last_div_id = last_div_id.split("_");
-          console.log(get_topic_id);
+          // console.log(get_topic_id);
           if(get_topic_id && (get_topic_id.dataset.count == "0")){
             $("#load_previous_posts").hide();
           }
@@ -2190,4 +2192,14 @@ function function_courses(){
           $('#holder10').html(elements);
         });
       closeNav();
+}
+
+function get_tag_groups(cooked,tags){
+  $.ajax({
+    url: "/tags"
+  })
+  .done(function (data) {
+    console.log(tags);
+    document.getElementsByClassName("message-text")[0].innerHTML= cooked + tags
+  });
 }
