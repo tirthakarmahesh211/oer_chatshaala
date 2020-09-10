@@ -209,9 +209,19 @@ window.onclick = function (event) {
 
 };
 
+
+function visible_subcat(){
+  var el =this;
+  console.log("jbkbkbkbk")
+  load_subcategories();
+}
+
 function myFunc(clicked_element_data,filter=null) {
-  //alert("hi");
+  // alert("hi");
   // Declare variables
+    var ele = document.getElementById('#back2');
+  ele.addEventListener('click', visible_subcat);
+
   if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
     // console.log(param);
     left_panel_header_title = clicked_element_data.firstChild.getAttribute("id");
@@ -775,6 +785,10 @@ function myFunc(clicked_element_data,filter=null) {
       }
       // console.log(left_panel_header_title);
       console.log(param.dataset.class);
+
+      // var ele = document.getElementById('#back2');
+      // ele.addEventListener('click', visible_subcat);
+
       var class_div = false;
       if(param!=null && param!=undefined && param.dataset.class==""){
         class_div = true;
@@ -1560,10 +1574,18 @@ function myFunc(clicked_element_data,filter=null) {
       alert("Share URL has been copied to clipboard.");
     }
 
+    function visible_cat(){
+      var el =this;
+      function_category_common();
+    }
+
     function load_subcategories(clicked_element_data,value=null){
       // console.log("load_subcategories");
       console.log(clicked_element_data.dataset);
       // console.log(clicked_element_data.dataset.sub_cids);
+      var ele = document.getElementById('#back2');
+      ele.addEventListener('click', visible_cat);
+
       var course_div = false;
       if(clicked_element_data && clicked_element_data.dataset.course == ""){
         course_div = true;
@@ -2048,6 +2070,7 @@ function function_partners(value=null) {
   document.getElementById("inbox-message-1").style.display = "None";
   $('#menu_active').text('Partners');
   var e = document.getElementById("category_click");
+  // console.log(e)
   if(e!=null && e!=undefined){
     e.classList.remove("active-tab")
   }
