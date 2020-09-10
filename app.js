@@ -33,8 +33,8 @@ app.use(parser.urlencoded({limit: '1024mb', extended: true}));
 app.set('views', './public/views');
 app.set('view engine', 'ejs');
 
-var memoryStore = new session.MemoryStore();
-var keycloak = new Keycloak({ store: memoryStore });
+// var memoryStore = new session.MemoryStore();
+// var keycloak = new Keycloak({ store: memoryStore });
 
 app.use(express.static("public"));
 app.use(session({
@@ -44,7 +44,7 @@ app.use(session({
   cookie: {
     maxAge: 14*24*60 * 60 * 1000
   },
-  store: memoryStore
+  // store: memoryStore
 }));
 // app.use(keycloak.middleware());
 
