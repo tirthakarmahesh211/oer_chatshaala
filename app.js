@@ -519,7 +519,7 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-  console.log("post moirrrrrrrrrrrrrrrrrrrr");
+  // console.log("post moirrrrrrrrrrrrrrrrrrrr");
   let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   // let curr_user = req.session.user;
 
@@ -1181,6 +1181,29 @@ app.get('/user_avatar/*', function (req, res) {
 
 app.get('/tags', function (req, res) {
   // let curr_user = req.session.user;
-  res.set('Cache-Control', 'public, max-age=3600');
+  res.set('Cache-Control', 'public, max-age=60');
   func.get_tag_groups(req,res);
+});
+
+app.get('/badges_of_specific_post', function (req, res) {
+  let curr_user = req.session.user;
+  var id = req.params.id;
+  var body = '';
+  var url = secrets.url+"/rating/badges";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      console.log(body);
+    });
+  });
 });

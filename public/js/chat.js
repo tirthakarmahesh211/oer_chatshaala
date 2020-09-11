@@ -212,7 +212,7 @@ window.onclick = function (event) {
 
 function visible_subcat(){
   var el =this;
-  console.log("jbkbkbkbk")
+  // console.log("jbkbkbkbk")
   load_subcategories();
 }
 
