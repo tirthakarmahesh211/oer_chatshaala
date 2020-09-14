@@ -1207,3 +1207,26 @@ app.get('/badges_of_specific_post', function (req, res) {
     });
   });
 });
+
+app.get('/analytics', function(req,res){
+  let curr_user = req.session.user;
+  var id = req.params.id;
+  var body = '';
+  var url = secrets.url+"/about.json";
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+      console.log(body);
+    });
+  });
+});
