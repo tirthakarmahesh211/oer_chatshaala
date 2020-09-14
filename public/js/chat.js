@@ -12,6 +12,15 @@ dropdownBtn.addEventListener('click', () => {
 window.onpaint = preloadFunc();
 
 function preloadFunc(){
+  $.ajax({
+    url: "/analytics"
+  })
+  .done(function (data) {
+    // console.log(data)
+    document.getElementById("total_resources").innerHTML = data.about.stats.topic_count
+    document.getElementById("registered_users").innerHTML = data.about.stats.user_count
+    document.getElementById("active_users").innerHTML = data.about.stats.active_users_30_days
+  });
   let username = document.getElementById("curr_user").getAttribute("name");
   let curr_user_id = document.getElementById("curr_user_id").getAttribute("name");
   document.getElementById("plus_btn").style.display = "none";

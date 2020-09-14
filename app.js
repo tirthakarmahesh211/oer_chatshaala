@@ -67,7 +67,7 @@ app.listen(3000, function (req, res) {
 
 app.use(function (req, res, next) {
    res.locals = {
-    topic_data: "", page_url: "", page_number: "",post_number: "", specific_posts_page: ""
+    topic_data: "", page_url: "", page_number: "",post_number: "", specific_posts_page: "", about_page: ""
    };
    next();
 });
@@ -1209,7 +1209,7 @@ app.get('/badges_of_specific_post', function (req, res) {
 });
 
 app.get('/analytics', function(req,res){
-  let curr_user = req.session.user;
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   var id = req.params.id;
   var body = '';
   var url = secrets.url+"/about.json";
@@ -1226,7 +1226,16 @@ app.get('/analytics', function(req,res){
       body += data;
     });
     response.on('end', function () {
-      console.log(body);
+      // console.log(body);
+        try {
+          body = JSON.parse(body);
+        } catch (ex) {
+        // console.log(body);
+        }
+        res.send(body);
+    //   res.render('home.ejs', {
+    //     home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url,about_page:body
+    // });
     });
   });
 });
