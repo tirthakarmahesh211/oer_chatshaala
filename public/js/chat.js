@@ -219,7 +219,7 @@ function visible_subcat(){
 function myFunc(clicked_element_data,filter=null) {
   // alert("hi");
   // Declare variables
-    var ele = document.getElementById('#back2');
+  var ele = document.getElementById('#back2');
   ele.addEventListener('click', visible_subcat);
 
   if(clicked_element_data != null && clicked_element_data.firstChild!=null && clicked_element_data.firstChild!=undefined){
@@ -1171,6 +1171,15 @@ function myFunc(clicked_element_data,filter=null) {
                 // console.log(match_data1);
                 cooked = cooked.split(match_data[0])[0] +match_data1  + cooked.split(match_data[0])[1];
               }
+              else if(match_data && match_data.length > 0 && match_data[match_data.length - 1] && match_data[match_data.length - 1].startsWith("http") && (match_data[match_data.length - 1].endsWith(".html") || match_data[match_data.length - 1].split("/")[match_data[match_data.length - 1].split("/").length - 1].indexOf(".")==-1 ) ){
+                // match_data = match_data[match_data.length - 1];
+                // console.log("if asasasas");
+                // console.log(match_data[0]);
+                match_data1 = match_data[0].replace(">"+match_data[match_data.length - 1],">Click here to open resource in new tab");
+                // console.log(match_data1);
+                cooked = cooked.split(match_data[0])[0] +match_data1  + cooked.split(match_data[0])[1];
+              }
+
               else if(match_data && match_data.length > 0 && match_data[match_data.length - 1] && match_data[match_data.length - 1].startsWith("http") && (match_data[match_data.length - 1].endsWith(".mp4") || match_data[match_data.length - 1].split("/")[match_data[match_data.length - 1].split("/").length - 1].indexOf(".")==-1 ) ){
                 let replace_data = '<video controls="" width="100%" height="100%"><source src="VIDEO_URL"><a href="VIDEO_URL" rel="nofollow ugc noopener">VIDEO_URL</a></video>'.split('VIDEO_URL').join(match_data[match_data.length - 1 ]);
 
@@ -2059,6 +2068,9 @@ function open_page(){
 }
 
 function function_partners(value=null) {
+  var ele = document.getElementById('#back2');
+  ele.addEventListener('click', visible_cat);
+
   // console.log(value);
   $('#holder9').html("");
   var username = $('#curr_user').attr('name');
@@ -2128,6 +2140,8 @@ function function_partners(value=null) {
 function function_courses(){
   // console.log("function_courses");
       // console.log(value);
+      var ele = document.getElementById('#back2');
+      ele.addEventListener('click', visible_subcat);
       var username = $('#curr_user').attr('name');
       $("#right_panel_msg").css("display","block");
       // window.history.replaceState("object or string", '' , '/');
