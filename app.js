@@ -519,7 +519,7 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-  // console.log("post moirrrrrrrrrrrrrrrrrrrr");
+  console.log("post moirrrrrrrrrrrrrrrrrrrr");
   let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   // let curr_user = req.session.user;
 
@@ -556,19 +556,42 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
     });
     response.on('end', function () {
       body = JSON.parse(body);
+
+      // console.log(body.post_stream.stream.toString());
+      if(body && body.post_stream && body.post_stream.stream){
+        var post_ids = body.post_stream.stream.toString();
+        body.post_ids = post_ids;
+      }
+      // console.log(body);
+
+
+
+  var badges_info="";
+  // console.log(post_ids);
+  var url2 = secrets.url + 'ratings/badges_info/'+post_ids;
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': 'system'
+    }
+  };
+  https.get(url2, options, function (response) {
+    response.on('data', function (data) {
+      badges_info += data;
+    });
+    response.on('end', function () {
+      // console.log(badges_info);
+      badges_info = JSON.parse(badges_info);
+      // res.json(body3);
+      body.badges_info = badges_info;
+      console.log(body.badges_info)
       res.json(body);
-      // if (body && body.post_stream && body.post_stream.posts) {
-      //   // for (var i = 0; i < body.post_stream.posts.length; i++) {
-      //   //   //console.log(body.post_stream.posts[i].post_number);
-      //   // }
-      //   res.json(body);
-      // } else {
-      //   res.json([]);
-      // }
+    });
+    //console.log(body3);
 
+  });
 
-      // console.log(groups);
-      // console.log(body.post_stream.posts);
 
 
     });
@@ -613,8 +636,7 @@ app.post('/chatpost', (req, res) => {
 
 
 app.get("/group/:topic/:id/:offset", function (req, res) {
-  console.log("offffffffffffffgggggggggg")
-  let curr_user = req.session.user;
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   var id = req.params.topic;
   var i = req.params.offset;
 
@@ -647,7 +669,7 @@ app.get("/group/:name/:id/load/:offset", function (req, res) {
   // console.log("gruppppppp");
   // console.log(req.query);
   // // console.log();
-  let curr_user = req.session.user;
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   var name = req.params.name;
   var id = req.params.id;
   var i = req.params.offset;
@@ -1236,6 +1258,33 @@ app.get('/analytics', function(req,res){
     //   res.render('home.ejs', {
     //     home: home, about: about, blog: blog, project: project, feedback: feedback, logout: logout, profile: profile, curr_user: curr_user,url:secrets.url,about_page:body
     // });
+    });
+  });
+});
+
+app.get('/badges/:post_ids', function(req,res){
+  let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
+  var post_id = req.params.post_id;
+  var body = '';
+  var url = secrets.url+"/ratings/badges_info/"+post_ids;
+
+  var options = {
+    method: 'GET',
+    headers: {
+      'Api-Key': secrets.key,
+      'Api-Username': curr_user.username
+    }
+  };
+  https.get(url, options, function (response) {
+    response.on('data', function (data) {
+      body += data;
+    });
+    response.on('end', function () {
+        try {
+          body = JSON.parse(body);
+        } catch (ex) {
+        }
+        res.send(body);
     });
   });
 });
