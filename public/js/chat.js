@@ -1088,13 +1088,16 @@ function myFunc(clicked_element_data,filter=null) {
         data: {page_number:page_number, "post_ids[]": array_of_post_ids,course_post_div:course_post_div},
       })
         .done(function (data) {
-          // console.log("aaaaaaaaaaaaaaaaa");
+          console.log("aaaaaaaaaaaaaaaaa");
+          console.log(data.badges_info);
+          var badges_info = data.badges_info;
           var posts_count = data.posts_count;
           var slug = data.slug;
           var type_of_msg = data.archetype;
           var stream = data.post_stream.stream;
           var tags = data.tags;
-          data = data.post_stream.posts
+          data = data.post_stream.posts;
+
           if (page_number && page_number != null){
             page_number = page_number
           }
@@ -1113,6 +1116,8 @@ function myFunc(clicked_element_data,filter=null) {
           }
           // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
+            console.log(data[i].id);
+            console.log(badges_info[data[i].id] );
             download_btn = '<div class="download_div"><span id="download_' + data[i].id + '" style="display:inline-block;"></span><a target="_blank" id="download_' + data[i].id + '" href="'+ ((data[i].link_counts && data[i].link_counts.length > 0 && data[i].link_counts[0].url)?data[i].link_counts[0].url:"#") +'" download><i title="Download the resource" class="fa fa-download" aria-hidden="true"></i></a></div>'
             var post_id = data[i].id;
             var post_id = 'data-post_id="'+post_id+'"';
@@ -1155,7 +1160,7 @@ function myFunc(clicked_element_data,filter=null) {
                   like_button = '';
               }
             }
-            let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'
+            let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'+getbadgeIcons(badges_info[data[i].id])
             // console.log(type_of_msg);
 
             let chk_pvt_or_regular_msg = (type_of_msg == "regular") ? true : false;
@@ -1168,6 +1173,7 @@ function myFunc(clicked_element_data,filter=null) {
             let setting_button = (username!="system" && username!="" && username!=null && username!=undefined)?'<div class="setting_btn" id="setting_btn_'+ data[i].topic_id + '_' + data[i].post_number +'_' + data[i].id+'" data-tslug="'+slug+'" data-post_id="'+ data[i].id +'" title="" onclick="setting_function(this)"><i class="fa fa-external-link"></i></div>':'';
             var cooked = (data[i].cooked!=null && data[i].cooked!=undefined)? data[i].cooked.replace(/<h3[^>]*>(\s*none\s*(\s*<br\s*>)*\s*)<\/h3>/ig,''):'';
             let ReplyBtn = (username!="system" && username!="" && username!=null && username!=undefined)?'<i id="reply_btn_'+ data[i].topic_id + '_' + data[i].post_number +'" type="button" title="'+ data[i].cooked.replace(/<[^>]+>/g, '') +'" class="fa fa-reply reply_function"></i>':'';
+
             if(cooked!=""){
               let match_data = cooked.match(/<a.*?href="(.*?)"[^\>]+>(.*)<\/a>/i);
               console.log(match_data);
@@ -2264,4 +2270,20 @@ function get_tag_groups(cooked,tags){
     }
     document.getElementsByClassName("message-text")[0].innerHTML = cooked + tags_with_grp_name;
   });
+}
+
+function getbadgeIcons(data){
+  // console.log(data);
+  if(data != undefined){
+    var objectLengh = Object.keys(data).length;
+    // console.log(objectLengh);
+    var badgeIcons='';
+    for (let i = 0; i < objectLengh; i++) {
+      console.log(data[i+1].image);
+      badgeIcons = badgeIcons + "<img class='post_icon' src='"+ (data[i+1].image) +"' title='"+ data[i+1].name +"'>";
+    }
+    return badgeIcons;
+  }
+
+  return "";
 }
