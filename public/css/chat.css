@@ -2613,7 +2613,7 @@ blockquote{
 .edit_btn{
   float: right;
   margin-top:1px;
-  cursor: pointer !important; 
+  cursor: pointer !important;
 }
 
 .setting_btn{
@@ -2818,4 +2818,9 @@ iframe{
 
 a{
   cursor: pointer !important;
+}
+
+.post_icon{
+height: 50px;
+width: 50px;
 }
