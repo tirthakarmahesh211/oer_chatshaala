@@ -519,7 +519,7 @@ app.get("/post/:url1/:url2/:url3/:url4", function (req, res) {
 
 
 app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
-  console.log("post moirrrrrrrrrrrrrrrrrrrr");
+  // console.log("post moirrrrrrrrrrrrrrrrrrrr");
   let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   // let curr_user = req.session.user;
 
@@ -582,18 +582,23 @@ app.get("/post/more/:url1/:url2?/:url3?/:url4?", function (req, res) {
     });
     response.on('end', function () {
       // console.log(badges_info);
+      try{
+      // console.log(badges_info);
       badges_info = JSON.parse(badges_info);
       // res.json(body3);
       body.badges_info = badges_info;
-      console.log(body.badges_info)
+      // console.log(body.badges_info)
       res.json(body);
+      }
+      catch (ex) {
+      console.log("excepion")
+      // res.json(body);
+      // console.log(ex);
+      res.json(body);
+      }      
     });
     //console.log(body3);
-
-  });
-
-
-
+    });
     });
   }).on('error', function () {
     console.log('errorr');

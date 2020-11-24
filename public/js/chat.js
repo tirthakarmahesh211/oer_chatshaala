@@ -1088,8 +1088,8 @@ function myFunc(clicked_element_data,filter=null) {
         data: {page_number:page_number, "post_ids[]": array_of_post_ids,course_post_div:course_post_div},
       })
         .done(function (data) {
-          console.log("aaaaaaaaaaaaaaaaa");
-          console.log(data.badges_info);
+          // console.log("aaaaaaaaaaaaaaaaa");
+          // console.log(data.badges_info);
           var badges_info = data.badges_info;
           var posts_count = data.posts_count;
           var slug = data.slug;
@@ -1116,8 +1116,8 @@ function myFunc(clicked_element_data,filter=null) {
           }
           // console.log(array_to_store_post_number);
           for (var i = 0; i < data.length; i++) {
-            console.log(data[i].id);
-            console.log(badges_info[data[i].id] );
+            // console.log(data[i].id);
+            // console.log(badges_info[data[i].id] );
             download_btn = '<div class="download_div"><span id="download_' + data[i].id + '" style="display:inline-block;"></span><a target="_blank" id="download_' + data[i].id + '" href="'+ ((data[i].link_counts && data[i].link_counts.length > 0 && data[i].link_counts[0].url)?data[i].link_counts[0].url:"#") +'" download><i title="Download the resource" class="fa fa-download" aria-hidden="true"></i></a></div>'
             var post_id = data[i].id;
             var post_id = 'data-post_id="'+post_id+'"';
@@ -1160,7 +1160,7 @@ function myFunc(clicked_element_data,filter=null) {
                   like_button = '';
               }
             }
-            let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'+getbadgeIcons(badges_info[data[i].id])
+            let User_Name = (data[i].username == null) ? data[i].name : '<a class="usr_profile" href="/u/'+data[i].username+'">'+data[i].username+'</a>'+ ( (badges_info !=undefined)?getbadgeIcons(badges_info[data[i].id]):'');
             // console.log(type_of_msg);
 
             let chk_pvt_or_regular_msg = (type_of_msg == "regular") ? true : false;
@@ -2279,7 +2279,7 @@ function getbadgeIcons(data){
     // console.log(objectLengh);
     var badgeIcons='';
     for (let i = 0; i < objectLengh; i++) {
-      console.log(data[i+1].image);
+      // console.log(data[i+1].image);
       badgeIcons = badgeIcons + "<img class='post_icon' src='"+ (data[i+1].image) +"' title='"+ data[i+1].name +"'>";
     }
     return badgeIcons;
