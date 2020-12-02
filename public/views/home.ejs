@@ -202,10 +202,11 @@
         <%}%>
         <div class="tab-pane message-body" id="inbox-message-1">
           <div class="message-top">
-          
+              <a href="" > <button class="previous_module"> Previous Module </button></a>
               <div id="slug">
                 <%if(page_url == "topic"){%> <h4 id="topic_head">  <%if(topic_data){%> <%=topic_data.title%> <%}%> </h4> <%}%>
               </div>
+              <a href=""> <button class="next_module"> Next Module </button>  </a>
           
             <button id="back_" class="mobile_backbtn" onclick="my_func2()"><img src="/images/icons/noun_back_2784520.png" style="height:35px;width:35px;"/></button>
             <div class="new-message-wrapper">
