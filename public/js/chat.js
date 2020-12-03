@@ -2287,3 +2287,11 @@ function getbadgeIcons(data){
 
   return "";
 }
+
+function load_previous_module(){
+  alert("HI")
+}
+
+function load_next_module(){
+  alert("HI")
+}

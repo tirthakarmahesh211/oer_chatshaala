@@ -1289,7 +1289,7 @@ app.get('/badges/:post_ids', function(req,res){
   });
 });
 
-app.get('/retrieve_next', function(req,res){
+app.get('https://lms.metastudio.org/t/retrieve_next', function(req,res){
   console.log('hihi');
   //let curr_user = (req && req.session && req.session.user)? req.session.user: {username:'system'};
   var topic_id = req.params.topic_id;
